@@ -1,33 +1,33 @@
 {
-	"name": "ANS/PHPCan",
-	"type": "framework",
-	"description": "PHP framework",
-	"version": "1.2",
-	"keywords": ["php", "framework"],
-	"homepage": "https://github.com/eusonlito/PHPCan/",
-	"license": "AGPL-3.0",
-	"authors": [
-		{
-			"name": "A Navalla Suíza",
-			"email": "equipo@anavallasuiza.com",
-			"homepage": "http://anavallasuiza.com",
-			"role": "Developer"
-		}
-	],
-	"support": {
-		"email": "equipo@anavallasuiza.com",
-		"issues": "https://github.com/eusonlito/PHPCan/issues"
-	},
-	"require": {
-		"php": ">=5.3.3",
-		"ANS/Cache": "*",
-		"stylecow/stylecow": "*",
-		"imagecow/imagecow": "*",
-		"worxware/phpmailer": "*"
-	},
-	"config": {
-		"vendor-dir": "phpcan/libs"
-	},
+    "name": "ANS/PHPCan",
+    "type": "framework",
+    "description": "PHP framework",
+    "version": "1.2",
+    "keywords": ["php", "framework"],
+    "homepage": "https://github.com/eusonlito/PHPCan/",
+    "license": "AGPL-3.0",
+    "authors": [
+        {
+            "name": "A Navalla Suíza",
+            "email": "equipo@anavallasuiza.com",
+            "homepage": "http://anavallasuiza.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "equipo@anavallasuiza.com",
+        "issues": "https://github.com/eusonlito/PHPCan/issues"
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "ANS/Cache": "*",
+        "stylecow/stylecow": "*",
+        "imagecow/imagecow": "*",
+        "worxware/phpmailer": "*"
+    },
+    "config": {
+        "vendor-dir": "phpcan/libs"
+    },
     "repositories": {
         "phpmailer-official": {
             "type": "package",
