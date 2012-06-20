@@ -1,0 +1,83 @@
+@import "variables.css";
+
+.num {
+	width: 20px;
+	text-align: right;
+	color: $color;
+}
+.msgid, .comments {
+	width: 25%;
+}
+
+.translate form h1 {
+	font-size: 1.4em;
+	margin: 20px 0 10px 0;
+}
+fieldset.headers p {
+	margin-bottom: 5px;
+}
+fieldset.headers label {
+	display: inline-block;
+	width: 25%;
+	font-size: 0.8em;
+	line-height: 1em;
+	white-space: nowrap;
+}
+fieldset.headers input {
+	font-size: 0.8em;
+}
+fieldset.translations label {
+	display: block;
+}
+fieldset.translations .details {
+	display: block;
+	font-weight: normal;
+	font-size: 0.75em;
+	color: $black-60;
+}
+fieldset.translations .details .summary {
+	cursor: pointer;
+	display: inline-block;
+}
+fieldset.translations .details .summary:hover {
+	text-decoration: underline;
+}
+fieldset.translations .details ul {
+	list-style: none;
+}
+fieldset.translations .copy {
+	font-weight: normal;
+	font-size: 0.75em;
+	color: $black-60;
+	cursor: pointer;
+}
+fieldset.translations .copy:hover {
+	text-decoration: underline;
+}
+fieldset.translations table textarea {
+	width: 100%;
+	height: 3em;
+	font-size: 0.9em;
+}
+
+table {
+	margin:0;
+	border-collapse:separate;
+	margin-bottom:20px;
+	width: 100%;
+}
+table th, table td {
+	vertical-align:top;
+	border:none;
+	padding:8px 0 8px 8px;
+	border-top:solid 1px #FFF;
+	border-bottom:solid 1px #E5E5E5;
+}
+table th {
+	font-size:0.9em;
+	line-height:1em;
+	color:#000;
+}
+table thead th {
+	background:#E5E5E5;
+}

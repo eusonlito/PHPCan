@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Mon, 09 Apr 12 09:37:43 +0200"
+"PO-Revision-Date: Tue, 17 Apr 12 11:57:04 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "There were errors updating database"
+msgstr "Trasgos! Producíronse erros ao actualizar a base de datos"
+
+msgid "The database was updated successfully"
+msgstr "A base de datos quedou ben actualizada"
+
+msgid "Some required fields are empty"
+msgstr "Hai algúns campos baleiros e non poden estar así"
+
+msgid "Current a target field are equal."
+msgstr "O campo orixinal e o de destino son iguais"
+
+msgid "Table %s seems doesn't exists"
+msgstr "Non nos consta que haxa ningunha táboa %s"
+
+msgid "\"%s\" update can not be applied: %s"
+msgstr "A actualización de \"%s\" non se pode facer: %s"
+
+msgid "There are errors updating database"
+msgstr "Trasgos! Producíronse erros ao actualizar a base de datos"
+
+msgid "Rename"
+msgstr "Mudar de nome"
+
+msgid "Varchar"
+msgstr "Texto curto"
+
+msgid "Text"
+msgstr "Texto"
+
+msgid "Integer"
+msgstr "Número enteiro"
+
+msgid "Float"
+msgstr "Coma flotante"
+
+msgid "Boolean"
+msgstr "Booleano"
+
+msgid "Database Updater"
+msgstr "Actualizador da base de datos"
+
+msgid "Check changes"
+msgstr "Control de cambios"
+
+msgid "Rename fields"
+msgstr "Mudar os campos de nome"
+
+msgid "Select"
+msgstr "Escoller"
+
+msgid "Queries"
+msgstr "Consultas"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "This query was an error"
+msgstr "Trasgos! Produciuse un erro ao facer esta consulta"
+
+msgid "This query was executed succesfully"
+msgstr "A consulta fíxose correctamente"
+
+msgid "This query was not executed yet"
+msgstr "A consulta aínda non se fixo"
+
+msgid "Database is updated"
+msgstr "A base de datos está actualizada"
+
+msgid "Table"
+msgstr "Táboa"
+
+msgid "Current field"
+msgstr "Campo actual"
+
+msgid "New field"
+msgstr "Novo campo"
+
+msgid "New format"
+msgstr "Novo formato"
+
+msgid "Rows"
+msgstr "Liñas"
+
+msgid "Add"
+msgstr "Engadir"
+
+msgid "Remove"
+msgstr "Borrar"
+
+msgid "Fields action was executed successfully"
+msgstr "O que lle fixeches aos campos quedou ben feito"

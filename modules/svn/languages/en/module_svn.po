@@ -1,0 +1,26 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Tue, 17 Apr 12 11:52:02 +0200"
+"PO-Revision-Date: Tue, 17 Apr 12 11:52:02 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "Error executing SVN update: <p>%s</p>"
+msgstr "Error when executing SVN update: <p>%s</p>"
+
+msgid "Error executing SVN update, please check log file %s"
+msgstr "Error when executing SVN update, please check log file %s"
+
+msgid "SVN Updater"
+msgstr "SVN Updater"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "SVN Update"
+msgstr "SVN Update"

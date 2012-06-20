@@ -1,0 +1,269 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Tue, 17 Apr 12 12:15:28 +0200"
+"PO-Revision-Date: Tue, 17 Apr 12 12:15:28 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "There is a folder with the same name"
+msgstr "There is a folder under the same name"
+
+msgid "There was an error creating the folder"
+msgstr "Crikey! An error has occurred when creating that folder"
+
+msgid "Folder was created successfully"
+msgstr "That folder has been created successfully"
+
+msgid "This file doesn't exits"
+msgstr "That file doesn't exist"
+
+msgid "There was an error deleting the file"
+msgstr "Crikey! An error has occurred when deleting that file"
+
+msgid "File was deleted successfully"
+msgstr "That file has been deleted successfully"
+
+msgid "This folder does not exists"
+msgstr "That folder doesn't exist"
+
+msgid "There was an error deleting the folder"
+msgstr "Crikey! An error has occurred when deleting that folder"
+
+msgid "Folder was deleted successfully"
+msgstr "That folder has been deleted successfully"
+
+msgid "The rows has been deleted successfully"
+msgstr "Rows have been deleted successfully"
+
+msgid "There was an error deleting the row %s in the table %s"
+msgstr "Crikey! An error has occurred when deleting row %s in table %s"
+
+msgid "The elements have been related succesfully!"
+msgstr "Elements have been related successfully!"
+
+msgid "The elements have been unrelated succesfully!"
+msgstr "Elements have been unrelated successfully!"
+
+msgid "Ops, there was an error relating the elements"
+msgstr "Crikey! An error has occurred when relating those elements"
+
+msgid "Ops, there was an error unrelating the elements"
+msgstr "Crikey! An error has occurred when unrelating those elements"
+
+msgid "Data has been saved succesfully!"
+msgstr "Data have been saved succesfully!"
+
+msgid "Ops, there was an error saving data: <p>%s</p>"
+msgstr "Crikey! An error has occurred when saving data: <p>%s</p>"
+
+msgid "Can not set uploads folder. Has the correct permissions?"
+msgstr "Uploads folder can't be set up. Do you have all your credentials and permissions?"
+
+msgid "There was an error saving some file (%s)"
+msgstr "Crikey! An error has occurred when saving file (%s)"
+
+msgid "Files were saved successfully"
+msgstr "Files have been saved successfully"
+
+msgid "The connection %s is not available"
+msgstr "Connection %s is not available"
+
+msgid "The table %s is not available"
+msgstr "Table %s is not available"
+
+msgid "There is not any register with id \"%s\""
+msgstr "There is not any register with id \"%s\""
+
+msgid "This folder does not exits"
+msgstr "That folder doesn't exist"
+
+msgid "Content Manager"
+msgstr "Content Manager"
+
+msgid "%s %s related with %s %s #%s"
+msgstr "%s %s related with %s %s #%s"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Do you realy want to delete this?"
+msgstr "Do you really want to delete this? That can't be undone."
+
+msgid "View"
+msgstr "View"
+
+msgid "View in public web"
+msgstr "View in public web"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Select a table"
+msgstr "Select a table"
+
+msgid "Uploads"
+msgstr "Uploads"
+
+msgid "Edit and relate"
+msgstr "Edit and relate"
+
+msgid "Unrelate"
+msgstr "Unrelate"
+
+msgid "Relate"
+msgstr "Relate"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "You are searching by \"%s\""
+msgstr "You are searching by \"%s\""
+
+msgid "Editing #%s"
+msgstr "Editing #%s"
+
+msgid "Creating new"
+msgstr "Creating new"
+
+msgid "Related with %s #%s"
+msgstr "Related with %s #%s"
+
+msgid "Only related elements"
+msgstr "Only related elements"
+
+msgid "All elements"
+msgstr "All elements"
+
+msgid "List"
+msgstr "List"
+
+msgid "New"
+msgstr "New"
+
+msgid "Language to show"
+msgstr "Language to show"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Duplicate"
+msgstr "Duplicate"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Do you really want to delete this?"
+msgstr "Do you really want to delete this? That deletion can't be undone"
+
+msgid "Show columns"
+msgstr "Show columns"
+
+msgid "Export as CSV"
+msgstr "Export as CSV"
+
+msgid "No results have been found"
+msgstr "No results have been found"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "%s related with %s %s #%s"
+msgstr "%s related with %s %s #%s"
+
+msgid "Related elements"
+msgstr "Related elements"
+
+msgid "Files Uploaded successfully"
+msgstr "Files have been uploaded successfully"
+
+msgid "success"
+msgstr "success"
+
+msgid "Folder name"
+msgstr "Folder name"
+
+msgid "Upload files"
+msgstr "Upload files"
+
+msgid "Create new folder"
+msgstr "Create new folder"
+
+msgid "Click or drop files here to upload"
+msgstr "Click or drop files here to upload"
+
+msgid "Click here to create a new folder"
+msgstr "Click here to create a new folder"
+
+msgid "View or download"
+msgstr "View or download"
+
+msgid "Source"
+msgstr "Source"
+
+msgid "Dinamic"
+msgstr "Dynamic"
+
+msgid "Delete file"
+msgstr "Delete file"
+
+msgid "Are you sure to delete this file?"
+msgstr "Are you really sure about deleting that file?  This action can't be undone"
+
+msgid "This folder is empty"
+msgstr "That folder is empty"
+
+msgid "Delete this folder and its content"
+msgstr "Delete this folder and its content"
+
+msgid "Delete this folder"
+msgstr "Delete this folder"
+
+msgid "File name"
+msgstr "File name"
+
+msgid "HTML Preview"
+msgstr "HTML preview"
+
+msgid "Double click to show/hide"
+msgstr "Double click to show or hide"
+
+msgid "Upload image from an url"
+msgstr "Upload an image from URL"
+
+msgid "Upload image from my computer"
+msgstr "Upload an image from the computer"
+
+msgid "View file"
+msgstr "View file"
+
+msgid "Latitude"
+msgstr "Latitude"
+
+msgid "Longitude"
+msgstr "Longitude"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "Search in map"
+msgstr "Search in map"
+
+msgid "Delete image"
+msgstr "Delete image"
+
+msgid "Open url (new window)"
+msgstr "Open URL (in a new window)"
+
+msgid "Create new %s"
+msgstr "Create new %s"

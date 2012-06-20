@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Tue, 17 Apr 12 12:23:56 +0200"
+"PO-Revision-Date: Tue, 17 Apr 12 12:23:56 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "Cache cleared successfully"
+msgstr "Cache has been cleared successfully"
+
+msgid "Some cache files or folders can not be cleared. Permissions problems into cache folder?"
+msgstr "Some cache files or folders can't be cleared. It seems that you have a problem related with permissions preventing you to access the cache folder"
+
+msgid "Cache Manager"
+msgstr "Cache Manager"
+
+msgid "APC"
+msgstr "APC"
+
+msgid "Memcache"
+msgstr "Memcache"
+
+msgid "Files"
+msgstr "Files"
+
+msgid "Folder"
+msgstr "Folder"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Cache folder is empty"
+msgstr "Cache folder is empty"

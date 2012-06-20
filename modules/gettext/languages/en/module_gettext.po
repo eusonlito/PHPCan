@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Tue, 17 Apr 12 11:55:59 +0200"
+"PO-Revision-Date: Tue, 17 Apr 12 11:55:59 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "The gettext collection %s is not valid"
+msgstr "Gettext collection %s is not valid"
+
+msgid "The language %s is not valid"
+msgstr "Language %s is not valid"
+
+msgid "There was an error generating the po file"
+msgstr "An error has occurred when generating the .po file"
+
+msgid "There was an error generating the mo file"
+msgstr "An error has occurred when generating the .mo file"
+
+msgid "The translations have been saved successfully"
+msgstr "Translations have been saved successfully"
+
+msgid "Gettext file haven't writing permissions"
+msgstr "Gettext file doesn't have writing permissions"
+
+msgid "Gettext file was generated successfully"
+msgstr "Gettext file has been generated successfully"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "phpCan errors"
+msgstr "phpCan errors"
+
+msgid "%s Module"
+msgstr "%s Module"
+
+msgid "The language is not valid"
+msgstr "That language is not valid"
+
+msgid "Folder %s is not writable. Please, fix the folder permissions."
+msgstr "Folder %s is not writable. Please, edit folder permissions."
+
+msgid "File %s is not writable. Please, fix the file permissions."
+msgstr "File %s is not writable. Please, edit file permissions."
+
+msgid "Gettext Translator"
+msgstr "Gettext Translator"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Select gettext"
+msgstr "Select Gettext"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "translate"
+msgstr "translate"
+
+msgid "PO (%s)"
+msgstr "PO (%s)"
+
+msgid "MO (%s)"
+msgstr "MO (%s)"
+
+msgid "Show all"
+msgstr "Show all"
+
+msgid "Without translation"
+msgstr "Without translation"
+
+msgid "Translations"
+msgstr "Translations"
+
+msgid "Num"
+msgstr "Num"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Translation"
+msgstr "Translation"
+
+msgid "Comments"
+msgstr "Comments"
+
+msgid "Double click to copy"
+msgstr "Double click to copy"
+
+msgid "References"
+msgstr "References"
+
+msgid "Headers"
+msgstr "Headers"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Save as %s"
+msgstr "Save as %s"

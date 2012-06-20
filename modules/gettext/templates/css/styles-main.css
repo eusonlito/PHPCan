@@ -1,0 +1,43 @@
+@import "variables.css";
+
+.content article {
+	border-top: solid 1px $black-10;
+	padding: 10px 0;
+	display: box;
+	box-align: stretch;
+	width: 100%;
+}
+.content article:first-child {
+	border-top: none;
+}
+.content article hgroup {
+	box-flex: 0;
+	width: 350px;
+}
+.content article hgroup h1 {
+	font-size: 1.2em;
+}
+.content article hgroup h2 {
+	font-weight: normal;
+	font-size: 0.7em;
+	color: $black-40;
+}
+.content article nav a.download {
+	font-size: 0.8em;
+	color: $color;
+	margin: 0 5px;
+}
+.content article nav a.download:hover {
+	color: $black;
+	text-decoration: none;
+}
+
+
+@media (max-width: 700px) {
+	.content article {
+		box-orient: vertical;
+	}
+	.content article h1 {
+		box-flex: 1;
+	}
+}

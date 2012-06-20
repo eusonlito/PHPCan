@@ -1,0 +1,205 @@
+/* -------------------------------------------------------------- 
+Universal Internet Explorer 6-7 stylesheet:
+http://stuffandnonsense.co.uk/blog/about/universal_internet_explorer_6_css/
+
+Author: Andy Clarke
+Web site: http://stuffandnonsense.co.uk
+Web site: http://forabeautifulweb.com
+Web site: http://transcending.com
+Web site: http://hardboiledwebdesign.com
+Twitter: http://twitter.com/malarkey
+
+Version date : 13th June 2010
+Version: 1.1 
+
+License: Creative Commons CC Zero Declaration. No Rights Reserved.
+
+Based on the work of:
+Mark Boulton: http://markboulton.co.uk
+Eric Meyer: http://meyerweb.com
+Cameron Moll: http://cameronmoll.com
+Richard Rutter: http://clagnut.com
+Khoi Vinh: http://subtraction.com
+
+-------------------------------------------------------------- */
+
+/* 1. RESET */
+/* 1.1 Root elements */
+body {
+	width:60%;
+	/* http://www.cameronmoll.com/archives/000892.html */
+	width:expression(document.body.clientWidth < 640? "640px" : document.body.clientWidth > 120? "120em" : "auto");
+	margin:0 auto;
+	padding:2em 0;
+	font-family:Helvetica,Arial,sans-serif;
+	font-size: 12pt;
+	line-height:1.4;
+	background:#FFF;
+	color:#000;
+}
+
+/* 1.2 Block elements */
+audio,canvas,iframe,img,object,embed,video,
+address,article,aside,blockquote,details,div,figcaption,figure,
+footer,h1,h2,h3,h4,h5,h6,header,hgroup,nav,p,pre,section,summary {
+	margin:0;
+	padding:0;
+	border:0;
+	font-weight:inherit;
+	font-style:inherit;
+	font-size:100%;
+	font-family:inherit;
+	vertical-align:baseline;
+}
+
+/* 1.3 Inline elements */
+a,abbr,b,cite,code,command,del,dfn,em,i,ins,kbd,mark,meter,
+progress,q,samp,small,span,strong,sub,sup,time,var {
+	margin:0;
+	padding:0;
+	border:0;
+	display:inline;
+	font-size:inherit;
+}
+
+
+/* 2. BASIC STYLES */
+/* 2.1 Headings */
+h1 { 
+	margin-bottom:.5em;
+	font-size:3em; 
+	line-height:1;
+}
+h2 { 
+	margin-bottom:.75em;
+	font-size:2em;
+}
+h3 {
+	margin-bottom:1em;
+	font-size:1.5em;
+	line-height:1;
+}
+h4 {
+	margin-bottom:1.25em;
+	font-size:1.2em;
+	line-height:1.25;
+}
+h5, h6 { 
+	margin-bottom:1.5em;
+	font-weight:bold; 
+	font-size:1em;
+}
+h1 img,h2 img,h3 img,h4 img,h5 img,h6 img { 
+	margin:0;
+}
+
+/* 2.2 Text elements */
+p { margin:0 0 1.5em; }
+a { text-decoration:underline; }
+a img { border:none; }
+blockquote { 
+	margin:1.5em 1.5em 1.5em -1.5em;
+	padding-left:1.5em;
+	border-left:1px solid #CCC;
+}
+strong,dfn { font-weight:bold; }
+em,dfn { font-style:italic; }
+sup,sub { line-height:0; }
+abbr,acronym { 
+	border-bottom:1px dotted #CCC; 
+	cursor:help;
+}
+address {
+	margin : 0 0 1.5em;
+	font-style : italic;
+}
+del { color:#666; }
+pre,code,tt {
+	margin:1.5em 1.5em 1.5em -1.5em;
+	padding-left:1.5em;
+	border-left:1px dotted #CCC;
+	font:1em "Courier New", "Courier", monospace;
+	line-height:1.5;
+}
+pre { white-space:pre; }
+
+/* 2.3 Lists */
+li ul,li ol { 
+	list-style-type:circle;
+	margin:0 1.5em .75em 1.5em;
+}
+ul,ol { margin:0 1.5em 1.5em 0; }
+ul { list-style-type:disc; }
+ol { list-style-type:decimal; }
+dl {
+	margin-bottom: 1.5em;
+	padding-top: 1.5em;
+	border-top: 1px solid #CCC;
+}
+dl dt {
+	margin-bottom:.75em;
+	font-size:1.2em;
+	line-height:1.25;
+}
+dd {
+	margin-bottom:1.5em;
+	padding-bottom:1.5em;
+	border-bottom:1px solid #CCC;
+}
+
+/* 2.4 Tables */
+table {
+	border-collapse:separate;
+	border-spacing:0;
+	margin-bottom:1.4em;
+	width:100%;
+}
+table,td,th { vertical-align:top; }
+th,thead th { font-weight:bold; }
+th,td,caption {
+	padding:4px 10px 4px 5px;
+	text-align:left;
+	font-weight:normal;
+}
+th,td { border-bottom:1px solid #CCC; }
+tfoot { font-size:.9em; }
+caption {
+	margin-bottom:1em;
+	font-size:1.5em;
+	line-height:1;
+}
+
+/* 2.5 Forms */
+label { font-weight:bold; }
+fieldset { 
+	margin:0 0 1.5em 0;
+	padding:1.4em;
+	border:1px solid #CCC;
+}
+legend {
+	font-size:1.2em;
+	font-weight:bold;
+}
+textarea {
+	width:390px;
+	height:250px;
+	padding:5px;
+}
+
+
+/* 3. Theme */
+body {
+	background:#FFF;
+	color:#4C4C4C;
+	font:88% Georgia, Times, serif;
+}
+blockquote,abbr,acronym,pre,code,tt,dl,dd,th,td,fieldset { border-color:#A8A8A8; }
+blockquote { font:italic 1.2em "Times New Roman", Times, serif; }
+
+a { color:#105CB6; }
+a:visited { color:#A8A8A8; }
+a:focus,a:hover { color:#B8B8B8; }
+
+pre,code,tt { font:1em "Courier New", "Courier", monospace; }
+
+h1,h2,h3,h4,h5,h6 { font-weight:normal; }

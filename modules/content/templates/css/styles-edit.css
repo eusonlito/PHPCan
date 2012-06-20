@@ -1,0 +1,114 @@
+@import "variables.css";
+
+/* Form */
+form.edit fieldset {
+	border: none;
+	margin-bottom: 30px;
+	border-left: solid 6px $color;
+	padding-left: 10px;
+}
+form.edit fieldset fieldset {
+	margin: 20px 0 20px 20px;
+}
+
+form.edit div.format {
+	padding: 10px 0;
+	border-top: solid 1px $white;
+	border-bottom: solid 1px $black-10;
+	display: box;
+	width: 100%;
+}
+form.edit div.format.format-id {
+	padding-top: 0;
+	border-top: none;
+}
+form.edit div.format small {
+	color: $black-40;
+}
+form.edit div.format .link {
+	color: $color;
+	text-decoration: none;
+	cursor: pointer;
+}
+form.edit div.format .link:hover {
+	text-decoration: underline;
+}
+form.edit label.field {
+	font-family: inherit;
+	color: $black-80;
+	box-flex: 0;
+	width: 175px;
+	display: block;
+}
+form.edit label.field > strong {
+	font-weight: bold;
+	text-shadow: 0 0 4px $black-20;
+	cursor: pointer;
+	user-select: none;
+}
+form.edit label.field > strong:hover {
+	color: $black-40;
+	text-shadow: none;
+}
+form.edit div.format-id label.field {
+	color: $color;
+	font-weight: bold;
+}
+form.edit label.field p {
+	font-weight: normal;
+	color: $black-40;
+	text-shadow: none;
+	font-size: 0.7em;
+	line-height: 1.3em;
+}
+form.edit label.field + div {
+	box-flex: 1;
+}
+form.edit label.field + div p {
+	font-size: 0.8em;
+	color: $black-80;
+	margin: 3px 0;
+}
+form.edit label.field + div label {
+	font-weight: bold;
+	font-size: 0.8em;
+}
+
+
+/* Formats custom styles */
+form.edit div.format-gmaps div.map {
+	width: 50%;
+	height: 270px;
+	float: left;
+	margin-right: 20px;
+}
+form.edit textarea.code {
+	height: 400px;
+	font-family: $code;
+	white-space: pre;
+	tab-size: 4;
+}
+form.edit div.media {
+	padding: 20px;
+	margin-top: 20px;
+	border-radius: 8px;
+	background: $black-10;
+}
+
+
+/* Footer */
+form.edit footer .save {
+	float: right;
+}
+
+
+/* Css Media query */
+@media (max-width: 700px) {
+	form.edit div.format {
+		box-orient: vertical;
+	}
+
+	form.edit label.field {
+		box-flex: 1;
+	}
+}

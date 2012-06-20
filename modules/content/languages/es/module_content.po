@@ -1,0 +1,269 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Mon, 09 Apr 12 09:16:03 +0200"
+"PO-Revision-Date: Mon, 09 Apr 12 09:29:58 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "There is a folder with the same name"
+msgstr "Hay una carpeta que ya lleva ese nombre"
+
+msgid "There was an error creating the folder"
+msgstr "Córcholis, se ha producido un error al crear la carpeta"
+
+msgid "Folder was created successfully"
+msgstr "La carpeta ha quedado ya perfectamente creada"
+
+msgid "This file doesn't exits"
+msgstr "Este archivo no existe"
+
+msgid "There was an error deleting the file"
+msgstr "Córcholis, se ha producido un error al borrar el archivo"
+
+msgid "File was deleted successfully"
+msgstr "Ya no queda rastro del archivo"
+
+msgid "This folder does not exists"
+msgstr "Esta carpeta no existe"
+
+msgid "There was an error deleting the folder"
+msgstr "Córcholis, se ha producido un error al borrar la carpeta"
+
+msgid "Folder was deleted successfully"
+msgstr "Ya no queda rastro de la carpeta"
+
+msgid "The rows has been deleted successfully"
+msgstr "Ya no queda rastro de las filas de datos"
+
+msgid "There was an error deleting the row %s in the table %s"
+msgstr "Córcholis, se ha producido un error al borrar la fila %s en la tabla %s"
+
+msgid "The elements have been related succesfully!"
+msgstr "Ahora esos elementos ya están correctamente relacionados"
+
+msgid "The elements have been unrelated succesfully!"
+msgstr "Ahora esos elementos ya no están relacionados"
+
+msgid "Ops, there was an error relating the elements"
+msgstr "Córcholis, se ha producido un error al relacionar los elementos"
+
+msgid "Ops, there was an error unrelating the elements"
+msgstr "Córcholis, se ha producido un error al desrelacionar los elementos"
+
+msgid "Data has been saved succesfully!"
+msgstr "Los datos ya están perfectamente guardados"
+
+msgid "Ops, there was an error saving data: <p>%s</p>"
+msgstr "Córcholis, se ha producido un error al guardar los datos: <p>%s</p>"
+
+msgid "Can not set uploads folder. Has the correct permissions?"
+msgstr "No se puede configurar la carpeta de cargas. Quizá tengas un problema con los permisos de acceso"
+
+msgid "There was an error saving some file (%s)"
+msgstr "Córcholis, se ha producido un error aal guardar un archivo (%s)"
+
+msgid "Files were saved successfully"
+msgstr "Los archivos han quedado perfectamente guardados"
+
+msgid "The connection %s is not available"
+msgstr "La conexión %s no está disponible"
+
+msgid "The table %s is not available"
+msgstr "La tabla %s no está disponible"
+
+msgid "There is not any register with id \"%s\""
+msgstr "No nos consta que haya ningún registro con el ID \"%s\""
+
+msgid "This folder does not exits"
+msgstr "No hay ninguna carpeta que lleve ese nombre"
+
+msgid "Content Manager"
+msgstr "Gestor de contenido"
+
+msgid "%s %s related with %s %s #%s"
+msgstr "%s %s se ha relacionado con %s %s #%s"
+
+msgid "Delete"
+msgstr "Borrar"
+
+msgid "Do you realy want to delete this?"
+msgstr "¿De verdad quieres borrar esto?"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "View in public web"
+msgstr "Verlo en la web pública"
+
+msgid "Edit"
+msgstr "Corregir"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Home"
+msgstr "Portada"
+
+msgid "Select a table"
+msgstr "Seleccionar una tabla"
+
+msgid "Uploads"
+msgstr "Cargas"
+
+msgid "Edit and relate"
+msgstr "Corregir y relacionar"
+
+msgid "Unrelate"
+msgstr "Desrelacionar"
+
+msgid "Relate"
+msgstr "Relacionar"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "You are searching by \"%s\""
+msgstr "Estás buscando \"%s\""
+
+msgid "Editing #%s"
+msgstr "Corrigiendo #%s"
+
+msgid "Creating new"
+msgstr "Creando un nuevo"
+
+msgid "Related with %s #%s"
+msgstr "Relacionado con %s #%s"
+
+msgid "Only related elements"
+msgstr "Sólo los elementos relacionados"
+
+msgid "All elements"
+msgstr "Todos los elementos"
+
+msgid "List"
+msgstr "Lista"
+
+msgid "New"
+msgstr "Nuevo"
+
+msgid "Language to show"
+msgstr "Lengua que quieres ver"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Duplicate"
+msgstr "Hacer un duplicado"
+
+msgid "Reset"
+msgstr "Reconfigurar"
+
+msgid "Do you really want to delete this?"
+msgstr "¿De verdad quieres borrar esto?"
+
+msgid "Show columns"
+msgstr "Mostrar columnas"
+
+msgid "Export as CSV"
+msgstr "Exportar como CSV"
+
+msgid "No results have been found"
+msgstr "No hemos encontrado resultado alguno"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "%s related with %s %s #%s"
+msgstr "%s se ha relacionado con %s %s #%s"
+
+msgid "Related elements"
+msgstr "Elementos relacionados"
+
+msgid "Files Uploaded successfully"
+msgstr "Los archivos han sido cargados perfectamente"
+
+msgid "success"
+msgstr "éxito"
+
+msgid "Folder name"
+msgstr "Nombre de la carpeta"
+
+msgid "Upload files"
+msgstr "Cargar archivos"
+
+msgid "Create new folder"
+msgstr "Crear una carpeta nueva"
+
+msgid "Click or drop files here to upload"
+msgstr "Haz click aquí o arrastra para aquí los archivos que quieres cargar"
+
+msgid "Click here to create a new folder"
+msgstr "Haz click aquí para crear una nueva carpeta"
+
+msgid "View or download"
+msgstr "Ver o descargar"
+
+msgid "Source"
+msgstr "Fuente"
+
+msgid "Dinamic"
+msgstr "Dinámico"
+
+msgid "Delete file"
+msgstr "Borrar archivo"
+
+msgid "Are you sure to delete this file?"
+msgstr "¿De verdad quieres borrar este archivo?"
+
+msgid "This folder is empty"
+msgstr "Esta carpeta está vacía"
+
+msgid "Delete this folder and its content"
+msgstr "Borrar esta carpeta y su contenido"
+
+msgid "Delete this folder"
+msgstr "Borrar esta carpeta"
+
+msgid "File name"
+msgstr "Nombre del archivo"
+
+msgid "HTML Preview"
+msgstr "Previsualización en HTML"
+
+msgid "Double click to show/hide"
+msgstr "Haz doble click para que se vea o para que no se vea"
+
+msgid "Upload image from an url"
+msgstr "Cargar una imagen desde una dirección web"
+
+msgid "Upload image from my computer"
+msgstr "Cargar una imagen desde el ordenador"
+
+msgid "View file"
+msgstr "Ver archivo"
+
+msgid "Latitude"
+msgstr "Latitud"
+
+msgid "Longitude"
+msgstr "Longitud"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "Search in map"
+msgstr "Buscar en el mapa"
+
+msgid "Delete image"
+msgstr "Borrar la imagen"
+
+msgid "Open url (new window)"
+msgstr "Abrir la dirección en una nueva ventana"
+
+msgid "Create new %s"
+msgstr "Crear nuevo %s"

@@ -1,0 +1,338 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Fri, 30 Mar 12 18:38:06 +0200"
+"PO-Revision-Date: Mon, 09 Apr 12 08:14:37 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "File %s doesn't exists"
+msgstr "File %s doesn't exist"
+
+msgid "This file cannot be pre-processed"
+msgstr "This file cannot be pre-processed"
+
+msgid "User and password are not configured to login into Google Docs"
+msgstr "User and password are not configured to log in Google Docs"
+
+msgid "File \"%s\" is not available"
+msgstr "File \"%s\" is not available"
+
+msgid "You must choose a collection to store the file"
+msgstr "You must choose a collection to store that file"
+
+msgid "The selected service is not available"
+msgstr "The selected service is not available"
+
+msgid "The log folder \"%s\" is not writtable!"
+msgstr "Log folder \"%s\" is not writtable"
+
+msgid "Public errors"
+msgstr "Public errors"
+
+msgid "The file \"%s\" is not writtable!"
+msgstr "File \"%s\" is not writtable!"
+
+msgid "There is not valid function for the events %s"
+msgstr "There is not a valid function for events %s"
+
+msgid "The action \"%s\" doesn't exists"
+msgstr "Action \"%s\" doesn't exist"
+
+msgid "Script file isn't defined to action \"%s\""
+msgstr "No script files are defined to action \"%s\""
+
+msgid "The file \"%s\" does not exists"
+msgstr "File \"%s\" does not exist"
+
+msgid "The relation mode \"%s\" does not exits"
+msgstr "Relation mode \"%s\" does not exist"
+
+msgid "Updating database"
+msgstr "Updating database"
+
+msgid "The field \"%s\" doesn't exits"
+msgstr "Field \"%s\" doesn't exist"
+
+msgid "Field \"%s\" was edited before yours changes!"
+msgstr "Field \"%s\" has been edited before your changes"
+
+msgid "The table \"%s\" doesn't exists"
+msgstr "Table \"%s\" doesn't exist"
+
+msgid "There is no data in \"%s\" operation for the table \"%s\""
+msgstr "There is no data in \"%s\" operation for the table \"%s\""
+
+msgid "There is not relations between the tables \"%s\" and \"%s\""
+msgstr "There is not relations between tables \"%s\" and \"%s\""
+
+msgid "The action \"%s\" is not valid"
+msgstr "Action \"%s\" is not valid"
+
+msgid "There was an error in the insert operation"
+msgstr "An error has been recorded during the inserting operation"
+
+msgid "There was an error in the update operation"
+msgstr "An error has been produced during the updating operation"
+
+msgid "There was an error in the delete operation"
+msgstr "An error has been produced during the deletion"
+
+msgid "Table \"%s\" used in relation/unrelation don't exists"
+msgstr "Table \"%s\" used in relation/unrelation doesn't exist"
+
+msgid "The language \"%s\" is not valid"
+msgstr "Language \"%s\" is not a valid one"
+
+msgid "There is not table to select"
+msgstr "There is not table to select"
+
+msgid "The field %s doesn't exists in the table %s"
+msgstr "No field %s exist in table %s"
+
+msgid "The table %s hasn't been selected so you can't sort by it"
+msgstr "Table %s hasn't been selected so you can't sort its elements"
+
+msgid "The table %s hasn't been selected so you can't group by it"
+msgstr "Table %s hasn't been selected so you can't group elements inside"
+
+msgid "The exit format %s is not valid"
+msgstr "The exit format %s is not a valid one"
+
+msgid "There is no text to search or it is not valid"
+msgstr "There is no text to search, or it is not a valid text"
+
+msgid "There is not \"where\" parameter in the searching"
+msgstr "There is not a parameter for \"where\" defined in that search"
+
+msgid "There is not fields defined in table \"%s\""
+msgstr "Fields haven't been defined for table \"%s\""
+
+msgid "The search key %s is just defined"
+msgstr "Search key %s has been defined already"
+
+msgid "This function does not exists (%s)"
+msgstr "That function does not exist (%s)"
+
+msgid "The configuration for the table \"%s\" does not exists!"
+msgstr "Configuration for table \"%s\" does not exist!"
+
+msgid "The field \"%s\" doesn't exist"
+msgstr "Field \"%s\" doesn't exist"
+
+msgid "Format \"%s\" for field \"%s\" in table \"%s\" does not exists!"
+msgstr "Format \"%s\" for field \"%s\" in table \"%s\" does not exist."
+
+msgid "The database type is not \"mysql\""
+msgstr "Database type is not \"mysql\""
+
+msgid "For security, conditions param is needed to update function. If you want update all rows, use conditions = \"all\""
+msgstr "For security reasons, conditions param must be set for the function update. If you want to update all rows, use conditions = \"all\""
+
+msgid "For security, conditions param is needed to delete function. If you want delete all rows, use conditions = \"all\""
+msgstr "For security reasons, conditions param must be set for the function delete. If you want to delete all rows, use conditions = \"all\""
+
+msgid "Field \"%s\" can not be empty"
+msgstr "Field \"%s\" cannot be empty"
+
+msgid "The folder to store the file haven't writing permissions"
+msgstr "The folder to store that file has no writing permissions"
+
+msgid "Selecting the filename of %s"
+msgstr "Selecting a filename for %s"
+
+msgid "Field \"%s\" is not a valid date."
+msgstr "Field \"%s\" is not valid date."
+
+msgid "Field \"%s\" is not a valid date and time."
+msgstr "Field \"%s\" is not a valid date and time."
+
+msgid "Field \"%s\" is not a valid email."
+msgstr "Field \"%s\" is not a valid email."
+
+msgid "The folder to store the field \"%s\" haven't writing permissions"
+msgstr "The folder to store field \"%s\" haven't writing permissions"
+
+msgid "Field \"%s\" is an invalid format"
+msgstr "Field \"%s\" is an invalid format"
+
+msgid "Field \"%s\" can not allow this file type"
+msgstr "Field \"%s\" can not allow that file type"
+
+msgid "File \"%s\" exceeds the upload_max_filesize directive in php.ini."
+msgstr "File \"%s\" exceeds upload_max_filesize directive in php.ini."
+
+msgid "File \"%s\" exceeds the MAX_FILE_SIZE directive that was specified in the HTML form."
+msgstr "File \"%s\" exceeds MAX_FILE_SIZE directive specified in the HTML form."
+
+msgid "File \"%s\" was only partially uploaded."
+msgstr "File \"%s\" has been only partially uploaded."
+
+msgid "Missing a temporary folder."
+msgstr "Blimey, there is a temporary folder missing."
+
+msgid "Failed to write file \"%s\" to disk."
+msgstr "Failed to write file \"%s\" to disk."
+
+msgid "File \"%s\" upload was stopped by extension."
+msgstr "File \"%s\" upload has been stopped due to its extension."
+
+msgid "Error storing the new file for field \"%s\""
+msgstr "An error has been produced while storing that new file for field \"%s\""
+
+msgid "Field \"%s\" doesn't exist in this format"
+msgstr "Field \"%s\" doesn't exist under this format"
+
+msgid "Field \"%s\" is not a valid positive number."
+msgstr "Field \"%s\" is not a valid positive number."
+
+msgid "Field \"%s\" should has less than %s characters"
+msgstr "Field \"%s\" should be smaller than %s characters"
+
+msgid "Field \"%s\" should has more than %s characters"
+msgstr "Field \"%s\" should be larger than %s characters"
+
+msgid "The max value for field \"%s\" is %s"
+msgstr "Maximum value for field \"%s\" is %s"
+
+msgid "The min value for field \"%s\" is %s"
+msgstr "Minimum value for field \"%s\" is %s"
+
+msgid "Field \"%s\" is not a valid value"
+msgstr "Field \"%s\" is not a valid value"
+
+msgid "Field \"%s\" is not a valid number."
+msgstr "Field \"%s\" is not a valid number."
+
+msgid "Field \"%s\" is not valid to a boolean"
+msgstr "Field \"%s\" is not a valid boolean value."
+
+msgid "Field \"%s\" is not a valid float number."
+msgstr "Field \"%s\" is not a valid float number."
+
+msgid "Field \"%s\" is not a valid time and date."
+msgstr "Field \"%s\" is not a valid time and date."
+
+msgid "Field \"%s\" is not a valid Google Maps point."
+msgstr "Field \"%s\" is not a valid Google Maps point."
+
+msgid "Checking for duplications in %s"
+msgstr "Checking for duplications in %s"
+
+msgid "Field \"%s\" is not a valid ip value"
+msgstr "Field \"%s\" is not a valid IP value"
+
+msgid "Moving the other sort values to keep a free gap for the current sort"
+msgstr "Moving the other sort values to keep a free gap for the current sort"
+
+msgid "Field \"%s\" is not a valid url."
+msgstr "Field \"%s\" is not a valid URL."
+
+msgid "Service url for field \"%s\" is not available"
+msgstr "Service URL is not available for field \"%s\" "
+
+msgid "Unrelating before the table %s with %s"
+msgstr "Unrelating table %s from %s first"
+
+msgid "Relating the table %s with %s"
+msgstr "Relating table %s and %s"
+
+msgid "Unrelating the table %s with %s"
+msgstr "Unrelating table %s from %s"
+
+msgid "For security, conditions param is needed to relate function. If you want relate all rows, use conditions = \"all\""
+msgstr "For security reasons, conditions param must be set for the function relate. If you want to relate all rows, use conditions = \"all\""
+
+msgid "For security, conditions param is needed to unrelate function. If you want unrelate all rows, use conditions = \"all\""
+msgstr "For security reasons, conditions param must be set for the function unrelate. If you want to unrelate all rows, use conditions = \"all\""
+
+msgid "Checking if the tables %s and %s are related"
+msgstr "Checking whether tables %s and %s are already related"
+
+msgid "Relating the tables %s and %s"
+msgstr "Relating tables %s and %s"
+
+msgid "Unrelating the tables %s and %s"
+msgstr "Unrelating tables %s and %s"
+
+msgid "Unrelating the tables %s and %s in reverse mode"
+msgstr "Unrelating tables %s and %s in reverse mode"
+
+msgid "The folder \"%s\" just exists as a file"
+msgstr "Folder \"%s\" already exists as a file"
+
+msgid "The file %s couldn't be renamed to %s"
+msgstr "File %s couldn't be renamed as %s"
+
+msgid "No valid operation (%s) for image transform. All operation string is %s"
+msgstr "Unvalid operation (%s) to transform images. The whole operation's string is %s"
+
+msgid "Redirect"
+msgstr "Redirect"
+
+msgid "now"
+msgstr "now"
+
+msgid "and"
+msgstr "and"
+
+msgid "The file %s does not exist."
+msgstr "File %s does not exist."
+
+msgid "The file %s is not a PO file."
+msgstr "File %s is not a PO file, as it should."
+
+msgid "meta:"
+msgstr "meta:"
+
+msgid "This user isn't logged from Facebook"
+msgstr "This user isn't logged through Facebook"
+
+msgid "Error_saving_data"
+msgstr "There has been an error while saving data"
+
+msgid "User not exists"
+msgstr "User does not exist"
+
+msgid "The user or password is not correct!"
+msgstr "The user or password is not correct!"
+
+msgid "You haven't filled all the form fields"
+msgstr "You haven't filled all the form fields"
+
+msgid "Don't exists an user with this user and password"
+msgstr "There is no one for that user and password"
+
+msgid "This user is not active"
+msgstr "This user is not active yet"
+
+msgid "No data are received"
+msgstr "No data has been received"
+
+msgid "Sorry but there is already someone registered with that %s"
+msgstr "We are very sorry, but there is already someone registered for that %s"
+
+msgid "Password and repeat password are differents"
+msgstr "Password and its repetition are different"
+
+msgid "Password length must be %s characters at least"
+msgstr "Password length must be %s characters at least"
+
+msgid "Error saving data, please check the input form values."
+msgstr "Error saving data, please check the input form values."
+
+msgid "You need to fill the new password field."
+msgstr "You must fill the new password field."
+
+msgid "Password and password repeat don't match."
+msgstr "Password and its repetition just don't match."
+
+msgid "Ups... an error has occurred"
+msgstr "Blimey... there is an error somewhere."
+
+msgid " We are gathering all the data about this error to try to sort it out ASAP."
+msgstr "We are gathering all data about this error in order to sort it out ASAP."

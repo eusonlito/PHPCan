@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Tue, 17 Apr 12 11:57:08 +0200"
+"PO-Revision-Date: Tue, 17 Apr 12 12:04:43 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "There were errors updating database"
+msgstr "Crikey! Some errors have occurred when updating the database"
+
+msgid "The database was updated successfully"
+msgstr "Database has been updated successfully"
+
+msgid "Some required fields are empty"
+msgstr "Some mandatory fields are still empty"
+
+msgid "Current a target field are equal."
+msgstr "Current field and target field are identical"
+
+msgid "Table %s seems doesn't exists"
+msgstr "Table %s doesn't exists, or so we believe"
+
+msgid "\"%s\" update can not be applied: %s"
+msgstr "\"%s\" update can't be applied: %s"
+
+msgid "There are errors updating database"
+msgstr "Crikey! Some errors have occurred when updating the database"
+
+msgid "Rename"
+msgstr "Rename"
+
+msgid "Varchar"
+msgstr "Varchar"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Integer"
+msgstr "Integer"
+
+msgid "Float"
+msgstr "Float"
+
+msgid "Boolean"
+msgstr "Boolean"
+
+msgid "Database Updater"
+msgstr "Database Updater"
+
+msgid "Check changes"
+msgstr "Review editions"
+
+msgid "Rename fields"
+msgstr "Rename fields"
+
+msgid "Select"
+msgstr "Select"
+
+msgid "Queries"
+msgstr "Queries"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "This query was an error"
+msgstr "Crikey! Some errors have occurred when making that query"
+
+msgid "This query was executed succesfully"
+msgstr "That query has been executed successfully"
+
+msgid "This query was not executed yet"
+msgstr "That query hasn't been executed yet"
+
+msgid "Database is updated"
+msgstr "Database is now updated"
+
+msgid "Table"
+msgstr "Table"
+
+msgid "Current field"
+msgstr "Current field"
+
+msgid "New field"
+msgstr "New field"
+
+msgid "New format"
+msgstr "New format"
+
+msgid "Rows"
+msgstr "Rows"
+
+msgid "Add"
+msgstr "Add"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Fields action was executed successfully"
+msgstr "That action on those fields has been performed successfully"

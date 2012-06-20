@@ -1,0 +1,196 @@
+@import "variables.css";
+
+section.main header nav {
+	box-align: center;
+}
+section.main > header ul {
+	list-style: none;
+	margin: 0;
+	color: $black-40;
+	font-size: 0.9em;
+}
+section.main > header ul li {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 3px;
+	padding-right: 3px;
+}
+section.main > header ul li a {
+	color: $color;
+}
+section.main > header ul li a:hover {
+	color: $black;
+	text-decoration: none;
+}
+
+div.content ul {
+	list-style: none;
+	margin: 0;
+}
+div.content ul li {
+	display: inline-block;
+	margin: 10px 10px 0 0;
+	border-radius: 6px;
+	vertical-align: top;
+	border: solid 4px $black-7;
+	overflow: hidden;
+	word-wrap: break-word;
+	font-size: 0.8em;
+	line-height: 1.1em;
+	position: relative;
+	width: 120px;
+	height: 120px;
+	background: $white;
+}
+
+/* Folders */
+div.content li.folder {
+	box-shadow: 0 0 3px $color-dark;
+	color: $white;
+	border-color: $color-30;
+}
+li.folder a {
+	display: block;
+	width: 120px;
+	height: 120px;
+	color: $color;
+	box-sizing: border-box;
+	padding: 75px 10px 10px;
+	text-decoration: none;
+	text-align: center;
+	background: url('../img/folder.png') no-repeat center 25px $color-30;
+}
+li.folder a:hover {
+	text-decoration: underline;
+	color: $black;
+}
+
+/* Files */
+li.file {
+	box-shadow: 0 0 3px $black-40;
+}
+li.file img {
+	border: solid 1px $black-10;
+}
+li.file:hover {
+	box-shadow: 0 0 3px $black-80;
+}
+li.file .main,
+li.file .options {
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+li.file .name {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	opacity: 0.4;
+}
+li.file .bottom {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+}
+li.file .main strong {
+	font-size: 2em;
+	display: block;
+	color: $black;
+}
+li.file .options {
+	visibility: hidden;
+	background: $white;
+	z-index: 2;
+	box-sizing: border-box;
+	padding: 5px;
+}
+li.file:hover .options {
+	visibility: visible;
+}
+li.file .options a {
+	color: $color;
+}
+li.file .options a:hover {
+	text-decoration: none;
+	color: $black;
+}
+
+li.file .options label {
+	display: block;
+	color: $black;
+	font-size: 0.9em;
+	margin-top: 10px;
+	text-align: right;
+}
+li.file .options input {
+	padding: 2px;
+	color: $black-40;
+	display: inline-block;
+	width: 50px;
+}
+
+/* New file & new folder */
+#new-file,#new-folder {
+	border: dashed 4px $color;
+	box-shadow: none;
+	font-size: 1em;
+	padding: 10px;
+	box-sizing: border-box;
+	width: 128px;
+	height: 128px;
+	cursor: pointer;
+	text-align: center;
+}
+
+#new-file {
+	color: $color;
+	background: url('../img/box.png') no-repeat center 70px;
+}
+#new-file.hover,
+#new-file:hover,
+#new-folder:hover {
+	border-color: $color-dark;
+	color: $color-dark;
+	border-style: solid;
+	background-color: $color-30;
+}
+#new-file.hover {
+	background-image: url('../img/full-box.png');
+	background-size: 48px;
+	transform: scale(2);
+	transform-origin: 30px 30px;
+	box-shadow: 0 0 6px $black;
+	z-index: 2;
+}
+
+#new-folder {
+	color: $color;
+	background: url('../img/new-folder.png') no-repeat center 10px;
+	padding-top: 60px;
+}
+
+/* Loading */
+#loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.8);
+	text-align: center;
+	z-index: 2;
+}
+#loading ul {
+	list-style: none;
+	margin: 200px auto 0 auto;
+	text-align: center;
+	font-size: 0.9em;
+}
+#loading ul li {
+	margin-bottom: 10px;
+}
+#loading ul strong {
+	display: block;
+}

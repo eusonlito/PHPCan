@@ -1,0 +1,167 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: "
+"PO-Revision-Date: Fri, 30 Mar 12 17:27:29 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "$l $j, $F $Y"
+msgstr "$l $d de $F, $Y"
+
+msgid "$d days ago"
+msgstr "hai $d días"
+
+msgid "one day ago"
+msgstr "hai un día"
+
+msgid "$h hours ago"
+msgstr "hai $h horas"
+
+msgid "one hour ago"
+msgstr "hai unha hora"
+
+msgid "$i minutes ago"
+msgstr "hai $i minutos"
+
+msgid "one minute ago"
+msgstr "hai un minuto"
+
+msgid "some seconds ago"
+msgstr "hai uns segundos"
+
+msgid "at $H:$i on $l $j, $F $Y"
+msgstr "ás $H:$i do $l $d de $F, $Y"
+
+msgid "at $H:$i:$s on $l $j, $F $Y"
+msgstr "ás $H:$i:$s do $l $d de $F, $Y"
+
+msgid "Monday"
+msgstr "Luns"
+
+msgid "Tuesday"
+msgstr "Martes"
+
+msgid "Wednesday"
+msgstr "Mércores"
+
+msgid "Thursday"
+msgstr "Xoves"
+
+msgid "Friday"
+msgstr "Venres"
+
+msgid "Saturday"
+msgstr "Sábado"
+
+msgid "Sunday"
+msgstr "Domingo"
+
+msgid "Mon"
+msgstr "Lun"
+
+msgid "Tue"
+msgstr "Mar"
+
+msgid "Wed"
+msgstr "Mér"
+
+msgid "Thu"
+msgstr "Xov"
+
+msgid "Fri"
+msgstr "Ven"
+
+msgid "Sat"
+msgstr "Sab"
+
+msgid "Sun"
+msgstr "Dom"
+
+msgid "January"
+msgstr "Xaneiro"
+
+msgid "February"
+msgstr "Febreiro"
+
+msgid "March"
+msgstr "Marzo"
+
+msgid "April"
+msgstr "Abril"
+
+msgid "May_F"
+msgstr "Maio"
+
+msgid "June"
+msgstr "Xuño"
+
+msgid "July"
+msgstr "Xullo"
+
+msgid "August"
+msgstr "Agosto"
+
+msgid "September"
+msgstr "Setembro"
+
+msgid "October"
+msgstr "Outubro"
+
+msgid "November"
+msgstr "Novembro"
+
+msgid "December"
+msgstr "Decembro"
+
+msgid "Jan"
+msgstr "Xan"
+
+msgid "Feb"
+msgstr "Feb"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "Apr"
+msgstr "Abr"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "Jun"
+msgstr "Xuñ"
+
+msgid "Jul"
+msgstr "Xul"
+
+msgid "Aug"
+msgstr "Ago"
+
+msgid "Sep"
+msgstr "Set"
+
+msgid "Oct"
+msgstr "Out"
+
+msgid "Nov"
+msgstr "Nov"
+
+msgid "Dec"
+msgstr "Dec"
+
+msgid "AM"
+msgstr "AM"
+
+msgid "PM"
+msgstr "PM"
+
+msgid "am"
+msgstr "am"
+
+msgid "pm"
+msgstr "pm"

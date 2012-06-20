@@ -1,0 +1,269 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Mon, 09 Apr 12 09:01:24 +0200"
+"PO-Revision-Date: Mon, 09 Apr 12 09:31:02 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "There is a folder with the same name"
+msgstr "Hai un cartafol que xa se chama por ese nome"
+
+msgid "There was an error creating the folder"
+msgstr "Diaños, produciuse un erro ao crear o cartafol"
+
+msgid "Folder was created successfully"
+msgstr "O cartafol quedou xa perfectamente creado"
+
+msgid "This file doesn't exits"
+msgstr "Este ficheiro non existe"
+
+msgid "There was an error deleting the file"
+msgstr "Diaños, produciuse un erro ao borrar o ficheiro"
+
+msgid "File was deleted successfully"
+msgstr "Xa non queda rastro do ficheiro"
+
+msgid "This folder does not exists"
+msgstr "Este cartafol non existe"
+
+msgid "There was an error deleting the folder"
+msgstr "Diaños, produciuse un erro ao borrar o cartafol"
+
+msgid "Folder was deleted successfully"
+msgstr "Xa non queda rastro do cartafol"
+
+msgid "The rows has been deleted successfully"
+msgstr "Xa non queda rastro das liñas de datos"
+
+msgid "There was an error deleting the row %s in the table %s"
+msgstr "Diaños, produciuse un erro ao borrar a liña %s na táboa %s"
+
+msgid "The elements have been related succesfully!"
+msgstr "Agora eses elementos xa están ben vencellados"
+
+msgid "The elements have been unrelated succesfully!"
+msgstr "Agora eses elementos xa non están vencellados"
+
+msgid "Ops, there was an error relating the elements"
+msgstr "Diaños, produciuse un erro ao vencellar os elementos"
+
+msgid "Ops, there was an error unrelating the elements"
+msgstr "Diaños, produciuse un erro ao desvencellar os elementos"
+
+msgid "Data has been saved succesfully!"
+msgstr "Os datos quedaron perfectamente gardados"
+
+msgid "Ops, there was an error saving data: <p>%s</p>"
+msgstr "Diaños, produciuse un erro ao gardar os datos: <p>%s</p>"
+
+msgid "Can not set uploads folder. Has the correct permissions?"
+msgstr "Non se pode configurar o cartafol de cargas. Será que tes un problema cos permisos de acceso?"
+
+msgid "There was an error saving some file (%s)"
+msgstr "Diaños, produciuse un erro ao gardar un ficheiro (%s)"
+
+msgid "Files were saved successfully"
+msgstr "Os ficheiros quedaron perfectamente gardados"
+
+msgid "The connection %s is not available"
+msgstr "A conexión %s non está dispoñíbel"
+
+msgid "The table %s is not available"
+msgstr "A táboa %s non está dispoñíbel"
+
+msgid "There is not any register with id \"%s\""
+msgstr "Non nos consta que haxa ningún rexistro co ID \"%s\""
+
+msgid "This folder does not exits"
+msgstr "Non hai ningún cartafol por ese nome"
+
+msgid "Content Manager"
+msgstr "Xestor de contido"
+
+msgid "%s %s related with %s %s #%s"
+msgstr "%s %s vencellouse con %s %s #%s"
+
+msgid "Delete"
+msgstr "Borrar"
+
+msgid "Do you realy want to delete this?"
+msgstr "De verdade queres borrar isto?"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "View in public web"
+msgstr "Velo na web pública"
+
+msgid "Edit"
+msgstr "Corrixir"
+
+msgid "Actions"
+msgstr "Accións"
+
+msgid "Home"
+msgstr "Portada"
+
+msgid "Select a table"
+msgstr "Seleccionar unha táboa"
+
+msgid "Uploads"
+msgstr "Cargas"
+
+msgid "Edit and relate"
+msgstr "Corrixir e vencellar"
+
+msgid "Unrelate"
+msgstr "Desvencellar"
+
+msgid "Relate"
+msgstr "Vencellar"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "You are searching by \"%s\""
+msgstr "Estás buscando \"%s\""
+
+msgid "Editing #%s"
+msgstr "Corrixindo #%s"
+
+msgid "Creating new"
+msgstr "Creando un novo"
+
+msgid "Related with %s #%s"
+msgstr "Vencellado con %s #%s"
+
+msgid "Only related elements"
+msgstr "Só os elementos vencellados"
+
+msgid "All elements"
+msgstr "Todos os elementos"
+
+msgid "List"
+msgstr "Listaxe"
+
+msgid "New"
+msgstr "Novo"
+
+msgid "Language to show"
+msgstr "Lingua que queres ver"
+
+msgid "Save"
+msgstr "Gardar"
+
+msgid "Duplicate"
+msgstr "Facer un duplicado"
+
+msgid "Reset"
+msgstr "Reconfigurar"
+
+msgid "Do you really want to delete this?"
+msgstr "De verdade queres borrar isto?"
+
+msgid "Show columns"
+msgstr "Amosar columnas"
+
+msgid "Export as CSV"
+msgstr "Exportar como CSV"
+
+msgid "No results have been found"
+msgstr "Non atopamos ningún resultado"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "%s related with %s %s #%s"
+msgstr "%s vencellouse con %s %s #%s"
+
+msgid "Related elements"
+msgstr "Elementos vencellados"
+
+msgid "Files Uploaded successfully"
+msgstr "Os ficheiros cargáronse perfectamente"
+
+msgid "success"
+msgstr "éxito"
+
+msgid "Folder name"
+msgstr "Nome do cartafol"
+
+msgid "Upload files"
+msgstr "Cargar ficheiros"
+
+msgid "Create new folder"
+msgstr "Crear un cartafol novo"
+
+msgid "Click or drop files here to upload"
+msgstr "Clica aquí ou arrastra para acó os ficheiros que queres cargar"
+
+msgid "Click here to create a new folder"
+msgstr "Clica aquí para crear un novo cartafol"
+
+msgid "View or download"
+msgstr "Ver ou descargar"
+
+msgid "Source"
+msgstr "Fonte"
+
+msgid "Dinamic"
+msgstr "Dinámico"
+
+msgid "Delete file"
+msgstr "Borrar ficheiro"
+
+msgid "Are you sure to delete this file?"
+msgstr "De verdade queres borrar este ficheiro?"
+
+msgid "This folder is empty"
+msgstr "Este cartafol está baleiro"
+
+msgid "Delete this folder and its content"
+msgstr "Borrar este cartafol e o seu contido"
+
+msgid "Delete this folder"
+msgstr "Borrar este cartafol"
+
+msgid "File name"
+msgstr "Nome do ficheiro"
+
+msgid "HTML Preview"
+msgstr "Previsualización en HTML"
+
+msgid "Double click to show/hide"
+msgstr "Clica dúas veces para que se vexa ou para que non"
+
+msgid "Upload image from an url"
+msgstr "Cargar unha imaxe dende un enderezo web"
+
+msgid "Upload image from my computer"
+msgstr "Cargar unha imaxe do computador"
+
+msgid "View file"
+msgstr "Ver ficheiro"
+
+msgid "Latitude"
+msgstr "Latitude"
+
+msgid "Longitude"
+msgstr "Lonxitude"
+
+msgid "Zoom"
+msgstr "Zoom"
+
+msgid "Search in map"
+msgstr "Buscar no mapa"
+
+msgid "Delete image"
+msgstr "Borrar a imaxe"
+
+msgid "Open url (new window)"
+msgstr "Abrir o enderezo nunha nova fiestra"
+
+msgid "Create new %s"
+msgstr "Crear novo %s"

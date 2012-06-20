@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Mon, 09 Apr 12 08:52:43 +0200"
+"PO-Revision-Date: Mon, 09 Apr 12 08:55:58 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "Welcome, %s!"
+msgstr "Bienvenido/a, %s!"
+
+msgid "phpCan is released by A navalla suíza"
+msgstr "phpCan es una solución de A navalla suíza"
+
+msgid "This module is released by A navalla suíza"
+msgstr "Este módulo es un producto de A navalla suíza"
+
+msgid "Total execution time: %ss"
+msgstr "Tiempo total de ejecución: %ss"
+
+msgid "Sorry but you need a modern web browser to access to this site (latest version of chrome, firefox or safari)"
+msgstr "La web está preparada para las versións más comunes de los navegadores del mercado. Parece que tienes una versión muy antigua, o un navegador muy poco frecuente. Lo sentimos mucho, pero quizá no veas esta web tan bien como deberías. "
+
+msgid "Hi, %s"
+msgstr "Hola, %s"
+
+msgid "Logout"
+msgstr "Salir"
+
+msgid "Go to web"
+msgstr "Ir a la web"
+
+msgid "%s results have been found"
+msgstr "Hemos encontrado %s coincidencias"
+
+msgid "First"
+msgstr "Inicio"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Last"
+msgstr "Final"
+
+msgid "Please, login to enter in the Admin area:"
+msgstr "Por favor, introduce tus datos para acceder al área de administración"
+
+msgid "User"
+msgstr "Usuario/a"
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Login"
+msgstr "Acceder"

@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Mon, 09 Apr 12 09:52:03 +0200"
+"PO-Revision-Date: Tue, 17 Apr 12 12:25:37 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "The gettext collection %s is not valid"
+msgstr "La colección de Gettext %s no es válida"
+
+msgid "The language %s is not valid"
+msgstr "El idioma %s no es correcto"
+
+msgid "There was an error generating the po file"
+msgstr "Se ha producido un error al general el archivo .po"
+
+msgid "There was an error generating the mo file"
+msgstr "Se ha producido un error al general el archivo .mo"
+
+msgid "The translations have been saved successfully"
+msgstr "Las traducciones han quedado correctamente guardadas"
+
+msgid "Gettext file haven't writing permissions"
+msgstr "El archivo de Gettext carece de permisos de escritura"
+
+msgid "Gettext file was generated successfully"
+msgstr "El archivo de Gettext ha quedado perfectamente creado"
+
+msgid "Update"
+msgstr "Actualizar"
+
+msgid "phpCan errors"
+msgstr "Errores de phpCan"
+
+msgid "%s Module"
+msgstr "Módulo de %s"
+
+msgid "The language is not valid"
+msgstr "Este idioma no es correcto"
+
+msgid "Folder %s is not writable. Please, fix the folder permissions."
+msgstr "No se puede escribir en la carpeta %s. Por favor, arregla antes los permisos de la carpeta"
+
+msgid "File %s is not writable. Please, fix the file permissions."
+msgstr "No se puede escribir en el archivo %s. Por favor,  arregla antes los permisos del archivo"
+
+msgid "Gettext Translator"
+msgstr "Tradutor Gettext"
+
+msgid "Home"
+msgstr "Portada"
+
+msgid "Select gettext"
+msgstr "Seleccionar Gettext"
+
+msgid "Filter"
+msgstr "Filtrar"
+
+msgid "translate"
+msgstr "traducir"
+
+msgid "PO (%s)"
+msgstr "PO (%s)"
+
+msgid "MO (%s)"
+msgstr "MO (%s)"
+
+msgid "Show all"
+msgstr "Verlos todos"
+
+msgid "Without translation"
+msgstr "Sin traducir"
+
+msgid "Translations"
+msgstr "Traducciones"
+
+msgid "Num"
+msgstr "Nº"
+
+msgid "Id"
+msgstr "ID"
+
+msgid "Translation"
+msgstr "Traducción"
+
+msgid "Comments"
+msgstr "Comentarios"
+
+msgid "Double click to copy"
+msgstr "Haz doble click para copiar"
+
+msgid "References"
+msgstr "Referencias"
+
+msgid "Headers"
+msgstr "Encabezados"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Reset"
+msgstr "Borrarlo todo"
+
+msgid "Save as %s"
+msgstr "Guardar como %s"

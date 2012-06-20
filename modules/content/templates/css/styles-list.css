@@ -1,0 +1,98 @@
+@import "variables.css";
+
+table.list {
+	margin: 0;
+	border-collapse: separate;
+	width: 100%;
+}
+table.list thead th {
+	border: none;
+	border-right: solid 1px $white;
+	vertical-align: bottom;
+	font-size: 0.9em;
+	line-height: 1em;
+	padding: 8px 8px 4px 8px;
+	color: $black;
+	background: $black-10;
+	white-space: nowrap;
+}
+table.list thead th.actions {
+	vertical-align: top;
+}
+table.list thead th.fields {
+	padding: 0;
+	font-size: 0.8em;
+}
+table.list thead th.fields a {
+	background: $black-60;
+	padding: 4px 8px;
+	color: $white;
+	display: block;
+	text-decoration: none;
+}
+table.list thead th.fields a.selected,
+table.list thead th.fields a:hover {
+	background: $black;
+}
+table.list td {
+	border: none;
+	padding: 8px;
+	font-size: 0.8em;
+	line-height: 1.1em;
+	color: $black-60;
+	word-wrap: break-word;
+	max-width: 500px;
+}
+table.list > tbody td {
+	border-top: solid 1px $white;
+	border-bottom: solid 1px $black-10;
+}
+table.list > tbody > tr.select,
+table.list > tbody > tr.select:hover {
+	background: $color-30;
+}
+
+/* Actions */
+table.list .actions {
+	width: 20px;
+}
+.actions a.option {
+	color: $color;
+	margin-right: 10px;
+	font-size: 0.8em;
+}
+.actions a.option:hover {
+	text-decoration: none;
+}
+
+/* Formats in tables */
+table.list .format_integer,
+table.list .format_float,
+table.list .format_id {
+	width: 40px;
+	text-align: right;
+}
+
+table.list .format_datetime,
+table.list .format_date {
+	white-space: nowrap;
+}
+
+table.list .format_boolean {
+	width: 30px;
+	text-align: center;
+}
+
+table.list .format_image {
+	width: 70px;
+}
+
+/* Elements in tables */
+table.list td h1 {
+	margin: 0;
+	font-size: 1.4em;
+	color: $black;
+}
+table.list td img {
+	margin: 0;
+}

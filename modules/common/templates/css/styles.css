@@ -1,0 +1,341 @@
+/*__________________________________________ Helpers
+*/
+.f100 { width: 100%; }
+.f50 { width: 50%; }
+.f25 { width: 25%; }
+.inline-block { display: inline-block; }
+.flex { box-flex: 1; }
+.overflow-x { overflow-x: auto; }
+
+
+/*__________________________________________ Basic styles for HTML
+*/
+#html {
+	background: $black-80;
+}
+body {
+	padding: 0 50px;
+	font-family: $typography;
+}
+.wrapper {
+	max-width: 2000px;
+	min-width: 400px;
+	margin: 0 auto;
+}
+.top {
+	padding: 0 50px;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	left: 0;
+	top: 0;
+	z-index: 2;
+}
+.actions {
+	white-space: nowrap;
+}
+::selection {
+	background-color: $highlight-bg;
+	color: $highlight;
+}
+
+
+/*__________________________________________ Main header
+*/
+header.main {
+	display: box;
+	box-align: end;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 8px;
+	background: $black;
+}
+header.main > * {
+	box-flex: 1;
+}
+header.main > h1 {
+	font-size: 1em;
+	line-height: 1em;
+	color: $white;
+}
+header.main > h1 a {
+	color: $white;
+	text-decoration: none;
+}
+header.main > h1 a:hover {
+	color: $color-30;
+}
+header.main nav {
+	text-align: right;
+	color: $black-40;
+	font-size: 0.8em;
+	white-space: nowrap;
+}
+header.main nav a {
+	color: $black-20;
+	text-decoration: none;
+}
+header.main nav a:hover {
+	color: $white;
+	text-decoration: underline;
+}
+
+/*__________________________________________ Main navigation
+*/
+
+nav.main {
+	background: $color;
+	padding: 8px;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: $color-30;
+	font-size: 0.9em;
+	border-radius: 0 0 8px 8px;
+	box-shadow: 0 2px 4px $black;
+}
+
+/*__________________________________________ Main section
+*/
+#html section.main {
+	background: linear-gradient($white, $black-10) $white;
+	box-shadow: 0 0 5px $black;
+	margin-top: 105px;
+	margin-bottom: 50px;
+	border-radius: 8px;
+	padding: 30px;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 1;
+}
+#html.splash section.main {
+	background: none;
+	box-shadow: none;
+}
+
+/* Header */
+section.main > header {
+	width: 100%;
+	margin-bottom: 40px;
+}
+section.main > header h1 {
+	color: $black;
+	text-shadow: 0 0 4px $black-40;
+	display: inline;
+	font-size: 1.8em;
+}
+section.main > header h2 {
+	color: $black-20;
+	display: inline;
+	font-size: 1.4em;
+	text-transform: uppercase;
+}
+section.main > header nav {
+	display: box;
+	box-align: start;
+	width: 100%;
+	margin: 5px 0;
+}
+section.main > header div.actions {
+	display: box;
+	box-align: center;
+	margin-right: 20px;
+}
+section.main > header input[type="search"] {
+	width: 100%;
+}
+section.main > header p {
+	color: $black-40;
+	font-size: 0.8em;
+}
+
+/* Footer */
+section.main > .content > footer {
+	margin-top: 25px;
+	padding-top: 25px;
+	border-top: solid 1px $black-20;
+	width: 100%;
+	overflow: auto;
+}
+
+
+/*__________________________________________ Pagination
+*/
+.pagination {
+	padding-top: 20px;
+	font-size: 0.8em;
+	color: $black-60;
+	text-align: center;
+}
+.pagination ul {
+	margin-top: 5px;
+}
+.pagination li {
+	margin-right: 2px;
+	float: none;
+	display: inline-block;
+}
+.pagination li span,
+.pagination li a {
+	background: $white;
+	border: solid 1px $black-20;
+	padding: 3px 8px 2px;
+	color: $black-40;
+	border-radius: 4px;
+}
+.pagination li a {
+	background: $color;
+	border: solid 1px $color;
+	color: $white;
+}
+.pagination li a:hover {
+	background: $black;
+	border: solid 1px $black;
+	color: $white;
+}
+
+
+/*__________________________________________ Basic styles for LOGIN
+*/
+body.login header.main {
+	position: static;
+	margin-top: 100px;
+	border-radius: 8px 8px 0 0;
+}
+#html.login section.main {
+	margin-top: 0;
+	border-radius: 0 0 8px 8px;
+	padding: 20px;
+}
+#html.login section.main h1 {
+	font-size: 1em;
+	margin: 0;
+}
+body.login .wrapper {
+	max-width: 350px;
+}
+body.login form h1 {
+	margin-bottom: 10px;
+}
+body.login form p {
+	margin-top: 10px;
+	display: box;
+	box-align: center;
+	box-pack: justify;
+	width: 100%;
+}
+body.login label {
+	font-size: 0.8em;
+	width: 80px;
+	color: $black-40;
+	display: block;
+}
+body.login input[type="text"],
+body.login input[type="password"] {
+	box-flex: 1;
+	display: block;
+}
+body.login input[type="submit"] {
+	margin-left: 80px;
+}
+
+
+/*__________________________________________ Forms
+*/
+input[type="text"],
+input[type="password"],
+input[type="url"],
+input[type="email"],
+input[type="date"],
+input[type="datetime"],
+input[type="number"],
+input[type="search"],
+input[type="file"],
+textarea {
+	padding: 5px;
+	font-family: inherit;
+	font-size: 0.9em;
+}
+textarea {
+	height: 8em;
+}
+label.error {
+	display:block;
+	color: $error !important;
+	font-size: 0.8em;
+}
+textarea.error,select.error,input.error {
+	border: solid 1px $error;
+	background: $error-bg;
+}
+
+
+/*__________________________________________ Message
+*/
+#message {
+	width: 100%;
+	background: $black-10;
+	padding: 5px 0;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px $white;
+	font-size: 0.9em;
+	cursor: pointer;
+	box-shadow: 0 0 4px $black;
+	text-align: center;
+}
+#message.error, .error {
+	color: $error;
+	background: $error-bg;
+}
+#message.success, .success {
+	color: $success;
+	background: $success-bg;
+}
+
+
+/*__________________________________________ Footer
+*/
+footer.main {
+	text-align: center;
+	width: 100%;
+	position: fixed;
+	bottom: 10px;
+	left: 0;
+}
+a#ans {
+	width: 13px;
+	height: 15px;
+	background-image: url('../img/logo-ans.png');
+}
+a#phpcan {
+	width: 23px;
+	height: 15px;
+	background-image: url('../img/logo-phpcan.png');
+}
+
+
+/*__________________________________________ Media
+*/
+@media (max-width: 750px) {
+	header.main {
+		box-orient: vertical;
+		box-direction: reverse;
+		box-align: start;
+	}
+	header.main > h1 {
+		margin-top: 5px;
+	}
+
+	#html section.main {
+		margin-top: 110px;
+	}
+
+	section.main > header nav,
+	section.main > header .actions,
+	section.main > header form {
+		display: block;
+	}
+	section.main > header nav .actions {
+		margin-bottom: 5px;
+	}
+}

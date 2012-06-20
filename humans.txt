@@ -1,0 +1,15 @@
+/* TEAM */
+	A Navalla Suíza: Álvaro Gómez, Berto Yáñez, María Yáñez, Óscar Otero, Xabier Cid, Aymará Ghiglione, Adrián Seijo
+	Contact: equipo@anavallasuiza.com / +34 981939324
+	Site: http://anavallasuiza.com
+	Twitter: anavallasuiza
+	Location: Galicia, Spain
+
+/* THANKS */
+
+/* SITE */
+	Language: Galego
+	Doctype: HTML5
+	Standards: HTML5, CSS3
+	Components: cSans, jQuery, styleCow, $media
+	Software: Apache, PHP, MySQL, Subversion, phpCan, Sublime Text 2, Adobe Photoshop, Adobe Illustrator

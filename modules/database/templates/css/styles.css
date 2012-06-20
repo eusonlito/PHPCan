@@ -1,0 +1,54 @@
+@import "variables.css";
+@import "../../../common/templates/css/styles.css";
+@import "../../../common/templates/css/jquery-ui/jquery.ui.theme.css";
+
+/*__________________________________________ Table
+*/
+table {
+	margin: 0;
+	border-collapse: separate;
+	margin-bottom: 20px;
+	width: 100%;
+}
+table th {
+	border: none;
+	vertical-align: bottom;
+	font-size: 0.9em;
+	line-height: 1em;
+	padding: 8px 8px 4px 8px;
+	color: $black;
+	background: $black-10;
+	white-space: nowrap;
+}
+table td {
+	border: none;
+	padding: 8px;
+	font-size: 0.8em;
+	line-height: 1.1em;
+	color: $black-60;
+	word-wrap: break-word;
+}
+table > tbody td {
+	border-top: solid 1px $white;
+	border-bottom: solid 1px $black-10;
+}
+table .actions {
+	text-align: center;
+	width: 50px;
+}
+table .status {
+	width: 250px;
+	text-align: center;
+}
+table > tbody > tr.select {
+	background: $color-30;
+}
+
+.actions a {
+	color: $color;
+	margin-right: 10px;
+	font-size: 0.8em;
+}
+.actions a:hover {
+	text-decoration: none;
+}

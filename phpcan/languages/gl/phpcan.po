@@ -1,0 +1,338 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Fri, 30 Mar 12 18:38:06 +0200"
+"PO-Revision-Date: Mon, 09 Apr 12 08:50:41 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "File %s doesn't exists"
+msgstr "O ficheiro %s non existe"
+
+msgid "This file cannot be pre-processed"
+msgstr "Non podemos preprocesar este ficheiro"
+
+msgid "User and password are not configured to login into Google Docs"
+msgstr "O usuario e o contrasinal non están configurados para poder acceder a Google Docs"
+
+msgid "File \"%s\" is not available"
+msgstr "O ficheiro \"%s\" non está dispoñible"
+
+msgid "You must choose a collection to store the file"
+msgstr "Debes escoller unha colección para gardar o ficheiro"
+
+msgid "The selected service is not available"
+msgstr "Este servizo que escolliches non está dispoñible"
+
+msgid "The log folder \"%s\" is not writtable!"
+msgstr "Non se pode fedellar no cartafol de logs \"%s\"."
+
+msgid "Public errors"
+msgstr "Erros públicos"
+
+msgid "The file \"%s\" is not writtable!"
+msgstr "Non se pode escribir no ficheiro \"%s\"."
+
+msgid "There is not valid function for the events %s"
+msgstr "Non existe unha función válida para os eventos %s"
+
+msgid "The action \"%s\" doesn't exists"
+msgstr "Non hai ningún comando \"%s\""
+
+msgid "Script file isn't defined to action \"%s\""
+msgstr "Non hai un ficheiro de script definido para o comando \"%s\""
+
+msgid "The file \"%s\" does not exists"
+msgstr "Non hai ningún ficheiro \"%s\""
+
+msgid "The relation mode \"%s\" does not exits"
+msgstr "Non hai ningún tipo de relación \"%s\""
+
+msgid "Updating database"
+msgstr "Actualizando a base de datos"
+
+msgid "The field \"%s\" doesn't exits"
+msgstr "O campo \"%s\" non existe"
+
+msgid "Field \"%s\" was edited before yours changes!"
+msgstr "Alguén modificou o campo \"%s\" xusto antes de faceres ti os cambios"
+
+msgid "The table \"%s\" doesn't exists"
+msgstr "Non existe ningunha táboa \"%s\""
+
+msgid "There is no data in \"%s\" operation for the table \"%s\""
+msgstr "Non existen datos sobre os que facer unha operación de \"%s\" na táboa \"%s\""
+
+msgid "There is not relations between the tables \"%s\" and \"%s\""
+msgstr "As táboas \"%s\" e \"%s\" non están relacionadas por agora"
+
+msgid "The action \"%s\" is not valid"
+msgstr "O comando \"%s\" non é correcto"
+
+msgid "There was an error in the insert operation"
+msgstr "Ops, produciuse un erro durante o proceso de escritura"
+
+msgid "There was an error in the update operation"
+msgstr "Ops, produciuse un erro durante a actualización"
+
+msgid "There was an error in the delete operation"
+msgstr "Ops, produciuse un erro durante o borrado"
+
+msgid "Table \"%s\" used in relation/unrelation don't exists"
+msgstr "Non hai ningunha táboa \"%s\" que se poida vencellar ou desvencellar"
+
+msgid "The language \"%s\" is not valid"
+msgstr "A lingua \"%s\" non se pode usar neste caso"
+
+msgid "There is not table to select"
+msgstr "Non hai ningunha táboa que se poida seleccionar"
+
+msgid "The field %s doesn't exists in the table %s"
+msgstr "Non hai ningún campo %s na táboa %s"
+
+msgid "The table %s hasn't been selected so you can't sort by it"
+msgstr "A táboa %s non foi correctamente seleccionada, así que non podes usala para ordear os datos"
+
+msgid "The table %s hasn't been selected so you can't group by it"
+msgstr "A táboa %s non foi correctamente seleccionada, así que non podes usala para agrupar os datos"
+
+msgid "The exit format %s is not valid"
+msgstr "O formato de saída %s non é un formato correcto"
+
+msgid "There is no text to search or it is not valid"
+msgstr "Non hai ningún texto para podelo buscar, ou se o hai non é un texto correcto."
+
+msgid "There is not \"where\" parameter in the searching"
+msgstr "Non existe ningún valor para o parámetro \"where\" nesta busca"
+
+msgid "There is not fields defined in table \"%s\""
+msgstr "Non hai ningún campo definido para a táboa \"%s\""
+
+msgid "The search key %s is just defined"
+msgstr "Non hai ningunha chave de busca %s definida"
+
+msgid "This function does not exists (%s)"
+msgstr "Non hai ningunha función así (%s)"
+
+msgid "The configuration for the table \"%s\" does not exists!"
+msgstr "Non se configurou aínda a táboa \"%s\""
+
+msgid "The field \"%s\" doesn't exist"
+msgstr "Non hai ningún campo \"%s\""
+
+msgid "Format \"%s\" for field \"%s\" in table \"%s\" does not exists!"
+msgstr "Non é posible pór o formato \"%s\" no campo \"%s\" da táboa \"%s\""
+
+msgid "The database type is not \"mysql\""
+msgstr "Esta base de datos non é mySQL"
+
+msgid "For security, conditions param is needed to update function. If you want update all rows, use conditions = \"all\""
+msgstr "Por razóns de seguridade, necesitas indicar un parámetro para a función actualizar. Se queres actualizar todo de golpe, emprega \"all\" como parámetro."
+
+msgid "For security, conditions param is needed to delete function. If you want delete all rows, use conditions = \"all\""
+msgstr "Por razóns de seguridade, necesitas indicar un parámetro para a función borrar. Se queres borrar todo de golpe, emprega \"all\" como parámetro."
+
+msgid "Field \"%s\" can not be empty"
+msgstr "O campo \"%s\" non pode quedar baldeiro"
+
+msgid "The folder to store the file haven't writing permissions"
+msgstr "O cartafol onde había que gardar este ficheiro \"%s\" carece de permisos de escritura"
+
+msgid "Selecting the filename of %s"
+msgstr "Escollendo o nome de ficheiro para %s"
+
+msgid "Field \"%s\" is not a valid date."
+msgstr "O campo \"%s\" non ten datos correctos."
+
+msgid "Field \"%s\" is not a valid date and time."
+msgstr "O campo \"%s\" non é unha hora e unha data correctas."
+
+msgid "Field \"%s\" is not a valid email."
+msgstr "O campo \"%s\" non é un correo electrónico correcto."
+
+msgid "The folder to store the field \"%s\" haven't writing permissions"
+msgstr "O cartafol onde había que gardar este ficheiro \"%s\" carece de permisos de escritura"
+
+msgid "Field \"%s\" is an invalid format"
+msgstr "O campo \"%s\" ten un formato que non é correcto"
+
+msgid "Field \"%s\" can not allow this file type"
+msgstr "O campo \"%s\" non admite un ficheiro deste tipo."
+
+msgid "File \"%s\" exceeds the upload_max_filesize directive in php.ini."
+msgstr "O ficheiro \"%s\" é maior có máximo permitido en php.ini"
+
+msgid "File \"%s\" exceeds the MAX_FILE_SIZE directive that was specified in the HTML form."
+msgstr "O ficheiro \"%s\" é maior có máximo permitido no formulario html"
+
+msgid "File \"%s\" was only partially uploaded."
+msgstr "Do ficheiro \"%s\" só se cargou un cacho"
+
+msgid "Missing a temporary folder."
+msgstr "Recoiro, creo que perdimos un ficheiro temporal"
+
+msgid "Failed to write file \"%s\" to disk."
+msgstr "Diaños, non se puido gravar o ficheiro \"%s\" no disco"
+
+msgid "File \"%s\" upload was stopped by extension."
+msgstr "A carga do ficheiro \"%s\" interrompeuse por mor da extensión"
+
+msgid "Error storing the new file for field \"%s\""
+msgstr "Diaños, produciuse un erro ao gardar este ficheiro no campo \"%s\""
+
+msgid "Field \"%s\" doesn't exist in this format"
+msgstr "O campo \"%s\" non existe neste formato"
+
+msgid "Field \"%s\" is not a valid positive number."
+msgstr "O campo \"%s\" non é un número positivo correcto."
+
+msgid "Field \"%s\" should has less than %s characters"
+msgstr "O campo \"%s\" debe ter menos de %s caracteres"
+
+msgid "Field \"%s\" should has more than %s characters"
+msgstr "O campo \"%s\" debe ter máis de %s caracteres"
+
+msgid "The max value for field \"%s\" is %s"
+msgstr "O valor máis grande que pode ter o campo \"%s\" é \"%s\""
+
+msgid "The min value for field \"%s\" is %s"
+msgstr "O valor máis pequeno que pode ter o campo \"%s\" é \"%s\""
+
+msgid "Field \"%s\" is not a valid value"
+msgstr "O campo \"%s\" non é un valor correcto."
+
+msgid "Field \"%s\" is not a valid number."
+msgstr "O campo \"%s\" non é un número correcto."
+
+msgid "Field \"%s\" is not valid to a boolean"
+msgstr "O campo \"%s\" non é un indicador booleano correcto."
+
+msgid "Field \"%s\" is not a valid float number."
+msgstr "O campo \"%s\" non é unha expresión de coma flotante correcta."
+
+msgid "Field \"%s\" is not a valid time and date."
+msgstr "O campo \"%s\" non ten unha data e unha hora correctas."
+
+msgid "Field \"%s\" is not a valid Google Maps point."
+msgstr "O valor do campo \"%s\" non é un enderezo de GoogleMaps válido."
+
+msgid "Checking for duplications in %s"
+msgstr "Comprobando que non hai duplicados en %s"
+
+msgid "Field \"%s\" is not a valid ip value"
+msgstr "O campo \"%s\" non é un enderezo IP válido."
+
+msgid "Moving the other sort values to keep a free gap for the current sort"
+msgstr "Movendo os outros valores de orde para facer sitio para este"
+
+msgid "Field \"%s\" is not a valid url."
+msgstr "O campo \"%s\" non é un enderezo web válido."
+
+msgid "Service url for field \"%s\" is not available"
+msgstr "Non é posíbel empregar ese servizo web no campo \"%s\" "
+
+msgid "Unrelating before the table %s with %s"
+msgstr "Desvencellando en primeiro lugar a táboa %s da táboa %s"
+
+msgid "Relating the table %s with %s"
+msgstr "Vencellando a táboa %s coa táboa %s"
+
+msgid "Unrelating the table %s with %s"
+msgstr "Desvencellando a táboa %s da táboa %s"
+
+msgid "For security, conditions param is needed to relate function. If you want relate all rows, use conditions = \"all\""
+msgstr "Por razóns de seguridade, necesitas indicar un parámetro para a función vencellar. Se queres vencellar todas as táboas de golpe, emprega \"all\" como parámetro."
+
+msgid "For security, conditions param is needed to unrelate function. If you want unrelate all rows, use conditions = \"all\""
+msgstr "Por razóns de seguridade, necesitas indicar un parámetro para a función desvencellar. Se queres desvencellar todas as táboas de golpe, emprega \"all\" como parámetro."
+
+msgid "Checking if the tables %s and %s are related"
+msgstr "Revisando se as táboas %s e %s están relacionadas"
+
+msgid "Relating the tables %s and %s"
+msgstr "Vencellando as táboas %s e %s"
+
+msgid "Unrelating the tables %s and %s"
+msgstr "Desvencellando as táboas %s e %s"
+
+msgid "Unrelating the tables %s and %s in reverse mode"
+msgstr "Desvencellando as táboas %s e %s en modo inverso"
+
+msgid "The folder \"%s\" just exists as a file"
+msgstr "O cartafol \"%s\" existe unicamente como ficheiro"
+
+msgid "The file %s couldn't be renamed to %s"
+msgstr "Este ficheiro %s non pode chamarse agora %s"
+
+msgid "No valid operation (%s) for image transform. All operation string is %s"
+msgstr "Fíxose algo que non se debía (%s) ao tentar modificar a imaxe. A cadea da operación é %s."
+
+msgid "Redirect"
+msgstr "redirixir"
+
+msgid "now"
+msgstr "agora"
+
+msgid "and"
+msgstr "e"
+
+msgid "The file %s does not exist."
+msgstr "Non hai ningún ficheiro chamado %s"
+
+msgid "The file %s is not a PO file."
+msgstr "Ten que ser un ficheiro .po, e este non o é"
+
+msgid "meta:"
+msgstr "meta:"
+
+msgid "This user isn't logged from Facebook"
+msgstr "Este usuario non emprega Facebook como forma de acceso"
+
+msgid "Error_saving_data"
+msgstr "Produciuse un erro ao gardar eses datos. Por favor, inténtao de novo."
+
+msgid "User not exists"
+msgstr "Non nos consta que haxa ninguén rexistrado con ese nome. Por favor, revisa os datos que escribiches."
+
+msgid "The user or password is not correct!"
+msgstr "Ou o usuario ou o contrasinal non están ben. Por favor, revisa os datos que escribiches."
+
+msgid "You haven't filled all the form fields"
+msgstr "Non cubriches todos os campos do formulario"
+
+msgid "Don't exists an user with this user and password"
+msgstr "Non nos consta que haxa ninguén por ese nome e este contrasinal. Por favor, revisa os datos que empregaches."
+
+msgid "This user is not active"
+msgstr "Este usuario non foi activado"
+
+msgid "No data are received"
+msgstr "Non nos chegaron os datos. Perdéronse polo camiño. Podes tentalo de novo, por favor?"
+
+msgid "Sorry but there is already someone registered with that %s"
+msgstr "Sentímolo moito, pero xa hai alguén que empregou o mesmo %s"
+
+msgid "Password and repeat password are differents"
+msgstr "O contrasinal e a súa repetición non coinciden"
+
+msgid "Password length must be %s characters at least"
+msgstr "O contrasinal ten que ter cando menos %s caracteres"
+
+msgid "Error saving data, please check the input form values."
+msgstr "Produciuse un erro ao gardar os datos. Por favor, revisa os datos que escribiches no formulario."
+
+msgid "You need to fill the new password field."
+msgstr "Tes que cubrir o campo de novo contrasinal"
+
+msgid "Password and password repeat don't match."
+msgstr "O contrasinal e a súa repetición non coinciden"
+
+msgid "Ups... an error has occurred"
+msgstr "Santos morcegos, produciuse un erro"
+
+msgid " We are gathering all the data about this error to try to sort it out ASAP."
+msgstr "Estamos xuntando toda a información para amañar este problema o máis rápido que poidamos."

@@ -1,0 +1,54 @@
+@import "variables.css";
+@import "../../../common/templates/css/styles.css";
+@import "../../../common/templates/css/jquery-ui/jquery.ui.theme.css";
+
+/* Sections: search */
+
+#search p {
+	font-size: 0.8em;
+	margin-top: 5px;
+	color: $black-60;
+}
+#search p a {
+	color: $color;
+}
+#search p a:hover {
+	text-decoration: none;
+}
+
+
+/*__________________________________________ Basic styles for IFRAME
+*/
+#iframe #message {
+	box-shadow: none;
+	border-radius: 0 0 8px 8px;
+}
+
+#iframe section.main {
+	padding-bottom: 30px;
+
+}
+
+#iframe section.main > header {
+	box-orient: vertical;
+	box-align: start;
+
+}
+
+#iframe section.main > header > * {
+	margin-left: 0;
+	margin-bottom: 5px;
+}
+
+/*__________________________________________ Colorbox
+*/
+#cboxTitle {
+	font-size: 0.8em;
+}
+#cboxTitle a {
+	color: $color;
+}
+#cboxTitle a:hover {
+	color: $black;
+	text-decoration: none;
+}

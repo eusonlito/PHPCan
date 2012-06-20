@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Mon, 09 Apr 12 09:37:48 +0200"
+"PO-Revision-Date: Mon, 09 Apr 12 09:42:46 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "There were errors updating database"
+msgstr "Córcholis, se han producido errores al actualizar la base de datos"
+
+msgid "The database was updated successfully"
+msgstr "La base de datos ha quedado bien actualizada"
+
+msgid "Some required fields are empty"
+msgstr "Hay algunos campos vacíos y no pueden estar así"
+
+msgid "Current a target field are equal."
+msgstr ""
+
+msgid "Table %s seems doesn't exists"
+msgstr "No nos consta que haya ninguna tabla %s"
+
+msgid "\"%s\" update can not be applied: %s"
+msgstr "La actualización de \"%s\" no se puede hacer: %s"
+
+msgid "There are errors updating database"
+msgstr "Córcholis, se han producido errores al actualizar la base de datos"
+
+msgid "Rename"
+msgstr "Renombrar"
+
+msgid "Varchar"
+msgstr ""
+
+msgid "Text"
+msgstr "Texto"
+
+msgid "Integer"
+msgstr ""
+
+msgid "Float"
+msgstr "Coma flotante"
+
+msgid "Boolean"
+msgstr "Booleano"
+
+msgid "Database Updater"
+msgstr "Actualizador de la base de datos"
+
+msgid "Check changes"
+msgstr "Control de cambios"
+
+msgid "Rename fields"
+msgstr "Renombrar los campos"
+
+msgid "Select"
+msgstr "Seleccionar"
+
+msgid "Queries"
+msgstr "Consultas"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "This query was an error"
+msgstr "Córcholis, se ha producido un error al hacer esta consulta"
+
+msgid "This query was executed succesfully"
+msgstr "La consulta se ha hecho correctamente"
+
+msgid "This query was not executed yet"
+msgstr "La consulta no se ha hecho todavía"
+
+msgid "Database is updated"
+msgstr "La base de datos está actualizada"
+
+msgid "Table"
+msgstr "Tabla"
+
+msgid "Current field"
+msgstr "Campo actual"
+
+msgid "New field"
+msgstr "Nuevo campo"
+
+msgid "New format"
+msgstr "Nuevo formato"
+
+msgid "Rows"
+msgstr "Filas"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Remove"
+msgstr "Borrar"
+
+msgid "Fields action was executed successfully"
+msgstr "Lo que les has hecho a estos campos ha quedado bien hecho"

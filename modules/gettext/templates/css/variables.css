@@ -1,0 +1,22 @@
+$variables {
+	typography: Arimo, helvetica, arial, serif;
+	black: #000;
+	black-80: #333;
+	black-60: #666;
+	black-40: #999;
+	black-20: #CCC;
+	black-10: #E5E5E5;
+	black-7: #EDEDED;
+	white: #FFF;
+
+	color-dark: #5E9C2C;
+	color: #6EBE2E;
+	color-30: #C9E0B7;
+
+	error: #C33;
+	error-bg: #F5E8B5;
+	highlight: #915608;
+	highlight-bg: #F8DA4E;
+	success: #363;
+	success-bg: #B8E7B8;
+}

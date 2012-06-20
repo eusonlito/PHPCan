@@ -1,0 +1,41 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Mon, 09 Apr 12 08:51:05 +0200"
+"PO-Revision-Date: Mon, 09 Apr 12 08:52:33 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "Cache cleared successfully"
+msgstr "La caché ha quedado ahora limpia como una patena."
+
+msgid "Some cache files or folders can not be cleared. Permissions problems into cache folder?"
+msgstr "No hemos podido limpiar algunos archivos o carpetas de la caché. ‚Será que tienes algún problema con los permisos de acceso?"
+
+msgid "Cache Manager"
+msgstr "Gestor de la caché"
+
+msgid "APC"
+msgstr "APC"
+
+msgid "Memcache"
+msgstr "Memcache"
+
+msgid "Files"
+msgstr "Archivos"
+
+msgid "Folder"
+msgstr "Carpeta"
+
+msgid "Size"
+msgstr "Tamaño"
+
+msgid "Clear"
+msgstr "Limpiar"
+
+msgid "Cache folder is empty"
+msgstr "La carpeta de caché está vacía"

@@ -1,0 +1,62 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"Report-Msgid-Bugs-To: "
+"POT-Creation-Date: Tue, 17 Apr 12 12:22:28 +0200"
+"PO-Revision-Date: Tue, 17 Apr 12 12:22:28 +0200"
+"Last-Translator: admin"
+"Language-Team: "
+"Content-Type: "
+"Content-Transfer-Encoding: "
+"Plural-Forms: "
+
+msgid "Welcome, %s!"
+msgstr "Welcome, %s!"
+
+msgid "phpCan is released by A navalla suíza"
+msgstr "phpCan by A navalla suíza"
+
+msgid "This module is released by A navalla suíza"
+msgstr "This module has been released by A navalla suíza"
+
+msgid "Total execution time: %ss"
+msgstr "Total execution time: %ss"
+
+msgid "Sorry but you need a modern web browser to access to this site (latest version of chrome, firefox or safari)"
+msgstr "Sorry, you need a modern web browser to access this website (for instance, more recent versions of Chrome, Firefox or Safari)"
+
+msgid "Hi, %s"
+msgstr "Hi, %s"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Go to web"
+msgstr "Go to web"
+
+msgid "%s results have been found"
+msgstr "%s results have been found"
+
+msgid "First"
+msgstr "First"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Last"
+msgstr "Last"
+
+msgid "Please, login to enter in the Admin area:"
+msgstr "Please, login to enter Admin area:"
+
+msgid "User"
+msgstr "User"
+
+msgid "Password"
+msgstr "Password"
+
+msgid "Login"
+msgstr "Login"
