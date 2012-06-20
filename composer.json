@@ -9,13 +9,13 @@
     "authors": [
         {
             "name": "A Navalla Suíza",
-            "email": "equipo@anavallasuiza.com",
+            "email": "idc@anavallasuiza.com",
             "homepage": "http://anavallasuiza.com",
             "role": "Developer"
         }
     ],
     "support": {
-        "email": "equipo@anavallasuiza.com",
+        "email": "idc@anavallasuiza.com",
         "issues": "https://github.com/eusonlito/PHPCan/issues"
     },
     "require": {
