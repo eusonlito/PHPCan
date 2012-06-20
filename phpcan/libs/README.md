@@ -20,6 +20,6 @@ All dependences will be installed.
 
 Also, you can install it manually using:
 
-  cd /var/www/phpcan/
+    cd /var/www/phpcan/
 
-  php composer.phar require (ANS/Cache | stylecow/stylecow | imagecow/imagecow)
+    php composer.phar require (ANS/Cache | stylecow/stylecow | imagecow/imagecow)
