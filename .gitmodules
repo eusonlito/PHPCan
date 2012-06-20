@@ -1,0 +1,9 @@
+[submodule "phpcan/libs/Imagecow"]
+	path = phpcan/libs/Imagecow
+	url = https://github.com/oscarotero/imageCow.git
+[submodule "phpcan/libs/Cache"]
+	path = phpcan/libs/Cache
+	url = https://github.com/eusonlito/Cache.git
+[submodule "phpcan/libs/Stylecow"]
+	path = phpcan/libs/Stylecow
+	url = https://github.com/oscarotero/stylecow.git
