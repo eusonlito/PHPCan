@@ -1,5 +1,5 @@
 {
-	"name": "ANS/PHPCan",
+	"name": "ans/phpcan",
 	"type": "framework",
 	"description": "PHP framework",
 	"version": "1.2",
@@ -20,7 +20,7 @@
 	},
 	"require": {
 		"php": ">=5.3.3",
-		"ANS/Cache": "*",
+		"ans/cache": "*",
 		"stylecow/stylecow": "*",
 		"imagecow/imagecow": "*"
 	},
