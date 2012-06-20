@@ -9,37 +9,6 @@
 
 defined('ANS') or die();
 
-function autoload ($class)
-{
-    $class = ltrim($class, '\\');
-    $file  = '';
-    $namespace = '';
-
-    if ($lastNsPos = strripos($class, '\\')) {
-        $namespace = substr($class, 0, $lastNsPos);
-        $class = substr($class, $lastNsPos + 1);
-        $file  = str_replace('\\', '/', $namespace).'/';
-    }
-
-    $file .= $class.'.php';
-
-    if (is_file(LIBS_PATH.$file)) {
-        require (LIBS_PATH.$file);
-    } elseif (MODULE_NAME && is_file(MODULE_PATH.'libs/'.$file)) {
-        require (MODULE_PATH.'libs/'.$file);
-    } elseif (is_file(SCENE_PATH.'libs/'.$file)) {
-        require (SCENE_PATH.'libs/'.$file);
-    } else {
-        $libs = LIBS_PATH.', '.SCENE_PATH.'libs/'.(MODULE_NAME ? (', '.MODULE_PATH.'libs/') : '');
-
-        echo '<pre>';
-
-        throw new Exception(__('File %s can not be loaded from libs folders (%s)', $file, $libs));
-    }
-}
-
-spl_autoload_register('autoload');
-
 /*
  * function __ ($text, [$args = null], [$null = false])
  *

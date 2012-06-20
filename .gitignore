@@ -1,3 +1,8 @@
+.gitignore
+
+phpcan/libs/composer
 phpcan/libs/Cache
 phpcan/libs/Imagecow
 phpcan/libs/Stylecow
+
+web/config/default

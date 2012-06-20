@@ -33,10 +33,16 @@ if (str_replace(BASE_WWW, '', getenv('REQUEST_URI')) && is_dir(DOCUMENT_ROOT.get
     unset($indexes);
 }
 
+use PHPCan\Loader;
+
 define('LIBS_PATH', PHPCAN_PATH.'libs/');
 
 //Include basic functions and classes
 require (LIBS_PATH.'PHPCan/functions.php');
+require (LIBS_PATH.'PHPCan/Loader.php');
+
+Loader::register();
+Loader::registerComposer();
 
 $Debug = new \PHPCan\Debug;
 $Config = new \PHPCan\Config('Config');

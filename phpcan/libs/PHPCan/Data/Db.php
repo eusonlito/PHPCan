@@ -169,6 +169,10 @@ class Db
             return true;
         }
 
+        if (!$this->settings['database'] || !$this->settings['user']) {
+          return false;
+        }
+
         $this->setDatabase();
 
         try {
