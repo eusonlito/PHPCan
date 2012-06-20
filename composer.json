@@ -22,9 +22,23 @@
 		"php": ">=5.3.3",
 		"ans/cache": "*",
 		"stylecow/stylecow": "*",
-		"imagecow/imagecow": "*"
+		"imagecow/imagecow": "*",
+		"worxware/phpmailer": "*"
 	},
 	"config": {
 		"vendor-dir": "phpcan/libs"
-	}
+	},
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "worxware/phpmailer",
+                "version": "5.2.1",
+                "source": {
+                    "url": "http://svn.codespot.com/a/apache-extras.org/phpmailer/trunk/",
+                    "type": "svn"
+                }
+            }
+        }
+    ]
 }
