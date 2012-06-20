@@ -28,17 +28,18 @@
 	"config": {
 		"vendor-dir": "phpcan/libs"
 	},
-    "repositories": [
-        {
+    "repositories": {
+        "phpmailer-official": {
             "type": "package",
             "package": {
                 "name": "worxware/phpmailer",
                 "version": "5.2.1",
                 "source": {
-                    "url": "http://svn.codespot.com/a/apache-extras.org/phpmailer/trunk/",
-                    "type": "svn"
+                    "url": "http://svn.codespot.com/a/apache-extras.org/phpmailer/",
+                    "type": "svn",
+                    "reference": "tags/5.2.1/"
                 }
             }
         }
-    ]
+    }
 }
