@@ -1,7 +1,7 @@
 libs folder
 ===========
 
-There are some external requiriments if you want a full featured PHPCan installation.
+There are some external requirements if you want a full featured PHPCan installation.
 
 Here all current supported packages:
 
@@ -12,14 +12,14 @@ Here all current supported packages:
 
 I recommend you to install it from Composer (Download composer.phar from http://getcomposer.org/) using:
 
-    cd /var/www/phpcan/
+    cd /your/phpcan/installation/
 
-    php composer.phar update
+    php /your/path/to/composer.phar update
 
 All dependences will be installed.
 
 Also, you can install it manually using:
 
-    cd /var/www/phpcan/
+    cd /your/phpcan/installation/
 
-    php composer.phar require (ANS/Cache | stylecow/stylecow | imagecow/imagecow)
+    php /your/path/to/composer.phar require (ANS/Cache | stylecow/stylecow | imagecow/imagecow)
