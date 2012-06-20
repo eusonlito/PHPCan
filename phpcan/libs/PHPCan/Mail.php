@@ -11,7 +11,9 @@ namespace PHPCan;
 
 defined('ANS') or die();
 
-class Mail extends \PHPMailer\PHPMailer
+require (LIBS_PATH.'worxware/phpmailer/class.phpmailer.php');
+
+class Mail extends \PHPMailer
 {
     public function __construct ()
     {

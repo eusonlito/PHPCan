@@ -83,22 +83,6 @@ class Loader {
     }
 
     /**
-     * static private function filePath (string $namespace, string $class_name, [array $options])
-     *
-     * Generate the filename
-     * Returns string/boolean
-     */
-    static private function filePath ($namespace, $class_name, $libraries_path = null) {
-        $file = isset($libraries_path) ? $libraries_path : LIBS_PATH;
-
-        if (!empty($namespace)) {
-            $file .= '/'.str_replace('\\', '/', $namespace);
-        }
-
-        return preg_replace('#[\\\/]+#', '/', ($file.'/'.$class_name.'.php'));
-    }
-
-    /**
      * static public function registerClass (array $classes)
      * static public function registerClass (string $class, string $path)
      *
