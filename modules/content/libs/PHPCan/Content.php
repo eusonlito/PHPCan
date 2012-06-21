@@ -115,7 +115,7 @@ class Content
      */
     public function setConnection ($connection)
     {
-        $this->Db->setDatabase(getDatabaseObject($connection), $this->settings['languages'], $this->settings['tables'][$connection], $this->settings['relations'][$connection]);
+        $this->Db->setConnection($connection, $this->settings['languages'], $this->settings['tables'][$connection], $this->settings['relations'][$connection]);
         $this->Db->language($this->settings['language']);
 
         $this->connection = $connection;
