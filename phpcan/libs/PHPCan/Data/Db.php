@@ -2716,4 +2716,25 @@ class Db
 
         return $unique ? current($result) : $result;
     }
+
+    public function renameField ($table, $from, $to, $type) {
+        $query = $this->Database->renameField($table, $from, $to, $type);
+
+        $ok = $this->query($query);
+
+        if ($this->save_query_register) {
+            $this->query_register[] = array(
+                'operation' => 'renameFields',
+                'query' => $query
+            );
+        }
+
+        if ($ok === false) {
+            $this->error(__('There was an error in the rename operation'));
+
+            return false;
+        }
+
+        return true;
+    }
 }

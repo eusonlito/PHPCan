@@ -36,9 +36,9 @@ foreach ($fields as $fields_index => $fields_value) {
         continue;
     }
 
-    $ok = $Db->Database->renameField($fields_value['table'], $fields_value['current'], $fields_value['target'], $fields_value['format']);
+    $ok = $Db->renameField($fields_value['table'], $fields_value['current'], $fields_value['target'], $fields_value['format']);
 
-    $last = array_values($Db->Database->queryRegister(-1, 1));
+    $last = array_values($Db->queryRegister(-1, 1));
     $executed[$fields_index]['query'] = $last[0]['query'];
 
     if (!$ok) {
