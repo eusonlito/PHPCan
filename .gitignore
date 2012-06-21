@@ -1,8 +1,11 @@
 .gitignore
 
+composer.lock
+
 phpcan/libs/composer
 phpcan/libs/Cache
 phpcan/libs/Imagecow
 phpcan/libs/Stylecow
+phpcan/libs/PHPMailer
 
-web/config/default
+*/config/default

@@ -11,7 +11,13 @@ namespace PHPCan;
 
 defined('ANS') or die();
 
-require (LIBS_PATH.'worxware/phpmailer/class.phpmailer.php');
+if (is_file(LIBS_PATH.'worxware/phpmailer/class.phpmailer.php')) {
+    include (LIBS_PATH.'worxware/phpmailer/class.phpmailer.php');
+} else if (is_file(LIBS_PATH.'PHPMailer/class.phpmailer.php')) {
+    include (LIBS_PATH.'worxware/phpmailer/class.phpmailer.php');
+} else {
+    throw new \RuntimeException(__('PHPMailer base file can not be loaded'));
+}
 
 class Mail extends \PHPMailer
 {
