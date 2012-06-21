@@ -27,7 +27,7 @@ foreach ($queries as $query) {
             'key' => $key
         );
 
-        if ($Db->Database->query($query) === false) {
+        if ($Db->query($query) === false) {
             $executed[$key]['error'] = 1;
             $error = true;
         }
