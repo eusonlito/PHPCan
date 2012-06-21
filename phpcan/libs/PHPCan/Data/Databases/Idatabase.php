@@ -18,6 +18,8 @@ interface Idatabase {
     public function update ($data);
     public function delete ($data);
 
+    public function renameField ($table, $from, $to, $type);
+
     public function escapeString ($values);
 
     public function getSchemaDifferences ($tables);

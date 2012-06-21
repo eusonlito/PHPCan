@@ -3,9 +3,9 @@
 composer.lock
 
 phpcan/libs/composer
-phpcan/libs/Cache
-phpcan/libs/Imagecow
-phpcan/libs/Stylecow
-phpcan/libs/PHPMailer
+phpcan/libs/ANS
+phpcan/libs/imagecow
+phpcan/libs/stylecow
+phpcan/libs/worxware
 
 */config/default
