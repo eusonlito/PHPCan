@@ -229,19 +229,21 @@ class Db
     }
 
     /**
-    * private function error (string $message, [boolean $continue = true])
+    * private function error (string $message, [boolean $fatal = false])
     *
     * Register errors
     */
-    private function error ($message, $continue = true)
+    private function error ($message, $fatal = false)
     {
         $this->Debug->e($message);
 
         $this->Errors->set('db', $message);
 
-        if (!$continue) {
+        if ($fatal) {
             $this->Debug->fatalError($message);
         }
+
+        return false;
     }
 
     /**
@@ -260,7 +262,9 @@ class Db
             if (is_callable(array($class_name, 'extend'))) {
                 $extend = $class_name::extend($relation);
             } else {
-                $this->error(__('The relation mode "%s" does not exits', $relation['mode']), false);
+                $this->error(__('The relation mode "%s" does not exits', $relation['mode']), true);
+
+                continue;
             }
 
             foreach ($extend['relations'] as $settings) {
@@ -328,6 +332,10 @@ class Db
         if (!$simulate) {
             try {
                 $this->Result = $this->PDO->query($query);
+
+                if (!$this->Result) {
+                    $this->error(end($this->PDO->errorInfo()));
+                }
             } catch (\PDOException $e) {
                 $this->error($e->getMessage());
             }
@@ -660,9 +668,7 @@ class Db
             $info = $this->fieldInfo($table, $field);
 
             if (!$info) {
-                $this->error(__('The field "%s" doesn\'t exits', __($field)));
-
-                return false;
+                return $this->error(__('The field "%s" doesn\'t exits', __($field)));
             }
 
             foreach ($info as $field_info) {
@@ -712,9 +718,7 @@ class Db
                             continue;
                         }
 
-                        $this->error(__('Field "%s" was edited before yours changes!', __($format)));
-
-                        return false;
+                        return $this->error(__('Field "%s" was edited before yours changes!', __($format)));
                     }
                 }
             }
@@ -736,9 +740,7 @@ class Db
 
         //Check if table exists
         if (!$this->tableExists($operations['table'])) {
-            $this->error(__('The table "%s" doesn\'t exists', __($operations['table'])));
-
-            return false;
+            return $this->error(__('The table "%s" doesn\'t exists', __($operations['table'])));
         }
 
         $table = $this->getTable($operations['table']);
@@ -751,9 +753,7 @@ class Db
         //For insert and update actions
         if ($action !== 'delete') {
             if (!$operations['data']) {
-                $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
-
-                return false;
+                return $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
             }
 
             //Group data
@@ -762,9 +762,7 @@ class Db
             $operations['data'] = $table->explodeData($operations['data'], $operations['language']);
 
             if ($operations['data'] === false) {
-                $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
-
-                return false;
+                return $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
             }
 
             //Errors
@@ -814,9 +812,7 @@ class Db
             foreach ($operations[$action] as $k => &$operation) {
                 //Check if relation exists
                 if (!$table->related($operation['table'], $operation['name'], $operation['direction'])) {
-                    $this->error(__('There is not relations between the tables "%s" and "%s"', __($operations['table']), __($operation['table'])));
-
-                    return false;
+                    return $this->error(__('There is not relations between the tables "%s" and "%s"', __($operations['table']), __($operation['table'])));
                 }
 
                 $error_name = $operation['errors'] ? $operation['errors'] : $action.'_'.$operation['table'];
@@ -848,16 +844,12 @@ class Db
                 foreach ($operations[$action] as &$operation) {
                     //Check if table exists
                     if (!$this->tableExists($operation['table'])) {
-                        $this->error(__('The table "%s" doesn\'t exists', __($operation['table'])));
-
-                        return false;
+                        return $this->error(__('The table "%s" doesn\'t exists', __($operation['table'])));
                     }
 
                     //Check if relation exists
                     if (!$table->related($operation['table'], $operation['name'], $operation['direction'])) {
-                        $this->error(__('There is not relations between the tables "%s" and "%s"', __($operations['table']), __($operation['table'])));
-
-                        return false;
+                        return $this->error(__('There is not relations between the tables "%s" and "%s"', __($operations['table']), __($operation['table'])));
                     }
                 }
             }
@@ -902,9 +894,7 @@ class Db
                     break;
 
                 default:
-                    $this->error(__('The action "%s" is not valid', $action));
-
-                    return false;
+                    return $this->error(__('The action "%s" is not valid', $action));
             }
         }
 
@@ -932,14 +922,8 @@ class Db
                 }
 
                 if ($errors) {
-                    $error_name = $operation['errors'] ? $operation['errors'] : $operation['table'];
-                    $this->Errors->set($error_name, $errors, $k);
-                    $err = true;
+                    return $this->Error($errors);
                 }
-            }
-
-            if ($err) {
-                return false;
             }
 
             $ok = array();
@@ -962,10 +946,7 @@ class Db
         }
 
         if ($errors) {
-            $error_name = $operations['errors'] ? $operations['errors'] : $operations['table'];
-            $this->Errors->set($error_name, $errors);
-
-            return false;
+            return $this->Error($errors);
         }
 
         return $this->makeInsert($operations, $return_id);
@@ -994,14 +975,8 @@ class Db
                 }
 
                 if ($errors) {
-                    $error_name = $operation['errors'] ? $operation['errors'] : $operation['table'];
-                    $this->Errors->set($error_name, $errors, $k);
-                    $err = true;
+                    return $this->Error($errors);
                 }
-            }
-
-            if ($err) {
-                return false;
             }
 
             $ok = array();
@@ -1024,10 +999,7 @@ class Db
         }
 
         if ($errors) {
-            $error_name = $operations['errors'] ? $operations['errors'] : $operations['table'];
-            $this->Errors->set($error_name, $errors);
-
-            return false;
+            return $this->Error($errors);
         }
 
         return $this->makeUpdate($operations, $return_id);
@@ -1187,9 +1159,7 @@ class Db
         }
 
         if ($ok === false) {
-            $this->error(__('There was an error in the insert operation'));
-
-            return false;
+            return $this->error(__('There was an error in the insert operation'));
         }
 
         //Select ids if needle
@@ -1346,9 +1316,7 @@ class Db
         }
 
         if ($ok === false) {
-            $this->error(__('There was an error in the update operation'));
-
-            return false;
+            return $this->error(__('There was an error in the update operation'));
         }
 
         if ($event_table_after) {
@@ -1484,9 +1452,7 @@ class Db
         }
 
         if ($ok === false) {
-            $this->error(__('There was an error in the delete operation'));
-
-            return false;
+            return $this->error(__('There was an error in the delete operation'));
         }
 
         if ($event_table_after) {
@@ -1544,9 +1510,7 @@ class Db
             $table = $this->getTable($operations['tables'][0]['table']);
 
             if (!is_object($table)) {
-                $this->error(__('Table "%s" used in relation/unrelation don\'t exists', __($operations['tables'][0]['table'])));
-
-                return false;
+                return $this->error(__('Table "%s" used in relation/unrelation don\'t exists', __($operations['tables'][0]['table'])));
             }
 
             if ($relation = $table->getRelation($operations['tables'][1]['table'], $operations['name'])) {
@@ -1561,9 +1525,7 @@ class Db
             }
         }
 
-        $this->error(__('There is not relations between the tables "%s" and "%s"', __($operations['tables'][0]['table']), __($operations['tables'][1]['table'])));
-
-        return false;
+        return $this->error(__('There is not relations between the tables "%s" and "%s"', __($operations['tables'][0]['table']), __($operations['tables'][1]['table'])));
     }
 
     /**
@@ -1589,9 +1551,7 @@ class Db
             $relation = $this->tables[$operation['table']]->getRelation($table1, $operation['name'], $operation['direction']);
 
             if (!$relation) {
-                $this->error(__('There is not relations between the tables "%s" and "%s"', __($operation['table']), __($table1)));
-
-                return false;
+                return $this->error(__('There is not relations between the tables "%s" and "%s"', __($operation['table']), __($table1)));
             }
 
             $this->mergeConditions($operation);
@@ -1658,9 +1618,7 @@ class Db
         $table = $this->tableArray($operations['table']);
 
         if (!$table || !$this->tableExists($table['realname'])) {
-            $this->error(__('There is not table to select'));
-
-            return false;
+            return $this->error(__('There is not table to select'));
         }
 
         //Make select
@@ -1722,9 +1680,7 @@ class Db
         $table = $this->tableArray($operations['table']);
 
         if (!$table || !$this->tableExists($table['realname'])) {
-            $this->error(__('There is not table to select'));
-
-            return false;
+            return $this->error(__('There is not table to select'));
         }
 
         //Make select
@@ -1929,9 +1885,7 @@ class Db
         $table = $this->tableArray($operations['table']);
 
         if (!$table || !$this->tableExists($table['realname'])) {
-            $this->error(__('There is not table to select'));
-
-            return false;
+            return $this->error(__('There is not table to select'));
         }
 
         if (is_array($operations['pagination'])) {
@@ -1981,9 +1935,7 @@ class Db
         $table_data = $this->tableArray($table);
 
         if (!$table || !$table_data || !$this->tableExists($table_data['realname'])) {
-            $this->error(__('There is not table to select'));
-
-            return false;
+            return $this->error(__('There is not table to select'));
         }
 
         //Make select
@@ -2430,9 +2382,7 @@ class Db
                 if ($used_tables_here[$current['tables']]) {
                     if ($current['field']) {
                         if (!$field = $table->selectField($current['field'], $this->language)) {
-                            $this->error(__('The field %s doesn\'t exists in the table %s', __($current['field']), __($current['realname'])));
-
-                            return false;
+                            return $this->error(__('The field %s doesn\'t exists in the table %s', __($current['field']), __($current['realname'])));
                         }
 
                         $field = $table->fieldArray($field);
@@ -2454,17 +2404,13 @@ class Db
 
                 //Check if the table exists
                 if (!$this->tableExists($current['realname'])) {
-                    $this->error(__('The table "%s" doesn\'t exists', __($current['realname'])));
-
-                    return false;
+                    return $this->error(__('The table "%s" doesn\'t exists', __($current['realname'])));
                 }
 
                 //Check if the field exists
                 if ($current['field']) {
                     if (!$field = $table->selectField($current['field'], $this->language)) {
-                        $this->error(__('The field %s doesn\'t exists in the table %s', __($current['field']), __($current['realname'])));
-
-                        return false;
+                        return $this->error(__('The field %s doesn\'t exists in the table %s', __($current['field']), __($current['realname'])));
                     }
 
                     $field = $table->fieldArray($field);
@@ -2475,9 +2421,7 @@ class Db
                 $relation = $this->tables[$previous['realname']]->getRelation($current['realname'], $current['name'], $current['direction']);
 
                 if (!$relation) {
-                    $this->error(__('There is not relations between the tables "%s" and "%s"', __($previous['realname']), __($current['realname'])));
-
-                    return false;
+                    return $this->error(__('There is not relations between the tables "%s" and "%s"', __($previous['realname']), __($current['realname'])));
                 }
 
                 //Execute and merge results
@@ -2596,6 +2540,7 @@ class Db
 
             if (!$table) {
                 $this->error(__('The table %s hasn\'t been selected so you can\'t group by it', __($table_path)));
+                continue;
             }
 
             $return[] = $table.'.'.$field['realname'];
@@ -2633,9 +2578,7 @@ class Db
                 break;
 
             default:
-                $this->error(__('The exit format %s is not valid', $fn));
-
-                return false;
+                return $this->error(__('The exit format %s is not valid', $fn));
         }
 
         $unique = false;
@@ -2741,9 +2684,7 @@ class Db
         }
 
         if ($ok === false) {
-            $this->error(__('There was an error in the rename operation'));
-
-            return false;
+            return $this->error(__('There was an error in the rename operation'));
         }
 
         return true;
