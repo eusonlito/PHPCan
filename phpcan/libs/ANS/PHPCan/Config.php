@@ -40,7 +40,7 @@ class Config implements \ArrayAccess, \Iterator, \Countable
         $settings = $this->cache['types']['config'];
 
         if ($settings['expire'] && $settings['interface']) {
-            $this->Cache = new \Cache\Cache($settings);
+            $this->Cache = new \ANS\Cache\Cache($settings);
         } else {
             $this->Cache = false;
         }
