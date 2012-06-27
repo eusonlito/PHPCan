@@ -19,7 +19,7 @@ class Db
     private $Cache;
     private $connection;
     private $query_register;
-    private $save_query_register;
+    private $settings;
     private $drivers = array(
         '4d', 'cubrid', 'dblib', 'firebird', 'ibm', 'informix', 'mssql',
         'mysql', 'oci', 'odbc', 'pgsql', 'sqlsrv', 'sysbase', 'sqlite'
@@ -43,8 +43,6 @@ class Db
         $this->Debug = $Debug;
         $this->Errors = $Errors;
         $this->Events = $Events;
-
-        $this->save_query_register = $Config->db['save_query_register'];
 
         if ($autoglobal) {
             $Config->config['autoglobal'][] = $autoglobal;
@@ -137,8 +135,8 @@ class Db
 
         $this->settings = $Config->db[$this->connection];
 
-        if (!in_array($this->settings['type'], $this->drivers)) {
-            throw new \InvalidArgumentException(__('Sorry but %s databases are not supported', $this->settings['type']));
+        if (!in_array($this->settings['driver'], $this->drivers)) {
+            throw new \InvalidArgumentException(__('Sorry but %s databases are not supported', $this->settings['driver']));
         }
 
         return $this->connection;
@@ -209,12 +207,12 @@ class Db
     {
         $this->Database = false;
 
-        $class = '\\PHPCan\\Data\\Databases\\'.ucfirst($this->settings['type']);
+        $class = '\\PHPCan\\Data\\Databases\\'.ucfirst($this->settings['driver']);
 
         if (class_exists($class)) {
             $this->Database = new $class($this);
         } else {
-            throw new \InvalidArgumentException(__('Sorry but don\'t exists any interface with name %s', $this->settings['type']));
+            throw new \InvalidArgumentException(__('Sorry but don\'t exists any driver with name %s', $this->settings['driver']));
         }
 
         return $this->Database ? true : false;
@@ -1176,7 +1174,7 @@ class Db
 
         $ok = $this->query($query);
 
-        if ($this->save_query_register) {
+        if ($this->settings['save_query_register']) {
             $this->query_register[] = array(
                 'operation' => 'insert',
                 'operations' => $operations,
@@ -1331,16 +1329,17 @@ class Db
         //Ungroup data
         $operations['data'] = current($table->implodeData($new_values));
 
-        if ($this->save_query_register) {
-            $this->query_register[] = array(
-                'operation' => 'update',
-                'query' => $operations
-            );
-        }
-
         $query = $this->Database->update($operations);
 
         $ok = $this->query($query);
+
+        if ($this->settings['save_query_register']) {
+            $this->query_register[] = array(
+                'operation' => 'update',
+                'operations' => $operations,
+                'query' => $query
+            );
+        }
 
         if ($ok === false) {
             $this->error(__('There was an error in the update operation'));
@@ -1472,7 +1471,7 @@ class Db
 
         $ok = $this->query($query);
 
-        if ($this->save_query_register) {
+        if ($this->settings['save_query_register']) {
             $this->query_register[] = array(
                 'operation' => 'delete',
                 'operations' => $operations,
@@ -1514,10 +1513,12 @@ class Db
                 $table = $this->getTable($operations['tables'][0]['table']);
 
                 if ($relation = $table->getRelation($operations['tables'][1]['table'], $operations['name'], $operations['tables'][1]['direction'])) {
-                    $this->query_register[] = array(
-                        'operation' => $type,
-                        'query' => $operations
-                    );
+                    if ($this->settings['save_query_register']) {
+                        $this->query_register[] = array(
+                            'type' => $type,
+                            'operations' => $operations
+                        );
+                    }
 
                     return $relation->$type($operations['tables'][0], $operations['tables'][1], $operations['options']);
                 }
@@ -1525,10 +1526,12 @@ class Db
                 $table = $this->getTable($operations['tables'][1]['table']);
 
                 if ($relation = $table->getRelation($operations['tables'][0]['table'], $operations['name'], $operations['tables'][0]['direction'])) {
-                    $this->query_register[] = array(
-                        'operation' => $type,
-                        'query' => $operations
-                    );
+                    if ($this->settings['save_query_register']) {
+                        $this->query_register[] = array(
+                            'type' => $type,
+                            'operations' => $operations
+                        );
+                    }
 
                     return $relation->$type($operations['tables'][1], $operations['tables'][0], $operations['options']);
                 }
@@ -1543,10 +1546,12 @@ class Db
             }
 
             if ($relation = $table->getRelation($operations['tables'][1]['table'], $operations['name'])) {
-                $this->query_register[] = array(
-                    'operation' => $type,
-                    'query' => $operations
-                );
+                if ($this->settings['save_query_register']) {
+                    $this->query_register[] = array(
+                        'type' => $type,
+                        'operations' => $operations
+                    );
+                }
 
                 return $relation->$type($operations['tables'][0], $operations['tables'][1], $operations['options']);
             }
@@ -1588,12 +1593,13 @@ class Db
             $this->mergeConditions($operation);
 
             if ($relation->$type($operation, $table1_operations, $operation['options']) === false) {
-                $this->query_register[] = array(
-                    'operation' => $type,
-                    'query' => array(
-                        'tables' => array($operation, $table1_operations),
-                    )
-                );
+                if ($this->settings['save_query_register']) {
+                    $this->query_register[] = array(
+                        'type' => $type,
+                        'operation' => $operation,
+                        'tables' => array($operation, $table1_operations)
+                    );
+                }
 
                 return false;
             };
@@ -1977,22 +1983,23 @@ class Db
         }
 
         //Make select
-        $query = $this->processQuery($data, $prev_table);
+        $data = $this->processQuery($data, $prev_table);
 
-        if ($query === false) {
-            return false;
+        if (!$data) {
+            return $data;
         }
 
-        if (!$query) {
-            return array();
+        $query = $this->Database->select($data);
+
+        $tmp_result = $this->queryResult($query);
+
+        if ($this->settings['save_query_register']) {
+            $this->query_register[] = array(
+                'operation' => 'select',
+                'operations' => $operations,
+                'query' => $query
+            );
         }
-
-        $this->query_register[] = array(
-            'operation' => 'select',
-            'query' => $query
-        );
-
-        $tmp_result = $this->queryResult($this->Database->select($query));
 
         if ($tmp_result === false) {
             return array();
@@ -2027,7 +2034,7 @@ class Db
             }
 
             if ($exit_format && $result) {
-                $result = $this->transformValues($exit_format, $query, $result);
+                $result = $this->transformValues($exit_format, $data, $result);
             }
         }
 
@@ -2722,7 +2729,7 @@ class Db
 
         $ok = $this->query($query);
 
-        if ($this->save_query_register) {
+        if ($this->settings['save_query_register']) {
             $this->query_register[] = array(
                 'operation' => 'renameFields',
                 'query' => $query

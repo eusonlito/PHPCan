@@ -7,5 +7,6 @@ phpcan/libs/ANS
 phpcan/libs/imagecow
 phpcan/libs/stylecow
 phpcan/libs/worxware
+phpcan/libs/Respect
 
 */config/default

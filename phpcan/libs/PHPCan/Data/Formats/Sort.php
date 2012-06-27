@@ -67,7 +67,7 @@ class Sort extends Formats implements Iformats
             $query['conditions']["$field >"] = $old_value;
         }
 
-        $Db->Database->update($query);
+        $Db->query($Db->Database->update($query));
 
         return true;
     }

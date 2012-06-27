@@ -66,6 +66,18 @@ abstract class Formats
     }
 
     /**
+     * public function bindEvent (string/array $event_names)
+     *
+     * return boolean
+     */
+    public function unbindEvent ($event_names)
+    {
+        global $Events;
+
+        $Events->unbind('formats.'.$this->table.'.'.$this->name);
+    }
+
+    /**
      * public function getField ([string $subformat], [string $language])
      *
      * return string

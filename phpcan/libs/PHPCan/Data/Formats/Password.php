@@ -71,7 +71,7 @@ class Password extends Formats implements Iformats
             'limit' => 1
         );
 
-        $Db->Database->update($query, false);
+        $Db->query($Db->Database->update($query));
 
         $this->password = '';
 

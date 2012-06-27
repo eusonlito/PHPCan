@@ -94,7 +94,7 @@ class Events
      */
     public function unbind ($element, $events = false)
     {
-        if (!$elements) {
+        if (!$element) {
             return false;
         }
 

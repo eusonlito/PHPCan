@@ -11,7 +11,7 @@ defined('ANS') or die();
 
 $config['db'] = array(
     'default' => array(
-        'type' => 'mysql',
+        'driver' => 'mysql',
         'host' => 'localhost',
         'database' => '',
         'user' => '',
