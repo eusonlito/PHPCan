@@ -25,7 +25,7 @@ $Config->templates = $Vars->getRouteConfig('templates', array('css', 'js'));
 $Config->data = $Vars->getRouteConfig('data');
 
 $Db = new \ANS\PHPCan\Data\Db('Db');
-$Db->setConnection();
+$Db->setConnection(getDatabaseConnection());
 $Db->language($Vars->getLanguage());
 
 // Set debug settings

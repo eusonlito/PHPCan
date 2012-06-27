@@ -423,11 +423,11 @@ function includeFile ($_file, $_data_content = array(), $_once = false)
 }
 
 /**
- * function getDatabaseObject ([string $connection])
+ * function getDatabaseConnection ([string $connection])
  *
  * return false/object
  */
-function getDatabaseObject ($connection = null)
+function getDatabaseConnection ($connection = null)
 {
     global $Config;
 
@@ -436,23 +436,14 @@ function getDatabaseObject ($connection = null)
     }
 
     if (is_null($connection)) {
-        foreach ($Config->db as $conn => $settings) {
+        foreach ($Config->db as $connection => $settings) {
             if ($settings['default']) {
-                $connection = $conn;
-                break;
+                return $connection;
             }
         }
     }
 
-    if (!($settings = $Config->db[$connection])) {
-        return false;
-    }
-
-    if ($settings['type'] === 'mysql') {
-        return new \ANS\PHPCan\Data\Databases\Mysql($connection);
-    }
-
-    return false;
+    return $Config->db[$connection] ? $connection : false;
 }
 
 /**

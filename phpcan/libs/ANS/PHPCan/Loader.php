@@ -66,7 +66,7 @@ class Loader {
         } else {
             foreach (self::$namespaces as $ns => $path) {
                 if (strpos($namespace, $ns) === 0) {
-                    $namespace_file = preg_replace('#[\\\/]+#', '/', $path.preg_replace('#^'.$ns.'#', '', $namespace).'/').basename($file);
+                    $namespace_file = preg_replace('#[\\\/]+#', '/', $path.preg_replace('#^'.preg_quote($ns).'#', '', $namespace).'/').basename($file);
 
                     if (is_file($namespace_file)) {
                         return require ($namespace_file);
@@ -137,7 +137,7 @@ class Loader {
 
         if (is_file($file)) {
             foreach (include($file) as $namespace => $path) {
-                self::registerNamespace($namespace, $path.$namespace.'/');
+                self::registerNamespace($namespace, $path.'/'.$namespace.'/');
             }
         }
     }

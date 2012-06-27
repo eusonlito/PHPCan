@@ -14,7 +14,7 @@ $config['cache'] = array(
         'api' => array(
             'expire' => 0, // 360
             'interface' => 'files',
-            'path' => filePath('phpcan/cache|api'),
+            'folder' => filePath('phpcan/cache|api'),
             'compress' => true
         ),
         'config' => array(
@@ -28,7 +28,7 @@ $config['cache'] = array(
         'css' => array(
             'expire' => 0, // 3600 * 24 * 30
             'interface' => 'files',
-            'path' => filePath('phpcan/cache|css'),
+            'folder' => filePath('phpcan/cache|css'),
             'compress' => true,
             'pack' => true
         ),
@@ -43,12 +43,12 @@ $config['cache'] = array(
         'images' => array(
             'expire' => 3600 * 24 * 30,
             'interface' => 'files',
-            'path' => filePath('phpcan/cache|images')
+            'folder' => filePath('phpcan/cache|images')
         ),
         'js' => array(
             'expire' => 0, // 3600 * 24 * 30
             'interface' => 'files',
-            'path' => filePath('phpcan/cache|js'),
+            'folder' => filePath('phpcan/cache|js'),
             'compress' => true,
             'pack' => true
         ),
