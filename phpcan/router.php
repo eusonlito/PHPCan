@@ -33,22 +33,22 @@ if (str_replace(BASE_WWW, '', getenv('REQUEST_URI')) && is_dir(DOCUMENT_ROOT.get
     unset($indexes);
 }
 
-use PHPCan\Loader;
+use ANS\PHPCan\Loader;
 
 define('LIBS_PATH', PHPCAN_PATH.'libs/');
 
 //Include basic functions and classes
-require (LIBS_PATH.'PHPCan/functions.php');
-require (LIBS_PATH.'PHPCan/Loader.php');
+require (LIBS_PATH.'ANS/PHPCan/functions.php');
+require (LIBS_PATH.'ANS/PHPCan/Loader.php');
 
 Loader::register();
 Loader::registerComposer();
 
-$Debug = new \PHPCan\Debug;
-$Config = new \PHPCan\Config('Config');
-$Vars = new \PHPCan\Vars('Vars');
-$Events = new \PHPCan\Events('Events');
-$Errors = new \PHPCan\Data\Errors('Errors');
+$Debug = new \ANS\PHPCan\Debug;
+$Config = new \ANS\PHPCan\Config('Config');
+$Vars = new \ANS\PHPCan\Vars('Vars');
+$Events = new \ANS\PHPCan\Events('Events');
+$Errors = new \ANS\PHPCan\Data\Errors('Errors');
 
 //Load basic configuration
 $Config->load(array('paths.php', 'scenes.php'), PHPCAN_PATH.'config/');

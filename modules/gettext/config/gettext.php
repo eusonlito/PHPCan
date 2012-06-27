@@ -26,7 +26,7 @@ $config['gettext_builders'] = array(
     ),
     'phpcan' => array(
         'description' => __('phpCan errors'),
-        'input' => 'phpcan/libs|PHPCan/',
+        'input' => 'phpcan/libs|ANS/PHPCan/',
         'output' => 'phpcan/languages|',
         'languages' => array('en', 'gl', 'es')
     )

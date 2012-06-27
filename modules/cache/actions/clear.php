@@ -5,7 +5,7 @@ if (!$Vars->var['selected'] || !is_array($Vars->var['selected'])) {
     return false;
 }
 
-$Files = new \PHPCan\Files\File('File');
+$Files = new \ANS\PHPCan\Files\File('File');
 
 $ok = 0;
 $folders = array();

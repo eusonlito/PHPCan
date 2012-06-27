@@ -27,12 +27,12 @@ if (!$Vars->get('id_language') || !$Data->gettext['languages'] || !in_array($Var
 
 $Data->data['gettext']['language'] = $Vars->get('id_language');
 
-$Gettext_builder = new \PHPCan\I18n\Gettext_builder;
+$Gettext_builder = new \ANS\PHPCan\I18n\Gettext_builder;
 
 $sources = (array) $sources;
 $sources[] = $Data->gettext['output'].$Data->gettext['language'].'/'.$Data->gettext['id'].'.po';
 
-$File = new \PHPCan\Files\File;
+$File = new \ANS\PHPCan\Files\File;
 
 foreach ($sources as $sources_value) {
     $file = filePath($sources_value);

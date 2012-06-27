@@ -10,7 +10,7 @@ foreach ((array) glob($cache_path.'*') as $folder) {
         continue;
     }
 
-    $Current = new \PHPCan\RecursiveDirectoryIterator($folder);
+    $Current = new \ANS\PHPCan\RecursiveDirectoryIterator($folder);
 
     $folder = basename($folder);
     $folders[$folder] = array();

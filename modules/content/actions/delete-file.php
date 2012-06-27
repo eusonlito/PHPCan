@@ -9,7 +9,7 @@
 
 defined('ANS') or die();
 
-$Files = new \PHPCan\Files\File;
+$Files = new \ANS\PHPCan\Files\File;
 
 $file = filePath('scene/uploads|'.$Vars->get('file'));
 

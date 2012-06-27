@@ -11,7 +11,7 @@ defined('ANS') or die();
 
 $translation = $Vars->get('translate');
 
-$Gettext_builder = new \PHPCan\I18n\Gettext_builder;
+$Gettext_builder = new \ANS\PHPCan\I18n\Gettext_builder;
 
 $translation_config = $Config->gettext_builders[$translation['id']];
 

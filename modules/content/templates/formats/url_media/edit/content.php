@@ -21,7 +21,7 @@ echo $Form->url(array(
 ));
 
 if ($info['data']['url']) {
-    $Html_media = new \PHPCan\Templates\Html\Media($Html);
+    $Html_media = new \ANS\PHPCan\Templates\Html\Media($Html);
 
     echo '<div class="f50 media">';
         echo $Html_media->media($info['data']);

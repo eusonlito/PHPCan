@@ -12,4 +12,4 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 
 require('phpcan/router.php');
 
-require(filePath('libs|PHPCan/Loaders/file.php'));
+require(filePath('libs|ANS/PHPCan/Loaders/file.php'));

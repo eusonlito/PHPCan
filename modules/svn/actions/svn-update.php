@@ -9,7 +9,7 @@
 
 defined('ANS') or die();
 
-$Shell = new \PHPCan\Shell;
+$Shell = new \ANS\PHPCan\Shell;
 
 if (!$Shell->commandExists('svn')) {
     $Vars->message('The SVN command doesn\'t exists on this system', 'error');

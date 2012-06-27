@@ -3,7 +3,8 @@
 composer.lock
 
 phpcan/libs/composer
-phpcan/libs/ANS
+phpcan/libs/ANS/Cache
+phpcan/libs/ANS/Db
 phpcan/libs/imagecow
 phpcan/libs/stylecow
 phpcan/libs/worxware

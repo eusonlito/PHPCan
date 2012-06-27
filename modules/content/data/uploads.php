@@ -9,7 +9,7 @@
 
 defined('ANS') or die();
 
-$File = new \PHPCan\Files\File;
+$File = new \ANS\PHPCan\Files\File;
 
 $Data->path = $Vars->get(':num');
 $Data->folders = array();
