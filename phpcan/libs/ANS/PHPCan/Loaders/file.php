@@ -47,7 +47,7 @@ if (($ext === 'css') || ($ext === 'js')) {
 
         header('Expires: '.gmdate('D, d M Y H:i:s', (time() + $cache).' GMT'));
 
-        $Cache = $Cache->setType($ext);
+        $Cache = new \ANS\Cache\Cache($settings);
 
         if ($Cache->exists($key)) {
             die($Cache->get($key));
