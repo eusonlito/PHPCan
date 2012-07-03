@@ -1952,7 +1952,7 @@ class Db
         if ($this->settings['save_query_register']) {
             $this->query_register[] = array(
                 'operation' => 'select',
-                'operations' => $operations,
+                'operations' => $data,
                 'query' => $query
             );
         }
@@ -2151,7 +2151,7 @@ class Db
 
         //Get fields names
         $query['fields'] = array(
-            $query['table'] => (!$query['fields'] && $query['fields_commands']) ? array() : $table->selectFields($query['fields'], $this->language)
+            $query['table'] => (!$query['fields'] && $query['fields_commands']) ? array() : $table->selectFields($query['fields'], ($query['language'] ?: $this->language))
         );
 
         //Prepare conditions
