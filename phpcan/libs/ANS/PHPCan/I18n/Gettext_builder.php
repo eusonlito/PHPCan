@@ -91,12 +91,11 @@ class Gettext_builder
         foreach ($folders as $folder) {
             $folder = filePath($folder);
 
-            if (is_file($folder)) {
+            if (is_file($folder) && in_array(strtolower(pathinfo($folder, PATHINFO_EXTENSION)), array('php', 'js'))) {
                 $entries = arrayMergeReplaceRecursive($entries, $this->extractStrings($folder));
-            } elseif (is_dir($folder)) {
+            } else if (is_dir($folder)) {
                 $entries = arrayMergeReplaceRecursive($entries, $this->scan($File->listFolder($folder, '*', -1)));
             }
-
         }
 
         return $entries;
