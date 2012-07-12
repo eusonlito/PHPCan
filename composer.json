@@ -20,9 +20,9 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "ANS/Cache": "*",
-        "stylecow/stylecow": "*",
-        "imagecow/imagecow": "*",
+        "ANS/Cache": "dev-master",
+        "stylecow/stylecow": "dev-master",
+        "imagecow/imagecow": "dev-master",
         "worxware/phpmailer": "*"
     },
     "config": {
