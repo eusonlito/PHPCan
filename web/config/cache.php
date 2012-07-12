@@ -12,13 +12,13 @@ defined('ANS') or die();
 $config['cache'] = array(
     'types' => array(
         'api' => array(
-            'expire' => 0, // 360
+            'expire' => 0, // 360,
             'interface' => 'files',
             'folder' => filePath('phpcan/cache|api'),
             'compress' => true
         ),
         'config' => array(
-            'expire' => 0, // 3600 * 24 * 30
+            'expire' => 0, // 3600 * 24 * 30,
             'interface' => 'apc'
         ),
         'db' => array(
@@ -26,18 +26,18 @@ $config['cache'] = array(
             'interface' => 'apc'
         ),
         'css' => array(
-            'expire' => 0, // 3600 * 24 * 30
+            'expire' => 0, // 3600 * 24 * 30,
             'interface' => 'files',
             'folder' => filePath('phpcan/cache|css'),
             'compress' => true,
             'pack' => true
         ),
         'data' => array(
-            'expire' => 0, // 600
+            'expire' => 0, // 600,
             'interface' => 'apc'
         ),
         'default' => array(
-            'expire' => 0, // 600
+            'expire' => 0, // 600,
             'interface' => 'apc'
         ),
         'images' => array(
@@ -46,16 +46,16 @@ $config['cache'] = array(
             'folder' => filePath('phpcan/cache|images')
         ),
         'js' => array(
-            'expire' => 0, // 3600 * 24 * 30
+            'expire' => 0, // 3600 * 24 * 30,
             'interface' => 'files',
             'folder' => filePath('phpcan/cache|js'),
             'compress' => true,
             'pack' => true
         ),
         'templates' => array(
-            'expire' => 0, // 600
+            'expire' => 0, // 600,
             'interface' => 'apc'
         )
     ),
-    'headers_no_cache' => true, // false
+    'headers_no_cache' => false
 );
