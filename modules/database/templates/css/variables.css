@@ -1,22 +1,22 @@
-$variables {
-	typography: Arimo, helvetica, arial, serif;
-	black: #000;
-	black-80: #333;
-	black-60: #666;
-	black-40: #999;
-	black-20: #CCC;
-	black-10: #E5E5E5;
-	black-7: #EDEDED;
-	white: #FFF;
+:root {
+	var-typography: Arimo, helvetica, arial, serif;
+	var-black: #000;
+	var-black-80: #333;
+	var-black-60: #666;
+	var-black-40: #999;
+	var-black-20: #CCC;
+	var-black-10: #E5E5E5;
+	var-black-7: #EDEDED;
+	var-white: #FFF;
 
-	color-dark: #C1960D;
-	color: #DCAB0F;
-	color-30: #FBEEC6;
+	var-color-dark: #C1960D;
+	var-color: #DCAB0F;
+	var-color-30: #FBEEC6;
 
-	error: #C33;
-	error-bg: #F5E8B5;
-	highlight: #915608;
-	highlight-bg: #F8DA4E;
-	success: #363;
-	success-bg: #B8E7B8;
+	var-error: #C33;
+	var-error-bg: #F5E8B5;
+	var-highlight: #915608;
+	var-highlight-bg: #F8DA4E;
+	var-success: #363;
+	var-success-bg: #B8E7B8;
 }

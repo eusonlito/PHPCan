@@ -140,6 +140,8 @@ class Config implements \ArrayAccess, \Iterator, \Countable
             $current = array();
 
             foreach ($includes as $file) {
+                $this->loaded[] = $file;
+
                 if (!is_file($file)) {
                     continue;
                 }
@@ -152,7 +154,6 @@ class Config implements \ArrayAccess, \Iterator, \Countable
                     continue;
                 }
 
-                $this->loaded[] = $file;
                 $current = arrayMergeReplaceRecursive($current, $config);
             }
         }

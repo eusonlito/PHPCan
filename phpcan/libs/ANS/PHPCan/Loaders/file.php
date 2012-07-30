@@ -23,14 +23,18 @@ if ($Vars->var['packed']) {
 } else {
     $files = $Vars->path;
 
-    $context = array_shift($files);
-    $basedir = array_shift($files);
+    if (is_file(BASE_PATH.implode('/', $files))) {
+        $files = array('/'.implode('/', $files));
+    } else {
+        $context = array_shift($files);
+        $basedir = array_shift($files);
 
-    if (strstr(getenv('REQUEST_URI'), '$') !== false) {
-        $files[0] = '$'.$files[0];
+        if (strstr(getenv('REQUEST_URI'), '$') !== false) {
+            $files[0] = '$'.$files[0];
+        }
+
+        $files = array($context.'/'.$basedir.'|'.implode('/', $files));
     }
-
-    $files = array($context.'/'.$basedir.'|'.implode('/', $files));
 }
 
 $cache = false;
@@ -68,7 +72,11 @@ foreach ($files as $files_value) {
         continue;
     }
 
-    $file = filePath($files_value);
+    if (($files_value[0] === '/') && is_file(BASE_PATH.$files_value)) {
+        $file = BASE_PATH.$files_value;
+    } else {
+        $file = filePath($files_value);
+    }
 
     if ($dynamic = (strstr($files_value, '$') !== false)) {
         $files_value = str_replace('$', '', $files_value);
@@ -126,6 +134,17 @@ foreach ($files as $files_value) {
                 echo file_get_contents($file);
             }
 
+            break;
+
+        case 'less':
+                $lc = new lessc($file);
+
+                try {
+                    header('Content-type: text/css');
+                    echo $lc->parse();
+                } catch (exception $e) {
+                    exit($e->getMessage());
+                }
             break;
 
         default:

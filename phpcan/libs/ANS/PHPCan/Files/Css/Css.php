@@ -11,8 +11,9 @@ namespace ANS\PHPCan\Files\Css;
 
 defined('ANS') or die();
 
-class Css extends \Stylecow\Stylecow {
+class Css {
     private $Debug;
+    private $css;
 
     public $settings = array();
 
@@ -35,6 +36,18 @@ class Css extends \Stylecow\Stylecow {
 
         $this->setCache();
         $this->setSettings();
+    }
+
+    public function load ($file)
+    {
+        $this->css = \Stylecow\Parser::parseFile($file);
+        return $this;
+    }
+
+    public function transform ($options)
+    {
+        $this->css->applyPlugins($options);
+        return $this;
     }
 
     private function setCache ()
@@ -104,6 +117,11 @@ class Css extends \Stylecow\Stylecow {
         if ($die) {
             die();
         }
+    }
+
+    public function toString()
+    {
+        return $this->css->toString();
     }
 
     /**

@@ -118,12 +118,14 @@ class Data
 
         if ($datas[$data]) {
             $data = filePath('data|'.$datas[$data]);
-        } elseif (isset($datas[$data])) {
+        } else if (isset($datas[$data])) {
             return $empty_data;
-        } elseif (strstr($data, '|') !== false) {
+        } else if (strstr($data, '|') !== false) {
             $data = filePath($data);
-        } elseif ($data) {
-            $data = filePath('data|'.$data);
+        } else if ($data) {
+            if (!is_file($data)) {
+                $data = filePath('data|'.$data);
+            }
         } else {
             return $empty_data;
         }
@@ -189,7 +191,9 @@ class Data
             return false;
         }
 
-        $action['file'] = strpos($action['file'], '|') === false ? filePath('actions|'.$action['file']) : filePath($action['file']);
+        if (!is_file($action['file'])) {
+            $action['file'] = strpos($action['file'], '|') === false ? filePath('actions|'.$action['file']) : filePath($action['file']);
+        }
 
         if (!is_file($action['file'])) {
             $this->Debug->error('actions', __('The file "%s" does not exists', $action['file']));

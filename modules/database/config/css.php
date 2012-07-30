@@ -13,7 +13,7 @@ $config['css'] = array(
     'default' => array(
         'plugins' => array(
             'Variables',
-            'Vendor_prefixes'
+            'VendorPrefixes'
         )
     )
 );

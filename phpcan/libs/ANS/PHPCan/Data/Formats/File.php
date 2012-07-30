@@ -45,12 +45,12 @@ class File extends Formats implements Iformats
 
         if (!is_dir($path)) {
             if (!$File->makeFolder($path)) {
-                $this->error[$subformat] = __('The folder to store the field "%s" haven\'t writing permissions', __($this->name));
+                $this->error[$subformat] = __('The folder "%s" to store the field "%s" haven\'t writing permissions', $path, __($this->name));
 
                 return false;
             }
         } elseif (!is_writable($path)) {
-            $this->error[$subformat] = __('The folder to store the field "%s" haven\'t writing permissions', __($this->name));
+            $this->error[$subformat] = __('The folder "%s" to store the field "%s" haven\'t writing permissions', $path, __($this->name));
 
             return false;
         }

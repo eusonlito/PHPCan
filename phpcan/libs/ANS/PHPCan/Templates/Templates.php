@@ -65,17 +65,22 @@ class Templates
         $templates = $Config->templates;
 
         if ($templates[$template]) {
-            if (strpos($templates[$template], '|') === false) {
-                $templates[$template] = 'templates|'.$templates[$template];
+            if (is_file($templates[$template])) {
+                $template = $templates[$template];
+            } else {
+                if (strpos($templates[$template], '|') === false) {
+                    $templates[$template] = 'templates|'.$templates[$template];
+                }
+
+                $template = filePath($templates[$template]);
+
+                $debug = true;
             }
-
-            $template = filePath($templates[$template]);
-
-            $debug = true;
         } elseif (isset($templates[$template])) {
+
             return $empty_template;
-        } elseif ($template) {
-            if ($template[0] != '/') {
+        } else if ($template) {
+            if (!is_file($template)) {
                 if (strpos($template, '|') === false) {
                     $template = 'templates|'.$template;
                 }
