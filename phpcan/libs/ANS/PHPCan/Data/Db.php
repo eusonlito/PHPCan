@@ -1164,30 +1164,13 @@ class Db
 
         //Select ids if needle
         if ($event_format_before || $event_table_before || $return_id || $operations['relate']) {
-            if ($ok === 1) {
-                $ids = array($this->PDO->lastInsertId());
-            } else {
-                $conditions = $operations['data'];
-
-                foreach ($conditions as &$row) {
-                    unset($row['id']);
-                }
-
-                $ids = $this->selectIds(array(
-                    'table' => $operations['table'],
-                    'conditions_or' => $conditions,
-                    'limit' => $num,
-                    'sort' => 'id DESC'
-                ));
-
-                $ids = array_reverse($ids);
-            }
+            $last_id = $this->PDO->lastInsertId();
         }
 
         //afterInsert
         if ($event_format_after || $event_table_after) {
             foreach ($new_values as $num_row => &$row) {
-                $row['id'][''][''] = $ids[$num_row];
+                $row['id'][''][''] = $last_id;
             }
 
             if ($event_table_after) {
@@ -1201,12 +1184,12 @@ class Db
 
         //Relate
         if ($operations['relate']) {
-            if (!$this->makeRelateUnrelateWith('relate', $operations['table'], $ids, $operations['relate'])) {
+            if (!$this->makeRelateUnrelateWith('relate', $operations['table'], $last_id, $operations['relate'])) {
                 return false;
             }
         }
 
-        return $return_id ? (count($ids) > 1 ? $ids : current($ids)) : true;
+        return $return_id ? $last_id : true;
     }
 
     /**
