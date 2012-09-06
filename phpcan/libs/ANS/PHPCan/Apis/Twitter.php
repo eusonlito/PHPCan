@@ -58,7 +58,7 @@ class Twitter extends Api
      */
     public function getHashTags ($text)
     {
-        preg_match_all('/#(\w+)/', $text, $matches);
+        preg_match_all('/#(\w+)/u', $text, $matches);
 
         return (array) $matches[1];
     }
@@ -70,7 +70,7 @@ class Twitter extends Api
      */
     public function getUsers ($text)
     {
-        preg_match_all('/@(\w+)/', $text, $matches);
+        preg_match_all('/@(\w+)/u', $text, $matches);
 
         return (array) $matches[1];
     }
@@ -97,15 +97,15 @@ class Twitter extends Api
         }
 
         if ($links) {
-            $text = preg_replace('/(http[s]?:\/\/[^\s]+)/', ' <a href="\\1">\\1</a>', $text);
+            $text = preg_replace('/(http[s]?:\/\/[^\s]+)/u', ' <a href="\\1">\\1</a>', $text);
         }
 
         if ($users) {
-            $text = preg_replace('/@(\w+)/', '<a href="http://twitter.com/\\1">@\\1</a>', $text);
+            $text = preg_replace('/@(\w+)/u', '<a href="http://twitter.com/\\1">@\\1</a>', $text);
         }
 
         if ($hashtags) {
-            $text = preg_replace('/#(\w+)/', '<a href="http://search.twitter.com/search?q=%23\\1">#\\1</a>', $text);
+            $text = preg_replace('/#(\w+)/u', '<a href="http://search.twitter.com/search?q=%23\\1">#\\1</a>', $text);
         }
 
         return $text;
