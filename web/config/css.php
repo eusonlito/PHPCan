@@ -12,14 +12,14 @@ defined('ANS') or die();
 $config['css'] = array(
     'default' => array(
         'plugins' => array(
-            'Animate',
             'Color',
             'Grid',
-            /*'Ie_filters',*/
+            'IeOpacity',
+            'Rem',
             'Matches',
-            'Nested_rules',
+            'NestedRules',
             'Variables',
-            'Vendor_prefixes'
+            'VendorPrefixes'
         )
     )
 );
