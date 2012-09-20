@@ -216,6 +216,7 @@ function referer ($default, $redirect = true, $disabled = '')
     }
 
     $referer = parse_url(getenv('HTTP_REFERER'));
+    $referer_str = $referer['path'].($referer['query'] ? ('?'.$referer['query']) : '');
     $request = getenv('REQUEST_URI');
     $url = '';
 
@@ -226,7 +227,7 @@ function referer ($default, $redirect = true, $disabled = '')
                 break;
             }
         }
-    } elseif (($referer['path'] !== $request) && (!$disabled || !strstr($referer['path'], $disabled))) {
+    } elseif (($referer_str !== $request) && (!$disabled || !strstr($referer['path'], $disabled))) {
         $url = $referer['path'].($referer['query'] ? ('?'.$referer['query']) : '');
     } else {
         foreach ($default as $default_value) {

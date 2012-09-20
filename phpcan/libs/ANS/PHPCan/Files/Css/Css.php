@@ -13,7 +13,7 @@ defined('ANS') or die();
 
 class Css {
     private $Debug;
-    private $css;
+    private $Css;
 
     public $settings = array();
 
@@ -36,18 +36,6 @@ class Css {
 
         $this->setCache();
         $this->setSettings();
-    }
-
-    public function load ($file)
-    {
-        $this->css = \Stylecow\Parser::parseFile($file);
-        return $this;
-    }
-
-    public function transform ($options)
-    {
-        $this->css->applyPlugins($options);
-        return $this;
     }
 
     private function setCache ()
@@ -86,6 +74,22 @@ class Css {
         }
     }
 
+    public function load ($file) {
+        $this->Css = \Stylecow\Parser::parseFile($file);
+
+        return $this;
+    }
+
+    public function transform ($plugins) {
+        $this->Css->applyPlugins($plugins);
+
+        return $this;
+    }
+
+    public function toString () {
+        return (string)$this->Css;
+    }
+
     /**
      * public function show ([boolean $header], [boolean $die])
      *
@@ -117,11 +121,6 @@ class Css {
         if ($die) {
             die();
         }
-    }
-
-    public function toString()
-    {
-        return $this->css->toString();
     }
 
     /**
