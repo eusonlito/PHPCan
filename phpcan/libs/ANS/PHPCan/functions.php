@@ -134,13 +134,13 @@ function path ()
     }
 
     if (isset($options['scene']) || isset($options['module'])) {
-        if (!array_key_exists('scene', $options) || !$Config->scenes[$options['scene']]) {
+        if (!isset($options['scene']) || !$Config->scenes[$options['scene']]) {
             $options['scene'] = $Vars->getScene();
         }
 
         $path = BASE_WWW.(($Config->scenes[$options['scene']]['detect'] === 'subfolder') ? $options['scene'].'/' : '');
 
-        if (array_key_exists('module', $options)) {
+        if (isset($options['module'])) {
             if ($options['module'] && $Config->scenes[$options['scene']]['modules'][$options['module']]) {
                 $path .= (($Config->scenes[$options['scene']]['modules'][$options['module']]) ? MODULE_WWW_SUBFOLDER.'/'.$options['module'].'/' : '');
             }
@@ -151,11 +151,13 @@ function path ()
         $path = $Vars->getModule() ? MODULE_WWW : SCENE_WWW;
     }
 
-    if ($Config->languages['detect'] === 'subfolder') {
-        if (!array_key_exists('language', $options)) {
-            $path .= $Vars->getLanguage().'/';
-        } elseif ($options['language']) {
-            if ($Config->languages['availables'][$options['language']]) {
+    if (($Config->languages['detect'] === 'subfolder') && is_array($Config->languages['availables'])) {
+        $languages = array_keys($Config->languages['availables'], true, true);
+
+        if (count($languages) > 1) {
+            if (!isset($options['language'])) {
+                $path .= $Vars->getLanguage().'/';
+            } elseif (isset($options['language']) && in_array($options['languages'], $languages)) {
                 $path .= $options['language'].'/';
             }
         }

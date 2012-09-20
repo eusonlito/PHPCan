@@ -148,6 +148,8 @@ class Url_media extends Url implements Iformats
             )
         ));
 
+	unset($this->settings['type']['required'], $this->settings['info']['required']);
+
         return $this->settings;
     }
 

@@ -141,7 +141,7 @@ class Api
         $cache = ($cache && $this->Cache) ? $cache : false;
 
         if ($cache && $this->Cache->exists($key)) {
-            return @new _SimpleXMLElement($this->Cache->get($key));
+            return @new \SimpleXMLElement($this->Cache->get($key));
         }
 
         $return = $this->curl($url);
@@ -158,7 +158,7 @@ class Api
             return false;
         }
 
-        return @new _SimpleXMLElement($return);
+        return @new \SimpleXMLElement($return);
     }
 
     /**

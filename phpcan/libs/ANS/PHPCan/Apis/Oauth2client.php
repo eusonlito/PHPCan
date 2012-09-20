@@ -179,7 +179,7 @@ class Oauth2client
     public function connect ($client_id, $client_secret, $client_auth = self::AUTH_TYPE_URI, $certificate_file = null)
     {
         if (!extension_loaded('curl')) {
-            throw new _Exception('The PHP exention curl must be installed to use this library.');
+            throw new \Exception('The PHP exention curl must be installed to use this library.');
         }
 
         $this->client_id = $client_id;
@@ -188,7 +188,7 @@ class Oauth2client
         $this->certificate_file = $certificate_file;
 
         if (!empty($this->certificate_file) && !is_file($this->certificate_file)) {
-            throw new _Exception('The certificate file was not found');
+            throw new \Exception('The certificate file was not found');
         }
     }
 
@@ -242,21 +242,21 @@ class Oauth2client
     public function getAccessToken ($token_endpoint, $grant_type, array $parameters)
     {
         if (!$grant_type) {
-            throw new _InvalidArgumentException('grant_type is mandatory.');
+            throw new \InvalidArgumentException('grant_type is mandatory.');
         }
 
         $grantTypeClassName = $this->convertToCamelCase($grant_type);
-        $grantTypeClass = '\\' . __NAMESPACE__ . '\\GrantType\\' . $grantTypeClassName;
+        $grantTypeClass = '\' . __NAMESPACE__ . '\GrantType\' . $grantTypeClassName;
 
         if (!class_exists($grantTypeClass)) {
-            throw new _InvalidArgumentException('unknown grant type ' . $grant_type);
+            throw new \InvalidArgumentException('unknown grant type ' . $grant_type);
         }
 
         $grantTypeObject = new $grantTypeClass();
         $grantTypeObject->validateParameters($parameters);
 
         if (!defined($grantTypeClass . '::GRANT_TYPE')) {
-            throw new _Exception('Unknown constant GRANT_TYPE for class ' . $grantTypeClassName);
+            throw new \Exception('Unknown constant GRANT_TYPE for class ' . $grantTypeClassName);
         }
 
         $parameters['grant_type'] = $grantTypeClass::GRANT_TYPE;
@@ -341,7 +341,7 @@ class Oauth2client
                 if (is_array($parameters)) {
                     $parameters[$this->access_token_param_name] = $this->access_token;
                 } else {
-                    throw new _Exception('You need to give parameters as array if you want to give the token within the URI.');
+                    throw new \Exception('You need to give parameters as array if you want to give the token within the URI.');
                 }
 
                 break;
