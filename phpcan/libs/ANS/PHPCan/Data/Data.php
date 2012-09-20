@@ -113,19 +113,18 @@ class Data
     {
         global $Config;
 
-        $empty_data = $empty_data ? filePath('phpcan/libs|ANS/PHPCan/Utils/empty_template.php') : false;
-        $datas = $Config->data;
+        $empty_data = $empty_data ? filePath('phpcan/libs|PHPCan/Utils/empty_template.php') : false;
 
-        if ($datas[$data]) {
-            $data = filePath('data|'.$datas[$data]);
-        } else if (isset($datas[$data])) {
-            return $empty_data;
-        } else if (strstr($data, '|') !== false) {
-            $data = filePath($data);
-        } else if ($data) {
-            if (!is_file($data)) {
-                $data = filePath('data|'.$data);
+        if (isset($Config->data[$data])) {
+            if ($Config->data[$data]) {
+                $data = filePath('data|'.$Config->data[$data]);
+            } else {
+                return $empty_data;
             }
+        } elseif (strstr($data, '|') !== false) {
+            $data = filePath($data);
+        } elseif ($data) {
+            $data = filePath('data|'.$data);
         } else {
             return $empty_data;
         }

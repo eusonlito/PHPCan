@@ -29,7 +29,7 @@ $Vars->loadMessage();
 
 // Functions
 
-include_once(filePath('modules_common|libs/ANS/PHPCan/functions.php'));
+include_once (filePath('modules_common|libs/ANS/PHPCan/functions.php'));
 
 // Actions, data and templates
 
