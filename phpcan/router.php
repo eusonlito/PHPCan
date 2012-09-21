@@ -81,6 +81,8 @@ $Config->load('cache.php', (MODULE_NAME ? 'module': 'scene'));
 
 $Config->setCache();
 
+$Cache = new \ANS\Cache\Cache($Config->cache['types']['default']);
+
 $Config->load(array('paths.php', 'misc.php'), 'scene');
 
 if (MODULE_NAME) {

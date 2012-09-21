@@ -113,7 +113,7 @@ class Data
     {
         global $Config;
 
-        $empty_data = $empty_data ? filePath('phpcan/libs|PHPCan/Utils/empty_template.php') : false;
+        $empty_data = $empty_data ? filePath('phpcan/libs|ANS/PHPCan/Utils/empty_template.php') : false;
 
         if (isset($Config->data[$data])) {
             if ($Config->data[$data]) {
