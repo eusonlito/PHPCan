@@ -13,6 +13,8 @@ $executed = array();
 $error = false;
 $fields = (array) $Vars->var['fields'];
 
+$Config->db[$Db->getConnection()]['query_register'] = true;
+
 foreach ($fields as $fields_index => $fields_value) {
     if (!$fields_value['table']
     || !$fields_value['current']
@@ -38,8 +40,12 @@ foreach ($fields as $fields_index => $fields_value) {
 
     $ok = $Db->renameField($fields_value['table'], $fields_value['current'], $fields_value['target'], $fields_value['format']);
 
-    $last = array_values($Db->queryRegister(-1, 1));
-    $executed[$fields_index]['query'] = $last[0]['query'];
+    $last = $Db->queryRegister(-1, 1);
+
+    if (is_array($last)) {
+        $last = array_values($last);
+        $executed[$fields_index]['query'] = $last[0]['query'];
+    }
 
     if (!$ok) {
         $last = array_values($Errors->getList(null, -1, 1));

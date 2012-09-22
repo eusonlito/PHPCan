@@ -20,7 +20,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "ANS/Cache": "dev-master",
+        "ans/cache": "dev-master",
         "stylecow/stylecow": "dev-master",
         "imagecow/imagecow": "dev-master",
         "worxware/phpmailer": "*"
