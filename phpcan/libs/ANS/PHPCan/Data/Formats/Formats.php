@@ -294,7 +294,7 @@ abstract class Formats
                         break;
 
                     case 'pattern':
-                        if (!preg_match($settings_value, $value)) {
+                        if ($settings['required'] && !preg_match($settings_value, $value)) {
                             $this->error[$subformat] = __('Field "%s" is not a valid value', __($this->name));
                             continue 2;
                         }
