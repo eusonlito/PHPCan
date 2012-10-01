@@ -24,8 +24,8 @@ class Db
         '4d', 'cubrid', 'dblib', 'firebird', 'ibm', 'informix', 'mssql',
         'mysql', 'oci', 'odbc', 'pgsql', 'sqlsrv', 'sysbase', 'sqlite'
     );
-    private $PDO;
 
+    public $PDO;
     public $tables;
     public $Database;
     public $language = '';
