@@ -157,7 +157,7 @@ function path ()
         if (count($languages) > 1) {
             if (!isset($options['language'])) {
                 $path .= $Vars->getLanguage().'/';
-            } elseif (isset($options['language']) && in_array($options['languages'], $languages)) {
+            } elseif (isset($options['language']) && in_array($options['language'], $languages)) {
                 $path .= $options['language'].'/';
             }
         }
