@@ -115,15 +115,17 @@ class Data
 
         $empty_data = $empty_data ? filePath('phpcan/libs|ANS/PHPCan/Utils/empty_template.php') : false;
 
-        if (isset($Config->data[$data])) {
+        if (!is_string($data)) {
+            return $empty_data;
+        } else if (isset($Config->data[$data])) {
             if ($Config->data[$data]) {
                 $data = filePath('data|'.$Config->data[$data]);
             } else {
                 return $empty_data;
             }
-        } elseif (strstr($data, '|') !== false) {
+        } else if (strstr($data, '|') !== false) {
             $data = filePath($data);
-        } elseif ($data) {
+        } else if ($data) {
             $data = filePath('data|'.$data);
         } else {
             return $empty_data;

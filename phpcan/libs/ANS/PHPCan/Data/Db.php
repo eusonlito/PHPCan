@@ -143,6 +143,18 @@ class Db
     }
 
     /**
+    * public function getConnection ()
+    *
+    * return current connection name
+    *
+    * return string
+    */
+    public function getConnection ()
+    {
+        return $this->connection;
+    }
+
+    /**
     * public function getAvailableDrivers ()
     *
     * return the available connection drivers
