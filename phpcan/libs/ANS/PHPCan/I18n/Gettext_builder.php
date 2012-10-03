@@ -51,30 +51,38 @@ class Gettext_builder
 
         $return['entries'] = $this->scan($folders);
 
-        if ($po_files) {
-            foreach ($po_files as $po_file) {
-                $po_file = filePath($po_file);
-
-                if (is_file($po_file)) {
-                    $po_entries = $this->parsePo($po_file);
-
-                    if ($po_entries) {
-                        foreach ($return['entries'] as $key => &$entry) {
-                            if ($po_entries['entries'][$key]) {
-                                foreach ($po_entries['entries'][$key] as $po_key => $po_entry) {
-                                    if (!$entry[$po_key]) {
-                                        $entry[$po_key] = $po_entry;
-                                    }
-                                }
-                            }
-                        }
-
-                        $return['headers'] = $po_entries['headers'];
-                    }
-                }
-            }
+        if (!$po_files) {
+            return $return;
         }
 
+        foreach ($po_files as $po_file) {
+            $po_file = filePath($po_file);
+
+            if (!is_file($po_file)) {
+                continue;
+            }
+
+            $po_entries = $this->parsePo($po_file);
+
+            if (!$po_entries) {
+                continue;
+            }
+
+            foreach ($return['entries'] as $key => &$entry) {
+                if (!$po_entries['entries'][$key]) {
+                    continue;
+                }
+
+                foreach ($po_entries['entries'][$key] as $po_key => $po_entry) {
+                    if (!$entry[$po_key]) {
+                        $entry[$po_key] = $po_entry;
+                    }
+                }
+
+                $return['headers'] = $po_entries['headers'];
+            }
+        }
+        
         return $return;
     }
 
@@ -86,12 +94,13 @@ class Gettext_builder
 
         $File = new \ANS\PHPCan\Files\File;
 
+        $finfo = finfo_open(FILEINFO_MIME);
         $entries = array();
 
         foreach ($folders as $folder) {
             $folder = filePath($folder);
 
-            if (is_file($folder) && in_array(strtolower(pathinfo($folder, PATHINFO_EXTENSION)), array('php', 'js'))) {
+            if (is_file($folder) && (substr(finfo_file($finfo, $folder), 0, 4) === 'text')) {
                 $entries = arrayMergeReplaceRecursive($entries, $this->extractStrings($folder));
             } else if (is_dir($folder)) {
                 $entries = arrayMergeReplaceRecursive($entries, $this->scan($File->listFolder($folder, '*', -1)));
