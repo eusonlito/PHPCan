@@ -34,7 +34,25 @@ class Gmaps extends Formats implements Iformats
             return false;
         }
 
-        return $this->validate($value);
+        return $this->validate($this->setDecimals($value));
+    }
+
+    public function valueDB (\ANS\PHPCan\Data\Db $Db, $value, $language = '', $id = 0)
+    {
+        return $this->setDecimals($value);
+    }
+
+    public function setDecimals ($value)
+    {
+        list($max, $dec) = explode(',', $this->settings['x']['length_max']);
+
+        $value['x'] = round($value['x'], $dec);
+
+        list($max, $dec) = explode(',', $this->settings['y']['length_max']);
+
+        $value['y'] = round($value['y'], $dec);
+
+        return $value;
     }
 
     public function settings ($settings)
@@ -43,18 +61,16 @@ class Gmaps extends Formats implements Iformats
             'x' => array(
                 'db_type' => 'decimal',
 
-                'length_max' => '17,15',
+                'length_max' => '16,13',
                 'value_max' => 180,
-                'value_min' => -180,
-                'default' => '0.000000000000000',
+                'value_min' => -180
             ),
             'y' => array(
                 'db_type' => 'decimal',
 
-                'length_max' => '17,15',
+                'length_max' => '15,13',
                 'value_max' => 90,
-                'value_min' => -90,
-                'default' => '0.000000000000000',
+                'value_min' => -90
             ),
             'z' => array(
                 'db_type' => 'tinyint',
