@@ -119,10 +119,12 @@ foreach ($files as $files_value) {
             $config = $Vars->var['config'];
             $config = $Config->css[$config] ?: current($Config->css);
 
-            if ($dynamic && !$Css->showCached($file, false, false)) {
-                echo $Css->load($file)->transform($config['plugins'])->transform(array('BaseUrl' => dirname(fileWeb($files_value)).'/'))->toString();
-            } elseif (!$dynamic) {
-                echo $Css->load($file)->toString();
+            if (!$Css->showCached($file, false, false)) {
+                if ($dynamic) {
+                    echo $Css->load($file)->transform($config['plugins'])->transform(array('BaseUrl' => dirname(fileWeb($files_value)).'/'))->toString();
+                } else {
+                    echo $Css->load($file)->transform(array('BaseUrl' => dirname(fileWeb($files_value)).'/'))->toString();
+                }
             }
 
             break;

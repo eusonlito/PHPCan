@@ -10,12 +10,12 @@ foreach ((array) glob($cache_path.'*') as $folder) {
         continue;
     }
 
-    $Current = new \ANS\PHPCan\RecursiveDirectoryIterator($folder);
+    $Current = new \RecursiveDirectoryIterator($folder);
 
     $folder = basename($folder);
     $folders[$folder] = array();
 
-    foreach (new RecursiveIteratorIterator($Current) as $Info) {
+    foreach (new \RecursiveIteratorIterator($Current) as $Info) {
         $folders[$folder]['size'] += $Info->getSize();
         ++$folders[$folder]['files'];
     }
