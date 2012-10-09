@@ -4,10 +4,8 @@ composer.lock
 
 phpcan/libs/composer
 phpcan/libs/ANS/Cache
-phpcan/libs/ANS/Db
 phpcan/libs/imagecow
 phpcan/libs/stylecow
 phpcan/libs/worxware
-phpcan/libs/Respect
 
 */config/default
