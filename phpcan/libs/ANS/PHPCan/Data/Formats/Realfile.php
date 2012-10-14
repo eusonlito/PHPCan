@@ -17,14 +17,14 @@ class Realfile extends File implements Iformats
 
     public function explodeData ($value, $subformat = '')
     {
-        return parent::explodeData($value, null);
+        return parent::explodeData($value);
     }
 
     public function check ($value)
     {
         $this->error = array();
 
-        if (!$this->checkFile($value['name'], 'location')) {
+        if (!$this->checkFile($value[''], 'location')) {
             return false;
         }
 
@@ -33,7 +33,9 @@ class Realfile extends File implements Iformats
 
     public function valueDB (\ANS\PHPCan\Data\Db $Db, $value, $language = '', $id = 0)
     {
-        $result = $this->saveFile($value['name'], $id, 'location');
+        $value = $value[''];
+
+        $result = $this->saveFile($value, $id, 'location');
 
         if (is_array($result)) {
             return array(
@@ -42,7 +44,7 @@ class Realfile extends File implements Iformats
                 'type' => '',
                 'size' => 0
             );
-        } elseif ($result === false) {
+        } else if ($result === false) {
             return false;
         }
 
@@ -63,26 +65,26 @@ class Realfile extends File implements Iformats
             $Image->save();
         }
 
-        if (is_array($value['name']) && $value['name']['name']) {
-            $finfo = array('name' => $value['name']['name']);
-        } else {
-            $finfo = array('name' => $result);
-        }
+        $finfo = array('name' => $result);
 
         $file = $settings['base_path'].$settings['uploads'].$settings['subfolder'].$result;
 
-        if ((!is_array($value['name']) || !$value['name']['size']) && is_file($file)) {
+        if (is_array($value)) {
+            if (!$value['size'] && is_file($file)) {
+                $finfo['size'] = round(filesize($file) / 1024);
+            } else if ($value['size']) {
+                $finfo['size'] = round($value['size'] / 1024);
+            } else {
+                $finfo['size'] = 0;
+            }
+        } else if (is_file($file)) {
             $finfo['size'] = round(filesize($file) / 1024);
-        } elseif ($value['name']['size']) {
-            $finfo['size'] = round($value['name']['size'] / 1024);
-        } else {
-            $finfo['size'] = 0;
         }
 
         return array(
             'name' => $finfo['name'],
             'type' => strtolower(pathinfo($finfo['name'], PATHINFO_EXTENSION)),
-            'location' => $this->settings['location']['subfolder'].$result,
+            'location' => $settings['subfolder'].$result,
             'size' => $finfo['size']
         );
     }
