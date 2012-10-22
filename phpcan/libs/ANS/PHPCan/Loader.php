@@ -73,13 +73,13 @@ class Loader {
                     }
                 }
             }
-
-            $libs = LIBS_PATH.', '.SCENE_PATH.'libs/'.(MODULE_NAME ? (', '.MODULE_PATH.'libs/') : '');
-
-            echo '<pre>';
-
-            throw new \Exception(__('File %s can not be loaded from libs folders (%s)', $file, $libs));
         }
+
+        $libs = LIBS_PATH.', '.SCENE_PATH.'libs/'.(MODULE_NAME ? (', '.MODULE_PATH.'libs/') : '');
+
+        echo '<pre>';
+
+        throw new \Exception(__('File %s can not be loaded from libs folders (%s)', $file, $libs));
     }
 
     /**
@@ -121,19 +121,21 @@ class Loader {
     }
 
     /**
-     * static public function registerComposer ()
+     * static public function registerComposer ([string $path])
      *
      * Register the classes installed by composer
      * Returns none
      */
-    static function registerComposer () {
-        $file = LIBS_PATH.'composer/autoload_classmap.php';
+    static function registerComposer ($path = '') {
+        $path = $path ?: LIBS_PATH;
+
+        $file = $path.'composer/autoload_classmap.php';
 
         if (is_file($file)) {
             self::registerClass(include($file));
         }
 
-        $file = LIBS_PATH.'composer/autoload_namespaces.php';
+        $file = $path.'composer/autoload_namespaces.php';
 
         if (is_file($file)) {
             foreach (include($file) as $namespace => $path) {
