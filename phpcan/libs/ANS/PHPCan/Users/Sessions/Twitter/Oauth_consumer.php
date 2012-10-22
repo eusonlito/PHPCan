@@ -421,10 +421,10 @@ class OAuthRequest
     $host = $parts['host'];
     $path = @$parts['path'];
 
-    $port or $port = ($scheme == 'https') ? '443' : '80';
+    $port or $port = ($scheme === 'https') ? '443' : '80';
 
-    if (($scheme == 'https' && $port != '443')
-        || ($scheme == 'http' && $port != '80')) {
+    if ((($scheme === 'https') && ($port !== '443'))
+        || (($scheme === 'http') && ($port !== '80'))) {
       $host = "$host:$port";
     }
 

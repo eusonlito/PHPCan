@@ -46,7 +46,7 @@ class File
             return false;
         }
 
-        if (substr($folder, -1) != '/') {
+        if (substr($folder, -1) !== '/') {
             $folder .= '/';
         }
 
@@ -197,7 +197,7 @@ class File
             return false;
         }
 
-        if (substr($destination, -1) != '/') {
+        if (substr($destination, -1) !== '/') {
             $pathinfo = pathinfo($destination);
 
             if (!$filename) {
@@ -255,7 +255,7 @@ class File
         $pathinfo = pathinfo($filename);
         $ext = strtolower($pathinfo['extension']);
 
-        if ($ext && $ext == $pathinfo['extension']) {
+        if ($ext && ($ext === $pathinfo['extension'])) {
             return $filename;
         }
 
@@ -346,7 +346,7 @@ class File
         finfo_close($finfo);
 
         // Sometimes some images returns wrong mimetype (like application/octet-stream)
-        if (($mime_type == 'application/octet-stream') && ($image = image_type_to_mime_type(exif_imagetype($file)))) {
+        if (($mime_type === 'application/octet-stream') && ($image = image_type_to_mime_type(exif_imagetype($file)))) {
             $mime_type = $image;
         }
 
@@ -355,7 +355,7 @@ class File
         }
 
         if ($compare) {
-            return ($compare == $mime_type) ? true : false;
+            return ($compare === $mime_type) ? true : false;
         }
 
         return $mime_type;
@@ -390,7 +390,7 @@ class File
                 continue;
             }
 
-            if (substr($file, -1) == '/') {
+            if (substr($file, -1) === '/') {
                 $name = explode('/', $file, -1);
                 $this->mergeFolders($file, $destination.end($name), $sub_options, $actions);
             }
@@ -453,7 +453,7 @@ class File
             }
         }
 
-        if (substr($file, -1) == '/') {
+        if (substr($file, -1) === '/') {
             $name = explode('/', $file, -1);
             $destination = $destination.end($name).'/';
             $type = 'folder';
@@ -474,7 +474,7 @@ class File
         if (!in_array($destination, $destination_files)) {
             if (!$options['no_make']) {
                 $actions[] = array(
-                    'action' => ($type == 'file') ? 'copy_file' : 'make_folder',
+                    'action' => ($type === 'file') ? 'copy_file' : 'make_folder',
                     'from' => $file,
                     'to' => $destination
                 );
@@ -483,7 +483,7 @@ class File
             return true;
         }
 
-        if ($options['replace'] && $type == 'file') {
+        if ($options['replace'] && ($type === 'file')) {
             $actions[] = array(
                 'action' => 'replace',
                 'from' => $file,

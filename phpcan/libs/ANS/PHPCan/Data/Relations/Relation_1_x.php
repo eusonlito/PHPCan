@@ -172,7 +172,7 @@ class Relation_1_x extends Relations implements Irelations
             return false;
         }
 
-        if ($operations_table1['conditions'] == 'all') {
+        if ($operations_table1['conditions'] === 'all') {
             $operations_table1['conditions'] = array();
         }
 

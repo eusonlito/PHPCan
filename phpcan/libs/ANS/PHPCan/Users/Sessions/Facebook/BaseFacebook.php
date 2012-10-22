@@ -727,7 +727,7 @@ abstract class Basefacebook
    */
   protected function isVideoPost($path, $method = 'GET')
   {
-    if ($method == 'POST' && preg_match("/^(\/)(.+)(\/)(videos)$/", $path)) {
+    if ($method === 'POST' && preg_match("/^(\/)(.+)(\/)(videos)$/", $path)) {
       return true;
     }
 
@@ -962,7 +962,7 @@ abstract class Basefacebook
     $name = 'api';
     if (isset($READ_ONLY_CALLS[strtolower($method)])) {
       $name = 'api_read';
-    } elseif (strtolower($method) == 'video.upload') {
+    } elseif (strtolower($method) === 'video.upload') {
       $name = 'api_video';
     }
 
@@ -1003,9 +1003,9 @@ abstract class Basefacebook
   protected function getCurrentUrl()
   {
     if (isset($_SERVER['HTTPS']) &&
-        ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+        ($_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] == 1) ||
         isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
-        $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+        $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
       $protocol = 'https://';
     } else {
       $protocol = 'http://';
@@ -1106,7 +1106,7 @@ abstract class Basefacebook
   {
     // disable error log if we are running in a CLI environment
     // @codeCoverageIgnoreStart
-    if (php_sapi_name() != 'cli') {
+    if (php_sapi_name() !== 'cli') {
       error_log($msg);
     }
     // uncomment this if you want to see the errors on the page

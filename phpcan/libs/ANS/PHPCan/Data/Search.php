@@ -93,7 +93,7 @@ class Search
             '>=' => array('>=', '{STRING}')
         );
 
-        if ($this->settings['operators'] == 'all') {
+        if ($this->settings['operators'] === 'all') {
             $this->settings['operators'] = $operators;
         } elseif (is_array($this->settings['operators'])) {
             foreach ($this->settings['operators'] as $key => $value) {

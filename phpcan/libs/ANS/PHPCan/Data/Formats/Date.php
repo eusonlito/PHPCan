@@ -54,7 +54,7 @@ class Date extends Formats implements Iformats
             return false;
         }
 
-        if (($new_value == '0000-00-00') && $this->settings['']['required']) {
+        if (($new_value === '0000-00-00') && $this->settings['']['required']) {
             $this->error[''] = __('Field "%s" can not be empty', __($this->name));
 
             return false;

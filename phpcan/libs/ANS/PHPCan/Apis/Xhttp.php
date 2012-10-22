@@ -174,7 +174,7 @@ class Xhttp extends Api
             $urlparts['pass'] = $urlparts['user'] = '';
         }
 
-        if ($requestData['method'] == 'head') {
+        if ($requestData['method'] === 'head') {
             $requestData['curl'][CURLOPT_HEADER] = true;
             $requestData['curl'][CURLOPT_NOBODY] = true;
         }
@@ -428,11 +428,11 @@ class Xhttp extends Api
 
     public static function unparse_url($urlparts)
     {
-        if (($urlparts['port'] == 80) && ($urlparts['scheme'] == 'http')) {
+        if (($urlparts['port'] == 80) && ($urlparts['scheme'] === 'http')) {
             $urlparts['port'] = '';
         }
 
-        if (($urlparts['port'] == 443) && ($urlparts['scheme'] == 'https')) {
+        if (($urlparts['port'] == 443) && ($urlparts['scheme'] === 'https')) {
             $urlparts['port'] = '';
         }
 

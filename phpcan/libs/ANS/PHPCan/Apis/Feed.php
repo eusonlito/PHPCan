@@ -42,7 +42,7 @@ class Feed extends Api
 
         foreach ($xml->entry as $entry) {
             foreach ($entry->link as $link) {
-                if ($link->attributes()->rel == 'alternate') {
+                if ($link->attributes()->rel === 'alternate') {
                     $link = $link->attributes()->href;
                     break;
                 }

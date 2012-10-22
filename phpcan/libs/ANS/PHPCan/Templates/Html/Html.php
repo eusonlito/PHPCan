@@ -149,7 +149,7 @@ class Html
                 $params['onclick'] .= $action['onclick'];
             }
 
-            if ($action['method'] == 'post') {
+            if ($action['method'] === 'post') {
                 $id = uniqid('name_form_action_');
 
                 $extra = '<form action="'.$params['href'].'" method="post" name="'.$id.'" style="display:none;"><fieldset>'.$action['params'].'</fieldset></form>';
@@ -168,7 +168,7 @@ class Html
 
         unset($params['action']);
 
-        if ($params['target'] == '_blank') {
+        if ($params['target'] === '_blank') {
             unset($params['target']);
             $params['onclick'] .= 'window.open(this.href); return false;';
         }
@@ -200,7 +200,7 @@ class Html
             $action['onclick'] .= 'if (!confirm(\''.$action['confirm'].'\')) {return false;}';
         }
 
-        if ($action['method'] == 'post') {
+        if ($action['method'] === 'post') {
             $params = '<input type="hidden" value="'.$action['name'].'" name="phpcan_action" />';
 
             foreach ((array) $action['params'] as $name => $value) {
@@ -396,7 +396,7 @@ class Html
 
         $src = $params['src'];
 
-        if ((strpos($src, '|') === false) && !parse_url($src, PHP_URL_SCHEME) && ($src[0] != '/')) {
+        if ((strpos($src, '|') === false) && !parse_url($src, PHP_URL_SCHEME) && ($src[0] !== '/')) {
             $src = 'scene/uploads|'.$src;
         }
 

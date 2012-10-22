@@ -194,7 +194,7 @@ class Templates
     {
         global $Config, $Vars;
 
-        if (!$exit_mode || $exit_mode == 'all' || $Vars->getExitMode($exit_mode)) {
+        if (!$exit_mode || ($exit_mode === 'all') || $Vars->getExitMode($exit_mode)) {
             $Config->config['templates'][$name] = $file;
         }
     }
@@ -208,7 +208,7 @@ class Templates
     {
         global $Config, $Vars;
 
-        if (!$exit_mode || $exit_mode == 'all' || $Vars->getExitMode($exit_mode)) {
+        if (!$exit_mode || ($exit_mode === 'all') || $Vars->getExitMode($exit_mode)) {
             unset($Config->config['templates'][$name]);
         }
     }

@@ -187,7 +187,7 @@ function path ()
         }
     } else {
         if ($Vars->path) {
-            if (($Vars->path[0] != 'index') || $Vars->path[1]) {
+            if (($Vars->path[0] !== 'index') || $Vars->path[1]) {
                 $path .= implode('/', $Vars->getPath()).'/';
             }
         }
@@ -956,6 +956,13 @@ function inflate64 ($data)
     return $data ? unserialize($data) : '';
 }
 
+/**
+* function pre (mixed $pre, [boolean $return = false ])
+*
+* Print or return the contents of received var
+*
+* return string
+*/
 function pre ($pre, $return = false)
 {
     $str = '';
@@ -979,4 +986,19 @@ function pre ($pre, $return = false)
     } else {
         echo '<pre style="color: black; background: white; position: relative; z-index: 9999;">'.str_replace(' ', '&nbsp;', htmlspecialchars($str)).'</pre>';
     }
+}
+
+/**
+* function trimArray (array $input)
+*
+* Trim all array values
+*
+* return array
+*/
+function trimArray ($array) {
+    if (!is_array($array)) {
+        return trim($array);
+    }
+ 
+    return array_map('trimArray', $array);
 }

@@ -713,7 +713,7 @@ class Vars
                     $this->route_config[$settings_name][] = (array) $settings_value;
                 }
 
-                if ($route != '*') {
+                if ($route !== '*') {
                     $undefined = false;
                     $route_list[] = $route;
                 }

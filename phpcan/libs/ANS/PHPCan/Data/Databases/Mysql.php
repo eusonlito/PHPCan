@@ -85,7 +85,7 @@ class Mysql implements Idatabase
             foreach ($indexes as $index) {
                 if ($index['Non_unique']) {
                     $type = 'index';
-                } elseif ($index['Key_name'] === 'PRIMARY') {
+                } else if ($index['Key_name'] === 'PRIMARY') {
                     $type = 'key';
                 } else {
                     $type = 'unique';
@@ -114,7 +114,7 @@ class Mysql implements Idatabase
                 }
 
                 $real_tables[$table][$field] = array(
-                    'type' => ($t[1] == 'int') ? 'integer' : $t[1],
+                    'type' => ($t[1] === 'int') ? 'integer' : $t[1],
                     'length_max' => $t[3],
                     'unsigned' => $t[4] ? true : false,
                     'null' => ($fields['Null'] === 'NO') ? false : true,
@@ -244,7 +244,7 @@ class Mysql implements Idatabase
             $table_keys = array();
 
             foreach ($fields as $field => $key) {
-                if (($key['key'] != $real_indexes[$table][$field]['key']) && ($field != 'id')) {
+                if (($key['key'] != $real_indexes[$table][$field]['key']) && ($field !== 'id')) {
                     $table_keys['PRIMARY']['action'] = $key['key'] ? 'ADD PRIMARY KEY' : 'DROP PRIMARY KEY';
                     $table_keys['PRIMARY']['name'] = '';
                     $table_keys['PRIMARY']['field'][] = array(

@@ -246,7 +246,7 @@ class Oauth2client
         }
 
         $grantTypeClassName = $this->convertToCamelCase($grant_type);
-        $grantTypeClass = '\' . __NAMESPACE__ . '\GrantType\' . $grantTypeClassName;
+        $grantTypeClass = '\\' . __NAMESPACE__ . '\\GrantType\\' . $grantTypeClassName;
 
         if (!class_exists($grantTypeClass)) {
             throw new \InvalidArgumentException('unknown grant type ' . $grant_type);
@@ -383,7 +383,7 @@ class Oauth2client
         $parsed_url = parse_url($url);
 
         if (!isset($parsed_url['port'])) {
-            $parsed_url['port'] = ($parsed_url['scheme'] == 'https') ? 443 : 80;
+            $parsed_url['port'] = ($parsed_url['scheme'] === 'https') ? 443 : 80;
         }
 
         if (self::HTTP_METHOD_POST === $http_method || self::HTTP_METHOD_PUT === $http_method) {

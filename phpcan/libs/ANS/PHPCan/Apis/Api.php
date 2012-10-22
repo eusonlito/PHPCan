@@ -154,7 +154,7 @@ class Api
             $this->Cache->set($key, $return, $cache);
         }
 
-        if (!$return || $return[0] != '<') {
+        if (!$return || ($return[0] !== '<')) {
             return false;
         }
 

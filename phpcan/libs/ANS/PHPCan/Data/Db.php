@@ -1575,7 +1575,7 @@ class Db
     public function language ($language = null)
     {
         if (!is_null($language)) {
-            if (($language == '') ||( $language === 'all') || in_array($language, $this->languages)) {
+            if (($language === '') || ($language === 'all') || in_array($language, $this->languages)) {
                 $this->language = $language;
             } else {
                 $this->error(__('The language "%s" is not valid', $language));
@@ -2327,7 +2327,7 @@ class Db
             $last_condition = array(
                 'num' => $t[1],
                 'tables' => $t[3] ? $t[3] : $table_base,
-                'field' => ($t[4] == '_') ? '' : $t[4],
+                'field' => ($t[4] === '_') ? '' : $t[4],
                 'condition' => $t[5] ? ' '.$t[5] : '',
             );
 

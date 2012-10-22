@@ -97,9 +97,9 @@ abstract class Formats
     public function getFields ($fields = '', $language = 'all')
     {
         if ($language) {
-            if ($language == 'default') {
+            if ($language === 'default') {
                 $language = $this->default_language;
-            } elseif ($language != 'all') {
+            } else if ($language !== 'all') {
                 $language = in_array($language, $this->languages) ? $language : $this->default_language;
             }
         } else {
@@ -113,7 +113,7 @@ abstract class Formats
             case 1:
                 $return = array();
 
-                if ($language == 'all') {
+                if ($language === 'all') {
                     foreach ($this->fields as $lang => $subformats) {
                         foreach ($subformats as $subformat => $field) {
                             $return[$field] = array(
@@ -149,7 +149,7 @@ abstract class Formats
                     return $return;
                 }
 
-                if ($language == 'all') {
+                if ($language === 'all') {
                     foreach ($this->fields as $lang => $subformats) {
                         $return[$subformats[$pieces[1]]] = array(
                             'language' => $lang,
@@ -510,7 +510,7 @@ abstract class Formats
     private function languageSettings ($all_languages, $languages, $default)
     {
         if ($languages) {
-            if ($languages == 'all') {
+            if ($languages === 'all') {
                 $languages = $all_languages;
             } else {
                 $languages = (array) $languages;

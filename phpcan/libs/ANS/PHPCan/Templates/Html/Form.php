@@ -166,7 +166,7 @@ class Form
 
         $label = '<label'.$this->Html->params($params['label']).'>'.$text.'</label>';
 
-        if ($position == 'after') {
+        if ($position === 'after') {
             $params['label_after'] = ' '.$label;
         } else {
             $params['label_before'] = $label.' ';

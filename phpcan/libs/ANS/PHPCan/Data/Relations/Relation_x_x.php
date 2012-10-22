@@ -280,11 +280,11 @@ class Relation_x_x extends Relations implements Irelations
             'table' => $this->settings['relation_table'],
         );
 
-        if ($operations_table0['conditions'] != 'all') {
+        if ($operations_table0['conditions'] !== 'all') {
             $operations['conditions'][$this->settings['join'][0]] = $this->getIds($this->settings['tables'][0], $operations_table0);
         }
 
-        if ($operations_table1['conditions'] != 'all') {
+        if ($operations_table1['conditions'] !== 'all') {
             $operations['conditions'][$this->settings['join'][1]] = $this->getIds($this->settings['tables'][1], $operations_table1);
         }
 
@@ -299,7 +299,7 @@ class Relation_x_x extends Relations implements Irelations
         }
 
         //Unrelate autorelations with no direction
-        if ($operations['conditions'] != 'all' && ($this->settings['tables'][0] == $this->settings['tables'][1]) && !$this->settings['direction']) {
+        if ($operations['conditions'] !== 'all' && ($this->settings['tables'][0] == $this->settings['tables'][1]) && !$this->settings['direction']) {
             $conditions = array();
 
             if ($operations['conditions'][$this->settings['join'][0]]) {

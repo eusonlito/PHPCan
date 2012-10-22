@@ -17,14 +17,14 @@ class Realfile extends File implements Iformats
 
     public function explodeData ($value, $subformat = '')
     {
-        return parent::explodeData($value, null);
+        return parent::explodeData($value);
     }
 
     public function check ($value)
     {
         $this->error = array();
 
-        if (!$this->checkFile($value['name'], 'location')) {
+        if (!$this->checkFile($value[''], 'location')) {
             return false;
         }
 
@@ -33,7 +33,13 @@ class Realfile extends File implements Iformats
 
     public function valueDB (\ANS\PHPCan\Data\Db $Db, $value, $language = '', $id = 0)
     {
-        $result = $this->saveFile($value['name'], $id, 'location');
+        $value = $value[''];
+
+        if (is_array($value) && !array_key_exists('tmp_name', $value)) {
+            return $value;
+        }
+
+        $result = $this->saveFile($value, $id, 'location');
 
         if (is_array($result)) {
             return array(
@@ -42,7 +48,7 @@ class Realfile extends File implements Iformats
                 'type' => '',
                 'size' => 0
             );
-        } elseif ($result === false) {
+        } else if ($result === false) {
             return false;
         }
 
@@ -63,27 +69,15 @@ class Realfile extends File implements Iformats
             $Image->save();
         }
 
-        if (is_array($value['name']) && $value['name']['name']) {
-            $finfo = array('name' => $value['name']['name']);
-        } else {
-            $finfo = array('name' => $result);
-        }
+        $finfo = array('name' => $result);
 
         $file = $settings['base_path'].$settings['uploads'].$settings['subfolder'].$result;
 
-        if ((!is_array($value['name']) || !$value['name']['size']) && is_file($file)) {
-            $finfo['size'] = round(filesize($file) / 1024);
-        } elseif ($value['name']['size']) {
-            $finfo['size'] = round($value['name']['size'] / 1024);
-        } else {
-            $finfo['size'] = 0;
-        }
-
         return array(
-            'name' => $finfo['name'],
+            'name' => (is_string($value) ? basename($value) : $value['name']),
             'type' => strtolower(pathinfo($finfo['name'], PATHINFO_EXTENSION)),
-            'location' => $this->settings['location']['subfolder'].$result,
-            'size' => $finfo['size']
+            'location' => $settings['subfolder'].$result,
+            'size' => round(filesize($file) / 1024)
         );
     }
 
@@ -101,10 +95,10 @@ class Realfile extends File implements Iformats
         parent::settings($settings);
 
         $this->settings = $this->setSettings($settings, array(
-            'name' => array(
+            'name' => array_merge(array(
                 'db_type' => 'varchar',
                 'length_max' => 100
-            ),
+            ), $this->settings['']),
             'type' => array(
                 'db_type' => 'varchar',
                 'length_max' => 40

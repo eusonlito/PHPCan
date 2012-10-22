@@ -81,23 +81,23 @@ class Bitly extends Api
     foreach ($args[0] as $key => $val) {
       $amp              = (empty($params)) ? '' : '&';
       $params          .=   $amp . $key . '=' . urlencode($val);
-      $format           =   ($key == 'format')  ? strtolower($val) : $format;
-      $key_found        =   ($key == 'apiKey')  ? true : $key_found;
-      $login_found      =   ($key == 'login')  ? true : $login_found;
+      $format           =   ($key === 'format')  ? strtolower($val) : $format;
+      $key_found        =   ($key === 'apiKey')  ? true : $key_found;
+      $login_found      =   ($key === 'login')  ? true : $login_found;
     }
 
-    $params .= ($key_found === false && $type == 'object') ? '&apiKey=' . $this->apiKey : '';
-    $params .= ($login_found === false && $type == 'object') ? '&login=' . $this->login : '';
-    $params = (substr($params, 0, 1) == '&') ? substr($params, 1) : $params;
+    $params .= ($key_found === false && $type === 'object') ? '&apiKey=' . $this->apiKey : '';
+    $params .= ($login_found === false && $type === 'object') ? '&login=' . $this->login : '';
+    $params = (substr($params, 0, 1) === '&') ? substr($params, 1) : $params;
 
     $res = file_get_contents(self::$endpoint . '/' . $method . '?' . $params);
-    if ($format == 'xml') {
+    if ($format === 'xml') {
       $res = simplexml_load_string(self::remove_cdata($res));
     } else {
       $res = json_decode($res);
     }
 
-    if ($type == 'object') {
+    if ($type === 'object') {
       $this->res = $res;
       $this->apiKey = ($key_found === true) ? $args[0]['apiKey'] : $this->apiKey;
       $this->login = ($login_found === true) ? $args[0]['login'] : $this->login;
@@ -176,7 +176,7 @@ class Bitly extends Api
   */
   protected function is_json($str)
   {
-    return (substr(trim($str), 0, 1) == '<') ? false : true;
+    return (substr(trim($str), 0, 1) === '<') ? false : true;
   }
 
 
