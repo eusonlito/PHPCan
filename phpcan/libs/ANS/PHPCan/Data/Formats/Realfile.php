@@ -35,13 +35,10 @@ class Realfile extends File implements Iformats
     {
         $value = $value[''];
 
-<<<<<<< HEAD
         if (is_array($value) && !array_key_exists('tmp_name', $value)) {
             return $value;
         }
 
-=======
->>>>>>> 0b094abd13af1d6ef1c702af025c7fad340ec27d
         $result = $this->saveFile($value, $id, 'location');
 
         if (is_array($result)) {
@@ -76,30 +73,11 @@ class Realfile extends File implements Iformats
 
         $file = $settings['base_path'].$settings['uploads'].$settings['subfolder'].$result;
 
-<<<<<<< HEAD
-=======
-        if (is_array($value)) {
-            if (!$value['size'] && is_file($file)) {
-                $finfo['size'] = round(filesize($file) / 1024);
-            } else if ($value['size']) {
-                $finfo['size'] = round($value['size'] / 1024);
-            } else {
-                $finfo['size'] = 0;
-            }
-        } else if (is_file($file)) {
-            $finfo['size'] = round(filesize($file) / 1024);
-        }
-
->>>>>>> 0b094abd13af1d6ef1c702af025c7fad340ec27d
         return array(
             'name' => (is_string($value) ? basename($value) : $value['name']),
             'type' => strtolower(pathinfo($finfo['name'], PATHINFO_EXTENSION)),
             'location' => $settings['subfolder'].$result,
-<<<<<<< HEAD
             'size' => round(filesize($file) / 1024)
-=======
-            'size' => $finfo['size']
->>>>>>> 0b094abd13af1d6ef1c702af025c7fad340ec27d
         );
     }
 
