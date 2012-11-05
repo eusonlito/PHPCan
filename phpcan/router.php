@@ -10,6 +10,7 @@ defined('ANS') or die();
 
 //phpCan version
 define('PHPCAN_VERSION', '1.2');
+define('OS', stripos(PHP_OS, 'win') === false ? 'UNIX' : 'WIN');
 
 //Base paths
 define('SERVER_NAME', getenv('SERVER_NAME'));

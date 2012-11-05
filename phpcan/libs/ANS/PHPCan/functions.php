@@ -258,7 +258,7 @@ function referer ($default, $redirect = true, $disabled = '')
  */
 function filePath ($path)
 {
-    if ($path[0] === '/') {
+    if ($path[0] === '/' || ((OS === 'WIN') && (strpos($path, ':/') !== false))) {
         return $path;
     }
 
