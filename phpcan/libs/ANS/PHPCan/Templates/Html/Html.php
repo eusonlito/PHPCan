@@ -797,8 +797,8 @@ class Html
             $controller = implode('/', (array) $Vars->getRoute());
             $code = 'meta:'.$key.':'.$controller;
             $content = __($code, $this->meta[$key]);
-            $content = ($content == $code) ? __('meta:'.$key) : $content;
-            $content = ($content == ('meta:'.$key)) ? '' : $content;
+            $content = ($content === $code) ? __('meta:'.$key) : $content;
+            $content = ($content === ('meta:'.$key)) ? '' : $content;
         }
 
         $content = str_replace('"', '&quot;', strip_tags($content));
