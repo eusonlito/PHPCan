@@ -761,7 +761,7 @@ class Vars
                         $this->path[$i] = intval($this->path[$i]);
                     }
 
-                    if (array_key_exists($section_key, $this->var) === false) {
+                    if (empty($this->var[$section_key])) {
                         $this->var[$section_key] = $this->path[$i];
                     }
                 }
