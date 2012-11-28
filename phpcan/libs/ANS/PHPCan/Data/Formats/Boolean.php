@@ -36,7 +36,8 @@ class Boolean extends Formats implements Iformats
     {
         $this->settings = $this->setSettings($settings, array(
             '' => array(
-                'db_type' => 'boolean'
+                'db_type' => 'boolean',
+                'default' => 0
             )
         ));
 
