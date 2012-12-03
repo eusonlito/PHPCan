@@ -147,6 +147,7 @@ class Relation_1_x extends Relations implements Irelations
         $ok = $this->Db->update(array(
             'table' => $this->settings['tables'][1],
             'data' => array($this->settings['join'][0] => $id_table0),
+            'table_events' => false,
             'conditions' => array('id' => $ids_table1),
             'limit' => $limit_table1,
             'comment' => __('Relating the table %s with %s', $this->settings['tables'][1], $this->settings['tables'][0])
@@ -182,6 +183,7 @@ class Relation_1_x extends Relations implements Irelations
         $ok = $this->Db->update(array(
             'table' => $this->settings['tables'][1],
             'data' => array($this->settings['join'][0] => 0),
+            'table_events' => false,
             'conditions' => array(
                 'id' => $ids_table1,
                 $this->settings['join'][0] => $ids_table0

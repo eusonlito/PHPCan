@@ -253,6 +253,7 @@ class Relation_x_x extends Relations implements Irelations
         $ok = $this->Db->insert(array(
             'table' => $this->settings['relation_table'],
             'data' => $relation_data,
+            'table_events' => false,
             'comment' => __('Relating the tables %s and %s', $this->settings['tables'][0], $this->settings['tables'][1])
         ));
 
@@ -292,6 +293,7 @@ class Relation_x_x extends Relations implements Irelations
             $operations['conditions'] = 'all';
         }
 
+        $operations['table_events'] = false;
         $operations['comment'] = __('Unrelating the tables %s and %s', $this->settings['tables'][0], $this->settings['tables'][1]);
 
         if ($this->Db->delete($operations) === false) {

@@ -139,7 +139,9 @@ class Loader {
 
         if (is_file($file)) {
             foreach (include($file) as $namespace => $path) {
-                self::registerNamespace($namespace, $path.'/'.$namespace.'/');
+                if ($namespace !== '') {
+                    self::registerNamespace($namespace, $path.'/'.$namespace.'/');
+                }
             }
         }
     }
