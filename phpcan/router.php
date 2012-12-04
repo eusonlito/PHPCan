@@ -13,7 +13,7 @@ define('PHPCAN_VERSION', '1.2');
 define('OS', stripos(PHP_OS, 'win') === false ? 'UNIX' : 'WIN');
 
 //Base paths
-define('SERVER_NAME', getenv('SERVER_NAME'));
+define('SERVER_NAME', getenv('SERVER_NAME') ?: 'localhost');
 define('DOMAIN_CONFIG_PATH', SERVER_NAME.'/');
 define('DEFAULT_CONFIG_PATH', 'default/');
 define('MODULE_WWW_SUBFOLDER', 'admin');
