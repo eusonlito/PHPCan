@@ -21,6 +21,7 @@ class Vars
     public $get = array();
     public $post = array();
     public $var = array();
+    public $cookie = array();
     public $route_config = array();
 
     private $route;
@@ -471,6 +472,8 @@ class Vars
      */
     public function setCookie ($name, $value, $duration = null)
     {
+        $this->cookie[$name] = $value;
+
         if (is_null($duration)) {
             $duration = 86400; //one day
         }
@@ -489,13 +492,19 @@ class Vars
      */
     public function getCookie ($name, $filter = '')
     {
+        if (array_key_exists($name, $this->cookie)) {
+            return $this->cookie[$name];
+        }
+
         $filter = $this->getSanitizeFilter($filter);
 
         if ($this->compress_cookies) {
-            return inflate64(filter_input(INPUT_COOKIE, 'gz:'.$name, $filter[0], $filter[1]));
+            $this->cookie[$name] = inflate64(filter_input(INPUT_COOKIE, 'gz:'.$name, $filter[0], $filter[1]));
         } else {
-            return unserialize(filter_input(INPUT_COOKIE, $name, $filter[0], $filter[1]));
+            $this->cookie[$name] = unserialize(filter_input(INPUT_COOKIE, $name, $filter[0], $filter[1]));
         }
+
+        return $this->cookie[$name];
     }
 
     /**
@@ -505,6 +514,8 @@ class Vars
      */
     public function deleteCookie ($name)
     {
+        unset($this->cookie[$name]);
+
         if (!preg_match('/^gz:/', $name)) {
             $name = 'gz:'.$name;
         }
