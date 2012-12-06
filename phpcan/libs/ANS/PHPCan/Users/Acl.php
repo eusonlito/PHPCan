@@ -53,13 +53,13 @@ class Acl
     {
         if (is_array($mode)) {
             foreach ($mode as $each) {
-                $this->permissions[$each['mode']][$each['code']] = $each['enabled'];
+                $this->permissions[$each['mode']][$each['code']] = $each['enabled'] ? true : false;
             }
 
             return;
         }
 
-        $this->permissions[$mode][$code] = $value;
+        $this->permissions[$mode][$code] = $value ? true : false;
     }
 
     /**
