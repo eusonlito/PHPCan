@@ -15,7 +15,7 @@ Its main characteristics are:
 * It can manages differents websites or scenes in just one installation.
 * It is multilingual and uses UTF-8. Not other character codification is allowed.
 * It generates clean urls.
-* It use PDO to MySQL connection.
+* It uses PDO to MySQL connection.
 * It is free, with GNU AFFERO licence, so you want make warever you want with it.
 
 Documentation
@@ -35,4 +35,6 @@ We can download full project with git commands:
     $ curl -s https://getcomposer.org/installer | php
     $ php composer.phar update
 
-done!
+Now you can start to use PHPCan from your local URL http://localhost/phpcan/
+
+Enjoy!
