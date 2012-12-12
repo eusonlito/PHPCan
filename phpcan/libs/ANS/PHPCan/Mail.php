@@ -11,10 +11,8 @@ namespace ANS\PHPCan;
 
 defined('ANS') or die();
 
-if (is_file(LIBS_PATH.'worxware/phpmailer/class.phpmailer.php')) {
-    include (LIBS_PATH.'worxware/phpmailer/class.phpmailer.php');
-} else if (is_file(LIBS_PATH.'PHPMailer/class.phpmailer.php')) {
-    include (LIBS_PATH.'worxware/phpmailer/class.phpmailer.php');
+if (is_file(LIBS_PATH.'phpmailer/phpmailer/class.phpmailer.php')) {
+    include (LIBS_PATH.'phpmailer/phpmailer/class.phpmailer.php');
 } else {
     throw new \RuntimeException(__('PHPMailer base file can not be loaded'));
 }
@@ -27,7 +25,7 @@ class Mail extends \PHPMailer
 
         global $Config;
 
-        if (!$Config->mail) {
+        if (empty($Config->mail)) {
             $Config->load('mail.php', 'scene');
         }
 
@@ -36,7 +34,7 @@ class Mail extends \PHPMailer
 
     public function setParams ($params)
     {
-        if (!$params) {
+        if (empty($params)) {
             return false;
         }
 

@@ -23,23 +23,9 @@
         "ans/cache": "dev-master",
         "stylecow/stylecow": "dev-master",
         "imagecow/imagecow": "dev-master",
-        "worxware/phpmailer": "*"
+        "phpmailer/phpmailer": "dev-master"
     },
     "config": {
         "vendor-dir": "phpcan/libs"
-    },
-    "repositories": {
-        "phpmailer-official": {
-            "type": "package",
-            "package": {
-                "name": "worxware/phpmailer",
-                "version": "5.2.1",
-                "source": {
-                    "url": "http://svn.codespot.com/a/apache-extras.org/phpmailer/",
-                    "type": "svn",
-                    "reference": "tags/5.2.1/"
-                }
-            }
-        }
     }
 }
