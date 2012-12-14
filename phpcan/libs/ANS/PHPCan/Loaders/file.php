@@ -95,7 +95,7 @@ foreach ($files as $files_value) {
         if (defined('DEV') && DEV && in_array($ext, array('jpg', 'jpeg', 'gif', 'png'))) {
             $file = filePath('common|default/images/'.rand(1,4).'.jpg');
         } else {
-            echo '/* '.__('File %s doesn\'t exists', fileWeb($files_value)).' */';
+            echo "\n".'/* '.__('File %s doesn\'t exists', fileWeb($files_value)).' */';
             continue;
         }
     }
@@ -120,6 +120,8 @@ foreach ($files as $files_value) {
             $config = $Config->css[$config] ?: current($Config->css);
 
             if (!$Css->showCached($file, false, false)) {
+                echo "\n";
+
                 if ($dynamic) {
                     echo $Css->load($file)->transform($config['plugins'])->transform(array('BaseUrl' => dirname(fileWeb($files_value)).'/'))->toString();
                 } else {
@@ -130,6 +132,8 @@ foreach ($files as $files_value) {
             break;
 
         case 'js':
+            echo "\n";
+
             if ($dynamic) {
                 include ($file);
             } else {
@@ -139,14 +143,17 @@ foreach ($files as $files_value) {
             break;
 
         case 'less':
-                $lc = new lessc($file);
+            echo "\n";
 
-                try {
-                    header('Content-type: text/css');
-                    echo $lc->parse();
-                } catch (exception $e) {
-                    exit($e->getMessage());
-                }
+            $lc = new lessc($file);
+
+            try {
+                header('Content-type: text/css');
+                echo $lc->parse();
+            } catch (exception $e) {
+                die($e->getMessage());
+            }
+
             break;
 
         default:

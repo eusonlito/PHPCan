@@ -28,7 +28,7 @@ In Starting with phpCan you can learn the basics of this framework: how to insta
 Installation
 --------
 
-We can download full project with git commands:
+You can download full project with git command and install all dependencies using <a href="http://getcomposer.org/">Composer</a>:
 
     $ git clone git://github.com/eusonlito/PHPCan.git phpcan
     $ cd phpcan
