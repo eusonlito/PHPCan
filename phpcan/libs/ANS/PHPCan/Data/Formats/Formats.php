@@ -239,7 +239,7 @@ abstract class Formats
             $value = $values[$subformat];
 
             foreach ($settings as $settings_name => $settings_value) {
-                if (!$settings_value) {
+                if (empty($settings_value)) {
                     continue;
                 }
 
@@ -271,9 +271,9 @@ abstract class Formats
                         break;
 
                     case 'length_min':
-                        if (!$settings['required'] && empty($value)) {
+                        if (empty($settings['required']) && empty($value)) {
                             break;
-                        } elseif (strlen($value) < $settings_value) {
+                        } else if (strlen($value) < $settings_value) {
                             $this->error[$subformat] = __('Field "%s" should has more than %s characters', __($this->name), $settings_value);
                             continue 2;
                         }
@@ -522,7 +522,7 @@ abstract class Formats
                 }
             }
 
-            if (!$default || !in_array($default, $languages)) {
+            if (empty($default) || !in_array($default, $languages)) {
                 $default = $languages[0];
             }
         }

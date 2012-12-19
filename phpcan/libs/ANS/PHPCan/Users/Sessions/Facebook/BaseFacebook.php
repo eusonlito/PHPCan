@@ -360,11 +360,11 @@ abstract class Basefacebook
    */
   public function getSignedRequest()
   {
-    if (!$this->signedRequest) {
+    if (empty($this->signedRequest)) {
       if (isset($_REQUEST['signed_request'])) {
         $this->signedRequest = $this->parseSignedRequest(
           $_REQUEST['signed_request']);
-      } elseif (isset($_COOKIE[$this->getSignedRequestCookieName()])) {
+      } else if (isset($_COOKIE[$this->getSignedRequestCookieName()])) {
         $this->signedRequest = $this->parseSignedRequest(
           $_COOKIE[$this->getSignedRequestCookieName()]);
       }
@@ -809,7 +809,7 @@ abstract class Basefacebook
    */
   protected function makeRequest($url, $params, $ch=null)
   {
-    if (!$ch) {
+    if (empty($ch)) {
       $ch = curl_init();
     }
 
@@ -962,7 +962,7 @@ abstract class Basefacebook
     $name = 'api';
     if (isset($READ_ONLY_CALLS[strtolower($method)])) {
       $name = 'api_read';
-    } elseif (strtolower($method) === 'video.upload') {
+    } else if (strtolower($method) === 'video.upload') {
       $name = 'api_video';
     }
 

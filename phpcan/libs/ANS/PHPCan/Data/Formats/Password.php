@@ -28,7 +28,7 @@ class Password extends Formats implements Iformats
 
     public function valueDB (\ANS\PHPCan\Data\Db $Db, $value, $language = '', $id = 0)
     {
-        if (!$value['']) {
+        if (empty($value[''])) {
             return false;
         }
 
@@ -56,7 +56,7 @@ class Password extends Formats implements Iformats
 
     public function afterSave (\ANS\PHPCan\Data\Db $Db, $values)
     {
-        if (!$values['new_value']['']) {
+        if (empty($values['new_value'][''])) {
             return true;
         }
 

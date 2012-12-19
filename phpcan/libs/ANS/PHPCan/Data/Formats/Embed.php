@@ -20,7 +20,7 @@ class Embed extends Formats implements Iformats
         $this->error = array();
         $settings = $this->settings;
 
-        if (!$settings['required'] && !$value['']) {
+        if (empty($settings['required']) && empty($value[''])) {
             return true;
         }
 
@@ -59,7 +59,7 @@ class Embed extends Formats implements Iformats
 
         $value_url = $Url->fixValue(array('url' => $value['']));
 
-        if (!is_array($value_url) || !$value_url['type']) {
+        if (!is_array($value_url) || empty($value_url['type'])) {
             return $value;
         }
 

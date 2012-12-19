@@ -9,7 +9,7 @@
 
 defined('ANS') or die();
 
-if (!$Vars->actions) {
+if (empty($Vars->actions)) {
     return;
 }
 

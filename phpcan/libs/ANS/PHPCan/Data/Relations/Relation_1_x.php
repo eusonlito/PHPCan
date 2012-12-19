@@ -104,7 +104,7 @@ class Relation_1_x extends Relations implements Irelations
             $relation_conditions[] = '`'.$renamed_table0.'`.'.$this->settings['join'][1].' = `'.$renamed_table1.'`.id';
 
         //Different joins with no direction
-        } elseif ($this->settings['auto'] && !$this->settings['direction'] && ($this->settings['join'][0] != $this->settings['join'][1])) {
+        } else if ($this->settings['auto'] && empty($this->settings['direction']) && ($this->settings['join'][0] != $this->settings['join'][1])) {
             $relation_conditions[] = '(`'.$renamed_table0.'`.id = `'.$renamed_table1.'`.'.$this->settings['join'][0]
                                     .' OR `'.$renamed_table0.'`.id = `'.$renamed_table1.'`.'.$this->settings['join'][1].')';
 
@@ -128,7 +128,7 @@ class Relation_1_x extends Relations implements Irelations
      */
     public function relate ($operations_table0, $operations_table1, $options = array())
     {
-        if (!$operations_table0['conditions'] || !$operations_table1['conditions']) {
+        if (empty($operations_table0['conditions']) || empty($operations_table1['conditions'])) {
             $this->Debug->error('db', __('For security, conditions param is needed to relate function. If you want relate all rows, use conditions = "all"'));
 
             return false;
@@ -137,7 +137,7 @@ class Relation_1_x extends Relations implements Irelations
         $id_table0 = $this->getIds($this->settings['tables'][0], $operations_table0);
         $id_table0 = end($id_table0);
 
-        if (!$id_table0) {
+        if (empty($id_table0)) {
             return true;
         }
 
@@ -167,7 +167,7 @@ class Relation_1_x extends Relations implements Irelations
      */
     public function unrelate ($operations_table0, $operations_table1, $options = array())
     {
-        if (!$operations_table0['conditions'] || !$operations_table1['conditions']) {
+        if (empty($operations_table0['conditions']) || empty($operations_table1['conditions'])) {
             $this->Debug->error('db', __('For security, conditions param is needed to unrelate function. If you want unrelate all rows, use conditions = "all"'));
 
             return false;

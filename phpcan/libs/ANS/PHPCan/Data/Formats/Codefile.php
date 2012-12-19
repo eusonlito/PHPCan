@@ -34,13 +34,13 @@ class Codefile extends Formats implements Iformats
 
         $settings = $this->settings[''];
 
-        if ($settings['required'] && !$code) {
+        if ($settings['required'] && empty($code)) {
             $this->error[''] = __('Field "%s" can not be empty', __($this->name));
 
             return false;
         }
 
-        if (!$code) {
+        if (empty($code)) {
             return true;
         }
 
@@ -54,7 +54,7 @@ class Codefile extends Formats implements Iformats
 
                 return false;
             }
-        } elseif (!is_writable($path)) {
+        } else if (!is_writable($path)) {
             $this->error[''] = __('The folder to store the file haven\'t writing permissions');
 
             return false;
@@ -80,7 +80,7 @@ class Codefile extends Formats implements Iformats
         $code = $value['code'] ? $value['code'] : $value[''];
         $filename = $value['filename'];
 
-        if ($id && !$filename) {
+        if ($id && empty($filename)) {
             $field = $this->getField('', $language);
 
             $filename = $Db->select(array(
@@ -98,7 +98,7 @@ class Codefile extends Formats implements Iformats
 
         $filename = $this->settings['']['subfolder'].($filename ? preg_replace('|^'.preg_quote($this->settings['']['subfolder'], '|').'|', '', $filename) : uniqid().'.php');
 
-        if (!$code) {
+        if (empty($code)) {
              if (is_file($filepath.$filename)) {
                 unlink($filepath.$filename);
             }

@@ -36,7 +36,7 @@ class Table
             'relations' => $relation_config
         );
 
-        if (!$this->settings['table']) {
+        if (empty($this->settings['table'])) {
             $this->Debug->fatalError(__('The configuration for the table "%s" does not exists!', $this->table));
         }
     }
@@ -62,6 +62,26 @@ class Table
     }
 
     /**
+     * public function __isset (string $name)
+     *
+     * return none
+     */
+    public function __isset ($name)
+    {
+        switch ($name) {
+            case 'relations':
+                $this->setRelationsConfig();
+
+                return isset($this->relations);
+
+            case 'formats':
+                $this->setFormatsConfig();
+
+                return isset($this->$name);
+        }
+    }
+
+    /**
      * public function bindEvent (string/array $event_names, mixed $function)
      *
      * return boolean
@@ -80,7 +100,7 @@ class Table
      */
     public function fieldArray ($name)
     {
-        if (!$name) {
+        if (empty($name)) {
             return array();
         }
 
@@ -109,7 +129,7 @@ class Table
         if (is_array($realname)) {
             $newname = $realname['newname'];
             $realname = $realname['realname'];
-        } elseif (!$realname) {
+        } else if (empty($realname)) {
             return false;
         }
 
@@ -184,7 +204,7 @@ class Table
             $direction = $realname['direction'];
             $newname = $realname['newname'];
             $realname = $realname['realname'];
-        } elseif (!$realname) {
+        } else if (empty($realname)) {
             return false;
         }
 
@@ -240,7 +260,7 @@ class Table
     {
         if ($fields === '**') {
             $fields = array_keys($this->formats);
-        } elseif ($fields === '*') {
+        } else if ($fields === '*') {
             $fields = array();
 
             foreach ($this->formats as $format_name => $format) {
@@ -349,7 +369,7 @@ class Table
                         }
                     }
 
-                    if (!is_array($value) || !$has_language) {
+                    if (!is_array($value) || empty($has_language)) {
                         if ($language === 'all') {
                             $info['language'] = $format->languages;
                         } else {
@@ -423,7 +443,7 @@ class Table
 
                 $languages = array_filter($languages);
 
-                if (!$languages) {
+                if (empty($languages)) {
                     continue;
                 }
 
@@ -600,7 +620,7 @@ class Table
 
         $settings = $format->settings[$field['subformat']];
 
-        if (!$settings) {
+        if (empty($settings)) {
             return false;
         }
 
@@ -624,11 +644,11 @@ class Table
     {
         $format = $this->getFormat($field);
 
-        if (!$format || !is_array($settings)) {
+        if (empty($format) || !is_array($settings)) {
             return false;
         }
 
-        if (!$subformat) {
+        if (empty($subformat)) {
             $subformat = array_keys($format->settings);
         }
 
@@ -648,7 +668,7 @@ class Table
      */
     public function getRelations ()
     {
-        if (!$this->relations) {
+        if (empty($this->relations)) {
             return array();
         }
 
@@ -662,7 +682,7 @@ class Table
      */
     public function getRelation ($table, $name = '', $direction = '')
     {
-        if (!$table) {
+        if (empty($table)) {
             return false;
         }
 
@@ -678,7 +698,7 @@ class Table
      */
     public function related ($table, $name = '', $direction = '')
     {
-        if (!$table) {
+        if (empty($table)) {
             return false;
         }
 

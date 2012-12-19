@@ -59,9 +59,9 @@ class Loader {
 
         if (is_file(LIBS_PATH.$file)) {
             return require (LIBS_PATH.$file);
-        } elseif (MODULE_NAME && is_file(MODULE_PATH.'libs/'.$file)) {
+        } else if (MODULE_NAME && is_file(MODULE_PATH.'libs/'.$file)) {
             return require (MODULE_PATH.'libs/'.$file);
-        } elseif (is_file(SCENE_PATH.'libs/'.$file)) {
+        } else if (is_file(SCENE_PATH.'libs/'.$file)) {
             return require (SCENE_PATH.'libs/'.$file);
         } else {
             foreach (self::$namespaces as $ns => $path) {

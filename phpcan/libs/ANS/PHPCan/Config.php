@@ -67,6 +67,16 @@ class Config implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
+     * public function __isset (string $name)
+     *
+     * return none
+     */
+    public function __isset ($name)
+    {
+        return isset($this->config[$name]);
+    }
+
+    /**
      * public function load (string/array $list, [string $context], [string $prefix])
      *
      * return boolean
@@ -75,7 +85,7 @@ class Config implements \ArrayAccess, \Iterator, \Countable
     {
         global $Vars;
 
-        if (!$list) {
+        if (empty($list)) {
             return false;
         }
 
@@ -86,7 +96,7 @@ class Config implements \ArrayAccess, \Iterator, \Countable
 
         if (is_string($list)) {
             $list = array($context => array($list));
-        } elseif (isset($list[0])) {
+        } else if (isset($list[0])) {
             $list = array($context => $list);
         }
 
@@ -98,16 +108,16 @@ class Config implements \ArrayAccess, \Iterator, \Countable
                     $includes[] = PHPCAN_PATH.'config/'.$file;
                     $includes[] = PHPCAN_PATH.'config/'.DEFAULT_CONFIG_PATH.$file;
                     $includes[] = PHPCAN_PATH.'config/'.DOMAIN_CONFIG_PATH.$file;
-                } elseif ($context === 'scene') {
-                    if (!$scene) {
+                } else if ($context === 'scene') {
+                    if (empty($scene)) {
                         continue;
                     }
 
                     $includes[] = SCENE_PATH.'config/'.$file;
                     $includes[] = SCENE_PATH.'config/'.DEFAULT_CONFIG_PATH.$file;
                     $includes[] = SCENE_PATH.'config/'.DOMAIN_CONFIG_PATH.$file;
-                } elseif ($context === 'module') {
-                    if (!$module) {
+                } else if ($context === 'module') {
+                    if (empty($module)) {
                         continue;
                     }
 
@@ -158,7 +168,7 @@ class Config implements \ArrayAccess, \Iterator, \Countable
             }
         }
 
-        if (!$current) {
+        if (empty($current)) {
             return false;
         }
 
@@ -314,7 +324,7 @@ class Config implements \ArrayAccess, \Iterator, \Countable
                 }
 
                 unset($data[$key]);
-            } elseif (is_array($data[$key])) {
+            } else if (is_array($data[$key])) {
                 $data[$key] = $this->expand($data[$key]);
             }
         }

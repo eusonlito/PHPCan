@@ -26,7 +26,7 @@ function __ ($text, $args = null, $null = false)
 
     if (is_null($args)) {
         return $text;
-    } elseif (is_array($args)) {
+    } else if (is_array($args)) {
         return vsprintf($text, $args);
     } else {
         $args = func_get_args();
@@ -134,7 +134,7 @@ function path ()
     }
 
     if (isset($options['scene']) || isset($options['module'])) {
-        if (!isset($options['scene']) || !$Config->scenes[$options['scene']]) {
+        if (!isset($options['scene']) || empty($Config->scenes[$options['scene']])) {
             $options['scene'] = $Vars->getScene();
         }
 
@@ -144,7 +144,7 @@ function path ()
             if ($options['module'] && $Config->scenes[$options['scene']]['modules'][$options['module']]) {
                 $path .= (($Config->scenes[$options['scene']]['modules'][$options['module']]) ? MODULE_WWW_SUBFOLDER.'/'.$options['module'].'/' : '');
             }
-        } elseif ($Vars->getModule()) {
+        } else if ($Vars->getModule()) {
             $path .= MODULE_WWW_SUBFOLDER.'/'.$Vars->getModule().'/';
         }
     } else {
@@ -157,7 +157,7 @@ function path ()
         if (count($languages) > 1) {
             if (!isset($options['language'])) {
                 $path .= $Vars->getLanguage().'/';
-            } elseif (isset($options['language']) && in_array($options['language'], $languages)) {
+            } else if (isset($options['language']) && in_array($options['language'], $languages)) {
                 $path .= $options['language'].'/';
             }
         }
@@ -167,7 +167,7 @@ function path ()
         if ($options['exit_mode'] && $Config->exit_modes[$options['exit_mode']]) {
             $path .= $options['exit_mode'].'/';
         }
-    } elseif ($Config->exit_modes[$Vars->getExitMode()]['lock']) {
+    } else if ($Config->exit_modes[$Vars->getExitMode()]['lock']) {
         $path .= $Vars->getExitMode().'/';
     }
 
@@ -179,7 +179,7 @@ function path ()
 
             if (($arg === true) && $Vars->path[$n]) {
                 $path .= $Vars->path[$n].'/';
-            } elseif (strlen($arg) && $arg !== false) {
+            } else if (strlen($arg) && $arg !== false) {
                 $path .= $arg.'/';
             }
 
@@ -213,7 +213,7 @@ function referer ($default, $redirect = true, $disabled = '')
         $default = array($default);
     }
 
-    if (!$disabled) {
+    if (empty($disabled)) {
         $disabled = path('users', 'login');
     }
 
@@ -222,14 +222,14 @@ function referer ($default, $redirect = true, $disabled = '')
     $request = getenv('REQUEST_URI');
     $url = '';
 
-    if (!$referer['host'] || !$referer['path'] || ($referer['host'] !== SERVER_NAME)) {
+    if (empty($referer['host']) || empty($referer['path']) || ($referer['host'] !== SERVER_NAME)) {
         foreach ($default as $default_value) {
             if ($default_value !== $request) {
                 $url = $default_value;
                 break;
             }
         }
-    } elseif (($referer_str !== $request) && (!$disabled || !strstr($referer['path'], $disabled))) {
+    } else if (($referer_str !== $request) && (empty($disabled) || !strstr($referer['path'], $disabled))) {
         $url = $referer['path'].($referer['query'] ? ('?'.$referer['query']) : '');
     } else {
         foreach ($default as $default_value) {
@@ -244,7 +244,7 @@ function referer ($default, $redirect = true, $disabled = '')
 
     if ($redirect) {
         redirect($url);
-    } elseif ($url) {
+    } else if ($url) {
         return $url;
     }
 }
@@ -272,7 +272,7 @@ function filePath ($path)
 
     if ($context === 'module') {
         $location = MODULE_PATH.$Config->module_paths[$basedir];
-    } elseif ($context === 'phpcan') {
+    } else if ($context === 'phpcan') {
         $location = BASE_PATH.$Config->phpcan_paths[$basedir];
     } else {
         $location = SCENE_PATH.$Config->scene_paths[$basedir];
@@ -316,9 +316,9 @@ function fileWeb ($path, $dinamic = false, $host = false)
         } else {
             $location = SCENE_WWW.$context.'/'.$basedir.'/';
         }
-    } elseif ($context === 'module') {
+    } else if ($context === 'module') {
         $location = MODULE_REAL_WWW.$Config->module_paths[$basedir];
-    } elseif ($context === 'phpcan') {
+    } else if ($context === 'phpcan') {
         $location = BASE_WWW.$Config->phpcan_paths[$basedir];
     } else {
         $location = SCENE_REAL_WWW.$Config->scene_paths[$basedir];
@@ -383,12 +383,12 @@ function redirect ($url = null)
     }
 
     if (headers_sent($file, $line)) {
-        if (!$Debug->settings['redirect']) {
+        if (empty($Debug->settings['redirect'])) {
             $Debug->e('misc', 'Cannot redirect to "'.$url.'" because headers have been sent in "'.$file.'" (line '.$line.')');
         } else {
             $Debug->error('misc', 'Cannot redirect to "'.$url.'" because headers have been sent in "'.$file.'" (line '.$line.')');
         }
-    } elseif (!$Debug->settings['redirect']) {
+    } else if (empty($Debug->settings['redirect'])) {
         $Debug->e($url, __('Redirect'));
     } else {
         header('Location: '.$url);
@@ -404,7 +404,7 @@ function redirect ($url = null)
  */
 function includeFile ($_file, $_data_content = array(), $_once = false)
 {
-    if (!$_file || !is_file($_file)) {
+    if (empty($_file) || !is_file($_file)) {
         return;
     }
 
@@ -434,7 +434,7 @@ function getDatabaseConnection ($connection = null)
 {
     global $Config;
 
-    if (!$Config->db) {
+    if (empty($Config->db)) {
         return false;
     }
 
@@ -484,7 +484,7 @@ function getDatetimeObject ($time = null, $timezone = null)
  */
 function getGettextObject ($language = '', $folders = '')
 {
-    if (!$language) {
+    if (empty($language)) {
         global $Vars;
 
         if (!is_object($Vars) || !($language = $Vars->getLanguage())) {
@@ -492,7 +492,7 @@ function getGettextObject ($language = '', $folders = '')
         }
     }
 
-    if (!$folders) {
+    if (empty($folders)) {
         $folders = array(
             filePath('phpcan/languages|'),
             filePath('languages|'),
@@ -505,7 +505,7 @@ function getGettextObject ($language = '', $folders = '')
         if (is_dir($folder)) {
             $language_files = glob($folder.'/*.mo');
 
-            if (!$language_files) {
+            if (empty($language_files)) {
                 continue;
             }
 
@@ -539,7 +539,7 @@ function alphaNumeric ($text, $allow = '')
 
         if (is_string($allow)) {
             $expr .= preg_quote($allow, '/');
-        } elseif (is_array($allow)) {
+        } else if (is_array($allow)) {
             foreach ($allow as $from => $to) {
                 if (is_string($from)) {
                     $replace[$from] = $to;
@@ -604,7 +604,7 @@ function ip ()
 {
     if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
         return $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         return $_SERVER['HTTP_X_FORWARDED_FOR'];
     } else {
         return $_SERVER['REMOTE_ADDR'];
@@ -684,7 +684,7 @@ function urlInfo ($url)
 {
     $url = trim($url);
 
-    if (!$url) {
+    if (empty($url)) {
         return array();
     }
 
@@ -802,7 +802,7 @@ function textCutter ($text, $limit = 140, $end = '...')
     if (preg_match_all('|(<([\w]+)[^>]*>)|', $text, $aBuffer) && !empty($aBuffer[1])) {
         preg_match_all("|</([a-zA-Z]+)>|", $text, $aBuffer2);
 
-        if (count($aBuffer[2]) != count($aBuffer2[1])) {
+        if (count($aBuffer[2]) !== count($aBuffer2[1])) {
             foreach ($aBuffer[2] as $k => $tag) {
                 if ($tag !== $aBuffer2[1][$k]) {
                     $text .= '</'.$tag.'>';
@@ -947,7 +947,7 @@ function deflate64 ($data)
 */
 function inflate64 ($data)
 {
-    if (!$data) {
+    if (empty($data)) {
         return '';
     }
 
@@ -969,9 +969,9 @@ function pre ($pre, $return = false)
 
     if (is_null($pre)) {
         $str .= 'NULL';
-    } elseif (is_bool($pre)) {
+    } else if (is_bool($pre)) {
         $str .= $pre ? 'TRUE' : 'FALSE';
-    } elseif (is_string($pre)) {
+    } else if (is_string($pre)) {
         $str .= '"'.$pre.'"';
     } else {
         ob_start();

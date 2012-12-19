@@ -42,7 +42,7 @@ class File
      */
     public function setFolder ($folder, $make_if_not_exists = false)
     {
-        if (!$folder) {
+        if (empty($folder)) {
             return false;
         }
 
@@ -76,7 +76,7 @@ class File
         while ($folder = array_shift($folders)) {
             $content = glob($folder.'/'.$pattern, $flags);
 
-            if (!$content) {
+            if (empty($content)) {
                 continue;
             }
 
@@ -193,14 +193,14 @@ class File
             return $return;
         }
 
-        if (!$file) {
+        if (empty($file)) {
             return false;
         }
 
         if (substr($destination, -1) !== '/') {
             $pathinfo = pathinfo($destination);
 
-            if (!$filename) {
+            if (empty($filename)) {
                 $filename = $pathinfo['basename'];
             }
 
@@ -208,17 +208,17 @@ class File
         }
 
         //Set folder
-        if (!$this->setFolder($destination, true) && !$this->folder) {
+        if (!$this->setFolder($destination, true) && empty($this->folder)) {
             return false;
         }
 
         //Save post file
         if (is_array($file)) {
-            if (!$file['size'] || !is_file($file['tmp_name'])) {
+            if (empty($file['size']) || !is_file($file['tmp_name'])) {
                 return false;
             }
 
-            if (!$filename) {
+            if (empty($filename)) {
                 $filename = $file['name'];
             }
 
@@ -232,7 +232,7 @@ class File
         }
 
         //Save url file
-        if (!$filename) {
+        if (empty($filename)) {
             $filename = pathinfo($file, PATHINFO_BASENAME);
         }
 
@@ -259,7 +259,7 @@ class File
             return $filename;
         }
 
-        if (!$ext) {
+        if (empty($ext)) {
             $ext = $this->calculateExtension($filename);
             $name = $filename;
         } else {
@@ -284,7 +284,7 @@ class File
      */
     public function saveText ($text, $destination, $filename = '')
     {
-        if (!$filename) {
+        if (empty($filename)) {
             $filename = pathinfo($destination, PATHINFO_BASENAME);
             $destination = pathinfo($destination, PATHINFO_DIRNAME).'/';
         }
@@ -337,7 +337,7 @@ class File
      */
     public function getMimeType ($file, $compare = '')
     {
-        if (!$file || !is_file($file)) {
+        if (empty($file) || !is_file($file)) {
             return false;
         }
 
@@ -404,7 +404,7 @@ class File
             }
         }
 
-        if (!$options['test_mode']) {
+        if (empty($options['test_mode'])) {
             foreach ($actions as $action) {
                 switch ($action['action']) {
                     case 'make_folder':
@@ -472,7 +472,7 @@ class File
         }
 
         if (!in_array($destination, $destination_files)) {
-            if (!$options['no_make']) {
+            if (empty($options['no_make'])) {
                 $actions[] = array(
                     'action' => ($type === 'file') ? 'copy_file' : 'make_folder',
                     'from' => $file,

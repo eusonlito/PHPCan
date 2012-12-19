@@ -15,9 +15,9 @@ $Debug->setSettings('debug');
 if ($Vars->var['packed']) {
     $files = inflate64($Vars->var['packed']);
 
-    if (!$files) {
+    if (empty($files)) {
         die('/* '.__('File %s doesn\'t exists', $files).' */');
-    } elseif (is_array($files)) {
+    } else if (is_array($files)) {
         $files = array_unique($files);
     }
 } else {

@@ -62,16 +62,16 @@ class Twitter extends Oauth2client implements Isession {
                 $this->settings['user_field'] => $user
             ));
 
-            if (!$exists) {
+            if (empty($exists)) {
                 return false;
             }
-        } elseif ($control['1'] && $control['2']) {
+        } else if ($control['1'] && $control['2']) {
             $user = decrypt($control['1']);
             $exists = $this->userExists(array(
                 $this->settings['user_field'] => $user
             ));
 
-            if (!$exists) {
+            if (empty($exists)) {
                 return false;
             }
 
@@ -85,7 +85,7 @@ class Twitter extends Oauth2client implements Isession {
 
             $exists = $Session->user('');
 
-            if (!$exists[$this->settings['id_field']] || !$exists[$this->settings['token_field']] || !$exists[$this->settings['token_secret_field']]) {
+            if (empty($exists[$this->settings['id_field']]) || empty($exists[$this->settings['token_field']]) || empty($exists[$this->settings['token_secret_field']])) {
                 return false;
             }
         }
@@ -136,13 +136,13 @@ class Twitter extends Oauth2client implements Isession {
 
     public function setToken ($url = '', $force = false)
     {
-        if (!$force && $this->token) {
+        if (empty($force) && $this->token) {
             return $this->token;
         }
 
         $this->token = $this->API()->getRequestToken($url);
 
-        while (!$this->token['oauth_token']) {
+        while (empty($this->token['oauth_token'])) {
             $this->logout();
             $this->load();
 
@@ -179,7 +179,7 @@ class Twitter extends Oauth2client implements Isession {
 
         $this->twitter = $this->API()->get('account/verify_credentials');
 
-        if (!$this->twitter || $this->twitter->error) {
+        if (empty($this->twitter) || $this->twitter->error) {
             $this->twitter = false;
         }
 
@@ -254,7 +254,7 @@ class Twitter extends Oauth2client implements Isession {
     */
     public function userAdd ()
     {
-        if ($this->API() && !$this->twitter) {
+        if ($this->API() && empty($this->twitter)) {
             return false;
         }
 
@@ -333,7 +333,7 @@ class Twitter extends Oauth2client implements Isession {
 
         $ok = $Db->update($query);
 
-        if (!$ok) {
+        if (empty($ok)) {
             $this->error = __('Error_saving_data');
         }
 
@@ -361,7 +361,7 @@ class Twitter extends Oauth2client implements Isession {
             $settings['enabled_field'] => 1
         ));
 
-        if (!$user) {
+        if (empty($user)) {
             $this->Errors->set($settings['errors'], __('User not exists'));
 
             return false;
@@ -442,7 +442,7 @@ class Twitter extends Oauth2client implements Isession {
         foreach ($this->settings['fields'] as $name => $dbfield) {
             if (is_string($user_data[$name])) {
                 $data[$dbfield] = trim($user_data[$name]);
-            } elseif (isset($user_data[$name])) {
+            } else if (isset($user_data[$name])) {
                 $data[$dbfield] = $user_data[$name];
             }
         }

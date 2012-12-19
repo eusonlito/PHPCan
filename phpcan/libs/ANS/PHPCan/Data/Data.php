@@ -63,6 +63,16 @@ class Data
     }
 
     /**
+     * public function __isset (string $name)
+     *
+     * return none
+     */
+    public function __isset ($name)
+    {
+        return isset($this->data[$name]);
+    }
+
+    /**
      * public function set (string/array $name, [mixed $value], [mixed $default])
      *
      * return none
@@ -145,7 +155,7 @@ class Data
     {
         $data = $this->file($data, false);
 
-        if (!$data) {
+        if (empty($data)) {
             return false;
         }
 
@@ -164,7 +174,7 @@ class Data
      */
     public function getAction ($action_name)
     {
-        if (!$action_name) {
+        if (empty($action_name)) {
             return false;
         }
 
@@ -172,7 +182,7 @@ class Data
 
         $action = $Config->config['actions'][$action_name];
 
-        if (!$action) {
+        if (empty($action)) {
             $this->Debug->error('actions', __('The action "%s" doesn\'t exists', $action_name));
 
             return false;
@@ -182,7 +192,7 @@ class Data
             $action = array('file' => $action);
         }
 
-        if (!$action['file']) {
+        if (empty($action['file'])) {
             $this->Debug->error('actions', __('Script file isn\'t defined to action "%s"', $action_name));
 
             return false;
@@ -217,7 +227,7 @@ class Data
      */
     public function afterAction ($action, $return)
     {
-        if (!$action) {
+        if (empty($action)) {
             return false;
         }
 

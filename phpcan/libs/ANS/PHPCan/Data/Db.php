@@ -76,7 +76,7 @@ class Db
 
         $this->languages = (array)$languages;
 
-        if (!$this->languages) {
+        if (empty($this->languages)) {
             global $Config;
 
             $this->languages = array_keys((array) $Config->languages['availables']);
@@ -115,7 +115,7 @@ class Db
         if ($connection && $Config->db[$connection]) {
             $this->connection = $connection;
         } else {
-            if (!$Config->db) {
+            if (empty($Config->db)) {
                 throw new \InvalidArgumentException(__('Does not exists database configuration'));
             }
 
@@ -129,7 +129,7 @@ class Db
             }
         }
 
-        if (!$this->connection) {
+        if (empty($this->connection)) {
             throw new \InvalidArgumentException(__('Connection can not be loaded'));
         }
 
@@ -179,7 +179,7 @@ class Db
             return true;
         }
 
-        if (!$this->settings['database'] || !$this->settings['user']) {
+        if (empty($this->settings['database']) || empty($this->settings['user'])) {
           return false;
         }
 
@@ -280,7 +280,7 @@ class Db
             }
 
             foreach ($extend['relations'] as $settings) {
-                if (!$settings['auto'] && (!$tables_config[$settings['tables'][0]] || !$tables_config[$settings['tables'][1]])) {
+                if (empty($settings['auto']) && (empty($tables_config[$settings['tables'][0]]) || empty($tables_config[$settings['tables'][1]]))) {
                     continue;
                 }
 
@@ -317,7 +317,7 @@ class Db
 
         $query_list = $this->Database->getSchemaDifferences($this->tables);
 
-        if (!$execute || !$query_list) {
+        if (empty($execute) || empty($query_list)) {
             return $query_list;
         }
 
@@ -341,11 +341,11 @@ class Db
             return false;
         }
 
-        if (!$simulate) {
+        if (empty($simulate)) {
             try {
                 $this->Result = $this->PDO->query($query);
 
-                if (!$this->Result) {
+                if (empty($this->Result)) {
                     $this->error(end($this->PDO->errorInfo()));
                 }
             } catch (\PDOException $e) {
@@ -425,7 +425,7 @@ class Db
      */
     public function tableExists ($table)
     {
-        if (!$table || !$this->tables[$table]) {
+        if (empty($table) || empty($this->tables[$table])) {
             return false;
         }
 
@@ -458,7 +458,7 @@ class Db
             $direction = $realname['direction'];
             $newname = $realname['newname'];
             $realname = $realname['realname'];
-        } elseif (!$realname) {
+        } else if (empty($realname)) {
             return false;
         }
 
@@ -484,7 +484,7 @@ class Db
      */
     public function tableArray ($table, $name = '', $direction = '')
     {
-        if (!$table) {
+        if (empty($table)) {
             return false;
         }
 
@@ -519,7 +519,7 @@ class Db
         $table = $operations['table'];
         $conditions = $operations['conditions'];
 
-        if (!$operations['conditions_or'] && is_array($conditions) && count($conditions) === 1 && (array_key_exists('id', $conditions) || array_key_exists($table.'.id', $conditions))) {
+        if (empty($operations['conditions_or']) && is_array($conditions) && count($conditions) === 1 && (array_key_exists('id', $conditions) || array_key_exists($table.'.id', $conditions))) {
             $ids = current($conditions);
         } else {
             $ids = $this->selectIds($operations);
@@ -551,7 +551,7 @@ class Db
      */
     private function triggerTableEvent ($table, $event_position, $event_type, $rows, $old_values, $new_values = null)
     {
-        if (!$rows) {
+        if (empty($rows)) {
             return true;
         }
 
@@ -564,7 +564,7 @@ class Db
 
         if ($event_type === 'Insert') {
             $id_values = $trigger_values = $new_values;
-        } elseif ($event_type === 'Delete') {
+        } else if ($event_type === 'Delete') {
             $id_values = $trigger_values = $old_values;
         } else {
             $id_values = $old_values;
@@ -619,7 +619,7 @@ class Db
      */
     private function triggerFormatEvent ($table, $event_position, $event_type, $rows, $old_values, $new_values = null)
     {
-        if (!$rows) {
+        if (empty($rows)) {
             return true;
         }
 
@@ -627,7 +627,7 @@ class Db
 
         if ($event_type === 'Insert') {
             $id_values = $trigger_values = $new_values;
-        } elseif ($event_type === 'Delete') {
+        } else if ($event_type === 'Delete') {
             $id_values = $trigger_values = $old_values;
         } else {
             $id_values = $old_values;
@@ -679,7 +679,7 @@ class Db
         foreach ($fields as $field) {
             $info = $this->fieldInfo($table, $field);
 
-            if (!$info) {
+            if (empty($info)) {
                 return $this->error(__('The field "%s" doesn\'t exits', __($field)));
             }
 
@@ -764,7 +764,7 @@ class Db
 
         //For insert and update actions
         if ($action !== 'delete') {
-            if (!$operations['data']) {
+            if (empty($operations['data'])) {
                 return $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
             }
 
@@ -793,7 +793,7 @@ class Db
                     'limit' => $operations['limit']
                 ));
 
-                if (!$old_values) {
+                if (empty($old_values)) {
                     return ($old_values === false) ? false : true;
                 }
 
@@ -810,7 +810,7 @@ class Db
         $total_rows = count($operations['data']);
 
         foreach ($suboperations as $action) {
-            if (!$operations[$action] || !is_array($operations[$action])) {
+            if (empty($operations[$action]) || !is_array($operations[$action])) {
                 continue;
             }
 
@@ -953,7 +953,7 @@ class Db
 
         $operations = $this->checkSaveOperations($operations, 'insert', $errors);
 
-        if (!$operations) {
+        if (empty($operations)) {
             return false;
         }
 
@@ -1006,7 +1006,7 @@ class Db
 
         $operations = $this->checkSaveOperations($operations, 'update', $errors);
 
-        if (!$operations) {
+        if (empty($operations)) {
             return false;
         }
 
@@ -1259,7 +1259,7 @@ class Db
                 'offset' => $operations['offset']
             ));
 
-            if (!$old_values) {
+            if (empty($old_values)) {
                 return ($old_values === false) ? false : true;
             }
 
@@ -1398,7 +1398,7 @@ class Db
                 'offset' => $operations['offset']
             ));
 
-            if (!$old_values) {
+            if (empty($old_values)) {
                 return ($old_values === false) ? false : true;
             }
 
@@ -1558,7 +1558,7 @@ class Db
         foreach ($operations as $operation) {
             $relation = $this->tables[$operation['table']]->getRelation($table1, $operation['name'], $operation['direction']);
 
-            if (!$relation) {
+            if (empty($relation)) {
                 return $this->error(__('There is not relations between the tables "%s" and "%s"', __($operation['table']), __($table1)));
             }
 
@@ -1625,7 +1625,7 @@ class Db
 
         $table = $this->tableArray($operations['table']);
 
-        if (!$table || !$this->tableExists($table['realname'])) {
+        if (empty($table) || !$this->tableExists($table['realname'])) {
             return $this->error(__('There is not table to select'));
         }
 
@@ -1687,7 +1687,7 @@ class Db
 
         $table = $this->tableArray($operations['table']);
 
-        if (!$table || !$this->tableExists($table['realname'])) {
+        if (empty($table) || !$this->tableExists($table['realname'])) {
             return $this->error(__('There is not table to select'));
         }
 
@@ -1737,7 +1737,7 @@ class Db
 
     public function getPagination ($operations)
     {
-        if (!$operations['limit']) {
+        if (empty($operations['limit'])) {
             return array();
         }
 
@@ -1827,7 +1827,7 @@ class Db
     */
     private function getCache ($query_key, $operations)
     {
-        if (!$this->Cache) {
+        if (empty($this->Cache)) {
             return false;
         }
 
@@ -1851,7 +1851,7 @@ class Db
     */
     private function putCache ($query_key, $operations, $result)
     {
-        if (!$this->Cache) {
+        if (empty($this->Cache)) {
             return false;
         }
 
@@ -1892,7 +1892,7 @@ class Db
 
         $table = $this->tableArray($operations['table']);
 
-        if (!$table || !$this->tableExists($table['realname'])) {
+        if (empty($table) || !$this->tableExists($table['realname'])) {
             return $this->error(__('There is not table to select'));
         }
 
@@ -1903,13 +1903,13 @@ class Db
         //Make select
         $result = $this->makeSelect($operations, '', 'html');
 
-        if (!$result) {
+        if (empty($result)) {
             return $result;
         }
 
         reset($result);
 
-        if ($operations['limit'] == 1 && !$operations['rows']) {
+        if (($operations['limit'] == 1) && empty($operations['rows'])) {
             $result = current($result);
         }
 
@@ -1934,7 +1934,7 @@ class Db
 
         unset($data['add_tables']);
 
-        if (!$data['fields'] && !$data['fields_commands']) {
+        if (empty($data['fields']) && empty($data['fields_commands'])) {
             $data['fields'] = '*';
         }
 
@@ -1942,14 +1942,14 @@ class Db
         $table = $data['table'];
         $table_data = $this->tableArray($table);
 
-        if (!$table || !$table_data || !$this->tableExists($table_data['realname'])) {
+        if (empty($table) || empty($table_data) || !$this->tableExists($table_data['realname'])) {
             return $this->error(__('There is not table to select'));
         }
 
         //Make select
         $data = $this->processQuery($data, $prev_table);
 
-        if (!$data) {
+        if (empty($data)) {
             return $data;
         }
 
@@ -2022,7 +2022,7 @@ class Db
             foreach ($add_tables as $name => $select) {
                 if (is_string($select)) {
                     $select = array('table' => $select);
-                } elseif (!isset($select['table'])) {
+                } else if (!isset($select['table'])) {
                     $select['table'] = $name;
                 }
 
@@ -2036,7 +2036,7 @@ class Db
                 //Check if tables are related
                 $relation = $this->tables[$added_table['realname']]->getRelation($table_data['realname'], $added_table['name'], $added_table['direction']);
 
-                if (!$relation) {
+                if (empty($relation)) {
                     $this->error(__('There is not relations between the tables "%s" and "%s"', __($added_table['realname']), __($table)));
                     continue;
                 }
@@ -2055,7 +2055,7 @@ class Db
                 //Add a condition to link with current table
                 $condition = $this->tableString($table_data['realname'], 'phpcan_related_'.$table_data['newname'], $relation->settings['name'], $relation->settings['direction'][1]).'.id';
 
-                if (!$select['conditions'][$condition]) {
+                if (empty($select['conditions'][$condition])) {
                     $select['conditions'][$condition] = $ids;
                 }
 
@@ -2065,7 +2065,7 @@ class Db
 
                 unset($select['limit'], $select['offset']);
 
-                if (!$limit) {
+                if (empty($limit)) {
                     if ($relation->unique) {
                         $limit = 1;
                     }
@@ -2086,7 +2086,7 @@ class Db
                 foreach ($result as &$result_row) {
                     $result_row[$name] = array();
 
-                    if (!$sub_result) {
+                    if (empty($sub_result)) {
                         continue;
                     }
 
@@ -2104,7 +2104,7 @@ class Db
                     }
 
                     //Unique result
-                    if ($limit == 1 && !$select['rows']) {
+                    if (($limit == 1) && empty($select['rows'])) {
                         $result_row[$name] = current($result_row[$name]);
                     }
                 }
@@ -2159,7 +2159,7 @@ class Db
 
         //Get fields names
         $query['fields'] = array(
-            $query['table'] => (!$query['fields'] && $query['fields_commands']) ? array() : $table->selectFields($query['fields'], ($query['language'] ?: $this->language))
+            $query['table'] => (empty($query['fields']) && $query['fields_commands']) ? array() : $table->selectFields($query['fields'], ($query['language'] ?: $this->language))
         );
 
         //Prepare conditions
@@ -2213,7 +2213,7 @@ class Db
             //Insert $table_base at first
             $tables = explode('.', $join['table']);
 
-            if (($tables[0] !== $table_base) || !$tables[1]) {
+            if (($tables[0] !== $table_base) || empty($tables[1])) {
                 array_unshift($tables, $table_base);
             }
 
@@ -2240,7 +2240,7 @@ class Db
             }
 
             //Get fields
-            if (!$join['fields']) {
+            if (empty($join['fields'])) {
                 $join['fields'] = '*';
             }
 
@@ -2254,7 +2254,7 @@ class Db
             $this->mergeConditions($join);
 
             //If table wasn't used previously, add the conditions
-            if (!$used_tables[$join['table']] && !$join['conditions']) {
+            if (empty($used_tables[$join['table']]) && empty($join['conditions'])) {
                 $join['conditions'][$join['table'].'._'] = '';
             }
 
@@ -2314,7 +2314,7 @@ class Db
             'fields' => array(),
         );
 
-        if (!$conditions) {
+        if (empty($conditions)) {
             return $result;
         }
 
@@ -2368,7 +2368,7 @@ class Db
 
             //Process tables
             foreach ($tables as $k => $current) {
-                if ($k == 0 && $tables[1]) {
+                if (($k == 0) && $tables[1]) {
                     continue;
                 }
 
@@ -2389,7 +2389,7 @@ class Db
                 //If table was used previously
                 if ($used_tables_here[$current['tables']]) {
                     if ($current['field']) {
-                        if (!$field = $table->selectField($current['field'], $this->language)) {
+                        if (!($field = $table->selectField($current['field'], $this->language))) {
                             return $this->error(__('The field %s doesn\'t exists in the table %s', __($current['field']), __($current['realname'])));
                         }
 
@@ -2417,7 +2417,7 @@ class Db
 
                 //Check if the field exists
                 if ($current['field']) {
-                    if (!$field = $table->selectField($current['field'], $this->language)) {
+                    if (!($field = $table->selectField($current['field'], $this->language))) {
                         return $this->error(__('The field %s doesn\'t exists in the table %s', __($current['field']), __($current['realname'])));
                     }
 
@@ -2428,7 +2428,7 @@ class Db
                 //Check if the relation exists
                 $relation = $this->tables[$previous['realname']]->getRelation($current['realname'], $current['name'], $current['direction']);
 
-                if (!$relation) {
+                if (empty($relation)) {
                     return $this->error(__('There is not relations between the tables "%s" and "%s"', __($previous['realname']), __($current['realname'])));
                 }
 
@@ -2452,7 +2452,7 @@ class Db
                     $used_tables[$previous['tables'].'.'.$rel_condition['relation_table']] = $rel_condition['relation_table'];
                 }
 
-                if ($prev_table && ($prev_table == $current['newname']) && $rel_condition['relation_field']) {
+                if ($prev_table && ($prev_table === $current['newname']) && $rel_condition['relation_field']) {
                     $result['fields'] = arrayMergeReplaceRecursive($rel_condition['relation_field'], $result['fields']);
                 }
             }
@@ -2491,7 +2491,7 @@ class Db
         $return = $sort_commands ? (array) $sort_commands : array();
 
         foreach ((array) $sort as $v) {
-            if (!$v) {
+            if (empty($v)) {
                 continue;
             }
 
@@ -2511,7 +2511,7 @@ class Db
 
             $table = $renamed_tables[$table_path];
 
-            if (!$table) {
+            if (empty($table)) {
                 $this->error(__('The table %s hasn\'t been selected so you can\'t sort by it', __($table_path)));
             }
 
@@ -2546,7 +2546,7 @@ class Db
 
             $table = $renamed_tables[$table_path];
 
-            if (!$table) {
+            if (empty($table)) {
                 $this->error(__('The table %s hasn\'t been selected so you can\'t group by it', __($table_path)));
                 continue;
             }

@@ -241,7 +241,7 @@ class Oauth2client
      */
     public function getAccessToken ($token_endpoint, $grant_type, array $parameters)
     {
-        if (!$grant_type) {
+        if (empty($grant_type)) {
             throw new \InvalidArgumentException('grant_type is mandatory.');
         }
 
@@ -332,7 +332,7 @@ class Oauth2client
      */
     public function fetch ($protected_resource_url, $parameters = array(), $http_method = self::HTTP_METHOD_GET, array $http_headers = array(), $form_content_type = self::HTTP_FORM_CONTENT_TYPE_MULTIPART)
     {
-        if (!$this->access_token) {
+        if (empty($this->access_token)) {
             return $this->executeRequest($protected_resource_url, $parameters, $http_method, $http_headers, $form_content_type);
         }
 
@@ -389,7 +389,7 @@ class Oauth2client
         if (self::HTTP_METHOD_POST === $http_method || self::HTTP_METHOD_PUT === $http_method) {
             if (is_array($parameters) && !empty($parameters)) {
                 $body_hash = base64_encode(hash($this->access_token_algorithm, http_build_query($parameters)));
-            } elseif ($parameters) {
+            } else if ($parameters) {
                 $body_hash = base64_encode(hash($this->access_token_algorithm, $parameters));
             }
         } else {
@@ -465,7 +465,7 @@ class Oauth2client
             case self::HTTP_METHOD_GET:
                 if (is_array($parameters)) {
                     $url .= '?' . http_build_query($parameters, null, '&');
-                } elseif ($parameters) {
+                } else if ($parameters) {
                     $url .= '?' . $parameters;
                 }
 

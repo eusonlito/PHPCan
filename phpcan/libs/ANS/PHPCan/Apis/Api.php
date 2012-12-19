@@ -146,7 +146,7 @@ class Api
 
         $return = $this->curl($url);
 
-        if (!$return) {
+        if (empty($return)) {
             return false;
         }
 
@@ -154,7 +154,7 @@ class Api
             $this->Cache->set($key, $return, $cache);
         }
 
-        if (!$return || ($return[0] !== '<')) {
+        if (empty($return) || ($return[0] !== '<')) {
             return false;
         }
 
@@ -181,7 +181,7 @@ class Api
 
         $return = $this->curl($url);
 
-        if (!$return) {
+        if (empty($return)) {
             return false;
         }
 

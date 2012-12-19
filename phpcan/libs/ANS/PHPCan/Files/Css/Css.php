@@ -67,7 +67,7 @@ class Css {
         if (is_string($settings) && $Config->config[$settings]) {
             $this->settings = $Config->$settings;
             $this->settings['cache'] = $Config->cache['types'][$settings];
-        } elseif (is_array($settings)) {
+        } else if (is_array($settings)) {
             $this->settings = $settings;
         } else {
             return false;
@@ -137,7 +137,7 @@ class Css {
 
         $key = md5($file);
 
-        if (!$cache || !$this->Cache->exists($key)) {
+        if (empty($cache) || !$this->Cache->exists($key)) {
             return false;
         }
 

@@ -19,7 +19,7 @@ class Url_media extends Url implements Iformats
     {
         $this->error = array();
 
-        if (!$this->settings['url']['required'] && !$value['url']) {
+        if (empty($this->settings['url']['required']) && empty($value['url'])) {
             return true;
         }
 
@@ -86,9 +86,9 @@ class Url_media extends Url implements Iformats
 
     public function _unserialize ($value)
     {
-        if (!$value) {
+        if (empty($value)) {
             return $value;
-        } elseif (strstr($value, ':') === false) {
+        } else if (strstr($value, ':') === false) {
             $value = base64_decode($value);
         }
 
@@ -163,15 +163,15 @@ class Url_media extends Url implements Iformats
     {
         if ($url_info['host'] === 'youtu.be') {
             $id = $url_info['basename'];
-        } elseif ($url_info['host'] === 'www.youtube.com') {
+        } else if ($url_info['host'] === 'www.youtube.com') {
             if ($url_info['query']['v']) {
                 $id = $url_info['query']['v'];
-            } elseif (($url_info['path'][0] === 'v') && $url_info['path'][1]) {
+            } else if (($url_info['path'][0] === 'v') && $url_info['path'][1]) {
                 $id = $url_info['path'][1];
             }
         }
 
-        if (!$id) {
+        if (empty($id)) {
             return false;
         }
 
@@ -179,7 +179,7 @@ class Url_media extends Url implements Iformats
 
         $info = $Api->getXML('http://gdata.youtube.com/feeds/api/videos/'.$id);
 
-        if (!$info) {
+        if (empty($info)) {
             return false;
         }
 
@@ -207,7 +207,7 @@ class Url_media extends Url implements Iformats
 
         $info = $Api->getPHP('http://vimeo.com/api/v2/video/'.$id.'.php');
 
-        if (!$info) {
+        if (empty($info)) {
             return false;
         }
 
@@ -235,7 +235,7 @@ class Url_media extends Url implements Iformats
 
         $info = $Api->getJSON('https://api.dailymotion.com/video/'.$id, array('fields' => 'title,description,thumbnail_url'));
 
-        if (!$info) {
+        if (empty($info)) {
             return false;
         }
 
@@ -265,7 +265,7 @@ class Url_media extends Url implements Iformats
             'url' => $url_info['url']
         ));
 
-        if (!$info) {
+        if (empty($info)) {
             return false;
         }
 
@@ -366,7 +366,7 @@ class Url_media extends Url implements Iformats
     */
     private function type_imgur ($url_info)
     {
-        if (($url_info['host'] !== 'imgur.com') || ($url_info['path'][0] !== 'gallery') || !$url_info['path'][1]) {
+        if (($url_info['host'] !== 'imgur.com') || ($url_info['path'][0] !== 'gallery') || empty($url_info['path'][1])) {
             return false;
         }
 

@@ -36,10 +36,10 @@ class Events
 
     public function load ($events = array())
     {
-        if (!$events) {
+        if (empty($events)) {
             global $Config;
 
-            if (!$Config->events) {
+            if (empty($Config->events)) {
                 return true;
             }
 
@@ -64,7 +64,7 @@ class Events
      */
     public function bind ($element, $events, $function)
     {
-        if (!$element) {
+        if (empty($element)) {
             return false;
         }
 
@@ -94,11 +94,11 @@ class Events
      */
     public function unbind ($element, $events = false)
     {
-        if (!$element) {
+        if (empty($element)) {
             return false;
         }
 
-        if (!$events) {
+        if (empty($events)) {
             unset($this->events[$element]);
         }
 
@@ -114,7 +114,7 @@ class Events
      */
     public function defined ($element, $event = false)
     {
-        if (!$event) {
+        if (empty($event)) {
             return isset($this->events[$element]);
         }
 
@@ -128,7 +128,7 @@ class Events
      */
     public function trigger ($element, $event)
     {
-        if (!$event || !($event_settings = $this->events[$element][$event])) {
+        if (empty($event) || !($event_settings = $this->events[$element][$event])) {
             return false;
         }
 

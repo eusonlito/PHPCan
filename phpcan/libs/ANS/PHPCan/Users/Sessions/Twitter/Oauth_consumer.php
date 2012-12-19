@@ -280,7 +280,7 @@ class OAuthRequest
     // this request.
     // If you run XML-RPC or similar you should use this to provide your own
     // parsed parameter-list
-    if (!$parameters) {
+    if (empty($parameters)) {
       // Find request headers
       $request_headers = OAuthUtil::get_headers();
 
@@ -611,7 +611,7 @@ class OAuthServer
   private function get_version(&$request)
   {
     $version = $request->get_parameter("oauth_version");
-    if (!$version) {
+    if (empty($version)) {
       // Service Providers MUST assume the protocol version to be 1.0 if this parameter is not present.
       // Chapter 7.0 ("Accessing Protected Ressources")
       $version = '1.0';
@@ -631,7 +631,7 @@ class OAuthServer
     $signature_method =
         @$request->get_parameter("oauth_signature_method");
 
-    if (!$signature_method) {
+    if (empty($signature_method)) {
       // According to chapter 7 ("Accessing Protected Ressources") the signature-method
       // parameter is required, and we can't just fallback to PLAINTEXT
       throw new OAuthException('No signature method parameter. This parameter is required');
@@ -655,12 +655,12 @@ class OAuthServer
   private function get_consumer(&$request)
   {
     $consumer_key = @$request->get_parameter("oauth_consumer_key");
-    if (!$consumer_key) {
+    if (empty($consumer_key)) {
       throw new OAuthException("Invalid consumer key");
     }
 
     $consumer = $this->data_store->lookup_consumer($consumer_key);
-    if (!$consumer) {
+    if (empty($consumer)) {
       throw new OAuthException("Invalid consumer");
     }
 
@@ -676,7 +676,7 @@ class OAuthServer
     $token = $this->data_store->lookup_token(
       $consumer, $token_type, $token_field
     );
-    if (!$token) {
+    if (empty($token)) {
       throw new OAuthException("Invalid $token_type token: $token_field");
     }
 
@@ -706,7 +706,7 @@ class OAuthServer
       $signature
     );
 
-    if (!$valid_sig) {
+    if (empty($valid_sig)) {
       throw new OAuthException("Invalid signature");
     }
   }
@@ -792,7 +792,7 @@ class OAuthUtil
   {
   if (is_array($input)) {
     return array_map(array('\users\sessions\twitter\OAuthUtil', 'urlencode_rfc3986'), $input);
-  } elseif (is_scalar($input)) {
+  } else if (is_scalar($input)) {
     return str_replace(
       '+',
       ' ',
@@ -823,7 +823,7 @@ class OAuthUtil
       $match = $matches[0];
       $header_name = $matches[2][0];
       $header_content = (isset($matches[5])) ? $matches[5][0] : $matches[4][0];
-      if (preg_match('/^oauth_/', $header_name) || !$only_allow_oauth_parameters) {
+      if (preg_match('/^oauth_/', $header_name) || empty($only_allow_oauth_parameters)) {
         $params[$header_name] = OAuthUtil::urldecode_rfc3986($header_content);
       }
       $offset = $match[1] + strlen($match[0]);
@@ -889,7 +889,7 @@ class OAuthUtil
   // array('a' => array('b','c'), 'd' => 'e')
   public static function parse_parameters( $input )
   {
-    if (!isset($input) || !$input) return array();
+    if (!isset($input) || empty($input)) return array();
 
     $pairs = explode('&', $input);
 
@@ -920,7 +920,7 @@ class OAuthUtil
 
   public static function build_http_query($params)
   {
-    if (!$params) return '';
+    if (empty($params)) return '';
 
     // Urlencode both keys and values
     $keys = OAuthUtil::urlencode_rfc3986(array_keys($params));

@@ -49,13 +49,13 @@ class Form
         $error = '';
         $extra = '';
 
-        if (is_array($value) && !$name) {
+        if (is_array($value) && empty($name)) {
             $params = $value;
 
-            if ($name && !$params['label_text']) {
+            if ($name && empty($params['label_text'])) {
                 $params['label_text'] = $name;
             }
-        } elseif (is_array($name)) {
+        } else if (is_array($name)) {
             $params = $name;
         } else {
             $params = array(
@@ -87,7 +87,7 @@ class Form
         }
 
         //Generate id if is needle
-        if (!$params['id']) {
+        if (empty($params['id'])) {
             if ($label['for']) {
                 $params['id'] = $label['for'];
             } else {
@@ -101,7 +101,7 @@ class Form
                 $params['error'] = implode('. ', $params['error']);
             }
 
-            if (!$params['error_class']) {
+            if (empty($params['error_class'])) {
                 $params['error_class'] = 'error';
             }
 
@@ -123,7 +123,7 @@ class Form
         if ($params['tabindex'] === false) {
             unset($params['tabindex']);
         } else {
-            if (!$params['tabindex']) {
+            if (empty($params['tabindex'])) {
                 $params['tabindex'] = $this->tabindex;
             } else {
                 $this->tabindex = $params['tabindex'];
@@ -151,7 +151,7 @@ class Form
      */
     private function formLabel ($params)
     {
-        if (!$params['label'] || !$params['label']['text']) {
+        if (empty($params['label']) || empty($params['label']['text'])) {
             unset ($params['label']);
 
             return $params;
@@ -194,7 +194,7 @@ class Form
         $params = $this->formInputParams($value, $name, '');
         $params['params']['type'] = 'submit';
 
-        if (!$params['params']['name']) {
+        if (empty($params['params']['name'])) {
             unset($params['params']['name']);
         }
 
@@ -225,7 +225,7 @@ class Form
     {
         $params = $this->formInputParams($value, $name, '');
 
-        if (!$params['params']['type']) {
+        if (empty($params['params']['type'])) {
             $params['params']['type'] = $type ? $type : 'button';
         }
 
@@ -239,7 +239,7 @@ class Form
             $params['params']['name'] = 'phpcan_action['.$action['name'].']';
         }
 
-        if (!$params['params']['name']) {
+        if (empty($params['params']['name'])) {
             unset($params['params']['name']);
         }
 
@@ -257,7 +257,7 @@ class Form
     {
         $params = $this->formInputParams($value, $name, '');
 
-        if (!$params['params']['name']) {
+        if (empty($params['params']['name'])) {
             return '';
         }
 
@@ -574,7 +574,7 @@ class Form
             }
         }
 
-        if (!$params['label']['position']) {
+        if (empty($params['label']['position'])) {
             $params['label']['position'] = 'after';
         }
 
@@ -626,8 +626,8 @@ class Form
                 $result[] = array(
                     'value' => $value,
                     'text' => $option_text ? $option[$option_text] : $option[$option_title]['title'],
-                    'selected' => (($selected && in_array($value, $selected)) || ($option_selected && $option[$option_selected])) ? true : NULL,
-                    'disabled' => $option[$option_disabled] ? 'disabled' : NULL
+                    'selected' => (($selected && in_array($value, $selected)) || ($option_selected && $option[$option_selected])) ? true : null,
+                    'disabled' => $option[$option_disabled] ? 'disabled' : null
                 );
             }
 
@@ -641,7 +641,7 @@ class Form
             $result[] = array(
                 'value' => $option_text_as_value ? $option : $value,
                 'text' => $option,
-                'selected' => ($selected && in_array($value, $selected)) ? true : NULL
+                'selected' => ($selected && in_array($value, $selected)) ? true : null
             );
         }
 
@@ -699,7 +699,7 @@ class Form
 
         $params = $this->formInputParams($value, $name, $label);
 
-        if (!$params['label']['position']) {
+        if (empty($params['label']['position'])) {
             $params['label']['position'] = 'after';
         }
 

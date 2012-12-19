@@ -44,11 +44,11 @@ abstract class Relations
             $relation['tables'] = explode(' ', $relation['tables']);
         }
 
-        if (!$relation['direction'] && ($relation['tables'][0] == $relation['tables'][1])) {
+        if (empty($relation['direction']) && ($relation['tables'][0] == $relation['tables'][1])) {
             $relation['direction'] = array('parent', 'child');
-        } elseif ($relation['direction'] && !is_array($relation['direction'])) {
+        } else if ($relation['direction'] && !is_array($relation['direction'])) {
             $relation['direction'] = array_fill(0, 2, $relation['direction']);
-        } elseif (!$relation['direction']) {
+        } else if (empty($relation['direction'])) {
             $relation['direction'] = array();
         }
 
@@ -102,7 +102,7 @@ abstract class Relations
      */
     protected function getTable ($realname, $newname)
     {
-        if (!$newname || $realname == $newname) {
+        if (empty($newname) || ($realname === $newname)) {
             return $realname;
         }
 

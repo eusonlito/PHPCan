@@ -20,7 +20,7 @@ class GoogleDocs extends File implements iFormats
         $value = $value[''];
         $settings = $this->settings[''];
 
-        if (!$value || ($value == 1) || (is_array($value) && (($value['size'] == 0) || !is_file($value['tmp_name'])))) {
+        if (empty($value) || ($value == 1) || (is_array($value) && (($value['size'] == 0) || !is_file($value['tmp_name'])))) {
             if ($id) {
                 if ($value == 1) {
                     return array('' => ($settings['default'] ?: ''));
@@ -48,7 +48,7 @@ class GoogleDocs extends File implements iFormats
 
             if ($link = $Gdocs->upload($value['tmp_name'], $name, $settings['collection'])) {
                 return array('' => $link);
-            } elseif (!$settings['local']) {
+            } else if (empty($settings['local'])) {
                 return false;
             }
         }

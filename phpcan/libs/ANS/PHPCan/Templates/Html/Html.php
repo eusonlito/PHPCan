@@ -136,7 +136,7 @@ class Html
         unset($params['text']);
 
         //Params optimization
-        if (!$params['href']) {
+        if (empty($params['href'])) {
             $params['href'] = $text;
         }
 
@@ -159,7 +159,7 @@ class Html
                 } else {
                     $params['onclick'] .= 'document.'.$id.'.submit(); return false;';
                 }
-            } elseif ($action['params']) {
+            } else if ($action['params']) {
                 $params['href'] .= strpos($params['href'], '?') ? '&amp;'.$action['params'] : '?'.$action['params'];
             } else {
                 $params['href'] .= ':'.$action['name'];
@@ -187,7 +187,7 @@ class Html
             $action = array('name' => $action);
         }
 
-        if (!$action || !$action['name']) {
+        if (empty($action) || empty($action['name'])) {
             return false;
         }
 
@@ -208,9 +208,9 @@ class Html
             }
 
             $action['params'] = $params;
-        } elseif (is_array($action['params'])) {
+        } else if (is_array($action['params'])) {
             $action['params'] = http_build_query(array('phpcan_action' => $action['name']) + $action['params']);
-        } elseif ($action['params']) {
+        } else if ($action['params']) {
             $action['params'] = 'phpcan_action['.$action['name'].']='.$action['params'];
         }
 
@@ -225,7 +225,7 @@ class Html
      */
     public function aList ($data, $text = null, $slug = null, $href = null, $separator = ', ')
     {
-        if (!$data || !is_array($data)) {
+        if (empty($data) || !is_array($data)) {
             return '';
         }
 
@@ -283,13 +283,13 @@ class Html
         foreach ((array) $data as $value) {
             if ($options['title'] && $value[$options['title']]) {
                 $text = $this->a($value[$options['title']]['title'], $options['href'].$value[$options['title']]['url']);
-                $class = ($options['selected'] && $options['selected'] == $value[$options['title']]['url']) ? 'selected' : '';
-            } elseif ($options['slug'] && $value[$options['slug']]) {
+                $class = ($options['selected'] && ($options['selected'] == $value[$options['title']]['url'])) ? 'selected' : '';
+            } else if ($options['slug'] && $value[$options['slug']]) {
                 $text = $this->a($value[$options['text']], $options['href'].$value[$options['slug']]);
-                $class = ($options['selected'] && $options['selected'] == $value[$options['slug']]) ? 'selected' : '';
+                $class = ($options['selected'] && ($options['selected'] == $value[$options['slug']])) ? 'selected' : '';
             } else {
                 $text = $value[$options['text']];
-                $class = ($options['selected'] && $options['selected'] == $text) ? 'selected' : '';
+                $class = ($options['selected'] && ($options['selected'] == $text)) ? 'selected' : '';
             }
 
             if ($options['recursive'] && $value[$options['recursive']]) {
@@ -333,7 +333,7 @@ class Html
             );
         }
 
-        if (!$params['src']) {
+        if (empty($params['src'])) {
             return '';
         }
 
@@ -342,7 +342,7 @@ class Html
 
         unset($params['transform'], $params['host']);
 
-        if (!$params['alt']) {
+        if (empty($params['alt'])) {
             $params['alt'] = '';
         }
 
@@ -390,7 +390,7 @@ class Html
             );
         }
 
-        if (!$params['src']) {
+        if (empty($params['src'])) {
             return '';
         }
 
@@ -477,7 +477,7 @@ class Html
      */
     public function jsLink ($file)
     {
-        if (!$file) {
+        if (empty($file)) {
             return '';
         }
 
@@ -494,7 +494,7 @@ class Html
 
         $params['src'] = fileWeb($file, (strpos($file, '$') !== false));
 
-        if (!$params['src']) {
+        if (empty($params['src'])) {
             return '';
         }
 
@@ -566,7 +566,7 @@ class Html
      */
     public function cssLink ($file)
     {
-        if (!$file) {
+        if (empty($file)) {
             return '';
         }
 
@@ -583,7 +583,7 @@ class Html
 
         $params['href'] = fileWeb($file, (strpos($file, '$') !== false));
 
-        if (!$params['href']) {
+        if (empty($params['href'])) {
             return '';
         }
 
@@ -602,7 +602,7 @@ class Html
      */
     public function dinamicCssLink ($file)
     {
-        if (!$file) {
+        if (empty($file)) {
             return '';
         }
 
@@ -612,7 +612,7 @@ class Html
 
         $href = fileWeb($file, (strpos($file, '$') === false));
 
-        if (!$file || !$this->once($file)) {
+        if (empty($file) || !$this->once($file)) {
             return '';
         }
 
@@ -707,7 +707,7 @@ class Html
             );
         }
 
-        if (!$params['src']) {
+        if (empty($params['src'])) {
             return '';
         }
 
@@ -728,7 +728,7 @@ class Html
         $txt = '<object'.$this->params($params_object).'>';
 
         foreach ($params_param as $name => $value) {
-            if (!$value) {
+            if (empty($value)) {
                 continue;
             }
             $txt .= '<param name="'.$name.'" value="'.$value.'" />';
@@ -769,7 +769,7 @@ class Html
     {
         $index = $index + 1 + $offset;
 
-        if ($index > 1 && ($index%$each) == 0) {
+        if (($index > 1) && (($index % $each) == 0)) {
             return $text;
         }
 

@@ -104,10 +104,10 @@ class Xhttp extends Api
 
         # Set Default Ports
 
-        if (!$urlparts['port']) {
+        if (empty($urlparts['port'])) {
             if ($urlparts['scheme'] === 'https') {
                 $urlparts['port'] = 443;
-            } elseif ($urlparts['scheme'] === 'https') {
+            } else if ($urlparts['scheme'] === 'https') {
                 $urlparts['port'] = 80;
             }
         }
@@ -213,7 +213,7 @@ class Xhttp extends Api
                     $file = $requestData['tmpfile'][$key];
 
                 # Check if file is not a file, then dump it to a file first
-                } elseif (!file_exists($file)) {
+                } else if (!file_exists($file)) {
                     $requestData['tmpfile'][$key] = tempnam('.', 'xhttp-tmp-');
                     file_put_contents($requestData['tmpfile'][$key], $file);
                     $file = $requestData['tmpfile'][$key];
@@ -232,7 +232,7 @@ class Xhttp extends Api
             if (strpos($requestData['headers']['Content-Type'], 'application/json') !== false) {
                 if (is_array($requestData['curl'][CURLOPT_POSTFIELDS])) {
                     $requestData['curl'][CURLOPT_POSTFIELDS] = json_encode($requestData['curl'][CURLOPT_POSTFIELDS]);
-                } elseif (!isset($requestData['curl'][CURLOPT_POSTFIELDS])) {
+                } else if (!isset($requestData['curl'][CURLOPT_POSTFIELDS])) {
                     $requestData['curl'][CURLOPT_POSTFIELDS] = '{}';
                 }
             }
@@ -269,7 +269,7 @@ class Xhttp extends Api
 
     public static function after_curl_execution (&$ch, &$response, &$requestData)
     {
-        if (!$ch) {
+        if (empty($ch)) {
             trigger_error($requestData['url'], E_USER_WARNING);
         }
 
@@ -328,7 +328,7 @@ class Xhttp extends Api
 
     public static function array_utf8_encode (&$item, $key)
     {
-        if ('UTF-8' != mb_detect_encoding($item)) {
+        if ('UTF-8' !== mb_detect_encoding($item)) {
             $item = utf8_encode($item);
         }
     }
@@ -337,9 +337,9 @@ class Xhttp extends Api
     {
         if (($responseData['error']['code'] != 0)
         || !isset($responseData['request']['curl'][CURLOPT_RETURNTRANSFER])
-        || !$responseData['request']['curl'][CURLOPT_RETURNTRANSFER]
+        || empty($responseData['request']['curl'][CURLOPT_RETURNTRANSFER])
         || !isset($responseData['request']['curl'][CURLOPT_HEADER])
-        || !$responseData['request']['curl'][CURLOPT_HEADER]) {
+        || empty($responseData['request']['curl'][CURLOPT_HEADER])) {
             $responseData['body'] = $response;
 
             return;
@@ -517,7 +517,7 @@ class Xhttp extends Api
     {
         if (is_string($headers)) {
             return explode("\r\n", $headers);
-        } elseif (is_array($headers)) {
+        } else if (is_array($headers)) {
             if (isset($headers[0])) {
                 return $headers;
             } else {

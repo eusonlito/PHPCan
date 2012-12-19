@@ -51,7 +51,7 @@ class Gettext_builder
 
         $return['entries'] = $this->scan($folders);
 
-        if (!$po_files) {
+        if (empty($po_files)) {
             return $return;
         }
 
@@ -64,17 +64,17 @@ class Gettext_builder
 
             $po_entries = $this->parsePo($po_file);
 
-            if (!$po_entries) {
+            if (empty($po_entries)) {
                 continue;
             }
 
             foreach ($return['entries'] as $key => &$entry) {
-                if (!$po_entries['entries'][$key]) {
+                if (empty($po_entries['entries'][$key])) {
                     continue;
                 }
 
                 foreach ($po_entries['entries'][$key] as $po_key => $po_entry) {
-                    if (!$entry[$po_key]) {
+                    if (empty($entry[$po_key])) {
                         $entry[$po_key] = $po_entry;
                     }
                 }
@@ -124,7 +124,7 @@ class Gettext_builder
         foreach ($lines as $num => $text) {
             preg_match_all('/__e?\(((?<!\\\)"(.*?)(?<!\\\)"|(?<!\\\)\'(.*?)(?<!\\\)\')/i', $text, $matches);
 
-            if (!$matches[1]) {
+            if (empty($matches[1])) {
                 continue;
             }
 
@@ -188,7 +188,7 @@ class Gettext_builder
             $line = $this->dequote($line);
             list ($key, $data) = explode(':', $line, 2);
 
-            if (!$key || !isset($headers[$key])) {
+            if (empty($key) || !isset($headers[$key])) {
                 continue;
             }
 
@@ -203,7 +203,7 @@ class Gettext_builder
 
             if ($line === '') {
                 if ($entry['msgid']) {
-                    if (!$entry['msgstr']) {
+                    if (empty($entry['msgstr'])) {
                         $entry['msgstr'] = array();
                     }
 

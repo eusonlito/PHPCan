@@ -24,7 +24,7 @@ class Relation_x_x extends Relations implements Irelations
 
         $settings = self::basicSettings($settings);
 
-        if (!$settings['relation_table']) {
+        if (empty($settings['relation_table'])) {
             $settings['relation_table'] = $settings['tables'][0].'_'.$settings['tables'][1].($settings['name'] ? '_'.$settings['name'] : '');
             $auto = true;
         } else {
@@ -178,7 +178,7 @@ class Relation_x_x extends Relations implements Irelations
             $relation_conditions[] = '`'.$this->settings['relation_table'].'`.'.$this->settings['join'][1].' = `'.$renamed_table0.'`.id';
 
         //Different joins with no direction
-        } elseif ($this->settings['auto'] && !$this->settings['direction'] && ($this->settings['join'][0] != $this->settings['join'][1])) {
+        } else if ($this->settings['auto'] && empty($this->settings['direction']) && ($this->settings['join'][0] != $this->settings['join'][1])) {
             $relation_conditions[] = '((`'.$renamed_table0.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][0]
                                     .' AND `'.$renamed_table1.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][1].')'
                                     .' OR (`'.$renamed_table0.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][1]
@@ -205,7 +205,7 @@ class Relation_x_x extends Relations implements Irelations
      */
     public function relate ($operations_table0, $operations_table1, $options = array())
     {
-        if (!$operations_table0['conditions'] || !$operations_table1['conditions']) {
+        if (empty($operations_table0['conditions']) || empty($operations_table1['conditions'])) {
             $this->Debug->error('db', __('For security, conditions param is needed to relate function. If you want relate all rows, use conditions = "all"'));
 
             return false;
@@ -218,12 +218,12 @@ class Relation_x_x extends Relations implements Irelations
         $extra_data = (array) $options['data'];
 
         foreach ((array) $ids_table0 as $id_table0) {
-            if (!$id_table0) {
+            if (empty($id_table0)) {
                 continue;
             }
 
             foreach ((array) $ids_table1 as $id_table1) {
-                if (!$id_table1) {
+                if (empty($id_table1)) {
                     continue;
                 }
 
@@ -236,7 +236,7 @@ class Relation_x_x extends Relations implements Irelations
                     'comment' => __('Checking if the tables %s and %s are related', $this->settings['tables'][0], $this->settings['tables'][1])
                 ));
 
-                if (!$related) {
+                if (empty($related)) {
                     $relation_data[] = array(
                         $this->settings['join'][0] => $id_table0,
                         $this->settings['join'][1] => $id_table1
@@ -246,7 +246,7 @@ class Relation_x_x extends Relations implements Irelations
         }
 
         //All registers are just related
-        if (!$relation_data) {
+        if (empty($relation_data)) {
             return true;
         }
 
@@ -271,7 +271,7 @@ class Relation_x_x extends Relations implements Irelations
      */
     public function unrelate ($operations_table0, $operations_table1, $options = array())
     {
-        if (!$operations_table0['conditions'] || !$operations_table1['conditions']) {
+        if (empty($operations_table0['conditions']) || empty($operations_table1['conditions'])) {
             $this->Debug->error('db', __('For security, conditions param is needed to unrelate function. If you want unrelate all rows, use conditions = "all"'));
 
             return false;
@@ -289,7 +289,7 @@ class Relation_x_x extends Relations implements Irelations
             $operations['conditions'][$this->settings['join'][1]] = $this->getIds($this->settings['tables'][1], $operations_table1);
         }
 
-        if (!$operations['conditions']) {
+        if (empty($operations['conditions'])) {
             $operations['conditions'] = 'all';
         }
 
@@ -301,7 +301,7 @@ class Relation_x_x extends Relations implements Irelations
         }
 
         //Unrelate autorelations with no direction
-        if ($operations['conditions'] !== 'all' && ($this->settings['tables'][0] == $this->settings['tables'][1]) && !$this->settings['direction']) {
+        if ($operations['conditions'] !== 'all' && ($this->settings['tables'][0] == $this->settings['tables'][1]) && empty($this->settings['direction'])) {
             $conditions = array();
 
             if ($operations['conditions'][$this->settings['join'][0]]) {

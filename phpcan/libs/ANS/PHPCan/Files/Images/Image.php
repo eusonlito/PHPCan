@@ -74,13 +74,13 @@ class Image
 
         if (is_string($settings) && $Config->config[$settings]) {
             $this->settings = array_merge($this->settings, $Config->config[$settings]);
-        } elseif (is_array($settings)) {
+        } else if (is_array($settings)) {
             $this->settings = array_merge($this->settings, $settings);
         } else {
             return false;
         }
 
-        if (!$this->settings['quality']) {
+        if (empty($this->settings['quality'])) {
             $this->settings['quality'] = 90;
         }
 
@@ -96,7 +96,7 @@ class Image
      */
     public function transform ($operations = '', $cache = null)
     {
-        if (!$operations) {
+        if (empty($operations)) {
             return $this;
         }
 
@@ -127,7 +127,7 @@ class Image
 
         $key = md5($file.serialize($transform));
 
-        if (!$cache || !$this->Cache->exists($key)) {
+        if (empty($cache) || !$this->Cache->exists($key)) {
             return false;
         }
 

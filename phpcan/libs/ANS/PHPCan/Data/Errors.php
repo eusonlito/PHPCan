@@ -108,7 +108,7 @@ class Errors
             foreach ($errors as $error) {
                 $this->_getList($error, $list);
             }
-        } elseif ($errors) {
+        } else if ($errors) {
             $list[] = $errors;
         }
     }

@@ -156,7 +156,7 @@ class Vars
             }
         }
 
-        if (!$path) {
+        if (empty($path)) {
             $path[] = 'index';
         }
 
@@ -195,7 +195,7 @@ class Vars
      */
     private function arrayFiles ()
     {
-        if (!$_FILES) {
+        if (empty($_FILES)) {
             return array();
         }
 
@@ -290,7 +290,7 @@ class Vars
      */
     private function _get ($names, $values, $def_filter)
     {
-        if (!$values) {
+        if (empty($values)) {
             return null;
         }
 
@@ -378,14 +378,14 @@ class Vars
                             $values[$v] = $this->var[$v];
                         }
 
-                    } elseif (is_null($v)) {
+                    } else if (is_null($v)) {
                         $null[] = $k;
                     } else {
                         $values[$k] = $v;
                     }
                 }
 
-            } elseif (is_null($value)) {
+            } else if (is_null($value)) {
                 $null[] = $name;
             } else {
                 $values[$name] = $value;
@@ -647,7 +647,7 @@ class Vars
     {
         array_shift($this->path);
 
-        if (!$this->path) {
+        if (empty($this->path)) {
             $this->path[] = 'index';
         }
     }
@@ -709,7 +709,7 @@ class Vars
                 $filtered_settings = array();
 
                 foreach ($settings as $settings_name => $settings_value) {
-                    if (!$settings_value) {
+                    if (empty($settings_value)) {
                         continue;
                     }
 
@@ -802,7 +802,7 @@ class Vars
             return $this->route_config;
         }
 
-        if (!$this->route_config[$name]) {
+        if (empty($this->route_config[$name])) {
             return false;
         }
 
@@ -920,7 +920,7 @@ class Vars
      */
     public function detectScene ()
     {
-        if (!$this->scenes) {
+        if (empty($this->scenes)) {
             $this->Debug->fatalError('vars', 'There is not any scene defined');
         }
 
@@ -975,7 +975,7 @@ class Vars
      */
     public function getScene ($scene = '')
     {
-        if (!$scene) {
+        if (empty($scene)) {
             return $this->scene;
         } else {
             return ($this->scene === $scene) ? true : false;
@@ -992,7 +992,7 @@ class Vars
      */
     public function getSceneConfig ($variable = '', $compare = '')
     {
-        if (!$variable) {
+        if (empty($variable)) {
             return $this->scenes[$this->scene];
         }
 
@@ -1015,7 +1015,7 @@ class Vars
     {
         $modules = $this->getSceneConfig('modules');
 
-        if (!$modules || (strtolower($this->path[0]) != MODULE_WWW_SUBFOLDER)) {
+        if (empty($modules) || (strtolower($this->path[0]) !== MODULE_WWW_SUBFOLDER)) {
             return false;
         }
 
@@ -1028,7 +1028,7 @@ class Vars
             $this->module = $module;
 
             return true;
-        } elseif ($module === 'index') {
+        } else if ($module === 'index') {
             $this->module = key($modules);
 
             return true;
@@ -1047,7 +1047,7 @@ class Vars
      */
     public function getModule ($module = '')
     {
-        if (!$module) {
+        if (empty($module)) {
             return $this->module;
         } else {
             return ($this->module === $module) ? true : false;
@@ -1067,7 +1067,7 @@ class Vars
         $module_config = $this->getSceneConfig('modules');
         $module_config = $module_config[$this->module];
 
-        if (!$variable) {
+        if (empty($variable)) {
             return $module_config;
         }
 
@@ -1107,7 +1107,7 @@ class Vars
      */
     public function getLanguages ($only_actives = false)
     {
-        if (!$only_actives) {
+        if (empty($only_actives)) {
             return array_keys((array) $this->languages['availables']);
         }
 
@@ -1134,7 +1134,7 @@ class Vars
     {
         $languages = $this->getLanguages(true);
 
-        if (!$languages) {
+        if (empty($languages)) {
             return false;
         }
 
@@ -1150,7 +1150,7 @@ class Vars
         if ($lang && in_array($lang, $languages)) {
             $this->language = $lang;
 
-            if ($this->getCookie($language_var) != $this->language) {
+            if ($this->getCookie($language_var) !== $this->language) {
                 $this->setCookie($language_var, $this->language, $cookie_time);
             }
 
@@ -1191,7 +1191,7 @@ class Vars
         //If language was detected
         if ($this->language) {
             //Save cookie
-            if ($this->getCookie($language_var) != $this->language) {
+            if ($this->getCookie($language_var) !== $this->language) {
                 $this->setCookie($language_var, $this->language, $cookie_time);
             }
 
@@ -1255,7 +1255,7 @@ class Vars
      */
     public function getBrowserLanguages ()
     {
-        if (!$_SERVER['HTTP_ACCEPT_LANGUAGE']) {
+        if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             return array();
         }
 
@@ -1270,11 +1270,11 @@ class Vars
             if (strstr($language, '-')) {
                 $language = explode('-', $language);
 
-                if (!$languages[$language[1]]) {
+                if (empty($languages[$language[1]])) {
                     $languages[$language[1]] = $q;
                 }
 
-                if (!$languages[$language[0]]) {
+                if (empty($languages[$language[0]])) {
                     $languages[$language[0]] = $q;
                 }
             } else {
@@ -1296,7 +1296,7 @@ class Vars
      */
     public function getLanguage ($language = '')
     {
-        if (!$language) {
+        if (empty($language)) {
             return $this->language;
         } else {
             return ($this->language === $language) ? true : false;
@@ -1394,7 +1394,7 @@ class Vars
      */
     public function getExitMode ($exit_mode = '')
     {
-        if (!$exit_mode) {
+        if (empty($exit_mode)) {
             return $this->exit_mode;
         } else {
             return ($this->exit_mode === $exit_mode) ? true : false;
@@ -1411,7 +1411,7 @@ class Vars
      */
     public function getExitModeConfig ($variable = '', $compare = '')
     {
-        if (!$variable) {
+        if (empty($variable)) {
             return $this->exit_modes[$this->exit_mode];
         }
 

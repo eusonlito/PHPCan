@@ -41,7 +41,7 @@ class Sort extends Formats implements Iformats
             )
         ));
 
-        if (!$exists) {
+        if (empty($exists)) {
             return true;
         }
 

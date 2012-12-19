@@ -9,7 +9,7 @@
 
 defined('ANS') or die();
 
-if (!$Config->data) {
+if (empty($Config->data)) {
     return false;
 }
 

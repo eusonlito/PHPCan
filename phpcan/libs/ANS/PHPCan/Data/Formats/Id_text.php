@@ -44,7 +44,7 @@ class Id_text extends Formats implements Iformats
                 $exists_query['conditions']['id !='] = $id;
             }
 
-            while (!$value || $Db->selectCount($exists_query)) {
+            while (empty($value) || $Db->selectCount($exists_query)) {
                 if ($this->auto) {
                     $exists_query['conditions'][$field] = $value = $this->randomValue();
                 } else {

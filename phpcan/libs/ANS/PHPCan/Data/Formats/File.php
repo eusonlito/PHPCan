@@ -49,31 +49,31 @@ class File extends Formats implements Iformats
 
                 return false;
             }
-        } elseif (!is_writable($path)) {
+        } else if (!is_writable($path)) {
             $this->error[$subformat] = __('The folder "%s" to store the field "%s" haven\'t writing permissions', $path, __($this->name));
 
             return false;
         }
 
         if (!is_array($value)) {
-            if (!$settings['required'] && !$value) {
+            if (empty($settings['required']) && empty($value)) {
                 return true;
-            } elseif ($settings['required'] && !$value) {
+            } else if ($settings['required'] && empty($value)) {
                 $this->error[$subformat] = __('Field "%s" can not be empty', __($this->name));
 
                 return false;
-            } elseif (!is_string($value)) {
+            } else if (!is_string($value)) {
                 $this->error[$subformat] = __('Field "%s" is an invalid format', __($this->name));
 
                 return false;
             } else {
                 return true;
             }
-        } elseif ($settings['required'] && !is_string($value['name'])) {
+        } else if ($settings['required'] && !is_string($value['name'])) {
             $this->error[$subformat] = __('Field "%s" can not be empty', __($this->name));
 
             return false;
-        } elseif (!is_string($value['name'])) {
+        } else if (!is_string($value['name'])) {
             return true;
         }
 
@@ -112,7 +112,7 @@ class File extends Formats implements Iformats
             }
         }
 
-        if (!$settings['required'] && ($value['size'] == 0)) {
+        if (empty($settings['required']) && ($value['size'] == 0)) {
             return true;
         }
 
@@ -166,7 +166,7 @@ class File extends Formats implements Iformats
         $settings = $this->settings[$subformat];
 
         //If the file doesn't exits
-        if (!$value || ($value == 1) || (is_array($value) && (($value['size'] == 0) || !is_file($value['tmp_name'])))) {
+        if (empty($value) || ($value == 1) || (is_array($value) && (($value['size'] == 0) || !is_file($value['tmp_name'])))) {
             if ($id) {
                 if ($value == 1) {
                     return array($subformat => ($settings['default'] ?: ''));

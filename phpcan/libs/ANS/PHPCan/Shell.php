@@ -91,7 +91,7 @@ class Shell
      */
     public function commandExists ($command)
     {
-        if (!$command || !$this->exec('which '.escapeshellcmd($command))) {
+        if (empty($command) || !$this->exec('which '.escapeshellcmd($command))) {
             return false;
         }
 

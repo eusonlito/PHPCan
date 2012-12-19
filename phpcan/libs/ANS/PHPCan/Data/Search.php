@@ -72,11 +72,11 @@ class Search
     {
         $this->settings = $settings;
 
-        if (!$this->settings['min_length']) {
+        if (empty($this->settings['min_length'])) {
             $this->settings['min_length'] = 3;
         }
 
-        if (!$this->settings['errors']) {
+        if (empty($this->settings['errors'])) {
             $this->settings['errors'] = 'search';
         }
 
@@ -95,7 +95,7 @@ class Search
 
         if ($this->settings['operators'] === 'all') {
             $this->settings['operators'] = $operators;
-        } elseif (is_array($this->settings['operators'])) {
+        } else if (is_array($this->settings['operators'])) {
             foreach ($this->settings['operators'] as $key => $value) {
                 if (array_key_exists($value, $operators)) {
                     $this->settings['operators'][$key] = $value;
@@ -118,7 +118,7 @@ class Search
         if (is_string($this->settings['text'])) {
             $this->settings['text'] = trim($this->settings['text']);
 
-        } elseif (is_array($this->settings['text'])) {
+        } else if (is_array($this->settings['text'])) {
             $text = '';
 
             foreach ($this->settings['text'] as $term) {
@@ -140,7 +140,7 @@ class Search
             $this->settings['text'] = trim($text);
         }
 
-        if (!$this->settings['text']) {
+        if (empty($this->settings['text'])) {
             $this->Errors->set($this->settings['errors'], __('There is no text to search or it is not valid'));
 
             return false;
@@ -156,7 +156,7 @@ class Search
      */
     private function setFields ()
     {
-        if (!$this->settings['where']) {
+        if (empty($this->settings['where'])) {
             $this->Debug->error('search', __('There is not "where" parameter in the searching'));
 
             return false;
@@ -187,7 +187,7 @@ class Search
             $table_string = $prev_table.$this->Db->tableString($table_array);
             $table_object = $this->Db->getTable($table_array['realname']);
 
-            if (!$table_array) {
+            if (empty($table_array)) {
                 $this->Debug->error('search', __('The table "%s" doesn\'t exists', $select['table']));
 
                 return false;
@@ -197,7 +197,7 @@ class Search
                 $select['fields'] = $table_object->selectFields($select['fields'], $this->Db->language(), '', false);
             }
 
-            if (!$select['fields']) {
+            if (empty($select['fields'])) {
                 $this->Debug->error('search', __('There is not fields defined in table "%s"', $select['table']));
 
                 return false;
@@ -303,7 +303,7 @@ class Search
 
             $fields = implode('|', $fields);
 
-            if (!$fields || !$operators) {
+            if (empty($fields) || empty($operators)) {
                 $fields = $operators = '';
             }
         }
@@ -328,12 +328,12 @@ class Search
                 'text' => $words[0][$key]
             );
 
-            if ($word['field'] && !$this->fields['fields'][$word['field']]) {
+            if ($word['field'] && empty($this->fields['fields'][$word['field']])) {
                 $word['value'] = $word['text'];
                 unset($word['field'], $word['operator']);
             }
 
-            if (!$word['operator'] && strlen($word['value']) < $this->settings['min_length']) {
+            if (empty($word['operator']) && strlen($word['value']) < $this->settings['min_length']) {
                 continue;
             }
 
@@ -382,11 +382,11 @@ class Search
             $field = $word['field'];
             $value = $word['value'];
 
-            if (!$settings = $this->fields['fields'][$field]) {
+            if (!($settings = $this->fields['fields'][$field])) {
                 continue;
             }
 
-            if (!$operator = $this->settings['operators'][$word['operator']]) {
+            if (!($operator = $this->settings['operators'][$word['operator']])) {
                 continue;
             }
 

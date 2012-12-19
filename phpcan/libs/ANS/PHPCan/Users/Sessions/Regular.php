@@ -52,7 +52,7 @@ class Regular implements Isession
         } else {
             $control = $this->getCookie('control');
 
-            if (!$control['1'] || !$control['2']) {
+            if (empty($control['1']) || empty($control['2'])) {
                 return false;
             }
 
@@ -68,7 +68,7 @@ class Regular implements Isession
 
         $user = $this->checkUser($user, $password);
 
-        if (!$user) {
+        if (empty($user)) {
             return false;
         }
 
@@ -89,7 +89,7 @@ class Regular implements Isession
     {
         $settings = $this->settings;
 
-        if (!$data['username'] || !$data['password']) {
+        if (empty($data['username']) || empty($data['password'])) {
             $this->Errors->set($settings['errors'], __('You haven\'t filled all the form fields'));
 
             return false;
@@ -97,11 +97,11 @@ class Regular implements Isession
 
         $user = $this->checkUser($data['username'], $data['password'], $update ? true : false);
 
-        if (!$user) {
+        if (empty($user)) {
             return false;
         }
 
-        if (!$update) {
+        if (empty($update)) {
             $data['password'] = $this->encode($user['id'].$data['password']);
         }
 
@@ -126,7 +126,7 @@ class Regular implements Isession
 
     private function checkUser ($username, $password, $encoded = true)
     {
-        if (!$username || !$password) {
+        if (empty($username) || empty($password)) {
             return false;
         }
 
@@ -136,14 +136,14 @@ class Regular implements Isession
             $settings['user_field'] => $username
         ));
 
-        if (!$selection) {
+        if (empty($selection)) {
             $this->user = array();
             $this->Errors->set($settings['errors'], __('Don\'t exists an user with this user and password'));
 
             return false;
         }
 
-        if (!$encoded) {
+        if (empty($encoded)) {
             $password = $this->encode($selection['id'].$password);
         }
 
@@ -152,7 +152,7 @@ class Regular implements Isession
             $this->Errors->set($settings['errors'], __('This user is not active'));
 
             return false;
-        } elseif (($selection[$settings['password_field']] !== $password)) {
+        } else if (($selection[$settings['password_field']] !== $password)) {
             $this->user = array();
             $this->Errors->set($settings['errors'], __('Don\'t exists an user with this user and password'));
 
@@ -188,13 +188,13 @@ class Regular implements Isession
 
         $user_data = $this->userData($user_data);
 
-        if (!$user_data) {
+        if (empty($user_data)) {
             $this->Errors->set($settings['errors'], __('No data are received'));
 
             return false;
         }
 
-        if (!$settings['allow_duplicates']) {
+        if (empty($settings['allow_duplicates'])) {
             $exists = $this->userExists(array(
                 $settings['user_field'] => $user_data[$settings['user_field']],
             ));
@@ -206,11 +206,11 @@ class Regular implements Isession
             }
         }
 
-        if ($clean_password != $clean_password_repeat) {
+        if ($clean_password !== $clean_password_repeat) {
             $this->Errors->set($settings['errors'], __('Password and repeat password are differents'));
 
             return false;
-        } elseif (strlen($clean_password) < 6) {
+        } else if (strlen($clean_password) < 6) {
             $this->Errors->set($settings['errors'], __('Password length must be %s characters at least', 6));
 
             return false;
@@ -240,7 +240,7 @@ class Regular implements Isession
 
         $errors = $this->Errors->getList();
 
-        if (!$errors) {
+        if (empty($errors)) {
             $this->Errors->set($settings['errors'], __('Error saving data, please check the input form values.'));
         }
 
@@ -265,7 +265,7 @@ class Regular implements Isession
             $settings['enabled_field'] => 1
         ));
 
-        if (!$user) {
+        if (empty($user)) {
             $this->Errors->set($settings['errors'], __('User not exists'));
 
             return false;
@@ -273,7 +273,7 @@ class Regular implements Isession
 
         $user_data = $this->userData($user_data);
 
-        if (!$user_data) {
+        if (empty($user_data)) {
             return false;
         }
 
@@ -301,7 +301,7 @@ class Regular implements Isession
 
         $errors = $this->Errors->getList();
 
-        if (!$errors) {
+        if (empty($errors)) {
             $this->Errors->set($settings['errors'], __('Error saving data, please check the input form values.'));
         }
 
@@ -321,7 +321,7 @@ class Regular implements Isession
 
         $settings = $this->settings;
 
-        if (!$password) {
+        if (empty($password)) {
             $this->Errors->set($settings['errors'], __('You need to fill the new password field.'));
 
             return false;
@@ -333,7 +333,7 @@ class Regular implements Isession
             return false;
         }
 
-        if ($password != $password_repeat) {
+        if ($password !== $password_repeat) {
             $this->Errors->set($settings['errors'], __('Password and password repeat don\'t match.'));
 
             return false;
@@ -345,7 +345,7 @@ class Regular implements Isession
             $settings['enabled_field'] => 1
         ));
 
-        if (!$user) {
+        if (empty($user)) {
             $this->Errors->set($settings['errors'], __('User not exists'));
 
             return false;
@@ -368,10 +368,10 @@ class Regular implements Isession
 
         $ok = $Db->update($parameters);
 
-        if (!$ok) {
+        if (empty($ok)) {
             $errors = $this->Errors->getList();
 
-            if (!$errors) {
+            if (empty($errors)) {
                 $this->Errors->set($settings['errors'], __('Error saving data, please check the input form values.'));
             }
 
@@ -418,7 +418,7 @@ class Regular implements Isession
         foreach ($this->settings['fields'] as $name => $dbfield) {
             if (is_string($user_data[$name])) {
                 $data[$dbfield] = trim($user_data[$name]);
-            } elseif (isset($user_data[$name])) {
+            } else if (isset($user_data[$name])) {
                 $data[$dbfield] = $user_data[$name];
             }
         }
@@ -433,7 +433,7 @@ class Regular implements Isession
     */
     protected function maintain ($user, $password)
     {
-        if (!$this->settings['maintain_time']) {
+        if (empty($this->settings['maintain_time'])) {
             return false;
         }
 

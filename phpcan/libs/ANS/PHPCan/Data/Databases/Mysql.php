@@ -43,7 +43,7 @@ class Mysql implements Idatabase
 
         if ($settings['port']) {
             $dsn .= ';port='.$settings['port'];
-        } elseif ($settings['unix_socket']) {
+        } else if ($settings['unix_socket']) {
             $dsn .= ';unix_socket='.$settings['unix_socket'];
         }
 
@@ -192,7 +192,7 @@ class Mysql implements Idatabase
         foreach ($all_tables as $table) {
 
             //Add table
-            if (!$real_tables[$table]) {
+            if (empty($real_tables[$table])) {
                 $query_fields = array();
 
                 //Insert fields and keys
@@ -206,7 +206,7 @@ class Mysql implements Idatabase
             }
 
             //Drop table
-            if (!$virtual_tables[$table]) {
+            if (empty($virtual_tables[$table])) {
                 $query[] = 'DROP TABLE `'.$table.'`;';
 
                 continue;
@@ -217,14 +217,14 @@ class Mysql implements Idatabase
 
             foreach ($all_fields as $field) {
                 //Add field
-                if (!$real_tables[$table][$field]) {
+                if (empty($real_tables[$table][$field])) {
                     $query[] = 'ALTER TABLE `'.$table.'` ADD `'.$field.'` '.$this->fieldSchema($virtual_tables[$table][$field]).';';
 
                     continue;
                 }
 
                 //Drop field
-                if (!$virtual_tables[$table][$field]) {
+                if (empty($virtual_tables[$table][$field])) {
                     $query[] = 'ALTER TABLE `'.$table.'` DROP `'.$field.'`;';
 
                     continue;
@@ -263,7 +263,7 @@ class Mysql implements Idatabase
                     }
 
                     if ($key['unique']) {
-                        if (!$table_keys['add-'.$key['unique']]) {
+                        if (empty($table_keys['add-'.$key['unique']])) {
                             $table_keys['add-'.$key['unique']] = array(
                                 'action' => 'ADD UNIQUE',
                                 'name' => $key['unique'],
@@ -279,7 +279,7 @@ class Mysql implements Idatabase
                     }
                 }
 
-                if ($key['index'] != $real_indexes[$table][$field]['index']) {
+                if ($key['index'] !== $real_indexes[$table][$field]['index']) {
                     if ($real_indexes[$table][$field]['index']) {
                         $table_keys['drop-'.$real_indexes[$table][$field]['index']] = array(
                             'action' => 'DROP INDEX',
@@ -288,7 +288,7 @@ class Mysql implements Idatabase
                     }
 
                     if ($key['index']) {
-                        if (!$table_keys['add-'.$key['index']]) {
+                        if (empty($table_keys['add-'.$key['index']])) {
                             $table_keys['add-'.$key['index']] = array(
                                 'action' => 'ADD INDEX',
                                 'name' => $key['index'],
@@ -306,7 +306,7 @@ class Mysql implements Idatabase
             }
 
             foreach ($table_keys as $indexes) {
-                if (!$indexes['field']) {
+                if (empty($indexes['field'])) {
                     $query[] = 'ALTER TABLE `'.$table.'` '.$indexes['action'].' `'.$indexes['name'].'`;';
                     continue;
                 }
@@ -352,7 +352,7 @@ class Mysql implements Idatabase
 
         if ($field['incremental']) {
             $query .= ' AUTO_INCREMENT PRIMARY KEY';
-        } elseif (isset($field['default'])) {
+        } else if (isset($field['default'])) {
             $query .= ' default "'.$field['default'].'"';
         }
 
@@ -390,7 +390,7 @@ class Mysql implements Idatabase
         foreach ($fields as $field) {
             $name = $this->getName($field);
 
-            if ($name['new'] != $name['real']) {
+            if ($name['new'] !== $name['real']) {
                 $q_fields[] = '`'.$table.'`.`'.$name['real'].'` AS `'.$name['new'].'`';
             } else {
                 $q_fields[] = '`'.$table.'`.`'.$name['real'].'`';
@@ -554,7 +554,7 @@ class Mysql implements Idatabase
      */
     public function insert ($data)
     {
-        if (!$data['table'] || !$data['data'] || !is_array($data['data'])) {
+        if (empty($data['table']) || empty($data['data']) || !is_array($data['data'])) {
             return false;
         }
 
@@ -607,7 +607,7 @@ class Mysql implements Idatabase
      */
     public function replace ($data)
     {
-        if (!$data['table'] || !$data['data'] || !is_array($data['data'])) {
+        if (empty($data['table']) || empty($data['data']) || !is_array($data['data'])) {
             return false;
         }
 
@@ -654,7 +654,7 @@ class Mysql implements Idatabase
      */
     public function update ($data)
     {
-        if (!$data['table'] || !$data['data'] || !is_array($data['data'])) {
+        if (empty($data['table']) || empty($data['data']) || !is_array($data['data'])) {
             return false;
         }
 
@@ -705,7 +705,7 @@ class Mysql implements Idatabase
      */
     public function delete ($data)
     {
-        if (!$data['table']) {
+        if (empty($data['table'])) {
             return false;
         }
 
@@ -715,9 +715,9 @@ class Mysql implements Idatabase
 
         $data['conditions'] = $this->where($data['conditions']);
 
-        if (!$data['conditions'] && !$data['limit']) {
+        if (empty($data['conditions']) && empty($data['limit'])) {
             $query = 'TRUNCATE `'.$table.'`;';
-        } elseif ($data['conditions']) {
+        } else if ($data['conditions']) {
             $query .= ' WHERE '.$data['conditions'];
         }
 
@@ -836,11 +836,11 @@ class Mysql implements Idatabase
      */
     private function setTable ($table)
     {
-        if (!$table['real']) {
+        if (empty($table['real'])) {
             return false;
         }
 
-        return ($table['real'] == $table['new']) ? ('`'.$table['real'].'`') : ('`'.$table['real'].'` AS `'.$table['new'].'`');
+        return ($table['real'] === $table['new']) ? ('`'.$table['real'].'`') : ('`'.$table['real'].'` AS `'.$table['new'].'`');
     }
 
     /**
@@ -850,7 +850,7 @@ class Mysql implements Idatabase
      */
     private function getName ($table)
     {
-        if (!$table) {
+        if (empty($table)) {
             return false;
         }
 

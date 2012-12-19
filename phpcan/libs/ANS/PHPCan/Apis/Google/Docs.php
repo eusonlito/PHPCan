@@ -45,7 +45,7 @@ class Docs extends Services
     {
         parent::__construct();
 
-        if (!$login) {
+        if (empty($login)) {
             return $this;
         }
 
@@ -76,7 +76,7 @@ class Docs extends Services
 
     public function getCollections ()
     {
-        if (!$this->logged) {
+        if (empty($this->logged)) {
             return false;
         }
 
@@ -129,7 +129,7 @@ class Docs extends Services
 
     public function upload ($file, $name, $collection = '')
     {
-        if (!$this->logged) {
+        if (empty($this->logged)) {
             return false;
         }
 
@@ -141,7 +141,7 @@ class Docs extends Services
 
         $collection = $collection ?: $this->collection;
 
-        if (!$collection) {
+        if (empty($collection)) {
             $this->Errors->set('api', __('You must choose a collection to store the file'), 'google-docs');
 
             return false;
@@ -191,7 +191,7 @@ class Docs extends Services
 
         $response = $this->fetch($url, $data);
 
-        if (!$response['successful']) {
+        if (empty($response['successful'])) {
             $this->Errors->set('api', $response['body'], 'google-docs');
 
             return false;
@@ -233,7 +233,7 @@ class Docs extends Services
             }
         } while ($response['status'] == 308);
 
-        if (!$response['successful']) {
+        if (empty($response['successful'])) {
             $this->Errors->set('api', $response['body'], 'google-docs');
 
             return false;

@@ -45,7 +45,7 @@ class Debug
             $Config->config['autoglobal'][] = $autoglobal;
         }
 
-        if (!$this->settings || is_null($settings)) {
+        if (empty($this->settings) || is_null($settings)) {
             $this->settings = array(
                 'save' => false,
                 'save_path' => (BASE_PATH.$Config->phpcan_paths['logs']),
@@ -58,7 +58,7 @@ class Debug
 
         if (is_string($settings) && $Config->config[$settings]) {
             $settings = $Config->config[$settings];
-        } elseif (is_array($settings)) {
+        } else if (is_array($settings)) {
             $settings = $settings;
         } else {
             $settings = array();
@@ -153,7 +153,7 @@ class Debug
 
         $public_errors = $Errors->get();
 
-        if (!$this->settings['print'] || (!$this->errors && !$public_errors)) {
+        if (empty($this->settings['print']) || (empty($this->errors) && empty($public_errors))) {
             return false;
         }
 
@@ -225,7 +225,7 @@ class Debug
     {
         global $Vars;
 
-        if (!$this->settings['print'] || !$Vars->data) {
+        if (empty($this->settings['print']) || empty($Vars->data)) {
             return false;
         }
 
@@ -278,7 +278,7 @@ class Debug
      */
     public function e ($var, $title = '')
     {
-        if (!$this->settings['print']) {
+        if (empty($this->settings['print'])) {
             return false;
         }
 
@@ -303,7 +303,7 @@ class Debug
 
         if (is_string($var)) {
             echo htmlspecialchars($var);
-        } elseif (is_bool($var)) {
+        } else if (is_bool($var)) {
             echo $var ? 'true' : 'false';
         } else {
             ob_start();
@@ -327,7 +327,7 @@ class Debug
      */
     private function store ($message, $file = '')
     {
-        if (!$this->settings['save']) {
+        if (empty($this->settings['save'])) {
             return true;
         }
 
@@ -384,7 +384,7 @@ class Debug
         if ($this->time_pause > 0) {
             $this->time += (microtime(true) - $this->time_pause);
             $this->time_pause = 0;
-        } elseif (!$this->time_store) {
+        } else if (empty($this->time_store)) {
             $this->time = microtime(true);
             $where = array();
 

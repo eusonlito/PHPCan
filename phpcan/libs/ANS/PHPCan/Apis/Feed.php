@@ -36,7 +36,7 @@ class Feed extends Api
 
         $entries = array();
 
-        if (!$xml->entry) {
+        if (empty($xml->entry)) {
             return $entries;
         }
 
@@ -75,7 +75,7 @@ class Feed extends Api
 
         $entries = array();
 
-        if (!$xml->channel->item) {
+        if (empty($xml->channel->item)) {
             return $entries;
         }
 

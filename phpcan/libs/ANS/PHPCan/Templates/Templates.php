@@ -76,7 +76,7 @@ class Templates
 
                 $debug = true;
             }
-        } elseif (isset($templates[$template])) {
+        } else if (isset($templates[$template])) {
 
             return $empty_template;
         } else if ($template) {
@@ -127,7 +127,7 @@ class Templates
         ob_start();
         $return = array();
 
-        if (is_array($render_settings['data']) && (isNumericalArray($render_settings['data']) || !$render_settings['data'])) {
+        if (is_array($render_settings['data']) && (isNumericalArray($render_settings['data']) || empty($render_settings['data']))) {
             foreach ($render_settings['data'] as $index => $data_content_value) {
                 $data_content_value['index'] = $index;
 
@@ -152,7 +152,7 @@ class Templates
 
         ob_end_clean();
 
-        if (!$return) {
+        if (empty($return)) {
             $return = '';
         } else {
             $render_settings['after'] = ($render_settings['after'] ? $render_settings['after'] : '')."\n";
@@ -166,7 +166,7 @@ class Templates
             }
         }
 
-        if (!$render_settings['return_html']) {
+        if (empty($render_settings['return_html'])) {
             echo $return;
 
             return true;
@@ -194,7 +194,7 @@ class Templates
     {
         global $Config, $Vars;
 
-        if (!$exit_mode || ($exit_mode === 'all') || $Vars->getExitMode($exit_mode)) {
+        if (empty($exit_mode) || ($exit_mode === 'all') || $Vars->getExitMode($exit_mode)) {
             $Config->config['templates'][$name] = $file;
         }
     }
@@ -208,7 +208,7 @@ class Templates
     {
         global $Config, $Vars;
 
-        if (!$exit_mode || ($exit_mode === 'all') || $Vars->getExitMode($exit_mode)) {
+        if (empty($exit_mode) || ($exit_mode === 'all') || $Vars->getExitMode($exit_mode)) {
             unset($Config->config['templates'][$name]);
         }
     }

@@ -25,7 +25,7 @@ class Datetime extends \DateTime {
 
         $this->Debug = $Debug;
 
-        if (!$time) {
+        if (empty($time)) {
             return parent::__construct();
         }
 
@@ -37,7 +37,7 @@ class Datetime extends \DateTime {
             return $this;
         }
 
-        if (!$timezone) {
+        if (empty($timezone)) {
             return parent::__construct($time);
         }
 
@@ -103,7 +103,7 @@ class Datetime extends \DateTime {
 
         $diff = ($end > $start) ? ($end - $start) : ($start - $end);
 
-        if (!$diff) {
+        if (empty($diff)) {
             return __('now');
         }
 
@@ -187,7 +187,7 @@ class Datetime extends \DateTime {
             if ($diff_seconds >= $time_formats_seconds || !array_key_exists(++$k, $array_time_formats_seconds)) {
                 preg_match_all('(\$([a-zA-z]))', $format, $matches, PREG_SET_ORDER);
 
-                if (!$matches) {
+                if (empty($matches)) {
                     return $format;
                 }
 

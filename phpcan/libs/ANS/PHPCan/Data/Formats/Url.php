@@ -44,7 +44,7 @@ class Url extends Formats implements Iformats
 
     public function fixUrl ($url, $expand = false)
     {
-        if (!$url || preg_match('#^(https?|ftp)://$#', $url)) {
+        if (empty($url) || preg_match('#^(https?|ftp)://$#', $url)) {
             return '';
         }
 
@@ -92,13 +92,13 @@ class Url extends Formats implements Iformats
             return false;
         }
 
-        if (!$value && $settings['required']) {
+        if (empty($value) && $settings['required']) {
             $this->error[$subformat] = __('Field "%s" can not be empty', __($this->name));
 
             return false;
         }
 
-        if (!$value) {
+        if (empty($value)) {
             return true;
         }
 

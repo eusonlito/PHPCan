@@ -57,16 +57,16 @@ class Facebook implements Isession {
                 $this->settings['user_field'] => $user
             ));
 
-            if (!$exists) {
+            if (empty($exists)) {
                 return false;
             }
-        } elseif ($control['1'] && $control['2']) {
+        } else if ($control['1'] && $control['2']) {
             $user = decrypt($control['1']);
             $exists = $this->userExists(array(
                 $this->settings['user_field'] => $user
             ));
 
-            if (!$exists) {
+            if (empty($exists)) {
                 return false;
             }
 
@@ -138,7 +138,7 @@ class Facebook implements Isession {
             $this->settings['id_field'] => $this->facebook['uid']
         ));
 
-        if (!$user) {
+        if (empty($user)) {
             $this->Errors->set($this->settings['errors'], __('This user isn\'t logged from Facebook'));
 
             return false;
@@ -195,7 +195,7 @@ class Facebook implements Isession {
     */
     public function userAdd ()
     {
-        if ($this->API() && !$this->facebook) {
+        if ($this->API() && empty($this->facebook)) {
             return false;
         }
 
@@ -241,7 +241,7 @@ class Facebook implements Isession {
     */
     public function updateFacebookInfo ()
     {
-        if ($this->API() && !$this->facebook) {
+        if ($this->API() && empty($this->facebook)) {
             return false;
         }
 
@@ -266,7 +266,7 @@ class Facebook implements Isession {
 
         $ok = $Db->update($query);
 
-        if (!$ok) {
+        if (empty($ok)) {
             $this->error = __('Error_saving_data');
         }
 
@@ -308,7 +308,7 @@ class Facebook implements Isession {
             $settings['enabled_field'] => 1
         ));
 
-        if (!$user) {
+        if (empty($user)) {
             $this->Errors->set($settings['errors'], __('User not exists'));
 
             return false;
@@ -400,7 +400,7 @@ class Facebook implements Isession {
         foreach ($this->settings['fields'] as $name => $dbfield) {
             if (is_string($user_data[$name])) {
                 $data[$dbfield] = trim($user_data[$name]);
-            } elseif (isset($user_data[$name])) {
+            } else if (isset($user_data[$name])) {
                 $data[$dbfield] = $user_data[$name];
             }
         }

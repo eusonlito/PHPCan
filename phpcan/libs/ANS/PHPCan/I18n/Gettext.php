@@ -98,7 +98,7 @@ class Gettext
 
         $Reader = new \ANS\PHPCan\I18n\CachedFileReader($file);
 
-        if (!$Reader || isset($Reader->error) ) {
+        if (empty($Reader) || isset($Reader->error) ) {
             return false;
         }
 
@@ -107,7 +107,7 @@ class Gettext
 
         if (($magic == self::MAGIC1) || ($magic == self::MAGIC3)) { // to make sure it works for 64-bit platforms
             $this->BYTEORDER = 0;
-        } elseif ($magic == (self::MAGIC2 & 0xFFFFFFFF)) {
+        } else if ($magic == (self::MAGIC2 & 0xFFFFFFFF)) {
             $this->BYTEORDER = 1;
         } else {
             $this->error = 1; // not MO file
@@ -144,7 +144,7 @@ class Gettext
     {
         if (isset($this->cache_translations[$string])) {
             return $this->cache_translations[$string];
-        } elseif ($null === true) {
+        } else if ($null === true) {
             return null;
         } else {
             return $string;
@@ -163,7 +163,7 @@ class CachedFileReader
             $length = filesize($filename);
             $fd = fopen($filename,'rb');
 
-            if (!$fd) {
+            if (empty($fd)) {
                 $this->error = 3; // Cannot read file, probably permissions
 
                 return false;

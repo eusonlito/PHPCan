@@ -52,10 +52,10 @@ class FacebookApiException extends \Exception
     if (isset($result['error_description'])) {
       // OAuth 2.0 Draft 10 style
       $msg = $result['error_description'];
-    } elseif (isset($result['error']) && is_array($result['error'])) {
+    } else if (isset($result['error']) && is_array($result['error'])) {
       // OAuth 2.0 Draft 00 style
       $msg = $result['error']['message'];
-    } elseif (isset($result['error_msg'])) {
+    } else if (isset($result['error_msg'])) {
       // Rest server style
       $msg = $result['error_msg'];
     } else {
@@ -88,7 +88,7 @@ class FacebookApiException extends \Exception
       if (is_string($error)) {
         // OAuth 2.0 Draft 10 style
         return $error;
-      } elseif (is_array($error)) {
+      } else if (is_array($error)) {
         // OAuth 2.0 Draft 00 style
         if (isset($error['type'])) {
           return $error['type'];
