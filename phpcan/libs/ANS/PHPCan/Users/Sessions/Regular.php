@@ -261,8 +261,7 @@ class Regular implements Isession
 
         //Check if user exists
         $user = $this->userExists(array(
-            $settings['id_field'] => $id_user,
-            $settings['enabled_field'] => 1
+            $settings['id_field'] => $id_user
         ));
 
         if (empty($user)) {
@@ -341,8 +340,7 @@ class Regular implements Isession
 
         //Check if id_user exists
         $user = $this->userExists(array(
-            $settings['id_field'] => $id_user,
-            $settings['enabled_field'] => 1
+            $settings['id_field'] => $id_user
         ));
 
         if (empty($user)) {

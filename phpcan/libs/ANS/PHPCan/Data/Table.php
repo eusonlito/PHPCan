@@ -17,6 +17,7 @@ class Table
     private $Db;
     private $table;
     private $settings;
+    private $processed = array();
 
     /**
      * public function __construct (object $Db, string $table, array $table_config, array $relation_config)
@@ -50,12 +51,16 @@ class Table
     {
         switch ($name) {
             case 'relations':
-                $this->setRelationsConfig();
+                if ($this->processed['relations'] !== true) {
+                    $this->setRelationsConfig();
+                }
 
                 return $this->relations;
 
             case 'formats':
-                $this->setFormatsConfig();
+                if ($this->processed['formats'] !== true) {
+                    $this->setFormatsConfig();
+                }
 
                 return $this->$name;
         }
@@ -70,12 +75,16 @@ class Table
     {
         switch ($name) {
             case 'relations':
-                $this->setRelationsConfig();
+                if ($this->processed['relations'] !== true) {
+                    $this->setRelationsConfig();
+                }
 
                 return isset($this->relations);
 
             case 'formats':
-                $this->setFormatsConfig();
+                if ($this->processed['formats'] !== true) {
+                    $this->setFormatsConfig();
+                }
 
                 return isset($this->$name);
         }
@@ -714,6 +723,10 @@ class Table
      */
     private function setFormatsConfig ()
     {
+        if ($this->processed['formats']) {
+            return true;
+        }
+
         $this->formats = $this->fields = array();
 
         //Id format is required in all tables
@@ -745,6 +758,8 @@ class Table
 
         //Remove table settings
         unset($this->settings['table']);
+
+        $this->processed['formats'] = true;
     }
 
     /**
@@ -754,6 +769,10 @@ class Table
      */
     private function setRelationsConfig ()
     {
+        if ($this->processed['relations']) {
+            return true;
+        }
+
         $this->relations = array();
 
         foreach ((array) $this->settings['relations'] as $name => $settings) {
@@ -763,5 +782,7 @@ class Table
 
         //Remove relations settings
         unset($this->settings['relations']);
+
+        $this->processed['relations'] = true;
     }
 }
