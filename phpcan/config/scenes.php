@@ -26,6 +26,10 @@ $config['scenes'] = array(
                 'folder' => 'svn/',
                 'detect' => 'subfolder'
             ),
+            'git' => array(
+                'folder' => 'git/',
+                'detect' => 'subfolder'
+            ),
             'database' => array(
                 'folder' => 'database/',
                 'detect' => 'subfolder'

@@ -1,0 +1,22 @@
+:root {
+	var-typography: Arimo, helvetica, arial, serif;
+	var-black: #000;
+	var-black-80: #333;
+	var-black-60: #666;
+	var-black-40: #999;
+	var-black-20: #CCC;
+	var-black-10: #E5E5E5;
+	var-black-7: #EDEDED;
+	var-white: #FFF;
+
+	var-color-dark: #5974A4;
+	var-color: #728FC5;
+	var-color-30: #C1CDE4;
+
+	var-error: #C33;
+	var-error-bg: #F5E8B5;
+	var-highlight: #915608;
+	var-highlight-bg: #F8DA4E;
+	var-success: #363;
+	var-success-bg: #B8E7B8;
+}

@@ -33,9 +33,8 @@ class Facebook implements Isession {
 
         $this->Debug = $Debug;
         $this->Errors = $Errors;
-        $this->settings = array_merge(array(
-            'errors' => 'session-facebook',
-        ), $settings['common'], $settings['sessions']['facebook']);
+        $this->settings = $settings['sessions']['facebook'];
+        $this->settings['errors'] = $this->settings['errors'] ?: $this->settings['name'];
     }
 
     /*
@@ -45,16 +44,18 @@ class Facebook implements Isession {
     */
     public function load ()
     {
+        $settings = $this->settings;
+
         $session = $this->getCookie('data');
         $control = $this->getCookie('control');
 
-        if ($session && $session[$this->settings['user_field']] && $session[$this->settings['id_field']]) {
-            $user = decrypt($session[$this->settings['user_field']]);
-            $id = decrypt($session[$this->settings['id_field']]);
+        if ($session && $session[$settings['user_field']] && $session[$settings['id_field']]) {
+            $user = decrypt($session[$settings['user_field']]);
+            $id = decrypt($session[$settings['id_field']]);
 
             $exists = $this->userExists(array(
-                $this->settings['id_field'] => $id,
-                $this->settings['user_field'] => $user
+                $settings['id_field'] => $id,
+                $settings['user_field'] => $user
             ));
 
             if (empty($exists)) {
@@ -63,14 +64,14 @@ class Facebook implements Isession {
         } else if ($control['1'] && $control['2']) {
             $user = decrypt($control['1']);
             $exists = $this->userExists(array(
-                $this->settings['user_field'] => $user
+                $settings['user_field'] => $user
             ));
 
             if (empty($exists)) {
                 return false;
             }
 
-            $id = $exists[$this->settings['id_field']];
+            $id = $exists[$settings['id_field']];
 
             if ($this->encode($user.$id) !== $control['2']) {
                 return false;
@@ -134,19 +135,20 @@ class Facebook implements Isession {
             return false;
         }
 
+        $settings = $this->settings;
+
         $user = $this->userExists(array(
-            $this->settings['id_field'] => $this->facebook['uid']
+            $settings['id_field'] => $this->facebook['uid']
         ));
 
         if (empty($user)) {
-            $this->Errors->set($this->settings['errors'], __('This user isn\'t logged from Facebook'));
-
+            $this->Errors->set($settings['errors'], __('This user isn\'t logged from Facebook'));
             return false;
         }
 
         $this->setCookie('data', array(
-            $this->settings['user_field'] => encrypt($user[$this->settings['user_field']]),
-            $this->settings['id_field'] => encrypt($user[$this->settings['id_field']])
+            $settings['user_field'] => encrypt($user[$settings['user_field']]),
+            $settings['id_field'] => encrypt($user[$settings['id_field']])
         ));
 
         $this->user = $user;
@@ -204,30 +206,22 @@ class Facebook implements Isession {
         $user = $Session->user();
 
         if ($user) {
-            $this->updateFacebookInfo();
-
-            $Db->update(array(
-                'table' => $this->settings['users_table'],
-                'data' => array(
-                    $this->settings['fields']['facebook_allow'] => 1
-                ),
-                'conditions' => array(
-                    'id' => $Session->user('id')
-                ),
-                'limit' => 1
-            ));
-
-            return true;
+            return $this->updateFacebookInfo();
         }
 
+        $settings = $this->settings;
         $save_info = $this->getFacebookFields();
 
-        $save_info[$this->settings['fields']['facebook_allow']] = 1;
-        $save_info[$this->settings['enabled_field']] = 1;
-        $save_info[$this->settings['signup_date_field']] = date('Y-m-d H:i:s');
+        if ($settings['enabled_field']) {
+            $save_info[$settings['enabled_field']] = 1;
+        } if ($settings['signup_date_field']) {
+            $save_info[$settings['signup_date_field']] = date('Y-m-d H:i:s');
+        } if ($settings['raw_field']) {
+            $save_info[$settings['raw_field']] = base64_encode(serialize($this->facebook));
+        }
 
         $Db->insert(array(
-            'table' => $this->settings['users_table'],
+            'table' => $settings['table'],
             'data' => $save_info
         ));
 
@@ -245,18 +239,23 @@ class Facebook implements Isession {
             return false;
         }
 
+        $settings = $this->settings;
         $save_info = $this->getFacebookFields();
 
-        if ($this->settings['disable_update']) {
-            foreach ($this->settings['disable_update'] as $field) {
+        if ($settings['disable_update']) {
+            foreach ($settings['disable_update'] as $field) {
                 unset($save_info[$field]);
             }
+        }
+
+        if ($settings['raw_field']) {
+            $save_info[$settings['raw_field']] = base64_encode(serialize($this->facebook));
         }
 
         global $Db, $Session;
 
         $query = array(
-            'table' => $this->settings['users_table'],
+            'table' => $settings['table'],
             'data' => $save_info,
             'conditions' => array(
                 'id' => $Session->user('id')
@@ -282,7 +281,7 @@ class Facebook implements Isession {
     {
         return $this->API()->api(array(
             'method' => 'users.hasAppPermission',
-            'uid' => $this->user['uid'],
+            'uid' => $this->user[$this->settings['id_field']],
             'ext_perm' => $name
         )) ? true : false;
     }
@@ -300,17 +299,19 @@ class Facebook implements Isession {
 
         global $Db;
 
-        $settings = $this->settings;
+        $conditions = array(
+            'id' => $this->user['id']
+        );
+
+        if ($settings['enabled_field']) {
+            $settings['enabled_field'] = 1;
+        }
 
         //Check if user exists
-        $user = $this->userExists(array(
-            'id' => $this->user['id'],
-            $settings['enabled_field'] => 1
-        ));
+        $user = $this->userExists($conditions);
 
         if (empty($user)) {
             $this->Errors->set($settings['errors'], __('User not exists'));
-
             return false;
         }
 
@@ -320,7 +321,7 @@ class Facebook implements Isession {
 
         return $Db->save(array(
             'update' => array(
-                'table' => $this->settings['users_table'],
+                'table' => $this->settings['table'],
                 'data' => $info['data'],
                 'conditions' => array(
                     'id' => $this->user['id']
@@ -352,12 +353,21 @@ class Facebook implements Isession {
     {
         global $Db;
 
+        $data = array();
+
+        if ($this->config['unsubscribe_field']) {
+            $data[$this->config['unsubscribe_field']] = 1;
+        } if ($this->config['enabled_field']) {
+            $data[$this->config['enabled_field']] = 0;
+        }
+
+        if (empty($data)) {
+            return true;
+        }
+
         return $Db->update(array(
-            'table' => $settings['users_table'],
-            'data' => array(
-                $this->config['unsubscribe_field'] => 1,
-                $this->config['enabled_field'] => 0
-            ),
+            'table' => $settings['table'],
+            'data' => $data,
             'conditions' => array(
                 'id' => $this->user('id')
             ),
@@ -377,7 +387,7 @@ class Facebook implements Isession {
         global $Db;
 
         $query = array(
-            'table' => $this->settings['users_table'],
+            'table' => $this->settings['table'],
             'fields' => '*',
             'conditions' => $conditions,
             'limit' => 1
@@ -434,11 +444,13 @@ class Facebook implements Isession {
     {
         global $Vars;
 
+        $settings = $this->settings;
+
         if ($name) {
-            return $Vars->deleteCookie($this->settings['name'].'-'.$name);
+            return $Vars->deleteCookie($settings['name'].'-'.$name);
         } else {
             foreach (array_keys($_COOKIE) as $name) {
-                if (strstr($name, $this->settings['name'])) {
+                if (strstr($name, $settings['name'])) {
                     $Vars->deleteCookie($name);
                 }
             }

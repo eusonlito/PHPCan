@@ -65,7 +65,7 @@ class Templates
         $templates = $Config->templates;
 
         if ($templates[$template]) {
-            if (is_file($templates[$template])) {
+            if ((strstr($template, '/templates/') !== false) && is_file($templates[$template])) {
                 $template = $templates[$template];
             } else {
                 if (strpos($templates[$template], '|') === false) {
