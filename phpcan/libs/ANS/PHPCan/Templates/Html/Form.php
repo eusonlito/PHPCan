@@ -602,7 +602,7 @@ class Form
     {
         $result = array();
 
-        foreach (array('first_option', 'option_title', 'option_text', 'option_value', 'option_selected', 'option_disabled', 'option_text_as_value') as $value) {
+        foreach (array('first_option', 'option_title', 'option_text', 'option_text_separator', 'option_value', 'option_selected', 'option_disabled', 'option_text_as_value') as $value) {
             $$value = $params[$value];
             unset($params[$value]);
         }
@@ -620,12 +620,28 @@ class Form
 
         //Multiple array
         if ($option_title || $option_value) {
-            foreach ((array) $options as $option) {
+            $option_text_separator = $option_text_separator ?: ' ';
+
+            foreach ((array)$options as $option) {
                 $value = $option_value ? $option[$option_value] : $option[$option_title]['url'];
+
+                if ($option_text && is_string($option_text)) {
+                    $text = $option[$option_text];
+                } else if ($option_text && is_array($option_text)) {
+                    $text = array();
+
+                    foreach ($option_text as $option_text_value) {
+                        $text[] = $option[$option_text_value];
+                    }
+
+                    $text = implode($option_text_separator, $text);
+                } else {
+                    $text = $option[$option_title]['title'];
+                }
 
                 $result[] = array(
                     'value' => $value,
-                    'text' => $option_text ? $option[$option_text] : $option[$option_title]['title'],
+                    'text' => $text,
                     'selected' => (($selected && in_array($value, $selected)) || ($option_selected && $option[$option_selected])) ? true : null,
                     'disabled' => $option[$option_disabled] ? 'disabled' : null
                 );
