@@ -22,6 +22,7 @@ class Vars
     public $post = array();
     public $var = array();
     public $cookie = array();
+    public $cookie_domain = null;
     public $route_config = array();
 
     private $route;
@@ -466,6 +467,16 @@ class Vars
     }
 
     /**
+     * public function setCookieDomain (string $domain)
+     *
+     * return boolean
+     */
+    public function setCookieDomain ($domain)
+    {
+        $this->cookie_domain = $domain;
+    }
+
+    /**
      * public function setCookie (string $name, string $value, [int $duration])
      *
      * return boolean
@@ -479,9 +490,9 @@ class Vars
         }
 
         if ($this->compress_cookies) {
-            return setcookie('gz:'.$name, deflate64($value), time() + $duration, BASE_WWW);
+            return setcookie('gz:'.$name, deflate64($value), time() + $duration, BASE_WWW, $this->cookie_domain);
         } else {
-            return setcookie($name, serialize($value), time() + $duration, BASE_WWW);
+            return setcookie($name, serialize($value), time() + $duration, BASE_WWW, $this->cookie_domain);
         }
     }
 
