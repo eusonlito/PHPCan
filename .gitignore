@@ -7,5 +7,6 @@ phpcan/libs/ANS/Cache
 phpcan/libs/imagecow
 phpcan/libs/stylecow
 phpcan/libs/phpmailer
+phpcan/libs/fzaninotto
 
 */config/default

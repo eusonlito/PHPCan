@@ -23,7 +23,8 @@
         "ans/cache": "dev-master",
         "stylecow/stylecow": "dev-master",
         "imagecow/imagecow": "dev-master",
-        "phpmailer/phpmailer": "dev-master"
+        "phpmailer/phpmailer": "dev-master",
+        "fzaninotto/faker": "dev-master"
     },
     "config": {
         "vendor-dir": "phpcan/libs"

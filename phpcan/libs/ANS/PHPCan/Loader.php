@@ -20,7 +20,8 @@ class Loader {
      *
      * Installs this class loader on the SPL autoload stack.
      */
-    static public function register () {
+    static public function register ()
+    {
         spl_autoload_register(__NAMESPACE__.'\\Loader::autoload');
     }
 
@@ -29,7 +30,8 @@ class Loader {
      *
      * Uninstalls this class loader from the SPL autoloader stack.
      */
-    static public function unregister () {
+    static public function unregister ()
+    {
         spl_autoload_unregister(__NAMESPACE__.'\\Loader::autoload');
     }
 
@@ -39,7 +41,8 @@ class Loader {
      * Basic autoload function
      * Returns boolean
      */
-    static public function autoload ($class) {
+    static public function autoload ($class)
+    {
         $class = ltrim($class, '\\');
 
         if (isset(self::$classes[$class]) && is_file(self::$classes[$class])) {
@@ -75,11 +78,7 @@ class Loader {
             }
         }
 
-        $libs = LIBS_PATH.', '.SCENE_PATH.'libs/'.(MODULE_NAME ? (', '.MODULE_PATH.'libs/') : '');
-
-        echo '<pre>';
-
-        throw new \Exception(__('File %s can not be loaded from libs folders (%s)', $file, $libs));
+        return false;
     }
 
     /**
@@ -89,7 +88,8 @@ class Loader {
      * Sets a new path for an specific class
      * Returns none
      */
-    static public function registerClass ($class, $path = null) {
+    static public function registerClass ($class, $path = null)
+    {
         if (is_array($class)) {
             foreach ($class as $class => $path) {
                 self::$classes[$class] = $path;
@@ -108,7 +108,8 @@ class Loader {
      * Sets a new base path for an specific namespace
      * Returns none
      */
-    static public function registerNamespace ($namespace, $path = null) {
+    static public function registerNamespace ($namespace, $path = null)
+    {
         if (is_array($namespace)) {
             foreach ($namespace as $namespace => $path) {
                 self::$namespaces[$namespace] = $path;
@@ -126,7 +127,8 @@ class Loader {
      * Register the classes installed by composer
      * Returns none
      */
-    static function registerComposer ($path = '') {
+    static function registerComposer ($path = '')
+    {
         $path = $path ?: LIBS_PATH;
 
         $file = $path.'composer/autoload_classmap.php';
