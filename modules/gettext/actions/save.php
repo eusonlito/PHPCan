@@ -15,17 +15,17 @@ $Gettext_builder = new \ANS\PHPCan\I18n\Gettext_builder;
 
 $translation_config = $Config->gettext_builders[$translation['id']];
 
-if (!$translation['id'] || !$translation_config) {
+if (empty($translation['id']) || empty($translation_config)) {
     $Vars->message(__('The gettext collection %s is not valid', $translation['id']), 'error');
-
     return false;
 }
 
-if (!$translation['language'] || !in_array($translation['language'], $translation_config['languages'])) {
+if (empty($translation['language']) || !in_array($translation['language'], $translation_config['languages'])) {
     $Vars->message(__('The language %s is not valid', $translation['language']), 'error');
-
     return false;
 }
+
+$Gettext_builder->setSettings($translation_config);
 
 $translation['headers']['PO-Revision-Date'] = date(DATE_RFC822);
 $translation['headers']['Last-Translator'] = $Session->user('name');
@@ -33,7 +33,7 @@ $translation['headers']['Last-Translator'] = $Session->user('name');
 $file = filePath($translation_config['output'].$translation['language'].'/'.$translation['id']);
 
 if ($Vars->var['empty']) {
-    $current = $Gettext_builder->getEntries($translation_config['input'], array($file.'.po'));
+    $current = $Gettext_builder->getEntries(array($file.'.po'));
 
     if ($current['entries']) {
         foreach ($current['entries'] as $current_index => $current_value) {
@@ -56,12 +56,10 @@ if (!is_file($file.'.po')) {
 
 if (!$Gettext_builder->generatePo($translation, $file.'.po')) {
     $Vars->message(__('There was an error generating the po file'), 'error');
-
     return false;
 }
 if (!$Gettext_builder->generateMo($translation, $file.'.mo')) {
     $Vars->message(__('There was an error generating the mo file'), 'error');
-
     return false;
 }
 

@@ -7,6 +7,9 @@
 * More information at license.txt
 */
 
+set_time_limit(0);
+ini_set('max_execution_time', 0);
+
 $Data->set('gettext', $Config->gettext_builders[$Vars->get('id_gettext')]);
 
 if (!$Data->gettext) {
@@ -29,6 +32,8 @@ $Data->data['gettext']['language'] = $Vars->get('id_language');
 
 $Gettext_builder = new \ANS\PHPCan\I18n\Gettext_builder;
 
+$Gettext_builder->setSettings($Data->gettext);
+
 $sources = (array) $sources;
 $sources[] = $Data->gettext['output'].$Data->gettext['language'].'/'.$Data->gettext['id'].'.po';
 
@@ -39,18 +44,16 @@ foreach ($sources as $sources_value) {
 
     if (!$File->makeFolder(dirname($file))) {
         $Vars->message(__('Folder %s is not writable. Please, fix the folder permissions.', dirname(fileWeb($sources_value))), 'error');
-
         return false;
     }
 
     if (is_file($file) && !is_writable($file)) {
         $Vars->message(__('File %s is not writable. Please, fix the file permissions.', fileWeb($sources_value)), 'error');
-
         return false;
     }
 }
 
-$translations = $Gettext_builder->getEntries($Data->gettext['input'], $sources);
+$translations = $Gettext_builder->getEntries($sources);
 
 if ($Vars->var['empty'] && $translations['entries']) {
     foreach ($translations['entries'] as $translations_index => $translations_value) {

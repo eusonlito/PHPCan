@@ -859,6 +859,17 @@ function xssClean ($text)
     return $text;
 }
 
+function isXML ($xml)
+{
+    libxml_use_internal_errors(true);
+
+    $doc = new \DOMDocument('1.0', 'utf-8');
+
+    $doc->loadXML($xml);
+
+    return libxml_get_errors() ? true : false;
+}
+
 /**
  * function explodeTrim (string $delimiter, string $text, [int $limit], [boolean $empty])
  *

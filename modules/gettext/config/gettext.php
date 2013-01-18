@@ -14,7 +14,7 @@ $config['gettext_builders'] = array(
     'scene_texts' => array(
         'input' => array('scene/templates|', 'scene/data|', 'scene/actions|', 'scene/languages|', 'scene/includes|'),
         'output' => 'scene/languages|',
-        'languages' => $languages,
+        'languages' => $languages
     ),
     'tables_info' => array(
         'input' => 'phpcan/modules|content/languages/tables-info.php',

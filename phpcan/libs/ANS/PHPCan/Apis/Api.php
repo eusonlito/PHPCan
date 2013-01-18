@@ -141,24 +141,26 @@ class Api
         $cache = ($cache && $this->Cache) ? $cache : false;
 
         if ($cache && $this->Cache->exists($key)) {
-            return @new \SimpleXMLElement($this->Cache->get($key));
+            $xml = $this->Cache->get($key);
+
+            return isXML($xml) ? (new \SimpleXMLElement($xml)) : false;
         }
 
-        $return = $this->curl($url);
+        $xml = $this->curl($url);
 
-        if (empty($return)) {
+        if (empty($xml) || !isXML($xml)) {
             return false;
         }
 
         if ($cache) {
-            $this->Cache->set($key, $return, $cache);
+            $this->Cache->set($key, $xml, $cache);
         }
 
-        if (empty($return) || ($return[0] !== '<')) {
+        if (empty($xml) || ($xml[0] !== '<')) {
             return false;
         }
 
-        return @new \SimpleXMLElement($return);
+        return new \SimpleXMLElement($xml);
     }
 
     /**

@@ -14,6 +14,7 @@ defined('ANS') or die();
 class Gettext_builder
 {
     private $Debug;
+    private $settings = array();
 
     /**
      * public function __construct ([string $autoglobal])
@@ -33,8 +34,28 @@ class Gettext_builder
         }
     }
 
-    public function getEntries ($folders, $po_files)
+    public function setSettings ($settings) {
+        if ($settings['exclude']) {
+            if (is_string($settings['exclude'])) {
+                $settings['exclude'] = array($settings['exclude']);
+            }
+
+            foreach ($settings['exclude'] as &$exclude) {
+                $exclude = preg_quote($exclude, '#');
+            }
+        } else {
+            $settings['exclude'] = array();
+        }
+
+        $this->settings = $settings;
+    }
+
+    public function getEntries ($po_files)
     {
+        if (empty($this->settings['input'])) {
+            return false;
+        }
+
         $return = array(
             'headers' => array(
                 'Project-Id-Version' => '',
@@ -49,7 +70,7 @@ class Gettext_builder
             )
         );
 
-        $return['entries'] = $this->scan($folders);
+        $return['entries'] = $this->scan($this->settings['input'], $this->settings['exclude']);
 
         if (empty($po_files)) {
             return $return;
@@ -86,7 +107,7 @@ class Gettext_builder
         return $return;
     }
 
-    private function scan ($folders)
+    private function scan ($folders, $excludes = array())
     {
         if (!is_array($folders)) {
             $folders = array($folders);
@@ -97,13 +118,21 @@ class Gettext_builder
         $finfo = finfo_open(FILEINFO_MIME);
         $entries = array();
 
-        foreach ($folders as $folder) {
-            $folder = filePath($folder);
+        foreach ($folders as $content) {
+            $content = filePath($content);
 
-            if (is_file($folder) && (substr(finfo_file($finfo, $folder), 0, 4) === 'text')) {
-                $entries = arrayMergeReplaceRecursive($entries, $this->extractStrings($folder));
-            } else if (is_dir($folder)) {
-                $entries = arrayMergeReplaceRecursive($entries, $this->scan($File->listFolder($folder, '*', -1)));
+            if ($excludes) {
+                foreach ($excludes as $exclude) {
+                    if (preg_match('#'.$exclude.'#', $content)) {
+                        continue 2;
+                    }
+                }
+            }
+
+            if (is_file($content) && (substr(finfo_file($finfo, $content), 0, 4) === 'text')) {
+                $entries = arrayMergeReplaceRecursive($entries, $this->extractStrings($content));
+            } else if (is_dir($content)) {
+                $entries = arrayMergeReplaceRecursive($entries, $this->scan($File->listFolder($content, '*', -1), $excludes));
             }
         }
 
