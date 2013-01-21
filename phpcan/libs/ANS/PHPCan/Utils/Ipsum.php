@@ -28,9 +28,19 @@ class Ipsum
         if ($settings['relations']) {
             foreach ($settings['relations'] as $relation) {
                 list($table1, $table2) = explode(' ', $relation['tables']);
+                list($mode1, $mode2) = explode(' ', $relation['mode']);
 
-                $relations[$table1][] = $table2;
-                $relations[$table2][] = $table1;
+                $relations[$table1][$table2.$relation['name']] = array(
+                    'table' => $table2,
+                    'name' => $relation['name'],
+                    'mode' => $mode1.' '.$mode2
+                );
+
+                $relations[$table2][$table1.$relation['name']] = array(
+                    'table' => $table1,
+                    'name' => $relation['name'],
+                    'mode' => $mode2.' '.$mode1
+                );
             }
         }
 
@@ -71,7 +81,7 @@ class Ipsum
 
                 switch ($settings['format']) {
                     case 'boolean':
-                        $data[$field] = rand(1, 0);
+                        $data[$field] = rand(0, 1);
                         break;
                     case 'date':
                         $data[$field] = $Faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d');
@@ -81,6 +91,9 @@ class Ipsum
                         break;
                     case 'email':
                         $data[$field] = $Faker->freeEmail;
+                        break;
+                    case 'enum':
+                        $data[$field] = $settings['values'][array_rand($settings['values'])];
                         break;
                     case 'html':
                         $data[$field] = '<p>'.implode('</p><p>', $Faker->paragraphs(rand(3, 6))).'</p>';
@@ -124,28 +137,38 @@ class Ipsum
 
     public function relate ($relations)
     {
+        $processed = array();
+
         foreach ($relations as $tables) {
             $table1 = $tables[0];
             $table2 = $tables[1];
             $name = $tables[2];
 
-            if (!is_array($this->settings['relations'][$table1]) || !in_array($table2, $this->settings['relations'][$table1])) {
+            $relation = $this->settings['relations'][$table1][$table2.$name];
+
+            if (empty($relation)) {
                 continue;
             }
 
-            $this->Db->unrelate(array(
-                'name' => $name,
-                'tables' => array(
-                    array(
-                        'table' => $table1,
-                        'conditions' => 'all'
-                    ),
-                    array(
-                        'table' => $table2,
-                        'conditions' => 'all'
+            $code = implode('', $tables);
+
+            if (empty($processed[$code])) {
+                $this->Db->unrelate(array(
+                    'name' => $name,
+                    'tables' => array(
+                        array(
+                            'table' => $table1,
+                            'conditions' => 'all'
+                        ),
+                        array(
+                            'table' => $table2,
+                            'conditions' => 'all'
+                        )
                     )
-                )
-            ));
+                ));
+            }
+
+            $processed[$code] = true;
 
             $rows1 = $this->Db->select(array(
                 'table' => $table1,
@@ -156,6 +179,12 @@ class Ipsum
                 'table' => $table2,
                 'fields' => 'id'
             ));
+
+            if (in_array($relation['mode'], array('1 x', 'x x'))) {
+                for ($i = 0, $max = rand(0, 3); $i <= $max; $i++) {
+                    $rows1 = array_merge($rows1, $rows1);
+                }
+            }
 
             foreach ($rows1 as $row) {
                 $this->Db->relate(array(

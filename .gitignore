@@ -2,6 +2,8 @@
 
 composer.lock
 
+phpunit
+
 phpcan/libs/composer
 phpcan/libs/ANS/Cache
 phpcan/libs/imagecow
