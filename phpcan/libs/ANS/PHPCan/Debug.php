@@ -47,8 +47,8 @@ class Debug
 
         if (empty($this->settings) || is_null($settings)) {
             $this->settings = array(
-                'save' => false,
-                'save_path' => (BASE_PATH.$Config->phpcan_paths['logs']),
+                'store' => false,
+                'store_path' => (BASE_PATH.$Config->phpcan_paths['logs']),
                 'print' => true,
                 'print_styles' => (LIBS_PATH.'ANS/PHPCan/Utils/debug_styles.php'),
                 'fatal_error_template' => (LIBS_PATH.'ANS/PHPCan/Utils/error_template.php'),
@@ -66,9 +66,9 @@ class Debug
 
         $this->settings = array_merge($this->settings, $settings);
 
-        //Check if save_path is writable
-        if ($this->settings['save'] && !is_writable($this->settings['save_path'])) {
-            $this->fatalError(__('The log folder "%s" is not writtable!', $this->settings['save_path']));
+        //Check if store_path is writable
+        if ($this->settings['store'] && !is_writable($this->settings['store_path'])) {
+            $this->settings['store'] = false;
         }
 
         if ($this->settings['ip']) {
@@ -79,24 +79,6 @@ class Debug
         }
 
         return true;
-    }
-
-    /**
-     * private function debug_backtrace (array $debug)
-     *
-     * return array
-     */
-    private function debug_backtrace ($debug)
-    {
-        unset($debug['object'], $debug['args']);
-
-        foreach ($debug as $key => $value) {
-            if (is_array($value)) {
-                $debug[$key] = $this->debug_backtrace($value);
-            }
-        }
-
-        return $debug;
     }
 
     public function canPrint ()
@@ -113,7 +95,7 @@ class Debug
     {
         $this->errors[] = array(
             'where' => $where,
-            'info' => $this->debug_backtrace(debug_backtrace()),
+            'info' => trace(),
             'message' => $message
         );
 
@@ -284,8 +266,6 @@ class Debug
 
         include_once($this->settings['print_styles']);
 
-        $where = $this->debug_backtrace(debug_backtrace());
-
         echo '<hr />';
         echo '<pre class="phpcan_debug_e phpcan_debug_'.$style.'">';
 
@@ -295,9 +275,7 @@ class Debug
             echo '<h1>'.gettype($var).'</h1>'."\n";
         }
 
-        foreach ($where as $line => $row) {
-            echo '<span class="subtitle">'.$line.' / '.$row['file'].' <strong>(line '.$row['line'].')</strong></span>'."\n";
-        }
+        echo trace();
 
         echo '<br />';
 
@@ -306,57 +284,34 @@ class Debug
         } else if (is_bool($var)) {
             echo $var ? 'true' : 'false';
         } else {
-            ob_start();
-
-            print_r($var);
-
-            $var = htmlspecialchars(ob_get_contents());
-
-            ob_end_clean();
-
-            echo $var;
+            echo htmlspecialchars(print_r($var, true));
         }
 
         echo '</pre>';
     }
 
     /**
-     * private function store (string $message, [string $file])
+     * public function store (string $message, [string $log])
      *
      * store into files the phpCan messages
      */
-    private function store ($message, $file = '')
+    public function store ($message, $log = '')
     {
-        if (empty($this->settings['save'])) {
+        if (empty($this->settings['store'])) {
             return true;
         }
 
-        $file = $this->settings['save_path'].($file ? $file : 'debugs').'.php';
+        $log = $this->settings['store_path'].($log ?: 'debug').'.php';
 
-        //Check if the file is writable
-        if (is_file($file) && !is_writable($file)) {
-            $this->fatalError(__('The file "%s" is not writtable!', $file));
+        if (!is_writable(dirname($log)) || (is_file($log) && !is_writable($log))) {
+            return true;
         }
-
-        $where = $this->debug_backtrace(debug_backtrace());
 
         $text = "\n\n".'-- '.date('Y/m/d H:i:s').' --------------------------'."\n\n";
+        $text .= trace();
+        $text .= "\n\n".print_r($message, true);
 
-        foreach ($where as $row) {
-            $text .= 'File: '.$row['file'].' | Line: '.$row['line']."\n";
-        }
-
-        if (is_array($message)) {
-            ob_start();
-
-            print_r($message);
-
-            $message = ob_get_flush();
-        }
-
-        $text .= "\n".$message;
-
-        file_put_contents($file, $text, FILE_APPEND);
+        file_put_contents($log, $text, FILE_APPEND);
     }
 
     /**
@@ -386,17 +341,12 @@ class Debug
             $this->time_pause = 0;
         } else if (empty($this->time_store)) {
             $this->time = microtime(true);
-            $where = array();
-
-            foreach ($this->debug_backtrace(debug_backtrace()) as $row) {
-                $where[] = $row['file'].' (line '.$row['line'].')';
-            }
 
             $this->time_store[] = array(
                 'text' => 'Timing start',
                 'total_time' => 0,
                 'time_from_previous' => 0,
-                'where' => $where
+                'where' => trace()
             );
         }
     }
@@ -409,12 +359,6 @@ class Debug
         $text = $text ? $text : 'Timing info';
         $total_time = microtime(true) - $this->time;
 
-        $where = array();
-
-        foreach ($this->debug_backtrace(debug_backtrace()) as $row) {
-            $where[] = $row['file'].' (line '.$row['line'].')';
-        }
-
         $time_from_previous = end($this->time_store);
         $time_from_previous = $total_time - $time_from_previous['total_time'];
 
@@ -424,7 +368,7 @@ class Debug
             'text' => $text,
             'total_time' => $total_time,
             'time_from_previous' => $time_from_previous,
-            'where' => $where
+            'where' => trace()
         );
     }
 

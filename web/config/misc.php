@@ -32,7 +32,7 @@ $config['exit_modes'] = array(
 
 $config['debug'] = array(
     'print' => true,
-    'save' => false,
+    'store' => true,
     'redirect' => true,
     'ip' => array('127.0.0.1')
 );

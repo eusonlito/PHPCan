@@ -15,7 +15,7 @@ class Session
 {
     protected $logged = array();
     protected $user = array();
-    protected $settings;
+    protected $settings = array();
     protected $Debug;
 
     public $sessions = array();
@@ -64,6 +64,35 @@ class Session
         }
 
         return false;
+    }
+
+    /**
+     * public function setConditions ($sessions, $conditions = array())
+     *
+     * return array
+     */
+    public function setConditions ($sessions, $conditions = array())
+    {
+        if (empty($conditions)) {
+            $conditions = $sessions;
+            $sessions = array();
+
+            foreach (array_keys($this->sessions) as $session) {
+                $sessions[$session] = $conditions;
+            }
+        } else if (is_string($sessions)) {
+            $sessions = array($sessions => $conditions);
+        }
+
+        if (!is_array($sessions)) {
+            return false;
+        }
+
+        foreach ($sessions as $session => $conditions) {
+            $this->sessions[$session]->setConditions($conditions);
+        }
+
+        return true;
     }
 
     /**

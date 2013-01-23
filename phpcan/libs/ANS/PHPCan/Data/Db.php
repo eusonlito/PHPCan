@@ -18,7 +18,7 @@ class Db
     private $Events;
     private $Cache;
     private $connection;
-    private $query_register;
+    private $query_register = array();
     private $settings;
     private $drivers = array(
         '4d', 'cubrid', 'dblib', 'firebird', 'ibm', 'informix', 'mssql',
@@ -49,6 +49,8 @@ class Db
         }
 
         $this->setCache();
+
+        register_shutdown_function(array($this, 'callRegisteredShutdown'));
     }
 
     private function setCache ()
@@ -401,7 +403,7 @@ class Db
      */
     public function queryRegister ($offset = 0, $length = null)
     {
-        if ($offset || $length) {
+        if (is_array($this->query_register) && ($offset || $length)) {
             return array_slice($this->query_register, $offset, $length, true);
         }
 
@@ -1167,11 +1169,12 @@ class Db
 
         $ok = $this->query($query);
 
-        if ($this->settings['save_query_register']) {
+        if ($this->settings['query_register_log']) {
             $this->query_register[] = array(
                 'operation' => 'insert',
                 'operations' => $operations,
-                'query' => $query
+                'query' => $query,
+                'trace' => trace()
             );
         }
 
@@ -1311,11 +1314,12 @@ class Db
 
         $ok = $this->query($query);
 
-        if ($this->settings['save_query_register']) {
+        if ($this->settings['query_register_log']) {
             $this->query_register[] = array(
                 'operation' => 'update',
                 'operations' => $operations,
-                'query' => $query
+                'query' => $query,
+                'trace' => trace()
             );
         }
 
@@ -1451,11 +1455,12 @@ class Db
 
         $ok = $this->query($query);
 
-        if ($this->settings['save_query_register']) {
+        if ($this->settings['query_register_log']) {
             $this->query_register[] = array(
                 'operation' => 'delete',
                 'operations' => $operations,
-                'query' => $query
+                'query' => $query,
+                'trace' => trace()
             );
         }
 
@@ -1491,10 +1496,11 @@ class Db
                 $table = $this->getTable($operations['tables'][0]['table']);
 
                 if ($relation = $table->getRelation($operations['tables'][1]['table'], $operations['name'], $operations['tables'][1]['direction'])) {
-                    if ($this->settings['save_query_register']) {
+                    if ($this->settings['query_register_log']) {
                         $this->query_register[] = array(
-                            'type' => $type,
-                            'operations' => $operations
+                            'operation' => $type,
+                            'operations' => $operations,
+                            'trace' => trace()
                         );
                     }
 
@@ -1504,10 +1510,11 @@ class Db
                 $table = $this->getTable($operations['tables'][1]['table']);
 
                 if ($relation = $table->getRelation($operations['tables'][0]['table'], $operations['name'], $operations['tables'][0]['direction'])) {
-                    if ($this->settings['save_query_register']) {
+                    if ($this->settings['query_register_log']) {
                         $this->query_register[] = array(
-                            'type' => $type,
-                            'operations' => $operations
+                            'operation' => $type,
+                            'operations' => $operations,
+                            'trace' => trace()
                         );
                     }
 
@@ -1522,10 +1529,11 @@ class Db
             }
 
             if ($relation = $table->getRelation($operations['tables'][1]['table'], $operations['name'])) {
-                if ($this->settings['save_query_register']) {
+                if ($this->settings['query_register_log']) {
                     $this->query_register[] = array(
-                        'type' => $type,
-                        'operations' => $operations
+                        'operation' => $type,
+                        'operations' => $operations,
+                        'trace' => trace()
                     );
                 }
 
@@ -1565,11 +1573,12 @@ class Db
             $this->mergeConditions($operation);
 
             if ($relation->$type($operation, $table1_operations, $operation['options']) === false) {
-                if ($this->settings['save_query_register']) {
+                if ($this->settings['query_register_log']) {
                     $this->query_register[] = array(
-                        'type' => $type,
-                        'operation' => $operation,
-                        'tables' => array($operation, $table1_operations)
+                        'operation' => $type,
+                        'operations' => $operation,
+                        'tables' => array($operation, $table1_operations),
+                        'trace' => trace()
                     );
                 }
 
@@ -1957,11 +1966,12 @@ class Db
 
         $tmp_result = $this->queryResult($query);
 
-        if ($this->settings['save_query_register']) {
+        if ($this->settings['query_register_log']) {
             $this->query_register[] = array(
                 'operation' => 'select',
                 'operations' => $data,
-                'query' => $query
+                'query' => $query,
+                'trace' => trace()
             );
         }
 
@@ -2679,15 +2689,17 @@ class Db
         return $unique ? current($result) : $result;
     }
 
-    public function renameField ($table, $from, $to, $type) {
+    public function renameField ($table, $from, $to, $type)
+    {
         $query = $this->Database->renameField($table, $from, $to, $type);
 
         $ok = $this->query($query);
 
-        if ($this->settings['save_query_register']) {
+        if ($this->settings['query_register_log']) {
             $this->query_register[] = array(
-                'operation' => 'renameFields',
-                'query' => $query
+                'operation' => 'renameField',
+                'query' => $query,
+                'trace' => trace()
             );
         }
 
@@ -2696,5 +2708,31 @@ class Db
         }
 
         return true;
+    }
+
+    public function callRegisteredShutdown ()
+    {
+
+        if (empty($this->settings['query_register_log']) || empty($this->settings['query_register_store'])) {
+            return true;
+        }
+
+        if (!is_string($this->settings['query_register_store'])) {
+            return true;
+        }
+
+        global $Config;
+
+        $log = BASE_PATH.$Config->phpcan_paths['logs'].$this->settings['query_register_store'];
+
+        if (!is_writable(dirname($log)) || (is_file($log) && !is_writable($log))) {
+            return true;
+        }
+
+        if ($this->settings['query_register_append']) {
+            return file_put_contents($log, print_r($this->query_register, true), FILE_APPEND);
+        } else {
+            return file_put_contents($log, print_r($this->query_register, true));
+        }
     }
 }

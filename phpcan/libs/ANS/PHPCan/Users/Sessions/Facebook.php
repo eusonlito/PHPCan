@@ -17,6 +17,7 @@ class Facebook implements Isession {
     protected $Debug = object;
     protected $Errors = object;
     protected $settings = array();
+    protected $conditions = array();
 
     public $facebook = array();
 
@@ -35,6 +36,18 @@ class Facebook implements Isession {
         $this->Errors = $Errors;
         $this->settings = $settings['sessions']['facebook'];
         $this->settings['errors'] = $this->settings['errors'] ?: $this->settings['name'];
+    }
+
+    /*
+    * public function setConditions (array $conditions)
+    *
+    * return array
+    */
+    public function setConditions ($conditions)
+    {
+        if (is_array($conditions)) {
+            return $this->conditions = $conditions;
+        }
     }
 
     /*
@@ -319,15 +332,13 @@ class Facebook implements Isession {
 
         $info['data'] = $this->userData($info['data']);
 
-        return $Db->save(array(
-            'update' => array(
-                'table' => $this->settings['table'],
-                'data' => $info['data'],
-                'conditions' => array(
-                    'id' => $this->user['id']
-                ),
-                'limit' => 1
-            )
+        return $Db->update(array(
+            'table' => $this->settings['table'],
+            'data' => $info['data'],
+            'conditions' => array(
+                'id' => $this->user['id']
+            ),
+            'limit' => 1
         ));
     }
 
@@ -389,7 +400,7 @@ class Facebook implements Isession {
         $query = array(
             'table' => $this->settings['table'],
             'fields' => '*',
-            'conditions' => $conditions,
+            'conditions' => array_merge($this->conditions, $conditions),
             'limit' => 1
         );
 

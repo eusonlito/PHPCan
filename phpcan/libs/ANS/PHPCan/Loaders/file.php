@@ -93,7 +93,7 @@ foreach ($files as $files_value) {
 
     if (!is_file($file)) {
         if (defined('DEV') && DEV && in_array($ext, array('jpg', 'jpeg', 'gif', 'png'))) {
-            $file = filePath('common|default/images/'.rand(1,4).'.jpg');
+            $file = filePath('common|default/images/'.rand(1, 5).'.jpg');
         } else {
             echo "\n".'/* '.__('File %s doesn\'t exists', fileWeb($files_value)).' */';
             continue;

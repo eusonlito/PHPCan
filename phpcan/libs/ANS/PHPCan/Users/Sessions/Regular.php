@@ -18,6 +18,7 @@ class Regular implements Isession
     protected $Debug = object;
     protected $Errors = object;
     protected $settings = array();
+    protected $conditions = array();
 
     private $logged = boolean;
     private $user = array();
@@ -34,6 +35,18 @@ class Regular implements Isession
 
         $this->settings = $settings['sessions']['regular'];
         $this->settings['errors'] = $this->settings['errors'] ?: $this->settings['name'];
+    }
+
+    /*
+    * public function setConditions (array $conditions)
+    *
+    * return array
+    */
+    public function setConditions ($conditions)
+    {
+        if (is_array($conditions)) {
+            return $this->conditions = $conditions;
+        }
     }
 
     /*
@@ -388,12 +401,14 @@ class Regular implements Isession
     {
         global $Db;
 
+        $conditions = array_merge($this->conditions, array(
+            $this->settings['user_field'] => $user,
+        ));
+
         $select = array(
             'table' => $this->settings['table'],
             'fields' => array($this->settings['password_field']),
-            'conditions' => array(
-                $this->settings['user_field'] => $user,
-            ),
+            'conditions' => $conditions,
             'limit' => 1
         );
 
@@ -469,7 +484,7 @@ class Regular implements Isession
         $query = array(
             'table' => $this->settings['table'],
             'fields' => '*',
-            'conditions' => $conditions,
+            'conditions' => array_merge($this->conditions, $conditions),
             'limit' => 1
         );
 

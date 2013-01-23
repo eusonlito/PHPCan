@@ -233,7 +233,8 @@ class Relation_x_x extends Relations implements Irelations
                         $this->settings['join'][0] => $id_table0,
                         $this->settings['join'][1] => $id_table1
                     ),
-                    'comment' => __('Checking if the tables %s and %s are related', $this->settings['tables'][0], $this->settings['tables'][1])
+                    'comment' => __('Checking if the tables %s and %s are related', $this->settings['tables'][0], $this->settings['tables'][1]),
+                    'trace' => trace()
                 ));
 
                 if (empty($related)) {
@@ -254,7 +255,8 @@ class Relation_x_x extends Relations implements Irelations
             'table' => $this->settings['relation_table'],
             'data' => $relation_data,
             'table_events' => false,
-            'comment' => __('Relating the tables %s and %s', $this->settings['tables'][0], $this->settings['tables'][1])
+            'comment' => __('Relating the tables %s and %s', $this->settings['tables'][0], $this->settings['tables'][1]),
+            'trace' => trace()
         ));
 
         if ($ok === false) {
@@ -295,6 +297,7 @@ class Relation_x_x extends Relations implements Irelations
 
         $operations['table_events'] = false;
         $operations['comment'] = __('Unrelating the tables %s and %s', $this->settings['tables'][0], $this->settings['tables'][1]);
+        $operations['trace'] = trace();
 
         if ($this->Db->delete($operations) === false) {
             return false;
@@ -314,6 +317,7 @@ class Relation_x_x extends Relations implements Irelations
 
             $operations['conditions'] = $conditions;
             $operations['comment'] = __('Unrelating the tables %s and %s in reverse mode', $this->settings['tables'][0], $this->settings['tables'][1]);
+            $operations['trace'] = trace();
 
             if ($this->Db->delete($operations) === false) {
                 return false;

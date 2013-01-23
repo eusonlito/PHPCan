@@ -18,8 +18,10 @@ $config['db'] = array(
         'password' => '',
         'charset' => 'utf8',
 
-        'save_query_register' => true,
+        'query_register_log' => false,
+        'query_register_store' => 'db.log',
+        'query_register_append' => false,
         'simulate_saves' => false,
-        'default' => true,
+        'default' => true
     )
 );

@@ -65,7 +65,7 @@ class Ipsum
             return false;
         }
 
-        if ($this->settings['drop']) {
+        if ($this->settings['truncate']) {
             $this->Db->query('TRUNCATE '.$table.';');
         }
 
@@ -95,13 +95,17 @@ class Ipsum
                     case 'enum':
                         $data[$field] = $settings['values'][array_rand($settings['values'])];
                         break;
+                    case 'file':
+                    case 'image':
+                        $data[$field] = filePath('common|default/images/'.rand(1, 5).'.jpg');
+                        break;
                     case 'html':
                         $data[$field] = '<p>'.implode('</p><p>', $Faker->paragraphs(rand(3, 6))).'</p>';
                         break;
                     case 'id_text':
                     case 'title':
                     case 'varchar':
-                        $data[$field] = preg_replace('/[^a-z0-9\s]/', '', $Faker->sentence(rand(2, 5)));
+                        $data[$field] = ucfirst(preg_replace('/[^a-z0-9\s]/', '', $Faker->sentence(rand(2, 5))));
                         break;
                     case 'integer':
                         $data[$field] = $Faker->randomNumber(rand(2, 5));

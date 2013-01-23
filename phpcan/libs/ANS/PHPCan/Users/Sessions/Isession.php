@@ -14,6 +14,7 @@ defined('ANS') or die();
 interface Isession {
     public function __construct ($settings);
 
+    public function setConditions ($conditions);
     public function load ();
     public function login ($data = array());
     public function logout ();

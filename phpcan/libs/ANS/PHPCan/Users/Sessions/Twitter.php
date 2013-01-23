@@ -19,6 +19,7 @@ class Twitter extends Oauth2client implements Isession {
     protected $Debug = object;
     protected $Errors = object;
     protected $settings = array();
+    protected $conditions = array();
 
     public $twitter = array();
 
@@ -41,6 +42,18 @@ class Twitter extends Oauth2client implements Isession {
         $this->settings = array_merge(array(
             'errors' => 'session-twitter',
         ), $settings['common'], $settings['sessions']['twitter']);
+    }
+
+    /*
+    * public function setConditions (array $conditions)
+    *
+    * return array
+    */
+    public function setConditions ($conditions)
+    {
+        if (is_array($conditions)) {
+            return $this->conditions = $conditions;
+        }
     }
 
     /*
@@ -110,7 +123,6 @@ class Twitter extends Oauth2client implements Isession {
     private function setAPI ($oauth_token = '', $oauth_token_secret = '')
     {
         if ($oauth_token && $oauth_token_secret) {
-
             $this->API = new Twitter\TwitterOAuth($this->settings['api_key'], $this->settings['secret_key'], $oauth_token, $oauth_token_secret);
         } else {
             $this->API = new Twitter\TwitterOAuth($this->settings['api_key'], $this->settings['secret_key']);
@@ -371,15 +383,13 @@ class Twitter extends Oauth2client implements Isession {
 
         $info['data'] = $this->userData($info['data']);
 
-        return $Db->save(array(
-            'update' => array(
-                'table' => $this->settings['users_table'],
-                'data' => $info['data'],
-                'conditions' => array(
-                    'id' => $this->user['id']
-                ),
-                'limit' => 1
-            )
+        return $Db->update(array(
+            'table' => $this->settings['users_table'],
+            'data' => $info['data'],
+            'conditions' => array(
+                'id' => $this->user['id']
+            ),
+            'limit' => 1
         ));
     }
 
@@ -464,7 +474,7 @@ class Twitter extends Oauth2client implements Isession {
         $query = array(
             'table' => $this->settings['users_table'],
             'fields' => '*',
-            'conditions' => $conditions,
+            'conditions' => array_merge($this->conditions, $conditions),
             'limit' => 1
         );
 

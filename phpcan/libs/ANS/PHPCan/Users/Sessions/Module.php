@@ -14,7 +14,8 @@ defined('ANS') or die();
 class Module implements Isession
 {
     protected $Debug;
-    protected $settings;
+    protected $settings = array();
+    protected $conditions = array();
 
     /**
      * public function __construct ($settings)
@@ -31,6 +32,18 @@ class Module implements Isession
             'duration' => (3600 * 24 * 30),
             'errors' => 'session-module'
         ), $settings);
+    }
+
+    /*
+    * public function setConditions (array $conditions)
+    *
+    * return array
+    */
+    public function setConditions ($conditions)
+    {
+        if (is_array($conditions)) {
+            return $this->conditions = $conditions;
+        }
     }
 
     /**

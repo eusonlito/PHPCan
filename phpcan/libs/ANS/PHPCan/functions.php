@@ -1006,10 +1006,28 @@ function pre ($pre, $return = false)
 *
 * return array
 */
-function trimArray ($array) {
+function trimArray ($array)
+{
     if (!is_array($array)) {
         return trim($array);
     }
  
     return array_map('trimArray', $array);
+}
+
+/**
+ * private function trace ()
+ *
+ * return array
+ */
+function trace ()
+{
+    $Exception = new \Exception;
+
+    $trace = explode("\n", $Exception->getTraceAsString());
+
+    array_shift($trace);
+    array_pop($trace);
+
+    return str_replace(BASE_PATH, '', implode("\n", $trace))."\n";
 }
