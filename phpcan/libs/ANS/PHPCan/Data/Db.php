@@ -1447,7 +1447,7 @@ class Db
 
             //Unrelate relations
             if ($relation->unrelateDependent()) {
-                $relation->unrelate(array('conditions' => 'all'), array('conditions' => $operations['conditions']));
+                $relation->unrelate(array('conditions' => $operations['conditions']), array('conditions' => 'all'));
             }
         }
 

@@ -304,7 +304,7 @@ class Relation_x_x extends Relations implements Irelations
         }
 
         //Unrelate autorelations with no direction
-        if ($operations['conditions'] !== 'all' && ($this->settings['tables'][0] == $this->settings['tables'][1]) && empty($this->settings['direction'])) {
+        if (($operations['conditions'] !== 'all') && ($this->settings['tables'][0] == $this->settings['tables'][1]) && empty($this->settings['direction'])) {
             $conditions = array();
 
             if ($operations['conditions'][$this->settings['join'][0]]) {
