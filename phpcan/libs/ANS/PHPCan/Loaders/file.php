@@ -40,6 +40,10 @@ if ($Vars->var['packed']) {
 $cache = false;
 $ext = strtolower(pathinfo($files[0], PATHINFO_EXTENSION));
 
+if (strstr($ext, '?')) {
+    $ext = array_shift(explode('?', $ext));
+}
+
 if (($ext === 'css') || ($ext === 'js')) {
     header('Content-type: '.($ext === 'css' ? 'text/css' : 'text/javascript'));
 

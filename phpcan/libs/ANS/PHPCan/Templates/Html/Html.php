@@ -442,7 +442,7 @@ class Html
                     $value = 'templates|js/'.$value;
                 }
 
-                $local[] = $value;
+                $local[] = $this->autoVersion($value);
             }
 
             if ($external) {
@@ -498,6 +498,8 @@ class Html
             return '';
         }
 
+        $params['src'] = $this->autoVersion($params['src']);
+
         $params['type'] = 'text/javascript';
 
         return '<script'.$this->params($params).'></script>';
@@ -529,7 +531,7 @@ class Html
                     $value = 'templates|css/'.$value;
                 }
 
-                $local[] = $value;
+                $local[] = $this->autoVersion($value);
             }
 
             if ($external) {
@@ -587,6 +589,8 @@ class Html
             return '';
         }
 
+        $params['href'] = $this->autoVersion($params['href']);
+
         $params['type'] = 'text/css';
         $params['rel'] = 'stylesheet';
 
@@ -626,6 +630,34 @@ class Html
             .'headNode.appendChild(cssNode);'
             .'})();'
             .'</script>';
+    }
+
+    /**
+     * private function autoVersion ($file)
+     *
+     * return string
+     */
+    private function autoVersion ($file)
+    {
+        if (strstr($file, '|')) {
+            $realfile = filePath(str_replace('$', '', $file));
+        } else if (strstr($file, '$')) {
+            $realfile = preg_replace('#^'.preg_quote(BASE_WWW, '#').'#', '', $file);
+            $realfile = explode('/', str_replace('$', '', $realfile));
+
+            $context = array_shift($realfile);
+            $basedir = array_shift($realfile);
+
+            $realfile = filePath($context.'/'.$basedir.'|'.implode('/', $realfile));
+        } else {
+            $realfile = DOCUMENT_ROOT.array_shift(explode('?', $file));
+        }
+
+        if (!is_file($realfile)) {
+            return $file;
+        }
+
+        return $file.(strstr($file, '?') ? '&amp;' : '?').filemtime($realfile);
     }
 
     /**
@@ -769,7 +801,7 @@ class Html
     {
         $index = $index + 1 + $offset;
 
-        if (($index > 1) && (($index % $each) == 0)) {
+        if (($index >= 1) && (($index % $each) === 0)) {
             return $text;
         }
 
