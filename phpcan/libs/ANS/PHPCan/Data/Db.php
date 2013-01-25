@@ -1140,7 +1140,7 @@ class Db
         }
 
         // Check for events
-        if ($operations['table_events'] !== false) {
+        if ($operations['table_events']) {
             $event_table_before = $this->checkTableEvent($operations['table'], $operations['data'], 'beforeInsert');
         }
         
@@ -1154,9 +1154,10 @@ class Db
             $this->triggerFormatEvent($operations['table'], 'before', 'Insert', $event_format_before, array(), $new_values);
         }
 
-        if ($operations['table_events'] !== false) {
+        if ($operations['table_events']) {
             $event_table_after = $this->checkTableEvent($operations['table'], $operations['data'], 'afterInsert');
         }
+
         $event_format_after = $this->checkFormatEvent($operations['table'], $operations['data'], 'afterInsert');
 
         //Convert values
@@ -1286,9 +1287,10 @@ class Db
         $operations['limit'] = count($ids);
 
         // Check for events
-        if ($operations['table_events'] !== false) {
+        if ($operations['table_events']) {
             $event_table_before = $this->checkTableEvent($operations['table'], $operations['data'], 'beforeUpdate');
         }
+
         $event_format_before = $this->checkFormatEvent($operations['table'], $operations['data'], 'beforeUpdate');
 
         if ($event_table_before) {
@@ -1299,9 +1301,10 @@ class Db
             $this->triggerFormatEvent($operations['table'], 'before', 'Update', $event_format_before, $old_values, $new_values);
         }
 
-        if ($operations['table_events'] !== false) {
+        if ($operations['table_events']) {
             $event_table_after = $this->checkTableEvent($operations['table'], $operations['data'], 'afterUpdate');
         }
+
         $event_format_after = $this->checkFormatEvent($operations['table'], $operations['data'], 'afterUpdate');
 
         //Convert values
@@ -1379,14 +1382,16 @@ class Db
         $tmp_data = array($table->getDefaultValues());
 
         // Check for events
-        if ($operations['table_events'] !== false) {
+        if ($operations['table_events']) {
             $event_table_before = $this->checkTableEvent($operations['table'], $tmp_data, 'beforeDelete');
         }
+
         $event_table_after = $this->checkTableEvent($operations['table'], $tmp_data, 'afterDelete');
 
-        if ($operations['table_events'] !== false) {
+        if ($operations['table_events']) {
             $event_format_before = $this->checkFormatEvent($operations['table'], $tmp_data, 'beforeDelete');
         }
+
         $event_format_after = $this->checkFormatEvent($operations['table'], $tmp_data, 'afterDelete');
 
         $event = ($event_table_before || $event_table_after || $event_format_before || $event_format_after);
