@@ -1140,7 +1140,7 @@ class Db
         }
 
         // Check for events
-        if ($operations['table_events']) {
+        if ($operations['table_events'] !== false) {
             $event_table_before = $this->checkTableEvent($operations['table'], $operations['data'], 'beforeInsert');
         }
         
@@ -1154,7 +1154,7 @@ class Db
             $this->triggerFormatEvent($operations['table'], 'before', 'Insert', $event_format_before, array(), $new_values);
         }
 
-        if ($operations['table_events']) {
+        if ($operations['table_events'] !== false) {
             $event_table_after = $this->checkTableEvent($operations['table'], $operations['data'], 'afterInsert');
         }
 
@@ -1287,7 +1287,7 @@ class Db
         $operations['limit'] = count($ids);
 
         // Check for events
-        if ($operations['table_events']) {
+        if ($operations['table_events'] !== false) {
             $event_table_before = $this->checkTableEvent($operations['table'], $operations['data'], 'beforeUpdate');
         }
 
@@ -1301,7 +1301,7 @@ class Db
             $this->triggerFormatEvent($operations['table'], 'before', 'Update', $event_format_before, $old_values, $new_values);
         }
 
-        if ($operations['table_events']) {
+        if ($operations['table_events'] !== false) {
             $event_table_after = $this->checkTableEvent($operations['table'], $operations['data'], 'afterUpdate');
         }
 
@@ -1382,13 +1382,13 @@ class Db
         $tmp_data = array($table->getDefaultValues());
 
         // Check for events
-        if ($operations['table_events']) {
+        if ($operations['table_events'] !== false) {
             $event_table_before = $this->checkTableEvent($operations['table'], $tmp_data, 'beforeDelete');
         }
 
         $event_table_after = $this->checkTableEvent($operations['table'], $tmp_data, 'afterDelete');
 
-        if ($operations['table_events']) {
+        if ($operations['table_events'] !== false) {
             $event_format_before = $this->checkFormatEvent($operations['table'], $tmp_data, 'beforeDelete');
         }
 
