@@ -31,7 +31,7 @@ Options -Indexes
 	</IfModule>
 
 	<IfModule mod_filter.c>
-		AddOutputFilterByType DEFLATE application/atom_xml application/rss+xml application/xhtml+xml application/xml application/x-httpd-php application/x-javascript image/svg+xml image/x-icon text/css text/html text/plain text/richtext text/xml text/xsd text/xsl
+		AddOutputFilterByType DEFLATE application/atom_xml application/rss+xml application/xhtml+xml application/xml application/x-httpd-php application/x-javascript image/svg+xml image/x-icon text/css text/javascript text/html text/plain text/richtext text/xml text/xsd text/xsl
 	</IfModule>
 </IfModule>
 
@@ -50,6 +50,7 @@ Options -Indexes
 	ExpiresActive On
 	ExpiresByType text/css A31536000
 	ExpiresByType application/x-javascript A31536000
+	ExpiresByType text/javascript A31536000
 	ExpiresByType text/html A3600
 	ExpiresByType text/richtext A3600
 	ExpiresByType image/svg+xml A3600
