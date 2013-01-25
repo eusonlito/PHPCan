@@ -84,7 +84,7 @@ class Mysql implements Idatabase
 
             foreach ($indexes as $index) {
                 if ($index['Non_unique']) {
-                    $type = 'index';
+                    $type = ($index['Index_type'] === 'FULLTEXT') ? 'fulltext' : 'index';
                 } else if ($index['Key_name'] === 'PRIMARY') {
                     $type = 'key';
                 } else {
@@ -151,6 +151,7 @@ class Mysql implements Idatabase
                         'key' => $settings['db_key'] ? 'PRIMARY' : '',
                         'index' => $settings['db_index'],
                         'unique' => $settings['db_unique'],
+                        'fulltext' => $settings['db_fulltext'],
                         'length' => $settings['db_length_max']
                     );
 
@@ -190,7 +191,6 @@ class Mysql implements Idatabase
 
         //Compare real_tables and virtual_tables fields and create the query
         foreach ($all_tables as $table) {
-
             //Add table
             if (empty($real_tables[$table])) {
                 $query_fields = array();
@@ -297,6 +297,31 @@ class Mysql implements Idatabase
                         }
 
                         $table_keys['add-'.$key['index']]['field'][] = array(
+                            'name' => $field,
+                            'type' => $key['type'],
+                            'length' => $key['length']
+                        );
+                    }
+                }
+
+                if ($key['fulltext'] !== $real_indexes[$table][$field]['fulltext']) {
+                    if ($real_indexes[$table][$field]['fulltext']) {
+                        $table_keys['drop-'.$real_indexes[$table][$field]['fulltext']] = array(
+                            'action' => 'DROP INDEX',
+                            'name' => $real_indexes[$table][$field]['fulltext']
+                        );
+                    }
+
+                    if ($key['fulltext']) {
+                        if (empty($table_keys['add-'.$key['fulltext']])) {
+                            $table_keys['add-'.$key['fulltext']] = array(
+                                'action' => 'ADD FULLTEXT',
+                                'name' => (is_string($key['fulltext']) ? $key['fulltext'] : $table),
+                                'field' => array()
+                            );
+                        }
+
+                        $table_keys['add-'.$key['fulltext']]['field'][] = array(
                             'name' => $field,
                             'type' => $key['type'],
                             'length' => $key['length']
