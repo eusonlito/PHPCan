@@ -985,11 +985,7 @@ function pre ($pre, $return = false)
     } else if (is_string($pre)) {
         $str .= '"'.$pre.'"';
     } else {
-        ob_start();
-
-        print_r($pre);
-
-        $str .= ob_get_clean();
+        $str .= print_r($pre, true);
     }
 
     if ($return) {
