@@ -47,6 +47,23 @@ class Float extends Formats implements Iformats
             )
         ));
 
-        return $this->settings;
+        $settings = $this->settings[''];
+
+        list($integer, $decimal) = explode(',', $settings['length_max']);
+
+        $settings['default'] = '0.'.str_repeat('0', $decimal);
+        $settings['db_default'] = $settings['default'];
+
+        if ($settings['unsigned']) {
+            $settings['value_min'] = 0;
+        } else {
+            $settings['value_min'] = '-'.str_repeat('9', $integer);
+            $settings['value_min'] .= '.'.str_repeat('9', $decimal);
+        }
+
+        $settings['value_max'] = str_repeat('9', $integer);
+        $settings['value_max'] .= '.'.str_repeat('9', $decimal);
+
+        return $this->settings[''] = $settings;
     }
 }

@@ -19,6 +19,8 @@ Options -Indexes
 
 	SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|rar|zip|pdf|doc|swf|flv|mov|wma|mp3|mp4|avi|mp?g)$ no-gzip dont-vary
 
+	AddOutputFilterByType DEFLATE application/atom_xml application/javascript application/rss+xml application/xhtml+xml application/xml application/x-httpd-php application/x-javascript image/svg+xml image/x-icon text/css text/javascript text/html text/plain text/richtext text/xml text/xsd text/xsl
+
 	<IfModule mod_setenvif.c>
 		BrowserMatch ^Mozilla/4 gzip-only-text/html
 		BrowserMatch ^Mozilla/4\.0[678] no-gzip
@@ -28,10 +30,6 @@ Options -Indexes
 
 	<IfModule mod_headers.c>
 		Header append Vary User-Agent env=!dont-vary
-	</IfModule>
-
-	<IfModule mod_filter.c>
-		AddOutputFilterByType DEFLATE application/atom_xml application/rss+xml application/xhtml+xml application/xml application/x-httpd-php application/x-javascript image/svg+xml image/x-icon text/css text/javascript text/html text/plain text/richtext text/xml text/xsd text/xsl
 	</IfModule>
 </IfModule>
 

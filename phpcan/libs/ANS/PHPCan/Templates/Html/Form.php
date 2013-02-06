@@ -607,8 +607,13 @@ class Form
             unset($params[$value]);
         }
 
-        $selected = (array) $params['value'];
+        $selected = (array)$params['value'];
+
         unset($params['value']);
+
+        array_walk($selected, function (&$value) {
+            $value = (string)$value;
+        });
 
         //First option
         if (isset($first_option)) {
@@ -623,7 +628,7 @@ class Form
             $option_text_separator = $option_text_separator ?: ' ';
 
             foreach ((array)$options as $option) {
-                $value = $option_value ? $option[$option_value] : $option[$option_title]['url'];
+                $value = (string)($option_value ? $option[$option_value] : $option[$option_title]['url']);
 
                 if ($option_text && is_string($option_text)) {
                     $text = $option[$option_text];
@@ -642,7 +647,7 @@ class Form
                 $result[] = array(
                     'value' => $value,
                     'text' => $text,
-                    'selected' => (($selected && in_array($value, $selected)) || ($option_selected && $option[$option_selected])) ? true : null,
+                    'selected' => (($selected && in_array($value, $selected, true)) || ($option_selected && $option[$option_selected])) ? true : null,
                     'disabled' => $option[$option_disabled] ? 'disabled' : null
                 );
             }
@@ -652,12 +657,12 @@ class Form
 
         //Simple array
         foreach ((array) $options as $value => $option) {
-            $value = $option_text_as_value ? $option : $value;
+            $value = (string)($option_text_as_value ? $option : $value);
 
             $result[] = array(
                 'value' => $option_text_as_value ? $option : $value,
                 'text' => $option,
-                'selected' => ($selected && in_array($value, $selected)) ? true : null
+                'selected' => ($selected && in_array($value, $selected, true)) ? true : null
             );
         }
 
