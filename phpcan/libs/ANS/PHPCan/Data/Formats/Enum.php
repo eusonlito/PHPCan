@@ -28,9 +28,9 @@ class Enum extends Formats implements Iformats
             '' => array(
                 'db_type' => 'enum',
                 'db_values' => $settings['values'],
-                'db_null' => true,
 
                 'values' => array(),
+                'null' => true
             )
         ));
 

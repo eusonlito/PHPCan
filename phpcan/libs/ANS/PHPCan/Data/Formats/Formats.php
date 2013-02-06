@@ -472,6 +472,7 @@ abstract class Formats
             'unique' => '',
             'fulltext' => '',
             'required' => '',
+            'null' => false
         );
 
         //Process settings
@@ -489,6 +490,7 @@ abstract class Formats
                     case 'unique':
                     case 'fulltext':
                     case 'default':
+                    case 'null':
                         $current_settings[$k] = isset($custom_settings[$k]) ? $custom_settings[$k] : $v;
                         $current_settings['db_'.$k] = $current_settings[$k];
                         break;
