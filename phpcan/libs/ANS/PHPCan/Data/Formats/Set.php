@@ -48,9 +48,9 @@ class Set extends Formats implements Iformats
             '' => array(
                 'db_type' => 'set',
                 'db_values' => $settings['values'],
-                'db_null' => true,
 
                 'values' => array(),
+                'null' => true
             )
         ));
 

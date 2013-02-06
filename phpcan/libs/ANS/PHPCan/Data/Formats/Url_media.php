@@ -139,9 +139,9 @@ class Url_media extends Url implements Iformats
             'type' => array(
                 'db_type' => 'enum',
                 'db_values' => $settings['values'],
-                'db_null' => true,
 
                 'values' => array(),
+                'null' => true
             ),
             'info' => array(
                 'db_type' => 'text',
