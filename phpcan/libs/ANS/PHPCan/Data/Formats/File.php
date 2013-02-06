@@ -210,13 +210,11 @@ class File extends Formats implements Iformats
 
     public function afterSave (\ANS\PHPCan\Data\Db $Db, $values)
     {
-        return true;
-
         $settings = $this->settings[$subformat];
         $old = $values['old_value'][''];
         $new = $values['new_value'][''];
 
-        if ($old && ($old != $settings['default']) && (($new == 1) || ($new != $old))) {
+        if ($old && ($old !== $settings['default']) && (($new == 1) || ($new != $old))) {
             $old_file = $this->settings['']['base_path'].$this->settings['']['uploads'].$old;
 
             if (is_file($old_file)) {

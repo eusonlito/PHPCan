@@ -155,7 +155,7 @@ class Mysql implements Idatabase
                         'length' => $settings['db_length_max']
                     );
 
-                    if ($settings['db_type'] === 'enum') {
+                    if (in_array($settings['db_type'], array('set', 'enum'), true)) {
                         if (!is_array($settings['db_values'])) {
                             $settings['db_values'] = explode(',', $settings['db_values']);
                         }

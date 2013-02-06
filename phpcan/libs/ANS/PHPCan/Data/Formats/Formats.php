@@ -218,7 +218,7 @@ abstract class Formats
     */
     public function fixValue ($value)
     {
-        return $return;
+        return $value;
     }
 
     /**
@@ -346,6 +346,13 @@ abstract class Formats
 
                             case 'enum':
                                 if (strlen($value) && !in_array($value, $settings['values'])) {
+                                    $this->error[$subformat] = __('Field "%s" is not a valid value', __($this->name));
+                                    continue 2;
+                                }
+                                break;
+
+                            case 'set':
+                                if (count($value) && array_diff($value, $settings['values'])) {
                                     $this->error[$subformat] = __('Field "%s" is not a valid value', __($this->name));
                                     continue 2;
                                 }
