@@ -579,11 +579,15 @@ class Mysql implements Idatabase
      */
     public function insert ($data)
     {
-        if (empty($data['table']) || empty($data['data']) || !is_array($data['data'])) {
+        if (empty($data['table'])) {
             return false;
         }
 
         $table = $data['table'];
+
+        if (empty($data['data']) || !is_array($data['data'])) {
+            return 'INSERT INTO `'.$table.'` VALUES ();';
+        }
 
         if (!is_int(key($data['data']))) {
             $data['data'] = array($data['data']);

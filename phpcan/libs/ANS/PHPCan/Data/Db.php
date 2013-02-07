@@ -766,50 +766,47 @@ class Db
 
         //For insert and update actions
         if ($action !== 'delete') {
-            if (empty($operations['data'])) {
-                return $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
-            }
+            if ($operations['data']) {
+              //Group data
+              $unique_data = isNumericalArray($operations['data']) ? false : true;
 
-            //Group data
-            $unique_data = isNumericalArray($operations['data']) ? false : true;
+              $operations['data'] = $table->explodeData($operations['data'], $operations['language']);
 
-            $operations['data'] = $table->explodeData($operations['data'], $operations['language']);
+              if ($operations['data'] === false) {
+                  return $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
+              }
 
-            if ($operations['data'] === false) {
-                return $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
-            }
+              //Errors
+              if ($errors = $table->checkValues($operations['data'])) {
+                  $format_errors = $unique_data ? current($errors) : $errors;
+              }
 
-            //Errors
-            if ($errors = $table->checkValues($operations['data'])) {
-                $format_errors = $unique_data ? current($errors) : $errors;
-            }
+              //Overwrite control
+              //DISABLED
+              if (false && ($action === 'update') && $operations['overwrite_control']) {
+                  //News and old values
+                  $old_values = $this->select(array(
+                      'table' => $operations['table'],
+                      'fields' => '*',
+                      'conditions' => $operations['conditions'],
+                      'limit' => $operations['limit']
+                  ));
 
-            //Overwrite control
-            //DISABLED
-            if (false && ($action === 'update') && $operations['overwrite_control']) {
-                //News and old values
-                $old_values = $this->select(array(
-                    'table' => $operations['table'],
-                    'fields' => '*',
-                    'conditions' => $operations['conditions'],
-                    'limit' => $operations['limit']
-                ));
+                  if (empty($old_values)) {
+                      return ($old_values === false) ? false : true;
+                  }
 
-                if (empty($old_values)) {
-                    return ($old_values === false) ? false : true;
-                }
-
-                if (!$this->overwriteControl($table->explodeData($old_values), $table->explodeData($operations['overwrite_control']))) {
-                    return false;
-                } else {
-                    unset($old_values);
-                }
+                  if (!$this->overwriteControl($table->explodeData($old_values), $table->explodeData($operations['overwrite_control']))) {
+                      return false;
+                  } else {
+                      unset($old_values);
+                  }
+              }
             }
         }
 
         //Sub insert/update
         $suboperations = array('insert', 'update');
-        $total_rows = count($operations['data']);
 
         foreach ($suboperations as $action) {
             if (empty($operations[$action]) || !is_array($operations[$action])) {
@@ -1157,7 +1154,6 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_after = $this->checkTableEvent($operations['table'], $operations['data'], 'afterInsert');
         }
-
         $event_format_after = $this->checkFormatEvent($operations['table'], $operations['data'], 'afterInsert');
 
         //Convert values
@@ -1290,7 +1286,6 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_before = $this->checkTableEvent($operations['table'], $operations['data'], 'beforeUpdate');
         }
-
         $event_format_before = $this->checkFormatEvent($operations['table'], $operations['data'], 'beforeUpdate');
 
         if ($event_table_before) {
@@ -1304,7 +1299,6 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_after = $this->checkTableEvent($operations['table'], $operations['data'], 'afterUpdate');
         }
-
         $event_format_after = $this->checkFormatEvent($operations['table'], $operations['data'], 'afterUpdate');
 
         //Convert values
@@ -1385,13 +1379,11 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_before = $this->checkTableEvent($operations['table'], $tmp_data, 'beforeDelete');
         }
-
         $event_table_after = $this->checkTableEvent($operations['table'], $tmp_data, 'afterDelete');
 
         if ($operations['table_events'] !== false) {
             $event_format_before = $this->checkFormatEvent($operations['table'], $tmp_data, 'beforeDelete');
         }
-
         $event_format_after = $this->checkFormatEvent($operations['table'], $tmp_data, 'afterDelete');
 
         $event = ($event_table_before || $event_table_after || $event_format_before || $event_format_after);
