@@ -848,6 +848,9 @@ class Mysql implements Idatabase
                 case 'IS NULL':
                     $q .= ' '.$field.' IS NULL';
                     break;
+                case 'IN SET':
+                    $q .= ' FIND_IN_SET("'.$value.'", '.$field.') > 0';
+                    break;
             }
 
             $q .= ' '.$first;

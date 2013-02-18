@@ -208,14 +208,20 @@ class File extends Formats implements Iformats
         return preg_replace('#^'.$settings['base_path'].$settings['uploads'].$settings['subfolder'].'#', '', $saved_file_name);
     }
 
-    public function afterSave (\ANS\PHPCan\Data\Db $Db, $values)
+    public function afterSave (\ANS\PHPCan\Data\Db $Db, $values, $subformat = '')
     {
         $settings = $this->settings[$subformat];
+
         $old = $values['old_value'][''];
         $new = $values['new_value'][''];
 
+        if ($subformat) {
+            $old = $old[$subformat];
+            $new = $new[$subformat];
+        }
+
         if ($old && ($old !== $settings['default']) && (($new == 1) || ($new != $old))) {
-            $old_file = $this->settings['']['base_path'].$this->settings['']['uploads'].$old;
+            $old_file = $settings['base_path'].$settings['uploads'].$old;
 
             if (is_file($old_file)) {
                 unlink($old_file);

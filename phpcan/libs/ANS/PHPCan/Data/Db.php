@@ -182,7 +182,7 @@ class Db
         }
 
         if (empty($this->settings['database']) || empty($this->settings['user'])) {
-          return false;
+            return false;
         }
 
         $this->setDatabase();
@@ -277,7 +277,6 @@ class Db
                 $extend = $class_name::extend($relation);
             } else {
                 $this->error(__('The relation mode "%s" does not exits', $relation['mode']), true);
-
                 continue;
             }
 
@@ -767,41 +766,41 @@ class Db
         //For insert and update actions
         if ($action !== 'delete') {
             if ($operations['data']) {
-              //Group data
-              $unique_data = isNumericalArray($operations['data']) ? false : true;
+                //Group data
+                $unique_data = isNumericalArray($operations['data']) ? false : true;
 
-              $operations['data'] = $table->explodeData($operations['data'], $operations['language']);
+                $operations['data'] = $table->explodeData($operations['data'], $operations['language']);
 
-              if ($operations['data'] === false) {
-                  return $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
-              }
+                if ($operations['data'] === false) {
+                    return $this->error(__('There is no data in "%s" operation for the table "%s"', __($action), __($operations['table'])));
+                }
 
-              //Errors
-              if ($errors = $table->checkValues($operations['data'])) {
-                  $format_errors = $unique_data ? current($errors) : $errors;
-              }
+                //Errors
+                if ($errors = $table->checkValues($operations['data'])) {
+                    $format_errors = $unique_data ? current($errors) : $errors;
+                }
 
-              //Overwrite control
-              //DISABLED
-              if (false && ($action === 'update') && $operations['overwrite_control']) {
-                  //News and old values
-                  $old_values = $this->select(array(
-                      'table' => $operations['table'],
-                      'fields' => '*',
-                      'conditions' => $operations['conditions'],
-                      'limit' => $operations['limit']
-                  ));
+                //Overwrite control
+                //DISABLED
+                if (false && ($action === 'update') && $operations['overwrite_control']) {
+                    //News and old values
+                    $old_values = $this->select(array(
+                        'table' => $operations['table'],
+                        'fields' => '*',
+                        'conditions' => $operations['conditions'],
+                        'limit' => $operations['limit']
+                    ));
 
-                  if (empty($old_values)) {
-                      return ($old_values === false) ? false : true;
-                  }
+                    if (empty($old_values)) {
+                        return ($old_values === false) ? false : true;
+                    }
 
-                  if (!$this->overwriteControl($table->explodeData($old_values), $table->explodeData($operations['overwrite_control']))) {
-                      return false;
-                  } else {
-                      unset($old_values);
-                  }
-              }
+                    if (!$this->overwriteControl($table->explodeData($old_values), $table->explodeData($operations['overwrite_control']))) {
+                        return false;
+                    } else {
+                        unset($old_values);
+                    }
+                }
             }
         }
 
@@ -1154,6 +1153,7 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_after = $this->checkTableEvent($operations['table'], $operations['data'], 'afterInsert');
         }
+
         $event_format_after = $this->checkFormatEvent($operations['table'], $operations['data'], 'afterInsert');
 
         //Convert values
@@ -1286,6 +1286,7 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_before = $this->checkTableEvent($operations['table'], $operations['data'], 'beforeUpdate');
         }
+
         $event_format_before = $this->checkFormatEvent($operations['table'], $operations['data'], 'beforeUpdate');
 
         if ($event_table_before) {
@@ -1299,6 +1300,7 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_after = $this->checkTableEvent($operations['table'], $operations['data'], 'afterUpdate');
         }
+
         $event_format_after = $this->checkFormatEvent($operations['table'], $operations['data'], 'afterUpdate');
 
         //Convert values
@@ -1379,11 +1381,13 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_before = $this->checkTableEvent($operations['table'], $tmp_data, 'beforeDelete');
         }
+
         $event_table_after = $this->checkTableEvent($operations['table'], $tmp_data, 'afterDelete');
 
         if ($operations['table_events'] !== false) {
             $event_format_before = $this->checkFormatEvent($operations['table'], $tmp_data, 'beforeDelete');
         }
+
         $event_format_after = $this->checkFormatEvent($operations['table'], $tmp_data, 'afterDelete');
 
         $event = ($event_table_before || $event_table_after || $event_format_before || $event_format_after);
@@ -2012,112 +2016,113 @@ class Db
         unset($tmp_result);
 
         //add_tables
-        if ($add_tables && $result) {
+        if (empty($add_tables) || empty($result)) {
+            return $result;
+        }
 
-            //Get the ids
-            if (count($result) === 1) {
-                $ids = $result[0]['id'];
-            } else {
-                $ids = array();
+        //Get the ids
+        if (count($result) === 1) {
+            $ids = $result[0]['id'];
+        } else {
+            $ids = array();
 
-                foreach ($result as $id) {
-                    $ids[] = $id['id'];
-                }
+            foreach ($result as $id) {
+                $ids[] = $id['id'];
+            }
+        }
+
+        //Execute sub_selects recursively
+        foreach ($add_tables as $name => $select) {
+            if (is_string($select)) {
+                $select = array('table' => $select);
+            } else if (!isset($select['table'])) {
+                $select['table'] = $name;
             }
 
-            //Execute sub_selects recursively
-            foreach ($add_tables as $name => $select) {
-                if (is_string($select)) {
-                    $select = array('table' => $select);
-                } else if (!isset($select['table'])) {
-                    $select['table'] = $name;
-                }
+            $added_table = $this->tableArray($select['table'], $select['name'], $select['direction']);
 
-                $added_table = $this->tableArray($select['table'], $select['name'], $select['direction']);
+            if (!$this->tableExists($added_table['realname'])) {
+                $this->error(__('The table "%s" doesn\'t exists', __($added_table['realname'])));
+                continue;
+            }
 
-                if (!$this->tableExists($added_table['realname'])) {
-                    $this->error(__('The table "%s" doesn\'t exists', __($added_table['realname'])));
-                    continue;
-                }
+            //Check if tables are related
+            $relation = $this->tables[$added_table['realname']]->getRelation($table_data['realname'], $added_table['name'], $added_table['direction']);
 
-                //Check if tables are related
-                $relation = $this->tables[$added_table['realname']]->getRelation($table_data['realname'], $added_table['name'], $added_table['direction']);
+            if (empty($relation)) {
+                $this->error(__('There is not relations between the tables "%s" and "%s"', __($added_table['realname']), __($table)));
+                continue;
+            }
 
-                if (empty($relation)) {
-                    $this->error(__('There is not relations between the tables "%s" and "%s"', __($added_table['realname']), __($table)));
-                    continue;
-                }
+            //Tree
+            if ($select['tree']) {
+                $select['add_tables'][$name] = $select;
 
-                //Tree
-                if ($select['tree']) {
+                if (is_array($select['tree'])) {
+                    $select['add_tables'][$name] = arrayMergeReplaceRecursive($select, $select['tree']);
+                } else {
                     $select['add_tables'][$name] = $select;
-
-                    if (is_array($select['tree'])) {
-                        $select['add_tables'][$name] = arrayMergeReplaceRecursive($select, $select['tree']);
-                    } else {
-                        $select['add_tables'][$name] = $select;
-                    }
                 }
-
-                //Add a condition to link with current table
-                $condition = $this->tableString($table_data['realname'], 'phpcan_related_'.$table_data['newname'], $relation->settings['name'], $relation->settings['direction'][1]).'.id';
-
-                if (empty($select['conditions'][$condition])) {
-                    $select['conditions'][$condition] = $ids;
-                }
-
-                //Get limit & offset
-                $limit = $select['limit'];
-                $offset = $select['offset'];
-
-                unset($select['limit'], $select['offset']);
-
-                if (empty($limit)) {
-                    if ($relation->unique) {
-                        $limit = 1;
-                    }
-                }
-
-                $select['table'] = $this->tableString($added_table['realname'], $added_table['newname']);
-
-                //Execute the selection
-                $sub_result = $this->makeSelect($select, 'phpcan_related_'.$table_data['newname']);
-
-                if ($sub_result === false) {
-                    return false;
-                }
-
-                //Merge $result and $sub_result
-                $name = $this->addedName($name, $added_table['newname'], $added_table['name'], $added_table['direction']);
-
-                foreach ($result as &$result_row) {
-                    $result_row[$name] = array();
-
-                    if (empty($sub_result)) {
-                        continue;
-                    }
-
-                    foreach ($sub_result as $sub_result_row) {
-                        if ($sub_result_row['id_prev_table'] == $result_row['id']) {
-                            unset($sub_result_row['id_prev_table']);
-
-                            $result_row[$name][] = $sub_result_row;
-                        }
-                    }
-
-                    //Limit
-                    if ($limit || $offset) {
-                        $result_row[$name] = array_slice($result_row[$name], intval($offset), intval($limit));
-                    }
-
-                    //Unique result
-                    if (($limit == 1) && empty($select['rows'])) {
-                        $result_row[$name] = current($result_row[$name]);
-                    }
-                }
-
-                unset ($result_row);
             }
+
+            //Add a condition to link with current table
+            $condition = $this->tableString($table_data['realname'], 'phpcan_related_'.$table_data['newname'], $relation->settings['name'], $relation->settings['direction'][1]).'.id';
+
+            if (empty($select['conditions'][$condition])) {
+                $select['conditions'][$condition] = $ids;
+            }
+
+            //Get limit & offset
+            $limit = $select['limit'];
+            $offset = $select['offset'];
+
+            unset($select['limit'], $select['offset']);
+
+            if (empty($limit)) {
+                if ($relation->unique) {
+                    $limit = 1;
+                }
+            }
+
+            $select['table'] = $this->tableString($added_table['realname'], $added_table['newname']);
+
+            //Execute the selection
+            $sub_result = $this->makeSelect($select, 'phpcan_related_'.$table_data['newname']);
+
+            if ($sub_result === false) {
+                return false;
+            }
+
+            //Merge $result and $sub_result
+            $name = $this->addedName($name, $added_table['newname'], $added_table['name'], $added_table['direction']);
+
+            foreach ($result as &$result_row) {
+                $result_row[$name] = array();
+
+                if (empty($sub_result)) {
+                    continue;
+                }
+
+                foreach ($sub_result as $sub_result_row) {
+                    if ($sub_result_row['id_prev_table'] == $result_row['id']) {
+                        unset($sub_result_row['id_prev_table']);
+
+                        $result_row[$name][] = $sub_result_row;
+                    }
+                }
+
+                //Limit
+                if ($limit || $offset) {
+                    $result_row[$name] = array_slice($result_row[$name], intval($offset), intval($limit));
+                }
+
+                //Unique result
+                if (($limit == 1) && empty($select['rows'])) {
+                    $result_row[$name] = current($result_row[$name]);
+                }
+            }
+
+            unset ($result_row);
         }
 
         return $result;

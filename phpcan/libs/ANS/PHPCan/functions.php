@@ -391,6 +391,7 @@ function redirect ($url = null)
     } else if (empty($Debug->settings['redirect'])) {
         $Debug->e($url, __('Redirect'));
     } else {
+        header('Cache-Control: no-cache');
         header('Location: '.$url);
     }
 
@@ -1022,7 +1023,6 @@ function trace ()
 
     $trace = explode("\n", $Exception->getTraceAsString());
 
-    array_shift($trace);
     array_pop($trace);
 
     return str_replace(BASE_PATH, '', implode("\n", $trace))."\n";

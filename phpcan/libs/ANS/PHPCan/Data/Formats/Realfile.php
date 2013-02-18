@@ -86,6 +86,11 @@ class Realfile extends File implements Iformats
         return parent::saveFile($value, $id, 'location');
     }
 
+    public function afterSave (\ANS\PHPCan\Data\Db $Db, $values)
+    {
+        return parent::afterSave($Db, $values, 'location');
+    }
+
     public function settings ($settings)
     {
         global $Config;
@@ -112,6 +117,7 @@ class Realfile extends File implements Iformats
             ),
             'location' => $this->settings['']
         ));
+
 
         return $this->settings;
     }
