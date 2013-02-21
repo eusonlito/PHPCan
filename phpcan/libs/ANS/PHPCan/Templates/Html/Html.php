@@ -33,10 +33,10 @@ class Html
             $Config->config['autoglobal'][] = $autoglobal;
         }
 
-        $this->setCache();
+        $this->setSettings();
     }
 
-    private function setCache ()
+    private function setSettings ()
     {
         global $Config;
 
@@ -49,6 +49,8 @@ class Html
             $this->Cache = false;
             $this->settings['cache'] = array();
         }
+
+        $this->settings['autoversion'] = $Config->autoversion;
     }
 
     /**
@@ -442,7 +444,7 @@ class Html
                     $value = 'templates|js/'.$value;
                 }
 
-                $local[] = $this->autoVersion($value);
+                $local[] = $this->settings['autoversion'] ? $this->autoVersion($value) : $value;
             }
 
             if ($external) {
@@ -498,7 +500,7 @@ class Html
             return '';
         }
 
-        $params['src'] = $this->autoVersion($params['src']);
+        $params['src'] = $this->settings['autoversion'] ? $this->autoVersion($params['src']) : $params['src'];
 
         $params['type'] = 'text/javascript';
 
@@ -531,7 +533,7 @@ class Html
                     $value = 'templates|css/'.$value;
                 }
 
-                $local[] = $this->autoVersion($value);
+                $local[] = $this->settings['autoversion'] ? $this->autoVersion($value) : $value;
             }
 
             if ($external) {
@@ -589,7 +591,7 @@ class Html
             return '';
         }
 
-        $params['href'] = $this->autoVersion($params['href']);
+        $params['href'] = $this->settings['autoversion'] ? $this->autoVersion($params['href']) : $params['href'];
 
         $params['type'] = 'text/css';
         $params['rel'] = 'stylesheet';
@@ -639,6 +641,10 @@ class Html
      */
     private function autoVersion ($file)
     {
+        if ($this->settings['autoversion'] !== true) {
+            return $file;
+        }
+
         if (strstr($file, '|')) {
             $realfile = filePath(str_replace('$', '', $file));
         } else if (strstr($file, '$')) {

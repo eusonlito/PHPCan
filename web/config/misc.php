@@ -15,6 +15,9 @@ $config['key'] = substr(md5('Write her your key'), -16);
 // Autoglobals definition
 $config['autoglobal'] = array();
 
+// Add modify date as parameter to css and js links
+$config['autoversion'] = true;
+
 // Exit modes configuration
 
 $config['exit_modes'] = array(
