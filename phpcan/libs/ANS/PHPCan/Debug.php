@@ -295,9 +295,9 @@ class Debug
      *
      * store into files the phpCan messages
      */
-    public function store ($message, $log = '')
+    public function store ($message, $log = '', $force = false)
     {
-        if (empty($this->settings['store'])) {
+        if (empty($this->settings['store']) && ($folder !== true)) {
             return true;
         }
 
