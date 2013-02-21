@@ -45,7 +45,7 @@ if (strstr($ext, '?')) {
 }
 
 if (($ext === 'css') || ($ext === 'js')) {
-    header('Content-type: '.($ext === 'css' ? 'text/css' : 'text/javascript'));
+    header('Content-type: '.($ext === 'css' ? 'text/css' : 'application/javascript'));
 
     $settings = $Config->cache['types'][$ext];
 

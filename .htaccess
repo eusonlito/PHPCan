@@ -17,7 +17,7 @@ Options -Indexes
 <IfModule mod_deflate.c>
 	SetInputFilter DEFLATE
 
-	SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|rar|zip|pdf|doc|swf|flv|mov|wma|mp3|mp4|avi|mp?g)$ no-gzip dont-vary
+	SetEnvIfNoCase Request_URI (?i)\.(gif|jpe?g|png|rar|zip|pdf|doc|swf|flv|mov|wma|mp3|mp4|avi|mp?g)$ no-gzip dont-vary
 
 	AddOutputFilterByType DEFLATE application/atom_xml application/javascript application/rss+xml application/xhtml+xml application/xml application/x-httpd-php application/x-javascript image/svg+xml image/x-icon text/css text/javascript text/html text/plain text/richtext text/xml text/xsd text/xsl
 
@@ -36,7 +36,7 @@ Options -Indexes
 <IfModule mod_gzip.c>
 	mod_gzip_on Yes
 	mod_gzip_dechunk Yes
-	mod_gzip_item_include file \.(html?|txt|css|js|php|pl)$
+	mod_gzip_item_include file \.(html?|txt|css|js|php)$
 	mod_gzip_item_include handler ^cgi-script$
 	mod_gzip_item_include mime ^text/.*
 	mod_gzip_item_include mime ^application/javascript.*
@@ -98,40 +98,14 @@ Options -Indexes
 	ExpiresByType application/zip A31536000
 </IfModule>
 
-<FilesMatch "\.(css|js|CSS|JS)$">
+<FilesMatch "(?i)\.(css|js|html|htm|rtf|rtx|svg|svgz|txt|xsd|xsl|xml|asf|asx|wax|wmv|wmx|avi|bmp|class|divx|doc|docx|exe|gif|gz|gzip|ico|jpg|jpeg|jpe|mdb|mid|midi|mov|qt|mp3|m4a|mp4|m4v|mpeg|mpg|mpe|mpp|odb|odc|odf|odg|odp|ods|odt|ogg|pdf|png|pot|pps|ppt|pptx|ra|ram|swf|tar|tif|tiff|wav|wma|wri|xla|xls|xlsx|xlt|xlw|zip)$">
 	<IfModule mod_headers.c>
 		Header set Pragma "public"
 		Header set Cache-Control "public, must-revalidate, proxy-revalidate"
 	</IfModule>
 
 	FileETag MTime Size
-	
-	<IfModule mod_headers.c>
-		Header set X-Powered-By "phpCan"
-	</IfModule>
-</FilesMatch>
 
-<FilesMatch "\.(html|htm|rtf|rtx|svg|svgz|txt|xsd|xsl|xml|HTML|HTM|RTF|RTX|SVG|SVGZ|TXT|XSD|XSL|XML)$">
-	<IfModule mod_headers.c>
-		Header set Pragma "public"
-		Header set Cache-Control "public, must-revalidate, proxy-revalidate"
-	</IfModule>
-	
-	FileETag MTime Size
-	
-	<IfModule mod_headers.c>
-		Header set X-Powered-By "phpCan"
-	</IfModule>
-</FilesMatch>
-
-<FilesMatch "\.(asf|asx|wax|wmv|wmx|avi|bmp|class|divx|doc|docx|exe|gif|gz|gzip|ico|jpg|jpeg|jpe|mdb|mid|midi|mov|qt|mp3|m4a|mp4|m4v|mpeg|mpg|mpe|mpp|odb|odc|odf|odg|odp|ods|odt|ogg|pdf|png|pot|pps|ppt|pptx|ra|ram|swf|tar|tif|tiff|wav|wma|wri|xla|xls|xlsx|xlt|xlw|zip|ASF|ASX|WAX|WMV|WMX|AVI|BMP|CLASS|DIVX|DOC|DOCX|EXE|GIF|GZ|GZIP|ICO|JPG|JPEG|JPE|MDB|MID|MIDI|MOV|QT|MP3|M4A|MP4|M4V|MPEG|MPG|MPE|MPP|ODB|ODC|ODF|ODG|ODP|ODS|ODT|OGG|PDF|PNG|POT|PPS|PPT|PPTX|RA|RAM|SWF|TAR|TIF|TIFF|WAV|WMA|WRI|XLA|XLS|XLSX|XLT|XLW|ZIP)$">
-	<IfModule mod_headers.c>
-		Header set Pragma "public"
-		Header set Cache-Control "public, must-revalidate, proxy-revalidate"
-	</IfModule>
-	
-	FileETag MTime Size
-	
 	<IfModule mod_headers.c>
 		Header set X-Powered-By "phpCan"
 	</IfModule>
