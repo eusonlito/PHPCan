@@ -15,7 +15,7 @@ defined('ANS') or die();
 
 use \ANS\PHPCan\Apis;
 
-class Twitter extends Oauth2client implements Isession {
+class Twitter implements Isession {
     protected $Debug = object;
     protected $Errors = object;
     protected $settings = array();
@@ -38,10 +38,8 @@ class Twitter extends Oauth2client implements Isession {
 
         $this->Debug = $Debug;
         $this->Errors = $Errors;
-
-        $this->settings = array_merge(array(
-            'errors' => 'session-twitter',
-        ), $settings['common'], $settings['sessions']['twitter']);
+        $this->settings = $settings['sessions']['twitter'];
+        $this->settings['errors'] = $this->settings['errors'] ?: $this->settings['name'];
     }
 
     /*
@@ -123,9 +121,9 @@ class Twitter extends Oauth2client implements Isession {
     private function setAPI ($oauth_token = '', $oauth_token_secret = '')
     {
         if ($oauth_token && $oauth_token_secret) {
-            $this->API = new Twitter\TwitterOAuth($this->settings['api_key'], $this->settings['secret_key'], $oauth_token, $oauth_token_secret);
+            $this->API = new Twitter\TwitterOAuth($this->settings['consumer_key'], $this->settings['consumer_secret'], $oauth_token, $oauth_token_secret);
         } else {
-            $this->API = new Twitter\TwitterOAuth($this->settings['api_key'], $this->settings['secret_key']);
+            $this->API = new Twitter\TwitterOAuth($this->settings['consumer_key'], $this->settings['consumer_secret']);
         }
     }
 
@@ -278,7 +276,7 @@ class Twitter extends Oauth2client implements Isession {
             $this->updateTwitterInfo();
 
             $Db->update(array(
-                'table' => $this->settings['users_table'],
+                'table' => $this->settings['table'],
                 'data' => array(
                     $this->settings['fields']['twitter_allow'] => 1
                 ),
@@ -291,19 +289,26 @@ class Twitter extends Oauth2client implements Isession {
             return true;
         }
 
+        $settings = $this->settings;
         $save_info = $this->getTwitterFields();
 
+        if ($settings['enabled_field']) {
+            $save_info[$settings['enabled_field']] = 1;
+        } if ($settings['signup_date_field']) {
+            $save_info[$settings['signup_date_field']] = date('Y-m-d H:i:s');
+        } if ($settings['raw_field']) {
+            $save_info[$settings['raw_field']] = base64_encode(serialize($this->twitter));
+        }
+
         $save_info[$this->settings['fields']['twitter_allow']] = 1;
-        $save_info[$this->settings['enabled_field']] = 1;
-        $save_info[$this->settings['signup_date_field']] = date('Y-m-d H:i:s');
 
         if ($this->token['oauth_token'] && $this->token['oauth_token_secret']) {
-            $save_info[$this->settings['token_field']] = $this->token['oauth_token'];
-            $save_info[$this->settings['token_secret_field']] = $this->token['oauth_token_secret'];
+            $save_info[$settings['token_field']] = $this->token['oauth_token'];
+            $save_info[$settings['token_secret_field']] = $this->token['oauth_token_secret'];
         }
 
         $Db->insert(array(
-            'table' => $this->settings['users_table'],
+            'table' => $settings['table'],
             'data' => $save_info
         ));
 
@@ -317,8 +322,11 @@ class Twitter extends Oauth2client implements Isession {
     */
     public function updateTwitterInfo ()
     {
-        $save_info = array();
+        if ($this->API() && empty($this->facebook)) {
+            return false;
+        }
 
+        $settings = $this->settings;
         $save_info = $this->getTwitterFields();
 
         if ($this->settings['disable_update']) {
@@ -327,15 +335,19 @@ class Twitter extends Oauth2client implements Isession {
             }
         }
 
+        if ($settings['raw_field']) {
+            $save_info[$settings['raw_field']] = base64_encode(serialize($this->twitter));
+        }
+
         if ($this->token['oauth_token'] && $this->token['oauth_token_secret']) {
-            $save_info[$this->settings['token_field']] = $this->token['oauth_token'];
-            $save_info[$this->settings['token_secret_field']] = $this->token['oauth_token_secret'];
+            $save_info[$settings['token_field']] = $this->token['oauth_token'];
+            $save_info[$settings['token_secret_field']] = $this->token['oauth_token_secret'];
         }
 
         global $Db, $Session;
 
         $query = array(
-            'table' => $this->settings['users_table'],
+            'table' => $settings['table'],
             'data' => $save_info,
             'conditions' => array(
                 'id' => $Session->user('id')
@@ -367,15 +379,19 @@ class Twitter extends Oauth2client implements Isession {
 
         $settings = $this->settings;
 
+        $conditions = array(
+            'id' => $this->user['id']
+        );
+
+        if ($settings['enabled_field']) {
+            $info['enabled_field'] = 1;
+        }
+
         //Check if user exists
-        $user = $this->userExists(array(
-            'id' => $this->user['id'],
-            $settings['enabled_field'] => 1
-        ));
+        $user = $this->userExists($conditions);
 
         if (empty($user)) {
             $this->Errors->set($settings['errors'], __('User not exists'));
-
             return false;
         }
 
@@ -384,7 +400,7 @@ class Twitter extends Oauth2client implements Isession {
         $info['data'] = $this->userData($info['data']);
 
         return $Db->update(array(
-            'table' => $this->settings['users_table'],
+            'table' => $this->settings['table'],
             'data' => $info['data'],
             'conditions' => array(
                 'id' => $this->user['id']
@@ -425,17 +441,48 @@ class Twitter extends Oauth2client implements Isession {
     {
         global $Db;
 
+        $settings = $this->settings;
+        $data = array();
+
+        if ($settings['unsubscribe_field']) {
+            $data[$settings['unsubscribe_field']] = 1;
+        } if ($settings['enabled_field']) {
+            $data[$settings['enabled_field']] = 0;
+        }
+
+        if (empty($data)) {
+            return true;
+        }
+
         return $Db->update(array(
-            'table' => $settings['users_table'],
-            'data' => array(
-                $this->config['unsubscribe_field'] => 1,
-                $this->config['enabled_field'] => 0
-            ),
+            'table' => $settings['table'],
+            'data' => $data,
             'conditions' => array(
                 'id' => $this->user('id')
             ),
             'limit' => 1
         ));
+    }
+
+    /*
+    * public function userExists ([array $conditions])
+    *
+    * Check if exists an user
+    *
+    * return array
+    */
+    public function userExists ($conditions)
+    {
+        global $Db;
+
+        $query = array(
+            'table' => $this->settings['table'],
+            'fields' => '*',
+            'conditions' => array_merge($this->conditions, $conditions),
+            'limit' => 1
+        );
+
+        return $Db->select($query);
     }
 
     /*
@@ -458,27 +505,6 @@ class Twitter extends Oauth2client implements Isession {
         }
 
         return $data;
-    }
-
-    /*
-    * public function userExists ([array $conditions])
-    *
-    * Check if exists an user
-    *
-    * return array
-    */
-    public function userExists ($conditions)
-    {
-        global $Db;
-
-        $query = array(
-            'table' => $this->settings['users_table'],
-            'fields' => '*',
-            'conditions' => array_merge($this->conditions, $conditions),
-            'limit' => 1
-        );
-
-        return $Db->select($query);
     }
 
     private function setCookie ($name, $value)
@@ -507,11 +533,13 @@ class Twitter extends Oauth2client implements Isession {
     {
         global $Vars;
 
+        $settings = $this->settings;
+
         if ($name) {
-            return $Vars->deleteCookie($this->settings['name'].'-'.$name);
+            return $Vars->deleteCookie($settings['name'].'-'.$name);
         } else {
             foreach (array_keys($_COOKIE) as $name) {
-                if (strstr($name, $this->settings['name'])) {
+                if (strstr($name, $settings['name'])) {
                     $Vars->deleteCookie($name);
                 }
             }

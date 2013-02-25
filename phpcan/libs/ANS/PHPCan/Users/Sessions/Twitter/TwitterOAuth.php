@@ -10,8 +10,6 @@ namespace ANS\PHPCan\Users\Sessions\Twitter;
 
 defined('ANS') or die();
 
-include (filePath('phpcan/libs|ANS/PHPCan/Users/Sessions/Twitter/Oauth_consumer.php'));
-
 /**
  * Twitter OAuth class
  */
@@ -63,7 +61,7 @@ class TwitterOAuth
   function __construct($consumer_key, $consumer_secret, $oauth_token = NULL, $oauth_token_secret = NULL)
   {
     $this->consumer = new Oauth_consumer($consumer_key, $consumer_secret);
-    $this->sha1_method = new OAuthSignatureMethod\HMAC\SHA1();
+    $this->sha1_method = new OAuthSignatureMethod_HMAC_SHA1();
 
     if (!empty($oauth_token) && !empty($oauth_token_secret)) {
       $this->token = new Oauth_consumer($oauth_token, $oauth_token_secret);
@@ -147,7 +145,7 @@ class TwitterOAuth
     $parameters['x_auth_mode'] = 'client_auth';
     $request = $this->oAuthRequest($this->accessTokenURL(), 'POST', $parameters);
     $token = OAuthUtil::parse_parameters($request);
-    $this->token = new \ANS\PHPCan\Users\Sessions\Twitter\Oauth_consumer($token['oauth_token'], $token['oauth_token_secret']);
+    $this->token = new Oauth_consumer($token['oauth_token'], $token['oauth_token_secret']);
 
     return $token;
   }

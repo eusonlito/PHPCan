@@ -312,12 +312,14 @@ class Facebook implements Isession {
 
         global $Db;
 
+        $settings = $this->settings;
+
         $conditions = array(
             'id' => $this->user['id']
         );
 
         if ($settings['enabled_field']) {
-            $settings['enabled_field'] = 1;
+            $info['enabled_field'] = 1;
         }
 
         //Check if user exists
@@ -364,12 +366,13 @@ class Facebook implements Isession {
     {
         global $Db;
 
+        $settings = $this->settings;
         $data = array();
 
-        if ($this->config['unsubscribe_field']) {
-            $data[$this->config['unsubscribe_field']] = 1;
-        } if ($this->config['enabled_field']) {
-            $data[$this->config['enabled_field']] = 0;
+        if ($settings['unsubscribe_field']) {
+            $data[$settings['unsubscribe_field']] = 1;
+        } if ($settings['enabled_field']) {
+            $data[$settings['enabled_field']] = 0;
         }
 
         if (empty($data)) {
