@@ -660,7 +660,7 @@ class Form
             $value = (string)($option_text_as_value ? $option : $value);
 
             $result[] = array(
-                'value' => $option_text_as_value ? $option : $value,
+                'value' => $value,
                 'text' => $option,
                 'selected' => ($selected && in_array($value, $selected, true)) ? true : null
             );

@@ -503,8 +503,8 @@ class Db
         $table = array(
             'realname' => $realname,
             'newname' => $newname,
-            'direction'=> $direction ? $direction : $match[3],
-            'name' => $name ? $name : $match[5]
+            'direction'=> $direction ?: $match[3],
+            'name' => $name ?: $match[5]
         );
 
         return $table;
@@ -604,7 +604,6 @@ class Db
 
                 if ($this->Events->defined('formats.'.$table.'.'.$format, $event)) {
                     $return[$num_row] = true;
-
                     continue 2;
                 }
             }
@@ -825,7 +824,7 @@ class Db
                     return $this->error(__('There is not relations between the tables "%s" and "%s"', __($operations['table']), __($operation['table'])));
                 }
 
-                $error_name = $operation['errors'] ? $operation['errors'] : $action.'_'.$operation['table'];
+                $error_name = $operation['errors'] ?: ($action.'_'.$operation['table']);
 
                 //Apply recursively this function
                 if (!($operation = $this->checkSaveOperations($operation, $action, $errors))) {
@@ -1117,10 +1116,10 @@ class Db
                     'name' => $insert['name'],
                     'table' => $insert['table'],
                     'direction' => $insert['direction'],
+                    'options' => $insert['options'],
                     'conditions' => array(
                         'id' => $ids
-                    ),
-                    'options' => $insert['options'],
+                    )
                 );
             }
         }
@@ -1667,10 +1666,10 @@ class Db
         $result = $this->select(array(
             'table' => $table,
             'fields' => $fields,
+            'limit' => 1,
             'conditions' => array(
                 'id' => $id
-            ),
-            'limit' => 1
+            )
         ));
 
         return $result;
@@ -1738,7 +1737,7 @@ class Db
 
         $operations['offset'] = ($pagination['page'] * $operations['limit']) - $operations['limit'];
 
-        $pagination_store = $operations['pagination']['store'] ? $operations['pagination']['store'] : 'pagination';
+        $pagination_store = $operations['pagination']['store'] ?: 'pagination';
 
         $Data->set($pagination_store, $pagination);
 
@@ -2144,14 +2143,8 @@ class Db
         }
 
         $name = $table;
-
-        if ($rel_name) {
-            $name .= '_'.$rel_name;
-        }
-
-        if ($rel_direction) {
-            $name .= '_'.$rel_direction;
-        }
+        $name .= $rel_name ? ('_'.$rel_name) : '';
+        $name .= $rel_direction ? ('_'.$rel_direction) : '';
 
         return $name;
     }
@@ -2351,9 +2344,9 @@ class Db
 
             $last_condition = array(
                 'num' => $t[1],
-                'tables' => $t[3] ? $t[3] : $table_base,
-                'field' => ($t[4] === '_') ? '' : $t[4],
-                'condition' => $t[5] ? ' '.$t[5] : '',
+                'tables' => ($t[3] ?: $table_base),
+                'field' => (($t[4] === '_') ? '' : $t[4]),
+                'condition' => ($t[5] ? (' '.$t[5]) : ''),
             );
 
             //Insert the $table_base
@@ -2500,7 +2493,7 @@ class Db
      */
     private function sort ($table_base, $sort, $sort_direction, $sort_commands, $renamed_tables)
     {
-        $return = $sort_commands ? (array) $sort_commands : array();
+        $return = $sort_commands ? (array)$sort_commands : array();
 
         foreach ((array) $sort as $v) {
             if (empty($v)) {
@@ -2509,7 +2502,7 @@ class Db
 
             preg_match('/^(([\(\)\[\]\-\.\w]+)?\.)?([\w-]+)( \w+)?$/', trim($v), $t);
 
-            $table_path = $t[2] ? $t[2] : $table_base;
+            $table_path = $t[2] ?: $table_base;
             $table = $this->getTable($table_path);
             $field = $table->fieldArray($table->selectField($t[3], $this->language));
             $direction = $t[4] ? trim($t[4]) : ( $sort_direction ? strtoupper($sort_direction) : 'ASC' );
@@ -2540,12 +2533,12 @@ class Db
      */
     private function group ($table_base, $group, $group_commands = array(), $renamed_tables)
     {
-        $return = $group_commands ? (array) $group_commands : array();
+        $return = $group_commands ? (array)$group_commands : array();
 
         foreach ((array) $group as $v) {
             preg_match('/^(([\(\)\[\]\-\.\w]+)?\.)?([\w-]+)$/', trim($v), $t);
 
-            $table_path = $t[2] ? $t[2] : $table_base;
+            $table_path = $t[2] ?: $table_base;
             $table = $this->getTable($table_path);
             $field = $table->fieldArray($table->selectField($t[3], $this->language));
 
