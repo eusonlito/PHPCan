@@ -43,13 +43,9 @@ class Session
      *
      * return boolean
      */
-    public function setSettings ($settings = null)
+    public function setSettings ($settings = 'session')
     {
         global $Config;
-
-        if (is_null($settings)) {
-            $settings = 'session';
-        }
 
         if (is_string($settings) && $Config->config[$settings]) {
             $this->settings = $Config->config[$settings];
@@ -113,7 +109,7 @@ class Session
         foreach ($sessions as $name => $settings) {
             $class_name = '\\ANS\\PHPCan\\Users\\Sessions\\'.ucfirst($name);
 
-            $this->sessions[$name] = new $class_name($settings ? $settings : $this->settings);
+            $this->sessions[$name] = new $class_name($settings ?: $this->settings[$name]);
         }
     }
 
