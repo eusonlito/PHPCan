@@ -33,7 +33,7 @@ class Regular implements Isession
         $this->Debug = $Debug;
         $this->Errors = $Errors;
 
-        $this->settings = $settings['sessions']['regular'];
+        $this->settings = $settings;
         $this->settings['errors'] = $this->settings['errors'] ?: $this->settings['name'];
     }
 
@@ -401,20 +401,22 @@ class Regular implements Isession
     {
         global $Db;
 
+        $settings = $this->settings;
+
         $conditions = array_merge($this->conditions, array(
-            $this->settings['user_field'] => $user,
+            $settings['user_field'] => $user,
         ));
 
         $select = array(
-            'table' => $this->settings['table'],
-            'fields' => array($this->settings['password_field']),
+            'table' => $settings['table'],
+            'fields' => array($settings['password_field']),
             'conditions' => $conditions,
             'limit' => 1
         );
 
         $info = $Db->select($select);
 
-        return $info ? $info[$this->settings['password_field']] : false;
+        return $info ? $info[$settings['password_field']] : false;
     }
 
     /*
@@ -429,10 +431,14 @@ class Regular implements Isession
         $data = array();
 
         foreach ($this->settings['fields'] as $name => $dbfield) {
-            if (is_string($user_data[$name])) {
-                $data[$dbfield] = trim($user_data[$name]);
-            } else if (isset($user_data[$name])) {
-                $data[$dbfield] = $user_data[$name];
+            if (is_string($user_data[$name]) || isset($user_data[$name])) {
+                if (is_array($dbfield)) {
+                    foreach ($dbfield as $field) {
+                        $data[$field] = is_string($user_data[$name]) ? trim($user_data[$name]) : $user_data[$name];
+                    }
+                } else {
+                    $data[$dbfield] = is_string($user_data[$name]) ? trim($user_data[$name]) : $user_data[$name];
+                }
             }
         }
 

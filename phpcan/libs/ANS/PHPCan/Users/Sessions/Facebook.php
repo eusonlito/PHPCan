@@ -34,7 +34,7 @@ class Facebook implements Isession {
 
         $this->Debug = $Debug;
         $this->Errors = $Errors;
-        $this->settings = $settings['sessions']['facebook'];
+        $this->settings = $settings;
         $this->settings['errors'] = $this->settings['errors'] ?: $this->settings['name'];
     }
 
@@ -335,7 +335,7 @@ class Facebook implements Isession {
         $info['data'] = $this->userData($info['data']);
 
         return $Db->update(array(
-            'table' => $this->settings['table'],
+            'table' => $settings['table'],
             'data' => $info['data'],
             'conditions' => array(
                 'id' => $this->user['id']
@@ -422,10 +422,14 @@ class Facebook implements Isession {
         $data = array();
 
         foreach ($this->settings['fields'] as $name => $dbfield) {
-            if (is_string($user_data[$name])) {
-                $data[$dbfield] = trim($user_data[$name]);
-            } else if (isset($user_data[$name])) {
-                $data[$dbfield] = $user_data[$name];
+            if (is_string($user_data[$name]) || isset($user_data[$name])) {
+                if (is_array($dbfield)) {
+                    foreach ($dbfield as $field) {
+                        $data[$field] = is_string($user_data[$name]) ? trim($user_data[$name]) : $user_data[$name];
+                    }
+                } else {
+                    $data[$dbfield] = is_string($user_data[$name]) ? trim($user_data[$name]) : $user_data[$name];
+                }
             }
         }
 
@@ -436,13 +440,14 @@ class Facebook implements Isession {
     {
         global $Vars;
 
+        $settings = $this->settings;
         $exists = $this->getCookie($name);
 
         if ($exists && is_array($exists) && is_array($value)) {
             $value = array_merge($exists, $value);
         }
 
-        $Vars->setCookie($this->settings['name'].'-'.$name, $value, $this->settings['maintain_time']);
+        $Vars->setCookie($settings['name'].'-'.$name, $value, $settings['maintain_time']);
 
         return $value;
     }

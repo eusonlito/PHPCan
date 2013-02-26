@@ -38,7 +38,7 @@ class Twitter implements Isession {
 
         $this->Debug = $Debug;
         $this->Errors = $Errors;
-        $this->settings = $settings['sessions']['twitter'];
+        $this->settings = $settings;
         $this->settings['errors'] = $this->settings['errors'] ?: $this->settings['name'];
     }
 
@@ -61,16 +61,18 @@ class Twitter implements Isession {
     */
     public function load ()
     {
+        $settings = $this->settings;
+
         $session = $this->getCookie('data');
         $control = $this->getCookie('control');
 
-        if ($session && $session[$this->settings['user_field']] && $session[$this->settings['id_field']]) {
-            $user = decrypt($session[$this->settings['user_field']]);
-            $id = decrypt($session[$this->settings['id_field']]);
+        if ($session && $session[$settings['user_field']] && $session[$settings['id_field']]) {
+            $user = decrypt($session[$settings['user_field']]);
+            $id = decrypt($session[$settings['id_field']]);
 
             $exists = $this->userExists(array(
-                $this->settings['id_field'] => $id,
-                $this->settings['user_field'] => $user
+                $settings['id_field'] => $id,
+                $settings['user_field'] => $user
             ));
 
             if (empty($exists)) {
@@ -79,14 +81,14 @@ class Twitter implements Isession {
         } else if ($control['1'] && $control['2']) {
             $user = decrypt($control['1']);
             $exists = $this->userExists(array(
-                $this->settings['user_field'] => $user
+                $settings['user_field'] => $user
             ));
 
             if (empty($exists)) {
                 return false;
             }
 
-            $id = $exists[$this->settings['id_field']];
+            $id = $exists[$settings['id_field']];
 
             if ($this->encode($user.$id) !== $control['2']) {
                 return false;
@@ -96,15 +98,15 @@ class Twitter implements Isession {
 
             $exists = $Session->user('');
 
-            if (empty($exists[$this->settings['id_field']]) || empty($exists[$this->settings['token_field']]) || empty($exists[$this->settings['token_secret_field']])) {
+            if (empty($exists[$settings['id_field']]) || empty($exists[$settings['token_field']]) || empty($exists[$settings['token_secret_field']])) {
                 return false;
             }
         }
 
-        if ($exists[$this->settings['token_field']] && $exists[$this->settings['token_secret_field']]) {
+        if ($exists[$settings['token_field']] && $exists[$settings['token_secret_field']]) {
             $this->token = array(
-                'oauth_token' => $exists[$this->settings['token_field']],
-                'oauth_token_secret' => $exists[$this->settings['token_secret_field']]
+                'oauth_token' => $exists[$settings['token_field']],
+                'oauth_token_secret' => $exists[$settings['token_secret_field']]
             );
 
             $this->setCookie('control', $this->token);
@@ -120,10 +122,12 @@ class Twitter implements Isession {
 
     private function setAPI ($oauth_token = '', $oauth_token_secret = '')
     {
+        $settings = $this->settings;
+
         if ($oauth_token && $oauth_token_secret) {
-            $this->API = new Twitter\TwitterOAuth($this->settings['consumer_key'], $this->settings['consumer_secret'], $oauth_token, $oauth_token_secret);
+            $this->API = new Twitter\TwitterOAuth($settings['consumer_key'], $settings['consumer_secret'], $oauth_token, $oauth_token_secret);
         } else {
-            $this->API = new Twitter\TwitterOAuth($this->settings['consumer_key'], $this->settings['consumer_secret']);
+            $this->API = new Twitter\TwitterOAuth($settings['consumer_key'], $settings['consumer_secret']);
         }
     }
 
@@ -207,15 +211,17 @@ class Twitter implements Isession {
             return false;
         }
 
+        $settings = $this->settings;
+
         $user = $this->userExists(array(
-            $this->settings['id_field'] => $this->twitter->id
+            $settings['id_field'] => $this->twitter->id
         ));
 
         $this->new = $user ? false : true;
 
         $this->setCookie('data', array(
-            $this->settings['user_field'] => encrypt($user[$this->settings['user_field']]),
-            $this->settings['id_field'] => encrypt($user[$this->settings['id_field']])
+            $settings['user_field'] => encrypt($user[$settings['user_field']]),
+            $settings['id_field'] => encrypt($user[$settings['id_field']])
         ));
 
         $this->user = $user;
@@ -270,15 +276,16 @@ class Twitter implements Isession {
 
         global $Session, $Db;
 
+        $settings = $this->settings;
         $user = $Session->user();
 
         if ($user) {
             $this->updateTwitterInfo();
 
             $Db->update(array(
-                'table' => $this->settings['table'],
+                'table' => $settings['table'],
                 'data' => array(
-                    $this->settings['fields']['twitter_allow'] => 1
+                    $settings['fields']['twitter_allow'] => 1
                 ),
                 'conditions' => array(
                     'id' => $Session->user('id')
@@ -289,7 +296,6 @@ class Twitter implements Isession {
             return true;
         }
 
-        $settings = $this->settings;
         $save_info = $this->getTwitterFields();
 
         if ($settings['enabled_field']) {
@@ -300,7 +306,7 @@ class Twitter implements Isession {
             $save_info[$settings['raw_field']] = base64_encode(serialize($this->twitter));
         }
 
-        $save_info[$this->settings['fields']['twitter_allow']] = 1;
+        $save_info[$settings['fields']['twitter_allow']] = 1;
 
         if ($this->token['oauth_token'] && $this->token['oauth_token_secret']) {
             $save_info[$settings['token_field']] = $this->token['oauth_token'];
@@ -329,8 +335,8 @@ class Twitter implements Isession {
         $settings = $this->settings;
         $save_info = $this->getTwitterFields();
 
-        if ($this->settings['disable_update']) {
-            foreach ($this->settings['disable_update'] as $field) {
+        if ($settings['disable_update']) {
+            foreach ($settings['disable_update'] as $field) {
                 unset($save_info[$field]);
             }
         }
@@ -400,7 +406,7 @@ class Twitter implements Isession {
         $info['data'] = $this->userData($info['data']);
 
         return $Db->update(array(
-            'table' => $this->settings['table'],
+            'table' => $settings['table'],
             'data' => $info['data'],
             'conditions' => array(
                 'id' => $this->user['id']
@@ -497,10 +503,14 @@ class Twitter implements Isession {
         $data = array();
 
         foreach ($this->settings['fields'] as $name => $dbfield) {
-            if (is_string($user_data[$name])) {
-                $data[$dbfield] = trim($user_data[$name]);
-            } else if (isset($user_data[$name])) {
-                $data[$dbfield] = $user_data[$name];
+            if (is_string($user_data[$name]) || isset($user_data[$name])) {
+                if (is_array($dbfield)) {
+                    foreach ($dbfield as $field) {
+                        $data[$field] = is_string($user_data[$name]) ? trim($user_data[$name]) : $user_data[$name];
+                    }
+                } else {
+                    $data[$dbfield] = is_string($user_data[$name]) ? trim($user_data[$name]) : $user_data[$name];
+                }
             }
         }
 
