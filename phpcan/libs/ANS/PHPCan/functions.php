@@ -868,7 +868,7 @@ function isXML ($xml)
 
     $doc->loadXML($xml);
 
-    return libxml_get_errors() ? true : false;
+    return libxml_get_errors() ? false : true;
 }
 
 /**
