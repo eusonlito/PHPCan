@@ -70,14 +70,22 @@ class Mysql implements Idatabase
             return false;
         }
 
+        global $Config;
+
         //Get real table definitions
         $real_tables = array();
         $real_indexes = array();
+
+        $tables_ignored = (array)$Config->tables_ignored[$this->Db->getConnection()];
 
         $tmp_tables = $this->Db->queryResult('SHOW TABLES;');
 
         foreach ($tmp_tables as $table) {
             $table = current($table);
+
+            if (in_array($table, $tables_ignored)) {
+                continue;
+            }
 
             //Get indexes
             $indexes = $this->Db->queryResult('SHOW INDEX FROM `'.$table.'`;');

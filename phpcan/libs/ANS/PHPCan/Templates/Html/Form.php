@@ -646,7 +646,7 @@ class Form
 
                 $result[] = array(
                     'value' => $value,
-                    'text' => $text,
+                    'text' => (empty($params['gettext']) ? $text : __($text)),
                     'selected' => (($selected && in_array($value, $selected, true)) || ($option_selected && $option[$option_selected])) ? true : null,
                     'disabled' => $option[$option_disabled] ? 'disabled' : null
                 );
@@ -661,7 +661,7 @@ class Form
 
             $result[] = array(
                 'value' => $value,
-                'text' => $option,
+                'text' => (empty($params['gettext']) ? $option : __($option)),
                 'selected' => ($selected && in_array($value, $selected, true)) ? true : null
             );
         }

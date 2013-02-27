@@ -16,3 +16,7 @@ $config['tables'] = array(
 $config['relations'] = array(
     'default' => array()
 );
+
+$config['tables_ignored'] = array(
+    'default' => array()
+);
