@@ -55,7 +55,7 @@ class Shell
      */
     public function exec ($command, $escape = false)
     {
-        $command = (array) $command;
+        $command = (array)$command;
 
         if ($escape) {
             foreach ($command as &$cmd) {

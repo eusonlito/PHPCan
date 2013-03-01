@@ -60,7 +60,7 @@ class Twitter extends Api
     {
         preg_match_all('/#(\w+)/u', $text, $matches);
 
-        return (array) $matches[1];
+        return (array)$matches[1];
     }
 
     /**
@@ -72,7 +72,7 @@ class Twitter extends Api
     {
         preg_match_all('/@(\w+)/u', $text, $matches);
 
-        return (array) $matches[1];
+        return (array)$matches[1];
     }
 
     /**

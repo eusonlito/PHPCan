@@ -283,7 +283,7 @@ class Table
 
         $new_fields = array();
 
-        foreach ((array) $fields as $field) {
+        foreach ((array)$fields as $field) {
             $field = $this->fieldArray($field);
 
             if (!($info = $this->fieldInfo($field['realname']))) {
@@ -661,7 +661,7 @@ class Table
             $subformat = array_keys($format->settings);
         }
 
-        foreach ((array) $subformat as $subformat_value) {
+        foreach ((array)$subformat as $subformat_value) {
             if (is_array($format->settings[$subformat_value])) {
                 $format->settings[$subformat_value] = array_merge($format->settings[$subformat_value], $settings);
             }
@@ -775,7 +775,7 @@ class Table
 
         $this->relations = array();
 
-        foreach ((array) $this->settings['relations'] as $name => $settings) {
+        foreach ((array)$this->settings['relations'] as $name => $settings) {
             $class_name = '\\ANS\\PHPCan\\Data\\Relations\\Relation_'.str_replace(' ', '_', $settings['mode']);
             $this->relations[$name] = new $class_name($this->Db, $settings);
         }

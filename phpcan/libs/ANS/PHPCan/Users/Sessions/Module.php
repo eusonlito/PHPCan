@@ -68,8 +68,8 @@ class Module implements Isession
         $cookie = $Vars->getCookie($this->settings['cookie']);
         $module = $this->settings['module'] ? $this->settings['module'] : $Vars->getModule();
 
-        foreach ((array) $this->settings['users'] as $config) {
-            if (($cookie === md5($config['name'].$config['password'])) && in_array($module, (array) $config['modules'])) {
+        foreach ((array)$this->settings['users'] as $config) {
+            if (($cookie === md5($config['name'].$config['password'])) && in_array($module, (array)$config['modules'])) {
                 return $config;
             }
         }
@@ -89,8 +89,8 @@ class Module implements Isession
         $module = $this->settings['module'] ? $this->settings['module'] : $Vars->getModule();
         $user = false;
 
-        foreach ((array) $this->settings['users'] as $config) {
-            if (($config['name'] === $data['user']) && ($config['password'] === $data['password']) && (in_array($module, (array) $config['modules']))) {
+        foreach ((array)$this->settings['users'] as $config) {
+            if (($config['name'] === $data['user']) && ($config['password'] === $data['password']) && (in_array($module, (array)$config['modules']))) {
                 $user = $config;
                 break;
             }

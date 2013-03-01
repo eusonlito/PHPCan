@@ -148,7 +148,7 @@ class Bitly extends Api
   */
   protected function get_key()
   {
-    foreach ((array) $this->res->data as $key => $arr) {
+    foreach ((array)$this->res->data as $key => $arr) {
       if (is_array($this->res->data->$key)) {
         return $key;
       } else {

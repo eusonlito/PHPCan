@@ -81,7 +81,7 @@ class Db
         if (empty($this->languages)) {
             global $Config;
 
-            $this->languages = array_keys((array) $Config->languages['availables']);
+            $this->languages = array_keys((array)$Config->languages['availables']);
         }
 
         //Config
@@ -270,7 +270,7 @@ class Db
         //Extend relations
         $extended_relations = array();
 
-        foreach ((array) $relations_config as $relation) {
+        foreach ((array)$relations_config as $relation) {
             $class_name = '\\ANS\\PHPCan\\Data\\Relations\\Relation_'.str_replace(' ', '_', $relation['mode']);
 
             if (is_callable(array($class_name, 'extend'))) {
@@ -526,7 +526,7 @@ class Db
             $ids = $this->selectIds($operations);
         }
 
-        return (array) $ids;
+        return (array)$ids;
     }
 
     /**
@@ -1938,7 +1938,7 @@ class Db
      */
     private function makeSelect ($data, $prev_table = '', $exit_format = '')
     {
-        $add_tables = (array) $data['add_tables'];
+        $add_tables = (array)$data['add_tables'];
         $exit_format = isset($data['exit_format']) ? $data['exit_format'] : $exit_format;
 
         unset($data['add_tables']);
@@ -2192,7 +2192,7 @@ class Db
 
         $query['group'] = $this->group($table_name['newname'], $query['group'], $query['group_commands'], $renamed_tables);
 
-        $query['fields_commands'] = (array) $query['fields_commands'];
+        $query['fields_commands'] = (array)$query['fields_commands'];
 
         return $query;
     }
@@ -2290,7 +2290,7 @@ class Db
         if (($query['conditions'] === 'all') || ($query['conditions_and'] === 'all') || ($query['conditions_or'] === 'all')) {
             $conditions = 'all';
         } else {
-            $conditions = arrayMergeReplaceRecursive((array) $query['conditions'], (array) $query['conditions_and']);
+            $conditions = arrayMergeReplaceRecursive((array)$query['conditions'], (array)$query['conditions_and']);
 
             if ($query['conditions_or']) {
                 $conditions[] = $query['conditions_or'];
@@ -2441,7 +2441,7 @@ class Db
                 $rel_condition = $relation->selectConditions($previous['newname'], $current['newname'], $current);
 
                 if ($mode === 'or') {
-                    $result['conditions'][] = arrayMergeReplaceRecursive((array) $rel_condition['conditions'], (array) $rel_condition['relation_conditions']);
+                    $result['conditions'][] = arrayMergeReplaceRecursive((array)$rel_condition['conditions'], (array)$rel_condition['relation_conditions']);
                 } else {
                     if ($rel_condition['conditions']) {
                         $result['conditions'] = arrayMergeReplaceRecursive($rel_condition['conditions'], $result['conditions']);
@@ -2495,7 +2495,7 @@ class Db
     {
         $return = $sort_commands ? (array)$sort_commands : array();
 
-        foreach ((array) $sort as $v) {
+        foreach ((array)$sort as $v) {
             if (empty($v)) {
                 continue;
             }
@@ -2535,7 +2535,7 @@ class Db
     {
         $return = $group_commands ? (array)$group_commands : array();
 
-        foreach ((array) $group as $v) {
+        foreach ((array)$group as $v) {
             preg_match('/^(([\(\)\[\]\-\.\w]+)?\.)?([\w-]+)$/', trim($v), $t);
 
             $table_path = $t[2] ?: $table_base;
@@ -2571,7 +2571,7 @@ class Db
      */
     public function mergeQuery ($query1, $query2)
     {
-        return arrayMergeReplaceRecursive((array) $query1, (array) $query2);
+        return arrayMergeReplaceRecursive((array)$query1, (array)$query2);
     }
 
     /**

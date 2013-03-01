@@ -192,7 +192,7 @@ abstract class Formats
      */
     public function getErrors ()
     {
-        return (array) $this->error;
+        return (array)$this->error;
     }
 
     /**
@@ -522,7 +522,7 @@ abstract class Formats
             if ($languages === 'all') {
                 $languages = $all_languages;
             } else {
-                $languages = (array) $languages;
+                $languages = (array)$languages;
 
                 foreach ($languages as $key => $language) {
                     if (!in_array($language, $all_languages)) {

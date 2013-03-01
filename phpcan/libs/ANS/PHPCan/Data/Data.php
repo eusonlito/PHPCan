@@ -36,7 +36,7 @@ class Data
         }
 
         if ($actions = $Vars->getCookie('phpcan_executed_actions')) {
-            $this->actions = (array) $actions;
+            $this->actions = (array)$actions;
         }
 
         $Vars->deleteCookie('phpcan_executed_actions');
@@ -111,7 +111,7 @@ class Data
      */
     public function arr ($name)
     {
-        return (array) $this->data[$name];
+        return (array)$this->data[$name];
     }
 
     /**

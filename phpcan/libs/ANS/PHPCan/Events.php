@@ -102,7 +102,7 @@ class Events
             unset($this->events[$element]);
         }
 
-        foreach ((array) $events as $event) {
+        foreach ((array)$events as $event) {
             unset($this->events[$element][$event]);
         }
     }

@@ -411,7 +411,7 @@ function includeFile ($_file, $_data_content = array(), $_once = false)
 
     global $Config;
 
-    foreach ((array) $Config->config['autoglobal'] as $_each) {
+    foreach ((array)$Config->config['autoglobal'] as $_each) {
         global $$_each;
     }
 
@@ -500,7 +500,7 @@ function getGettextObject ($language = '', $folders = '')
         );
     }
 
-    foreach ((array) $folders as $folder) {
+    foreach ((array)$folders as $folder) {
         $folder .= $language;
 
         if (is_dir($folder)) {

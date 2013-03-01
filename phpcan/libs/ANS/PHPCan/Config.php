@@ -146,26 +146,26 @@ class Config implements \ArrayAccess, \Iterator, \Countable
             } else {
                 return false;
             }
-        } else {
-            $current = array();
+        }
 
-            foreach ($includes as $file) {
-                $this->loaded[] = $file;
+        $current = array();
 
-                if (!is_file($file)) {
-                    continue;
-                }
+        foreach ($includes as $file) {
+            $this->loaded[] = $file;
 
-                $config = array();
-
-                include ($file);
-
-                if (!is_array($config)) {
-                    continue;
-                }
-
-                $current = arrayMergeReplaceRecursive($current, $config);
+            if (!is_file($file)) {
+                continue;
             }
+
+            $config = array();
+
+            include ($file);
+
+            if (!is_array($config)) {
+                continue;
+            }
+
+            $current = arrayMergeReplaceRecursive($current, $config);
         }
 
         if (empty($current)) {
@@ -319,7 +319,7 @@ class Config implements \ArrayAccess, \Iterator, \Countable
                 foreach ($keys as $k) {
                     $k = trim($k);
 
-                    $data[$k] = array_merge_recursive((array) $data[$k], (array) $value);
+                    $data[$k] = array_merge_recursive((array)$data[$k], (array)$value);
                     $data[$k] = $this->expand($data[$k]);
                 }
 

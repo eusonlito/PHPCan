@@ -278,7 +278,7 @@ class Form
     {
         $code = '';
 
-        foreach ((array) $values as $name => $value) {
+        foreach ((array)$values as $name => $value) {
             $code .= $this->hidden($value, $name);
         }
 
@@ -656,7 +656,7 @@ class Form
         }
 
         //Simple array
-        foreach ((array) $options as $value => $option) {
+        foreach ((array)$options as $value => $option) {
             $value = (string)($option_text_as_value ? $option : $value);
 
             $result[] = array(

@@ -42,9 +42,9 @@ class Errors
     public function set ($name, $error, $index = null)
     {
         if (is_null($index)) {
-            $this->errors[$name] = arrayMergeReplaceRecursiveStrict((array) $this->errors[$name], (array) $error);
+            $this->errors[$name] = arrayMergeReplaceRecursiveStrict((array)$this->errors[$name], (array)$error);
         } else {
-            $this->errors[$name][$index] = arrayMergeReplaceRecursiveStrict((array) $this->errors[$name][$index], (array) $error);
+            $this->errors[$name][$index] = arrayMergeReplaceRecursiveStrict((array)$this->errors[$name][$index], (array)$error);
         }
     }
 

@@ -463,7 +463,7 @@ class Mysql implements Idatabase
     private function setSort ($sort)
     {
         if ($sort) {
-            $sort = (array) $sort;
+            $sort = (array)$sort;
 
             foreach ($sort as &$sort_value) {
                 $sort_value = preg_replace('/^([^\.]+)\.([^\s]+)/', '`$1`.`$2`', $sort_value);
@@ -485,13 +485,13 @@ class Mysql implements Idatabase
     private function setGroup ($group)
     {
         if ($group) {
-            $group = (array) $group;
+            $group = (array)$group;
 
             foreach ($group as &$group_value) {
                 $group_value = preg_replace('/^([^\.]+)\.([^\s]+)/', '`$1`.`$2`', $group_value);
             }
 
-            return ' GROUP BY '.implode(', ', (array) $group);
+            return ' GROUP BY '.implode(', ', (array)$group);
         }
 
         return '';
@@ -515,12 +515,12 @@ class Mysql implements Idatabase
         foreach ($select['fields'] as $table => $fields) {
             $table_name = $this->getName($table);
 
-            $q_fields = array_merge((array) $this->setFields($fields, $table_name['new']), $q_fields);
+            $q_fields = array_merge((array)$this->setFields($fields, $table_name['new']), $q_fields);
 
             $q_tables[] = $this->setTable($table_name);
         }
 
-        foreach ((array) $select['fields_commands'] as $command) {
+        foreach ((array)$select['fields_commands'] as $command) {
             $q_fields[] = $command;
         }
 
@@ -533,7 +533,7 @@ class Mysql implements Idatabase
                 foreach ($join['fields'] as $table => $fields) {
                     $table_name = $this->getName($table);
 
-                    $q_fields = array_merge((array) $this->setFields($fields, $table_name['new']), $q_fields);
+                    $q_fields = array_merge((array)$this->setFields($fields, $table_name['new']), $q_fields);
 
                     $table = $table;
 
@@ -821,7 +821,7 @@ class Mysql implements Idatabase
                 case 'IN':
                     if (is_array($value)) {
                         if (count($value) > 1) {
-                            $q .= ' '.$field.' IN ("'.implode('","', array_unique((array) $value)).'")';
+                            $q .= ' '.$field.' IN ("'.implode('","', array_unique((array)$value)).'")';
                         } else {
                             $q .= ' '.$field.' = "'.current($value).'"';
                         }
@@ -833,7 +833,7 @@ class Mysql implements Idatabase
                 case 'NOT':
                     if (is_array($value)) {
                         if (count($value) > 1) {
-                            $q .= ' '.$field.' NOT IN ("'.implode('","', array_unique((array) $value)).'")';
+                            $q .= ' '.$field.' NOT IN ("'.implode('","', array_unique((array)$value)).'")';
                         } else {
                             $q .= ' '.$field.' != "'.current($value).'"';
                         }

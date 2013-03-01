@@ -132,7 +132,7 @@ class Templates
                 $data_content_value['index'] = $index;
 
                 if ($render_settings['common_data']) {
-                    $data_content_value += (array) $render_settings['common_data'];
+                    $data_content_value += (array)$render_settings['common_data'];
                 }
 
                 includeFile($render_settings['template'], $data_content_value);
@@ -142,7 +142,7 @@ class Templates
             }
         } else {
             if ($render_settings['common_data']) {
-                $render_settings['data'] += (array) $render_settings['common_data'];
+                $render_settings['data'] += (array)$render_settings['common_data'];
             }
 
             includeFile($render_settings['template'], $render_settings['data']);

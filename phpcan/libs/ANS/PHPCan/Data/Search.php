@@ -253,11 +253,11 @@ class Search
     {
         $query = '';
 
-        foreach ((array) $this->words['fields'] as $word) {
+        foreach ((array)$this->words['fields'] as $word) {
             $query .= ' '.$word['text'];
         }
 
-        $query .= implode(' ', (array) $this->words['all']);
+        $query .= implode(' ', (array)$this->words['all']);
 
         return trim($query);
     }
@@ -360,7 +360,7 @@ class Search
     {
         $num = 0;
 
-        foreach ((array) $this->words['all'] as $w => $word) {
+        foreach ((array)$this->words['all'] as $w => $word) {
             foreach ($this->fields['all'] as $table => $field) {
                 foreach ($field as $f) {
                     $this->query['conditions_and'][$w][($num++).' '.$table.'.'.$f.' LIKE'] = '%'.$word.'%';
@@ -378,7 +378,7 @@ class Search
     {
         $num = 0;
 
-        foreach ((array) $this->words['fields'] as $word) {
+        foreach ((array)$this->words['fields'] as $word) {
             $field = $word['field'];
             $value = $word['value'];
 

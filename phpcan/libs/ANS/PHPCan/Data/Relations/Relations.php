@@ -87,12 +87,12 @@ abstract class Relations
     protected function getIds ($table, $operations)
     {
         if (is_array($operations['conditions']) && count($operations['conditions']) == 1 && (array_key_exists('id', $operations['conditions']) || array_key_exists($table.'.id', $operations['conditions']))) {
-            return (array) current($operations['conditions']);
+            return (array)current($operations['conditions']);
         }
 
         $operations['table'] = $table;
 
-        return (array) $this->Db->selectIds($operations);
+        return (array)$this->Db->selectIds($operations);
     }
 
     /**

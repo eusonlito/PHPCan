@@ -61,26 +61,24 @@ class Vars
      */
     public function overload ()
     {
-        if (isset($_SERVER['CONTENT_LENGTH'])) {
-            $size = trim(strtolower(ini_get('upload_max_filesize')));
-            $last = substr($size, -1);
-            $size = intval($size);
-
-            switch ($last) {
-                case 'g':
-                    $size *= 1024;
-                case 'm':
-                    $size *= 1024;
-                case 'k':
-                    $size *= 1024;
-            }
-
-            if ($_SERVER['CONTENT_LENGTH'] > $size) {
-                return true;
-            }
+        if (isset($_SERVER['CONTENT_LENGTH']) === false) {
+            return false;
         }
 
-        return false;
+        $size = trim(strtolower(ini_get('upload_max_filesize')));
+        $last = substr($size, -1);
+        $size = intval($size);
+
+        switch ($last) {
+            case 'g':
+                $size *= 1024;
+            case 'm':
+                $size *= 1024;
+            case 'k':
+                $size *= 1024;
+        }
+
+        return ($_SERVER['CONTENT_LENGTH'] > $size);
     }
 
     /**
@@ -99,15 +97,15 @@ class Vars
         $this->actions = $this->url2actions($url);
 
         //Variables
-        $get = (array) filter_input_array(INPUT_GET);
-        $post = arrayMergeReplaceRecursiveStrict($this->arrayFiles(), (array) filter_input_array(INPUT_POST));
+        $get = (array)filter_input_array(INPUT_GET);
+        $post = arrayMergeReplaceRecursiveStrict($this->arrayFiles(), (array)filter_input_array(INPUT_POST));
 
         $this->get = array_keys($get);
         $this->post = array_keys($post);
         $this->var = arrayMergeReplaceRecursiveStrict($get, $post);
 
         //Save the actions
-        foreach ((array) $this->var['phpcan_action'] as $action_name => $action_value) {
+        foreach ((array)$this->var['phpcan_action'] as $action_name => $action_value) {
             if (is_int($action_name)) {
                 $action_name = $action_value;
                 $action_value = null;
@@ -278,7 +276,7 @@ class Vars
         $return = $this->_get($vars, $this->var, $def_filter);
 
         if (is_array($vars) || $vars === ':num') {
-            return (array) $return;
+            return (array)$return;
         }
 
         return $return[$vars];
@@ -297,7 +295,7 @@ class Vars
 
         $return = array();
 
-        foreach ((array) $names as $name => $filter) {
+        foreach ((array)$names as $name => $filter) {
             if (!is_array($filter)) {
                 if (is_int($name)) {
                     $name = $filter;
@@ -453,7 +451,7 @@ class Vars
             return array();
         }
 
-        return (array) $arr;
+        return (array)$arr;
     }
 
     /**
@@ -675,9 +673,9 @@ class Vars
         if (is_null($config)) {
             global $Config;
 
-            $this->routes = (array) $Config->routes;
+            $this->routes = (array)$Config->routes;
         } else {
-            $this->routes = (array) $config;
+            $this->routes = (array)$config;
         }
     }
 
@@ -732,7 +730,7 @@ class Vars
                         }
                     }
 
-                    $this->route_config[$settings_name][] = (array) $settings_value;
+                    $this->route_config[$settings_name][] = (array)$settings_value;
                 }
 
                 if ($route !== '*') {
@@ -743,7 +741,7 @@ class Vars
         }
 
         if ($undefined) {
-            foreach ((array) $this->routes['undefined'] as $settings_name => $settings_value) {
+            foreach ((array)$this->routes['undefined'] as $settings_name => $settings_value) {
                 if (strpos($settings_name, '#')) {
                     list($settings_name, $exit_mode) = explodeTrim('#', $settings_name, 2);
 
@@ -752,7 +750,7 @@ class Vars
                     }
                 }
 
-                $this->route_config[$settings_name][] = (array) $settings_value;
+                $this->route_config[$settings_name][] = (array)$settings_value;
             }
 
             $this->var += $this->path;
@@ -820,12 +818,12 @@ class Vars
         $config = call_user_func_array('array_merge', $this->route_config[$name]);
 
         if ($preserve) {
-            foreach ((array) $preserve as $value) {
+            foreach ((array)$preserve as $value) {
                 $preserve_config = array();
 
                 foreach ($this->route_config[$name] as $value_config) {
                     if ($value_config[$value]) {
-                        $preserve_config[] = (array) $value_config[$value];
+                        $preserve_config[] = (array)$value_config[$value];
                     }
                 }
 
@@ -915,9 +913,9 @@ class Vars
         if (is_null($config)) {
             global $Config;
 
-            $this->scenes = (array) $Config->scenes;
+            $this->scenes = (array)$Config->scenes;
         } else {
-            $this->scenes = (array) $config;
+            $this->scenes = (array)$config;
         }
     }
 
@@ -1102,9 +1100,9 @@ class Vars
         if (is_null($config)) {
             global $Config;
 
-            $this->languages = (array) $Config->languages;
+            $this->languages = (array)$Config->languages;
         } else {
-            $this->languages = (array) $config;
+            $this->languages = (array)$config;
         }
     }
 
@@ -1119,12 +1117,12 @@ class Vars
     public function getLanguages ($only_actives = false)
     {
         if (empty($only_actives)) {
-            return array_keys((array) $this->languages['availables']);
+            return array_keys((array)$this->languages['availables']);
         }
 
         $languages = array();
 
-        foreach ((array) $this->languages['availables'] as $language => $active) {
+        foreach ((array)$this->languages['availables'] as $language => $active) {
             if ($active) {
                 $languages[] = $language;
             }
@@ -1327,9 +1325,9 @@ class Vars
         if (is_null($config)) {
             global $Config;
 
-            $this->exit_modes = (array) $Config->config['exit_modes'];
+            $this->exit_modes = (array)$Config->config['exit_modes'];
         } else {
-            $this->exit_modes = (array) $config;
+            $this->exit_modes = (array)$config;
         }
     }
 
@@ -1499,7 +1497,7 @@ class Vars
      */
     public function exists ($name)
     {
-        if (strpos($name, '[') && strpos($name, ']')) {
+        if (strstr($name, '[') && strstr($name, ']')) {
             $name = preg_replace('/^([^\[]+)/', '[\\1]', $name);
             $name = str_replace(array('[', ']'), array('["', '"]'), $name);
             $name = preg_replace('/(\["([0-9]+)"\])+/', '[\\2]', $name);

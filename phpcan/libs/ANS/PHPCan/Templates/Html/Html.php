@@ -205,7 +205,7 @@ class Html
         if ($action['method'] === 'post') {
             $params = '<input type="hidden" value="'.$action['name'].'" name="phpcan_action" />';
 
-            foreach ((array) $action['params'] as $name => $value) {
+            foreach ((array)$action['params'] as $name => $value) {
                 $params .= '<input type="hidden" value="'.$value.'" name="'.$name.'" />';
             }
 
@@ -282,7 +282,7 @@ class Html
     {
         $return = array();
 
-        foreach ((array) $data as $value) {
+        foreach ((array)$data as $value) {
             if ($options['title'] && $value[$options['title']]) {
                 $text = $this->a($value[$options['title']]['title'], $options['href'].$value[$options['title']]['url']);
                 $class = ($options['selected'] && ($options['selected'] == $value[$options['title']]['url'])) ? 'selected' : '';
@@ -428,7 +428,7 @@ class Html
         global $Config;
 
         $code = "\n";
-        $files = (array) $files;
+        $files = (array)$files;
         $cache = $Config->cache['types']['js'];
 
         if ($cache['pack'] && $cache['expire'] && $cache['interface']) {
@@ -517,7 +517,7 @@ class Html
         global $Config;
 
         $code = "\n";
-        $files = (array) $files;
+        $files = (array)$files;
         $cache = $Config->cache['types']['css'];
 
         if ($cache['pack'] && $cache['expire'] && $cache['interface']) {
@@ -832,7 +832,7 @@ class Html
         if ($this->meta[$key]) {
             $content = $this->meta[$key];
         } else {
-            $controller = implode('/', (array) $Vars->getRoute());
+            $controller = implode('/', (array)$Vars->getRoute());
             $code = 'meta:'.$key.':'.$controller;
             $content = __($code, $this->meta[$key]);
             $content = ($content === $code) ? __('meta:'.$key) : $content;

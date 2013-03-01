@@ -179,7 +179,7 @@ class Gettext_builder
             $str = explode("\n", $str);
         }
 
-        return (array) $str;
+        return (array)$str;
     }
 
     public function parsePo ($filename)
@@ -281,13 +281,13 @@ class Gettext_builder
         //Entries
         foreach ($array['entries'] as $entry) {
             if ($entry['comments']) {
-                foreach ((array) $entry['comments'] as $comment) {
+                foreach ((array)$entry['comments'] as $comment) {
                     $lines[] = '# '.$comment;
                 }
             }
 
             if ($entry['references']) {
-                foreach ((array) $entry['references'] as $reference) {
+                foreach ((array)$entry['references'] as $reference) {
                     $lines[] = '#: '.$reference;
                 }
             }

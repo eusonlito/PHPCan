@@ -215,14 +215,14 @@ class Relation_x_x extends Relations implements Irelations
         $ids_table1 = $this->getIds($this->settings['tables'][1], $operations_table1);
 
         $relation_data = array();
-        $extra_data = (array) $options['data'];
+        $extra_data = (array)$options['data'];
 
-        foreach ((array) $ids_table0 as $id_table0) {
+        foreach ((array)$ids_table0 as $id_table0) {
             if (empty($id_table0)) {
                 continue;
             }
 
-            foreach ((array) $ids_table1 as $id_table1) {
+            foreach ((array)$ids_table1 as $id_table1) {
                 if (empty($id_table1)) {
                     continue;
                 }

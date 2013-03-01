@@ -54,7 +54,7 @@ class Feed extends Api
                 'link' => (string) $link,
                 'published' => (string) $entry->published,
                 'updated' => (string) $entry->updated,
-                'author' => (array) $entry->author->name,
+                'author' => (array)$entry->author->name,
                 'content' => (string) $entry->content
             );
         }

@@ -326,7 +326,7 @@ class OAuthRequest
     if ($token)
       $defaults['oauth_token'] = $token->key;
 
-    $parameters = array_merge((array) $defaults, (array) $parameters);
+    $parameters = array_merge((array)$defaults, (array)$parameters);
 
     return new OAuthRequest($http_method, $http_url, $parameters);
   }

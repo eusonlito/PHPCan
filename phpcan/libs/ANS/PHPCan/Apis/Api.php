@@ -207,7 +207,7 @@ class Api
             return $results;
         }
 
-        $results = (array) $results;
+        $results = (array)$results;
 
         foreach ($results as $k => $result) {
             $results[$k] = $this->toArray($result);
