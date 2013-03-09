@@ -361,8 +361,10 @@ class Table
                     return false;
                 }
 
+                $is_file = is_array($value) && array_key_exists('tmp_name', $value) && array_key_exists('name', $value);
+
                 //Language
-                if (is_null($info['language']) || is_array($value)) {
+                if (is_null($info['language']) || (is_array($value) && !$is_file)) {
                     $has_language = false;
 
                     $format = $this->getFormat($info['field']);
