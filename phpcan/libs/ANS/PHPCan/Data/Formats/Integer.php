@@ -56,23 +56,21 @@ class Integer extends Formats implements Iformats
         $uvlen = 255;                      // Varchar unsigned length value
         $vtype = 'varchar';                // Varchar type
 
-        $val = $settings['value_max'];
-        $len = intval($settings['length_max']);
+        $u = array_key_exists('unsigned', $settings) ? $settings['unsigned'] : true;
+
+        $val = $settings['value_max'] ?: ($u ? $uimax : $simax);
+        $len = intval($settings['length_max']) ?: ($u ? $uilen : $silen);
 
         $this->settings = $this->setSettings($settings, array(
             '' => array(
                 'db_type' => $itype,
 
-                'value_min' => $uimin,
-                'value_max' => $uimax,
-                'length_max' => $uilen,
+                'value_min' => ($u ? $uimin : $simin),
+                'value_max' => ($u ? $uimax : $simax),
+                'length_max' => ($u ? $uilen : $silen),
                 'unsigned' => true
             )
         ));
-
-        if (empty($val) && empty($len)) {
-            return $this->settings;
-        }
 
         if ($val) {
             if ($this->settings['']['unsigned'] === true) {

@@ -12,7 +12,7 @@ $config['gettext_builders'] = array(
         'languages' => array('en', 'gl', 'es')
     ),
     'scene_texts' => array(
-        'input' => array('scene/templates|', 'scene/data|', 'scene/actions|', 'scene/languages|', 'scene/includes|'),
+        'input' => array('scene/templates|', 'scene/data|', 'scene/actions|', 'scene/languages|', 'scene/libs|'),
         'output' => 'scene/languages|',
         'languages' => $languages
     ),

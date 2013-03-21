@@ -2086,7 +2086,7 @@ class Db
             $select['table'] = $this->tableString($added_table['realname'], $added_table['newname']);
 
             //Execute the selection
-            $sub_result = $this->makeSelect($select, 'phpcan_related_'.$table_data['newname']);
+            $sub_result = $this->makeSelect($select, 'phpcan_related_'.$table_data['newname'], $exit_format);
 
             if ($sub_result === false) {
                 return false;
@@ -2602,7 +2602,8 @@ class Db
         }
 
         foreach ($query['fields'] as $table => $fields) {
-            $table = $this->getTable($table);
+            $table = $this->tableArray($table);
+            $table = $this->getTable($table['realname']);
             $groups = array();
 
             foreach ($fields as $field) {

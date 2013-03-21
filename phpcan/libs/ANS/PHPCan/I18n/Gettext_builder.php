@@ -35,16 +35,26 @@ class Gettext_builder
     }
 
     public function setSettings ($settings) {
-        if ($settings['exclude']) {
-            if (is_string($settings['exclude'])) {
-                $settings['exclude'] = array($settings['exclude']);
-            }
+        $settings['exclude'] = (array)$settings['exclude'];
 
+        if ($settings['exclude']) {
             foreach ($settings['exclude'] as &$exclude) {
                 $exclude = preg_quote($exclude, '#');
             }
-        } else {
-            $settings['exclude'] = array();
+
+            unset($exclude);
+        }
+
+        $settings['input'] = (array)$settings['input'];
+
+        if ($settings['input']) {
+            foreach ($settings['input'] as &$input) {
+                if (strstr($input, '|')) {
+                    $input = filePath($input);
+                }
+            }
+
+            unset($input);
         }
 
         $this->settings = $settings;
@@ -119,8 +129,6 @@ class Gettext_builder
         $entries = array();
 
         foreach ($folders as $content) {
-            $content = filePath($content);
-
             if ($excludes) {
                 foreach ($excludes as $exclude) {
                     if (preg_match('#'.$exclude.'#', $content)) {
@@ -132,7 +140,7 @@ class Gettext_builder
             if (is_file($content) && (substr(finfo_file($finfo, $content), 0, 4) === 'text')) {
                 $entries = arrayMergeReplaceRecursive($entries, $this->extractStrings($content));
             } else if (is_dir($content)) {
-                $entries = arrayMergeReplaceRecursive($entries, $this->scan($File->listFolder($content, '*', -1), $excludes));
+                $entries = arrayMergeReplaceRecursive($entries, $this->scan($File->listFolder($content, '*'), $excludes));
             }
         }
 
