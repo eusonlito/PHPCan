@@ -2007,6 +2007,13 @@ class Db
                 }
             }
 
+            if ($data['id_as_key']) {
+                foreach ($result as $num_row => $row) {
+                    unset($result[$num_row]);
+                    $result[$row['id']] = $row;
+                }
+            }
+
             if ($exit_format && $result) {
                 $result = $this->transformValues($exit_format, $data, $result);
             }
@@ -2106,7 +2113,11 @@ class Db
                     if ($sub_result_row['id_prev_table'] == $result_row['id']) {
                         unset($sub_result_row['id_prev_table']);
 
-                        $result_row[$name][] = $sub_result_row;
+                        if (empty($select['id_as_key'])) {
+                            $result_row[$name][] = $sub_result_row;
+                        } else {
+                            $result_row[$name][$sub_result_row['id']] = $sub_result_row;
+                        }
                     }
                 }
 
