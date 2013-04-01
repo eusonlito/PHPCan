@@ -371,7 +371,13 @@ class Facebook implements Isession {
 
         if ($settings['unsubscribe_field']) {
             $data[$settings['unsubscribe_field']] = 1;
-        } if ($settings['enabled_field']) {
+        }
+
+        if ($settings['unsubscribe_date_field']) {
+            $data[$settings['unsubscribe_date_field']] = 1;
+        }
+
+        if ($settings['enabled_field']) {
             $data[$settings['enabled_field']] = 0;
         }
 

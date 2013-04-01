@@ -233,10 +233,10 @@ class Db
     }
 
     /**
-      * public function getDatabase ()
-      *
-      * return object
-      */
+    * public function getDatabase ()
+    *
+    * return object
+    */
     public function getDatabase ()
     {
         return $this->Database;
@@ -1138,7 +1138,7 @@ class Db
         if ($operations['table_events'] !== false) {
             $event_table_before = $this->checkTableEvent($operations['table'], $operations['data'], 'beforeInsert');
         }
-        
+
         $event_format_before = $this->checkFormatEvent($operations['table'], $operations['data'], 'beforeInsert');
 
         if ($event_table_before) {
@@ -2008,10 +2008,13 @@ class Db
             }
 
             if ($data['id_as_key']) {
-                foreach ($result as $num_row => $row) {
-                    unset($result[$num_row]);
-                    $result[$row['id']] = $row;
+                $tmp_result = array();
+
+                foreach ($result as $row) {
+                    $tmp_result[$row['id']] = $row;
                 }
+
+                $result = $tmp_result;
             }
 
             if ($exit_format && $result) {

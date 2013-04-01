@@ -25,7 +25,7 @@ if (!$Config->svn['username'] || !$Config->svn['password']) {
 
 $Shell->cd(BASE_PATH);
 
-$cmd = 'svn update --no-auth-cache --trust-server-cert --non-interactive --force --username '.$Config->svn['username'].' --password '.$Config->svn['password'].' --no-auth-cache --accept theirs-full';
+$cmd = 'svn update --no-auth-cache --trust-server-cert --non-interactive --force --username '.$Config->svn['username'].' --password '.$Config->svn['password'].' --accept theirs-full';
 
 $result = $Shell->exec($cmd);
 

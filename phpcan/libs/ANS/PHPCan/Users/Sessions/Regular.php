@@ -477,6 +477,47 @@ class Regular implements Isession
     }
 
     /*
+    * public function unsubscribeUser (void)
+    *
+    * Function to disable user accout. All user info will be cleaned and
+    * the username will be updated with a generic value
+    *
+    * return boolean
+    */
+    public function unsubscribeUser ()
+    {
+        global $Db;
+
+        $settings = $this->settings;
+        $data = array();
+
+        if ($settings['unsubscribe_field']) {
+            $data[$settings['unsubscribe_field']] = 1;
+        }
+
+        if ($settings['unsubscribe_date_field']) {
+            $data[$settings['unsubscribe_date_field']] = 1;
+        }
+
+        if ($settings['enabled_field']) {
+            $data[$settings['enabled_field']] = 0;
+        }
+
+        if (empty($data)) {
+            return true;
+        }
+
+        return $Db->update(array(
+            'table' => $settings['table'],
+            'data' => $data,
+            'conditions' => array(
+                'id' => $this->user('id')
+            ),
+            'limit' => 1
+        ));
+    }
+
+    /*
     * public function userExists ([array $conditions])
     *
     * Check if exists an user
