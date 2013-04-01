@@ -2007,11 +2007,11 @@ class Db
                 }
             }
 
-            if ($data['id_as_key']) {
+            if ($data['field_as_key'] && array_key_exists($data['field_as_key'], current($result))) {
                 $tmp_result = array();
 
                 foreach ($result as $row) {
-                    $tmp_result[$row['id']] = $row;
+                    $tmp_result[$row[$data['field_as_key']]] = $row;
                 }
 
                 $result = $tmp_result;
@@ -2030,14 +2030,10 @@ class Db
         }
 
         //Get the ids
-        if (count($result) === 1) {
-            $ids = $result[0]['id'];
-        } else {
-            $ids = array();
+        $ids = array();
 
-            foreach ($result as $id) {
-                $ids[] = $id['id'];
-            }
+        foreach ($result as $id) {
+            $ids[] = $id['id'];
         }
 
         //Execute sub_selects recursively
@@ -2112,14 +2108,20 @@ class Db
                     continue;
                 }
 
+                if (isset($select['field_as_key']) && array_key_exists($select['field_as_key'], current($sub_result))) {
+                    $field_as_key = $select['field_as_key'];
+                } else {
+                    $field_as_key = false;
+                }
+
                 foreach ($sub_result as $sub_result_row) {
                     if ($sub_result_row['id_prev_table'] == $result_row['id']) {
                         unset($sub_result_row['id_prev_table']);
 
-                        if (empty($select['id_as_key'])) {
-                            $result_row[$name][] = $sub_result_row;
+                        if ($field_as_key) {
+                            $result_row[$name][$sub_result_row[$field_as_key]] = $sub_result_row;
                         } else {
-                            $result_row[$name][$sub_result_row['id']] = $sub_result_row;
+                            $result_row[$name][] = $sub_result_row;
                         }
                     }
                 }
