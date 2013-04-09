@@ -10,19 +10,20 @@
 defined('ANS') or die();
 
 /*
- * function __ ($text, [$args = null], [$null = false])
+ * function __ ($text, [$args = null], [$null = false], [$settings = array])
  *
  * return string
  */
-function __ ($text, $args = null, $null = false)
+function __ ($text, $args = null, $null = false, $settings = array())
 {
-    static $Gettext = null;
+    static $Gettext;
 
-    if (is_null($Gettext)) {
-        $Gettext = getGettextObject();
+    if (!is_object($Gettext) || (is_array($settings) && isset($settings['language']))) {
+        $Gettext = getGettextObject($args['language']);
+        $text = is_object($Gettext) ? $Gettext->translate($text, $null) : $text;
+    } else {
+        $text = $Gettext->translate($text, $null);
     }
-
-    $text = is_object($Gettext) ? $Gettext->translate($text, $null) : $text;
 
     if (is_null($args)) {
         return $text;
@@ -469,7 +470,7 @@ function getImageObject ()
 }
 
 /**
- * function getGettextObject ([string $time], [string $timezone])
+ * function getDatetimeObject ([string $time], [string $timezone])
  *
  * return false/object
  */
@@ -571,7 +572,9 @@ function alphaNumeric ($text, $allow = '')
  */
 function arrayKeyValues ($array, $key, $recursive = '')
 {
-    if (!is_array($array)) {
+    if (is_object($array)) {
+        $array = (array)$array;
+    } else if (!is_array($array)) {
         return array();
     }
 
@@ -620,8 +623,7 @@ function ip ()
 function arrayMergeReplaceRecursive ()
 {
     $params = func_get_args();
-
-    $return = array_shift($params);
+    $return = (array)array_shift($params);
 
     foreach ($params as $array) {
         if (!is_array($array)) {

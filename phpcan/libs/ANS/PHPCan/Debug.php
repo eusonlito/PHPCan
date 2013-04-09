@@ -297,7 +297,7 @@ class Debug
      */
     public function store ($message, $log = '', $force = false)
     {
-        if (empty($this->settings['store']) && ($folder !== true)) {
+        if (empty($this->settings['store']) && ($force !== true)) {
             return true;
         }
 
