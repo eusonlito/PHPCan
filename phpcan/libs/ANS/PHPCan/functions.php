@@ -19,7 +19,7 @@ function __ ($text, $args = null, $null = false, $settings = array())
     static $Gettext;
 
     if (!is_object($Gettext) || (is_array($settings) && isset($settings['language']))) {
-        $Gettext = getGettextObject($args['language']);
+        $Gettext = getGettextObject($settings['language']);
         $text = is_object($Gettext) ? $Gettext->translate($text, $null) : $text;
     } else {
         $text = $Gettext->translate($text, $null);
