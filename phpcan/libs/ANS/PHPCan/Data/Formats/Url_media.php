@@ -381,7 +381,7 @@ class Url_media extends Url implements Iformats
             'title' => $info->gallery->image->title,
             'width' => $info->gallery->image->width,
             'height' => $info->gallery->image->height,
-            'image' => 'http://i.imgur.com/'.$id.$info->gallery->image->ext,
+            'image' => 'http://i.imgur.com/'.$id.$info->gallery->image->ext
         );
     }
 }

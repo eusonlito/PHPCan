@@ -49,6 +49,7 @@ class Set extends Formats implements Iformats
                 'db_type' => 'set',
                 'db_values' => $settings['values'],
 
+                'default' => ($settings['required'] ? $settings['values'][0] : ''),
                 'values' => array(),
                 'null' => true
             )

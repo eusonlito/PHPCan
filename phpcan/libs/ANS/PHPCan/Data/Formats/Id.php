@@ -27,11 +27,11 @@ class Id extends Formats implements Iformats
         $this->settings = $this->setSettings($settings, array(
             '' => array(
                 'db_type' => 'integer',
-                'unsigned' => true,
                 'db_incremental' => true,
+                'unsigned' => true,
                 'key' => 'PRIMARY',
 
-                'length_max' => 10,
+                'length_max' => 10
             )
         ));
 

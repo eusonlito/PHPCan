@@ -76,7 +76,7 @@ class Embed extends Formats implements Iformats
         $this->settings = $this->setSettings($settings, array(
             '' => array(
                 'db_type' => 'texto',
-                'db_type' => 'text',
+                'db_type' => 'text'
             )
         ));
 

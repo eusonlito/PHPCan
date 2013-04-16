@@ -45,7 +45,7 @@ class Ip extends Formats implements Iformats
                 'db_type' => 'varchar',
 
                 'length_max' => 39,
-                'length_min' => '',
+                'length_min' => ''
             )
         ));
 

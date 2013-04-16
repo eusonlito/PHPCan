@@ -65,6 +65,7 @@ class Integer extends Formats implements Iformats
             '' => array(
                 'db_type' => $itype,
 
+                'default' => 0,
                 'value_min' => ($u ? $uimin : $simin),
                 'value_max' => ($u ? $uimax : $simax),
                 'length_max' => ($u ? $uilen : $silen),

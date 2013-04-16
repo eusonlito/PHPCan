@@ -48,7 +48,6 @@ var gmapsDraggable = function (id) {
 
 		geocoder.geocode({'address': address}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
-				console.log(results[0]);
 				marker.setPosition(results[0].geometry.location);
 				map.setCenter(results[0].geometry.location);
 				e_lat.value = marker.position.lat();

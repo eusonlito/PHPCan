@@ -44,7 +44,7 @@ class Email extends Formats implements Iformats
             '' => array(
                 'db_type' => 'varchar',
 
-                'length_max' => 100,
+                'length_max' => 100
             )
         ));
 
