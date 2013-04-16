@@ -16,9 +16,9 @@ defined('ANS') or die();
  */
 function __ ($text, $args = null, $null = false, $settings = array())
 {
-    static $Gettext;
+    static $Gettext = null;
 
-    if (!is_object($Gettext) || (is_array($settings) && isset($settings['language']))) {
+    if (($Gettext === null) || (is_array($settings) && isset($settings['language']))) {
         $Gettext = getGettextObject($settings['language']);
         $text = is_object($Gettext) ? $Gettext->translate($text, $null) : $text;
     } else {
@@ -283,13 +283,13 @@ function filePath ($path)
 }
 
 /*
- * function fileWeb (string $path, [boolean $dinamic], [boolean $full])
+ * function fileWeb (string $path, [boolean $dynamic], [boolean $full])
  *
  * return the correct path of the file
  *
  * return string
  */
-function fileWeb ($path, $dinamic = false, $host = false)
+function fileWeb ($path, $dynamic = false, $host = false)
 {
     if (($path[0] === '/') || parse_url($path, PHP_URL_SCHEME)) {
         return $path;
@@ -307,7 +307,7 @@ function fileWeb ($path, $dinamic = false, $host = false)
     $basedir = $matches[3];
     $path = $matches[5];
 
-    if ($dinamic) {
+    if ($dynamic) {
         if (strpos($path, '$') === false) {
             $path = '$'.$path;
         }
@@ -597,6 +597,39 @@ function arrayKeyValues ($array, $key, $recursive = '')
     }
 
     return $return;
+}
+
+/**
+ * function simpleArrayColumn (array $array, string $key, [string $index = null])
+ *
+ * Return array
+ */
+function simpleArrayColumn ($array, $key, $index = null)
+{
+    if (is_object($array)) {
+        $array = (array)$array;
+    } else if (!is_array($array)) {
+        return array();
+    }
+
+    $return = array();
+
+    if ($index === null) {
+        foreach ($array as $v) {
+            $return[] = $v[$key];
+        }
+    } else {
+        foreach ($array as $v) {
+            $return[$v[$index]] = $v[$key];
+        }
+    }
+
+    return $return;
+}
+
+function arrayChunkVertical ($array, $columns)
+{
+    return array_chunk($array, ceil(count($array) / $columns));
 }
 
 /**
@@ -895,6 +928,11 @@ function explodeTrim ($delimiter, $text, $limit = null, $empty = false)
     return $return;
 }
 
+function is_https ()
+{
+    return (empty($_SERVER['HTTPS']) || ($_SERVER['HTTPS'] !== 'on')) ? false : true;
+}
+
 /**
  * function host ()
  *
@@ -904,7 +942,7 @@ function explodeTrim ($delimiter, $text, $limit = null, $empty = false)
  */
 function host ()
 {
-    if ($_SERVER['HTTPS'] === 'on') {
+    if (is_https()) {
         $host = 'https://'.SERVER_NAME;
 
         if (getenv('SERVER_PORT') != 443) {
