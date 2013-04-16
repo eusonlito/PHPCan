@@ -12,7 +12,7 @@ defined('ANS') or die();
 
 <div class="format">
     <label class="field f20">
-        <strong><?php echo $info['title']; ?></strong>
+        <strong><?php echo $Content->info($Vars->get('connection'), 'name', $info['table']); ?></strong>
     </label>
 
     <div class="f80">
