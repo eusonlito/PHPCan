@@ -44,6 +44,10 @@ class Templates
 
         if ($settings['expire'] && $settings['interface']) {
             $this->Cache = new \ANS\Cache\Cache($settings);
+
+            if ($this->Cache->loaded() !== true) {
+                $this->Cache = false;
+            }
         } else {
             $this->Cache = false;
         }

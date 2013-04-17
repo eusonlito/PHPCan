@@ -61,6 +61,10 @@ class Db
 
         if ($settings['expire'] && $settings['interface']) {
             $this->Cache = new \ANS\Cache\Cache($settings);
+
+            if ($this->Cache->loaded() !== true) {
+                $this->Cache = false;
+            }
         } else {
             $this->Cache = false;
         }
@@ -1887,8 +1891,12 @@ class Db
             $operations = array('table' => $operations);
         }
 
-        if (!isset($operations['cache']) && $this->Cache) {
+        if ((array_key_exists('cache', $operations) === false) && $this->Cache) {
             $operations['cache'] = $this->Cache->getSettings('expire');
+
+            if ($operations['cache'] === true) {
+                $operations['cache'] = false;
+            }
         }
 
         if ($operations['cache'] && $this->Cache) {

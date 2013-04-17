@@ -44,7 +44,12 @@ class Html
 
         if ($settings['expire'] && $settings['interface']) {
             $this->Cache = new \ANS\Cache\Cache($settings);
-            $this->settings['cache'] = $settings;
+
+            if ($this->Cache->loaded() === true) {
+                $this->settings['cache'] = $settings;
+            } else {
+                $this->Cache = false;
+            }
         } else {
             $this->Cache = false;
             $this->settings['cache'] = array();
