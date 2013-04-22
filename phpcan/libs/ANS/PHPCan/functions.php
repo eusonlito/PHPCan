@@ -525,11 +525,11 @@ function getGettextObject ($language = '', $folders = '')
 }
 
 /**
- * function alphaNumeric (string $text, [array/string $allow])
+ * function alphaNumeric (string $text, [array/string $allow], [string $default])
  *
  * Return string
  */
-function alphaNumeric ($text, $allow = '')
+function alphaNumeric ($text, $allow = '', $default = '-')
 {
     $text = htmlentities(trim(strip_tags($text)), ENT_NOQUOTES, 'UTF-8');
     $text = preg_replace('/&(\w)\w+;/', '$1', $text);
@@ -562,7 +562,12 @@ function alphaNumeric ($text, $allow = '')
         $text = strtr($text, $replace);
     }
 
-    return strtolower(preg_replace('/\-+/', '-', preg_replace('/'.$expr.'/', '', $text)));
+    $default_exp = preg_quote($default, '/');
+
+    $text = preg_replace('/'.$expr.'/', $default, $text);
+    $text = preg_replace('/'.$default_exp.'+/', $default, $text);
+
+    return strtolower($text);
 }
 
 /**

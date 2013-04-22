@@ -167,9 +167,9 @@ class Html
                     $params['onclick'] .= 'document.'.$id.'.submit(); return false;';
                 }
             } else if ($action['params']) {
-                $params['href'] .= strpos($params['href'], '?') ? '&amp;'.$action['params'] : '?'.$action['params'];
+                $params['href'] .= (strstr($params['href'], '?') ? '&amp;' : '?').$action['params'];
             } else {
-                $params['href'] .= ':'.$action['name'];
+                $params['href'] .= (strstr($params['href'], '?') ? '&amp;' : '?').'phpcan_action='.$action['name'];
             }
         }
 

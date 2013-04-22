@@ -16,7 +16,7 @@ echo $Form->checkbox(0, $id);
 echo $Html->a(array(
     'text' => __('Delete'),
     'title' => __('Delete'),
-    'href' => path(),
+    'href' => path().get(),
     'data-icon' => 'trash',
     'data-no-text' => '1',
     'class' => 'button',

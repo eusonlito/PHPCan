@@ -20,8 +20,7 @@ $ok = $Content->delete(array(
 
 if ($ok) {
     $Vars->message(__('The rows has been deleted successfully'), 'success');
-
-    redirect(path(true, true, 'list'));
+    redirect(path(true, true, 'list').get('q', $Vars->get('q')));
 }
 
 $Vars->message(__('There was an error deleting the row %s in the table %s', $Vars->get('id'), $Vars->get('table')), 'error');

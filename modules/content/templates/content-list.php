@@ -41,7 +41,7 @@ defined('ANS') or die();
                 echo $Form->select(array(
                     'id' => 'menu-languages',
                     'title' => __('Language to show'),
-                    'data-url' => path(),
+                    'data-url' => path().get(),
                     'value' => $Data->content_data_language,
                     'options' => $Data->content_data_languages,
                     'option_text_as_value' => true,
@@ -79,7 +79,7 @@ defined('ANS') or die();
                             ));
                             echo $Html->a(array(
                                 'text' => __('Delete'),
-                                'href' => path(true, true, '|id|', 'edit'),
+                                'href' => path(true, true, '|id|', 'edit').get(),
                                 'data-icon' => 'trash',
                                 'data-no-text' => '1',
                                 'class' => 'button',

@@ -13,6 +13,8 @@ defined('ANS') or die();
 
 class Id_text extends Formats implements Iformats
 {
+    const CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
     public $format = 'id_text';
     public $auto = false;
 
@@ -74,9 +76,21 @@ class Id_text extends Formats implements Iformats
 
     public function randomValue ()
     {
-        $length = $this->settings['']['length_auto'];
+        $settings = $this->settings[''];
 
-        return strtolower(substr(md5(uniqid()), rand(0, 32 - $length), $length));
+        if ($settings['min'] === $settings['max']) {
+            $length = $settings['min'];
+        } else {
+            $length = rand($settings['min'], $settings['max']);
+        }
+
+        $strlen = strlen(self::CHARS);
+
+        for ($string = '', $i = 0; $i < $length; ++$i) {
+            $string .= substr(self::CHARS, rand(0, $strlen - 1), 1);
+        }
+
+        return $string;
     }
 
     public function settings ($settings)
@@ -87,7 +101,9 @@ class Id_text extends Formats implements Iformats
 
                 'unique' => $this->name,
                 'length_max' => 255,
-                'length_auto' => 12
+
+                'min' => 12,
+                'max' => 12
             )
         ));
 

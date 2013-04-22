@@ -4,11 +4,8 @@ $(document).ready(function () {
 	$('a.iframe').each(function () {
 		var url = $(this).attr('href');
 
-		if (url.match(/\?/)) {
-			url += '&phpcan_exit_mode=iframe';
-		} else {
-			url += '?phpcan_exit_mode=iframe';
-		}
+		url += (url.match(/\?/)) ? '&' : '?';
+		url += 'phpcan_exit_mode=iframe';
 
 		$(this).colorbox({
 			href: url,
@@ -63,7 +60,11 @@ $(document).ready(function () {
 
 	$('select#menu-languages').selectmenu({
 		change: function (event, ui) {
-			document.location = $(this).data('url') + '?phpcan_action[language]=' + ui.value;
+			var url = $(this).data('url');
+
+			url += (url.match(/\?/)) ? '&' : '?';
+
+			document.location = url + 'phpcan_action[language]=' + ui.value;
 		}
 	});
 });

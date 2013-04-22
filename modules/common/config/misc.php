@@ -21,7 +21,7 @@ $config['exit_modes'] = array(
     ),
     'iframe' => array(
         'lock' => true,
-        'action_redirect' => false,
+        'action_redirect' => true,
         'header' => 'Content-Type: text/html'
     )
 );
