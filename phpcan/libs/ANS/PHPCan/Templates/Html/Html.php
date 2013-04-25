@@ -83,11 +83,11 @@ class Html
     }
 
     /**
-     * public function time (string/array $time, [string $text], [string/array $format])
+     * public function time (string/array $time, [string $text], [string/array $format], [string $title])
      *
      * Return string
      */
-     public function time ($time, $text = '', $format = 'default')
+     public function time ($time, $text = '', $format = 'default', $title = null)
      {
         $params = array();
 
@@ -95,9 +95,10 @@ class Html
             $params = $time;
             $time = $params['time'];
             $text = isset($params['text']) ? $params['text'] : $text;
+            $title = isset($params['title']) ? $params['title'] : $title;
             $format = isset($params['format']) ? $params['format'] : $format;
 
-            unset($params['time'], $params['text'], $params['format']);
+            unset($params['time'], $params['text'], $params['format'], $params['title']);
         }
 
         $Datetime = getDatetimeObject($time);
@@ -117,7 +118,11 @@ class Html
             }
         }
 
-        $params['title'] = $Datetime->__format('absolute');
+        if ($title === null) {
+            $params['title'] = $Datetime->__format('absolute');
+        } else {
+            $params['title'] = sprintf($title, $Datetime->__format('absolute'));
+        }
 
         return '<time'.$this->params($params).'>'.$text.'</time>';
     }
