@@ -12,19 +12,26 @@ namespace ANS\PHPCan;
 defined('ANS') or die();
 
 class Loader {
+    static private $loaded = false;
     static private $classes = array();
     static private $namespaces = array();
 
     /**
-     * static public function register ()
+     * static public function register (string $path)
      *
      * Installs this class loader on the SPL autoload stack.
      */
-    static public function register ()
+    static public function register ($path)
     {
-        spl_autoload_register(__NAMESPACE__.'\\Loader::autoload');
+        if (self::$loaded === false) {
+            self::$loaded = spl_autoload_register(__NAMESPACE__.'\\Loader::autoload');
+        }
 
-        $default = include (LIBS_PATH.'autoload.php');
+        if (!is_file($path.'autoload.php')) {
+            return false;
+        }
+
+        $default = include ($path.'autoload.php');
 
         self::registerClass($default['classes']);
         self::registerNamespace($default['namespaces']);
@@ -73,12 +80,14 @@ class Loader {
             return require (SCENE_PATH.'libs/'.$file);
         } else {
             foreach (self::$namespaces as $ns => $path) {
-                if (strpos($namespace, $ns) === 0) {
-                    $namespace_file = preg_replace('#[\\\/]+#', '/', $path.'/'.$namespace.'/'.basename($file));
+                if (strpos($namespace, $ns) !== 0) {
+                    continue;
+                }
 
-                    if (is_file($namespace_file)) {
-                        return require ($namespace_file);
-                    }
+                $namespace_file = preg_replace('#[\\\/]+#', '/', ($path.'/'.$file));
+
+                if (is_file($namespace_file)) {
+                    return require ($namespace_file);
                 }
             }
         }

@@ -42,7 +42,7 @@ define('LIBS_PATH', PHPCAN_PATH.'libs/');
 require (LIBS_PATH.'ANS/PHPCan/functions.php');
 require (LIBS_PATH.'ANS/PHPCan/Loader.php');
 
-Loader::register();
+Loader::register(LIBS_PATH);
 
 $Debug = new \ANS\PHPCan\Debug;
 $Config = new \ANS\PHPCan\Config('Config');
