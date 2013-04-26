@@ -23,6 +23,11 @@ class Loader {
     static public function register ()
     {
         spl_autoload_register(__NAMESPACE__.'\\Loader::autoload');
+
+        $default = include (LIBS_PATH.'autoload.php');
+
+        self::registerClass($default['classes']);
+        self::registerNamespace($default['namespaces']);
     }
 
     /**
@@ -69,7 +74,7 @@ class Loader {
         } else {
             foreach (self::$namespaces as $ns => $path) {
                 if (strpos($namespace, $ns) === 0) {
-                    $namespace_file = preg_replace('#[\\\/]+#', '/', $path.preg_replace('#^'.preg_quote($ns).'#', '', $namespace).'/').basename($file);
+                    $namespace_file = preg_replace('#[\\\/]+#', '/', $path.'/'.$namespace.'/'.basename($file));
 
                     if (is_file($namespace_file)) {
                         return require ($namespace_file);

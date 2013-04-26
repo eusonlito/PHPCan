@@ -95,9 +95,13 @@ foreach ($files as $files_value) {
         $Vars->var = array_merge($Vars->var, $query);
     }
 
-    if (!is_file($file)) {
-        if (defined('DEV') && DEV && in_array($ext, array('jpg', 'jpeg', 'gif', 'png'))) {
-            $file = filePath('common|default/images/'.rand(1, 5).'.jpg');
+    if (is_file($file) !== true) {
+        if (in_array($ext, array('jpg', 'jpeg', 'gif', 'png'), true)) {
+            if (defined('DEV') && DEV) {
+                $file = filePath('common|default/images/'.rand(1, 5).'.jpg');
+            } else {
+                die();
+            }
         } else {
             echo "\n".'/* '.__('File %s doesn\'t exists', fileWeb($files_value)).' */';
             continue;
