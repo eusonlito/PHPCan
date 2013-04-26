@@ -28,12 +28,12 @@ In Starting with phpCan you can learn the basics of this framework: how to insta
 Installation
 --------
 
-You can download full project with git command and install all dependencies using <a href="http://getcomposer.org/">Composer</a>:
+You can download full project with git commands:
 
     $ git clone git://github.com/eusonlito/PHPCan.git phpcan
     $ cd phpcan
-    $ curl -s https://getcomposer.org/installer | php
-    $ php composer.phar update
+    $ git submodule init
+    $ git submodule update
 
 Now you can start to use PHPCan from your local URL http://localhost/phpcan/
 
