@@ -1,0 +1,15 @@
+[submodule "libs/ANS/Cache"]
+        path = libs/ANS/Cache
+        url = git://github.com/eusonlito/Cache.git
+[submodule "libs/stylecow/stylecow"]
+        path = libs/stylecow/stylecow
+        url = git://github.com/oscarotero/stylecow.git
+[submodule "libs/imagecow/imagecow"]
+        path = libs/imagecow/imagecow
+        url = git://github.com/oscarotero/imageCow.git
+[submodule "libs/fzaninotto/faker"]
+        path = libs/fzaninotto/faker
+        url = git://github.com/fzaninotto/fzaninotto.github.com.git
+[submodule "libs/phpmailer/phpmailer"]
+        path = libs/phpmailer/phpmailer
+        url = git://github.com/PHPMailer/PHPMailer.git
