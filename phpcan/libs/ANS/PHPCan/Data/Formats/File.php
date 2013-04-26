@@ -202,7 +202,7 @@ class File extends Formats implements Iformats
         if (!($saved_file_name = $File->save($value, $settings['base_path'].$settings['uploads'].$settings['subfolder'], $new_name))) {
             $this->error[$subformat] = __('Error storing the new file for field "%s"', __($this->name));
 
-            return false;
+            return $settings['default'] ? array($subformat => $settings['default']) : false;
         }
 
         return preg_replace('#^'.$settings['base_path'].$settings['uploads'].$settings['subfolder'].'#', '', $saved_file_name);
