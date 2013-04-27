@@ -8,19 +8,39 @@
 */
 defined('ANS') or die();
 
-//phpCan version
 define('PHPCAN_VERSION', '1.2');
+define('METHOD', php_sapi_name());
 define('OS', stripos(PHP_OS, 'win') === false ? 'UNIX' : 'WIN');
 
-//Base paths
-define('SERVER_NAME', getenv('SERVER_NAME') ?: 'localhost');
+define('BASE_PATH', preg_replace('#[/\\\]+#', '/', dirname(__DIR__).'/'));
+define('PHPCAN_PATH', BASE_PATH.'phpcan/');
+define('LIBS_PATH', PHPCAN_PATH.'libs/');
+
+require (LIBS_PATH.'ANS/PHPCan/functions.php');
+
+if (METHOD === 'cli') {
+    $params = cliParams();
+
+    if (empty($params['domain']) || empty($params['route'])) {
+        throw new Exception('domain and route parameters are required');
+    }
+
+    define('SERVER_NAME', $params['domain']);
+
+    putenv('SERVER_NAME='.SERVER_NAME);
+    putenv('DOCUMENT_ROOT='.dirname(__DIR__).'/');
+    putenv('REQUEST_URI='.$params['route'].($_GET ? ('?'.http_build_query($_GET)) : ''));
+
+    unset($params);
+} else {
+    define('SERVER_NAME', getenv('SERVER_NAME') ?: 'localhost');
+}
+
 define('DOMAIN_CONFIG_PATH', SERVER_NAME.'/');
 define('DEFAULT_CONFIG_PATH', 'default/');
 define('MODULE_WWW_SUBFOLDER', 'admin');
 define('DOCUMENT_ROOT', preg_replace('#[/\\\]+#', '/', realpath(getenv('DOCUMENT_ROOT'))));
-define('BASE_PATH', preg_replace('#[/\\\]+#', '/', dirname(__DIR__).'/'));
 define('BASE_WWW', preg_replace('|^'.DOCUMENT_ROOT.'|i', '', BASE_PATH));
-define('PHPCAN_PATH', BASE_PATH.'phpcan/');
 
 if (str_replace(BASE_WWW, '', getenv('REQUEST_URI')) && is_dir(DOCUMENT_ROOT.getenv('REQUEST_URI'))) {
     $indexes = glob(DOCUMENT_ROOT.getenv('REQUEST_URI').'index.*');
@@ -36,10 +56,6 @@ if (str_replace(BASE_WWW, '', getenv('REQUEST_URI')) && is_dir(DOCUMENT_ROOT.get
 
 use ANS\PHPCan\Loader;
 
-define('LIBS_PATH', PHPCAN_PATH.'libs/');
-
-//Include basic functions and classes
-require (LIBS_PATH.'ANS/PHPCan/functions.php');
 require (LIBS_PATH.'ANS/PHPCan/Loader.php');
 
 Loader::register(LIBS_PATH);

@@ -9,6 +9,60 @@
 
 defined('ANS') or die();
 
+/**
+ * function cliParams (void)
+ *
+ * Generate an array from client execution params
+ * 
+ * return array
+ */
+function cliParams () {
+    $params = getopt('d:r:g:p:f:', array(
+        'domain:',
+        'route:',
+        'get:',
+        'post:',
+        'files:'
+    ));
+
+    if (empty($params)) {
+        return array();
+    }
+
+    $return = array();
+
+    foreach ($params as $key => $value) {
+        switch ($key) {
+            case 'd':
+            case 'domain':
+                $return['domain'] = $value;
+                continue 2;
+
+            case 'r':
+            case 'route':
+                $return['route'] = $value;
+                continue 2;
+
+            case 'g':
+            case 'get':
+                parse_str($value, $_GET);
+                continue 2;
+
+            case 'p':
+            case 'post':
+                parse_str($value, $_POST);
+                continue 2;
+
+            case 'f':
+            case 'files':
+                parse_str($value, $_FILES);
+                continue 2;
+        }
+    }
+
+    return $return;
+}
+
 /*
  * function __ ($text, [$args = null], [$null = false], [$settings = array])
  *
