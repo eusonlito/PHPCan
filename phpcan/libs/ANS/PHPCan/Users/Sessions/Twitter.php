@@ -554,6 +554,9 @@ class Twitter implements Isession {
         if ($name) {
             return $Vars->deleteCookie($settings['name'].'-'.$name);
         } else {
+            $this->deleteCookie('data');
+            $this->deleteCookie('control');
+
             foreach (array_keys($_COOKIE) as $name) {
                 if (strstr($name, $settings['name'])) {
                     $Vars->deleteCookie($name);

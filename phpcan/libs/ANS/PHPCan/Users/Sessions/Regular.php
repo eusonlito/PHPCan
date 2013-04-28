@@ -567,6 +567,8 @@ class Regular implements Isession
         if ($name) {
             return $Vars->deleteCookie($this->settings['name'].'-'.$name);
         } else {
+            $this->deleteCookie('data');
+
             foreach (array_keys($_COOKIE) as $name) {
                 if (strstr($name, $this->settings['name'])) {
                     $Vars->deleteCookie($name);
