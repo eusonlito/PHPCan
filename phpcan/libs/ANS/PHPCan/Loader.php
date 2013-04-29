@@ -15,6 +15,7 @@ class Loader {
     static private $loaded = false;
     static private $classes = array();
     static private $namespaces = array();
+    static private $composer = array();
 
     /**
      * static public function register (string $path)
@@ -27,11 +28,11 @@ class Loader {
             self::$loaded = spl_autoload_register(__NAMESPACE__.'\\Loader::autoload');
         }
 
-        if (!is_file($path.'autoload.php')) {
+        if (!is_file($path.'clases-namespaces.php')) {
             return false;
         }
 
-        $default = include ($path.'autoload.php');
+        $default = include ($path.'clases-namespaces.php');
 
         self::registerClass($default['classes']);
         self::registerNamespace($default['namespaces']);
@@ -145,20 +146,12 @@ class Loader {
     {
         $path = $path ?: LIBS_PATH;
 
-        $file = $path.'composer/autoload_classmap.php';
-
-        if (is_file($file)) {
-            self::registerClass(include($file));
+        if (isset($this->composer[$path])) {
+            return true;
         }
 
-        $file = $path.'composer/autoload_namespaces.php';
-
-        if (is_file($file)) {
-            foreach (include($file) as $namespace => $path) {
-                if ($namespace !== '') {
-                    self::registerNamespace($namespace, $path.'/'.$namespace.'/');
-                }
-            }
+        if (is_file($path.'autoload.php')) {
+            $this->composer[$path] = include_once ($path.'autoload.php');
         }
     }
 }
