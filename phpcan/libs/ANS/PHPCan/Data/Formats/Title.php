@@ -78,9 +78,21 @@ class Title extends Formats implements Iformats
 
     public function randomValue ()
     {
-        $length = $this->settings['url']['length_auto'];
+        $settings = $this->settings['url'];
 
-        return strtolower(substr(md5(uniqid()), rand(0, 32 - $length), $length));
+        if ($settings['min'] === $settings['max']) {
+            $length = $settings['min'];
+        } else {
+            $length = rand($settings['min'], $settings['max']);
+        }
+
+        $strlen = strlen(self::CHARS);
+
+        for ($string = '', $i = 0; $i < $length; ++$i) {
+            $string .= substr(self::CHARS, rand(0, $strlen - 1), 1);
+        }
+
+        return $string;
     }
 
     public function settings ($settings)
@@ -89,16 +101,16 @@ class Title extends Formats implements Iformats
             'title' => array(
                 'db_type' => 'varchar',
 
-                'length_max' => 255,
-                'length_min' => ''
+                'length_max' => 255
             ),
             'url' => array(
                 'db_type' => 'varchar',
 
                 'unique' => $this->name,
-                'length_auto' => 12,
                 'length_max' => 255,
-                'length_min' => ''
+
+                'min' => 12,
+                'max' => 12
             )
         ));
 

@@ -203,7 +203,11 @@ class Regular implements Isession
 
         if (empty($user_data)) {
             $this->Errors->set($settings['errors'], __('No data are received'));
+            return false;
+        }
 
+        if (empty($user_data[$settings['user_field']])) {
+            $this->Errors->set($settings['errors'], __('The user field is required!'));
             return false;
         }
 
@@ -214,18 +218,15 @@ class Regular implements Isession
 
             if ($exists) {
                 $this->Errors->set($settings['errors'], __('Sorry but there is already someone registered with that %s', __($settings['user_field'])));
-
                 return false;
             }
         }
 
         if ($clean_password !== $clean_password_repeat) {
             $this->Errors->set($settings['errors'], __('Password and repeat password are differents'));
-
             return false;
         } else if (strlen($clean_password) < 6) {
             $this->Errors->set($settings['errors'], __('Password length must be %s characters at least', 6));
-
             return false;
         }
 
@@ -279,7 +280,6 @@ class Regular implements Isession
 
         if (empty($user)) {
             $this->Errors->set($settings['errors'], __('User not exists'));
-
             return false;
         }
 
@@ -335,19 +335,16 @@ class Regular implements Isession
 
         if (empty($password)) {
             $this->Errors->set($settings['errors'], __('You need to fill the new password field.'));
-
             return false;
         }
 
         if (strlen($password) < 6) {
             $this->Errors->set($settings['errors'], __('Password length must be %s characters at least', 6));
-
             return false;
         }
 
         if ($password !== $password_repeat) {
             $this->Errors->set($settings['errors'], __('Password and password repeat don\'t match.'));
-
             return false;
         }
 
@@ -358,7 +355,6 @@ class Regular implements Isession
 
         if (empty($user)) {
             $this->Errors->set($settings['errors'], __('User not exists'));
-
             return false;
         }
 
@@ -477,26 +473,23 @@ class Regular implements Isession
     }
 
     /*
-    * public function unsubscribeUser (void)
+    * public function unsubscribeUser ([$data = array()])
     *
-    * Function to disable user accout. All user info will be cleaned and
-    * the username will be updated with a generic value
+    * Function to disable user accout. All user info should be cleaned and
+    * the username should be updated with a generic value
     *
     * return boolean
     */
-    public function unsubscribeUser ()
+    public function unsubscribeUser ($data = array())
     {
-        global $Db;
-
         $settings = $this->settings;
-        $data = array();
 
         if ($settings['unsubscribe_field']) {
             $data[$settings['unsubscribe_field']] = 1;
         }
 
         if ($settings['unsubscribe_date_field']) {
-            $data[$settings['unsubscribe_date_field']] = 1;
+            $data[$settings['unsubscribe_date_field']] = date('Y-m-d H:i:s');
         }
 
         if ($settings['enabled_field']) {
@@ -507,11 +500,13 @@ class Regular implements Isession
             return true;
         }
 
+        global $Db, $Session;
+
         return $Db->update(array(
             'table' => $settings['table'],
             'data' => $data,
             'conditions' => array(
-                'id' => $this->user('id')
+                'id' => $Session->user('id')
             ),
             'limit' => 1
         ));

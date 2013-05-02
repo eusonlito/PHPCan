@@ -233,12 +233,10 @@ class Facebook implements Isession {
             $save_info[$settings['raw_field']] = base64_encode(serialize($this->facebook));
         }
 
-        $Db->insert(array(
+        return $Db->insert(array(
             'table' => $settings['table'],
             'data' => $save_info
         ));
-
-        return true;
     }
 
     /*
@@ -355,26 +353,25 @@ class Facebook implements Isession {
     }
 
     /*
-    * public function unsubscribeUser (void)
+    * public function unsubscribeUser ([$data = array()])
     *
-    * Function to disable user accout. All user info will be cleaned and
-    * the username will be updated with a generic value
+    * Function to disable user accout. All user info should be cleaned and
+    * the username should be updated with a generic value
     *
     * return boolean
     */
-    public function unsubscribeUser ()
+    public function unsubscribeUser ($data = array())
     {
         global $Db;
 
         $settings = $this->settings;
-        $data = array();
 
         if ($settings['unsubscribe_field']) {
             $data[$settings['unsubscribe_field']] = 1;
         }
 
         if ($settings['unsubscribe_date_field']) {
-            $data[$settings['unsubscribe_date_field']] = 1;
+            $data[$settings['unsubscribe_date_field']] = date('Y-m-d H:i:s');
         }
 
         if ($settings['enabled_field']) {
