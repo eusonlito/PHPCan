@@ -29,6 +29,7 @@ $config['cache'] = array(
             'expire' => 0, // 3600 * 24 * 30,
             'interface' => 'files',
             'folder' => filePath('phpcan/cache|css'),
+            'minify' => true,
             'compress' => true,
             'pack' => true
         ),
@@ -49,6 +50,7 @@ $config['cache'] = array(
             'expire' => 0, // 3600 * 24 * 30,
             'interface' => 'files',
             'folder' => filePath('phpcan/cache|js'),
+            'minify' => true,
             'compress' => true,
             'pack' => true
         ),

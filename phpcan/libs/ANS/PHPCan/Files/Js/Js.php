@@ -70,16 +70,18 @@ class Js extends JSMin {
             $settings = 'js';
         }
 
-        if (is_string($settings) && $Config->config[$settings]) {
-            $this->settings = $Config->$settings;
+        if (is_string($settings)) {
+            if ($Config->config[$settings]) {
+                $this->settings = $Config->config[$settings];
+            }
+
+            if ($this->Cache && is_array($Config->cache['types'][$settings])) {
+                $this->settings['cache'] = $Config->cache['types']['css'];
+            } else {
+                $this->settings['cache'] = array();
+            }
         } else if (is_array($settings)) {
             $this->settings = $settings;
-        }
-
-        if ($this->Cache && is_array($Config->cache['types'][$settings])) {
-            $this->settings['cache'] = $Config->cache['types'][$settings];
-        } else {
-            $this->settings['cache'] = array();
         }
 
         return $this->settings;

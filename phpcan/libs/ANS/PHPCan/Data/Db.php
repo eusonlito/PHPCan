@@ -1865,7 +1865,7 @@ class Db
     private function putCache ($query_key, $operations, $result)
     {
         if (empty($this->Cache)) {
-            return false;
+            return $result;
         }
 
         $expire = is_integer($operations['cache']) ? $operations['cache'] : null;

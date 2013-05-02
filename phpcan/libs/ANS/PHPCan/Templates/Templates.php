@@ -98,7 +98,7 @@ class Templates
     */
     public function putCache ($key, $contents, $expire = null)
     {
-        return $this->Cache ? $this->Cache->set($this->getCacheKey($key), $contents, $expire) : false;
+        return $this->Cache ? $this->Cache->set($this->getCacheKey($key), $contents, $expire) : $contents;
     }
 
     /**

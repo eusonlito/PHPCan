@@ -68,6 +68,8 @@ if (($ext === 'css') || ($ext === 'js')) {
 if ($ext === 'css') {
     $Config->load('css.php');
     $Css = new \ANS\PHPCan\Files\Css\Css;
+} else if ($ext === 'js') {
+    $Js = new \ANS\PHPCan\Files\Js\Js;
 }
 
 foreach ($files as $files_value) {
@@ -142,10 +144,12 @@ foreach ($files as $files_value) {
         case 'js':
             echo "\n";
 
-            if ($dynamic) {
-                include ($file);
-            } else {
-                echo file_get_contents($file);
+            if (!$Js->showCached($file, false, false)) {
+                if ($dynamic) {
+                    echo $Js->load($file)->process()->toString();
+                } else {
+                    echo $Js->load($file)->toString();
+                }
             }
 
             break;
