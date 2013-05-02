@@ -54,6 +54,54 @@ class Templates
     }
 
     /**
+    * private function getCacheKey (array $key)
+    *
+    * Return the generated query key
+    *
+    * return boolean
+    */
+    private function getCacheKey ($key)
+    {
+        return md5('templates-'.(string)$key);
+    }
+
+    /**
+    * private function existsCache (string $key)
+    *
+    * Check if this query is cached
+    *
+    * return boolean
+    */
+    public function existsCache ($key)
+    {
+        return $this->Cache ? $this->Cache->exists($this->getCacheKey($key)) : false;
+    }
+
+    /**
+    * private function getCache (string $key, array $operations)
+    *
+    * Get a query from cache
+    *
+    * return boolean
+    */
+    public function getCache ($key)
+    {
+        return $this->Cache ? $this->Cache->get($this->getCacheKey($key)) : false;
+    }
+
+    /**
+    * private function putCache (string $key, string $contents, [integer $expire = null])
+    *
+    * Set a query in cache
+    *
+    * return boolean
+    */
+    public function putCache ($key, $contents, $expire = null)
+    {
+        return $this->Cache ? $this->Cache->set($this->getCacheKey($key), $contents, $expire) : false;
+    }
+
+    /**
      * public function file (string $template, [boolean $empty_template], [boolean $debug])
      *
      * Load a template

@@ -51,7 +51,7 @@ if (($ext === 'css') || ($ext === 'js')) {
 
     if ($settings['expire'] && $settings['interface']) {
         $cache = $settings['expire'];
-        $key = md5(serialize($files));
+        $key = md5($ext.'-'.serialize($files));
 
         header('Expires: '.gmdate('D, d M Y H:i:s', (time() + $cache).' GMT'));
 

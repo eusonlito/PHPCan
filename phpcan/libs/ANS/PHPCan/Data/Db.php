@@ -1813,7 +1813,7 @@ class Db
     private function getQueryKey ($operations)
     {
         if ($this->Cache) {
-            return md5(serialize($operations));
+            return md5('db-'.serialize($operations));
         }
     }
 

@@ -140,7 +140,7 @@ class Config implements \ArrayAccess, \Iterator, \Countable
             }
         }
 
-        $cache_key = md5(serialize($includes).$prefix);
+        $cache_key = md5('config-'.serialize($includes).$prefix);
 
         if ($this->Cache && $this->Cache->exists($cache_key)) {
             $config = $this->Cache->get($cache_key);
