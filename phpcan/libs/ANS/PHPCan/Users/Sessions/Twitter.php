@@ -350,22 +350,14 @@ class Twitter implements Isession {
 
         global $Db, $Session;
 
-        $query = array(
+        return $Db->update(array(
             'table' => $settings['table'],
-            'data' => $save_info,
+            'data' => $data,
             'conditions' => array(
                 'id' => $Session->user('id')
             ),
             'limit' => 1
-        );
-
-        $ok = $Db->update($query);
-
-        if (empty($ok)) {
-            $this->error = __('Error_saving_data');
-        }
-
-        return true;
+        ));
     }
 
     /**
@@ -443,8 +435,6 @@ class Twitter implements Isession {
     */
     public function unsubscribeUser ($data = array())
     {
-        global $Db;
-
         $settings = $this->settings;
 
         if ($settings['unsubscribe_field']) {
@@ -463,11 +453,13 @@ class Twitter implements Isession {
             return true;
         }
 
+        global $Db, $Session;
+
         return $Db->update(array(
             'table' => $settings['table'],
             'data' => $data,
             'conditions' => array(
-                'id' => $this->user('id')
+                'id' => $Session->user('id')
             ),
             'limit' => 1
         ));

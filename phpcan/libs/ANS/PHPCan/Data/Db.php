@@ -253,12 +253,14 @@ class Db
     */
     private function error ($message, $fatal = false)
     {
-        $this->Debug->e($message);
-
         $this->Errors->set('db', $message);
 
         if ($fatal) {
             $this->Debug->fatalError($message);
+        }
+
+        if ($this->Debug->canPrint()) {
+            die($this->Debug->e($message));
         }
 
         return false;

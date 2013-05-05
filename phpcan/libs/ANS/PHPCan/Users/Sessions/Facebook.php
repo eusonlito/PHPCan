@@ -362,8 +362,6 @@ class Facebook implements Isession {
     */
     public function unsubscribeUser ($data = array())
     {
-        global $Db;
-
         $settings = $this->settings;
 
         if ($settings['unsubscribe_field']) {
@@ -382,11 +380,13 @@ class Facebook implements Isession {
             return true;
         }
 
+        global $Db, $Session;
+
         return $Db->update(array(
             'table' => $settings['table'],
             'data' => $data,
             'conditions' => array(
-                'id' => $this->user('id')
+                'id' => $Session->user('id')
             ),
             'limit' => 1
         ));

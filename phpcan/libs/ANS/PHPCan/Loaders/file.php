@@ -16,7 +16,7 @@ if ($Vars->var['packed']) {
     $files = inflate64($Vars->var['packed']);
 
     if (empty($files)) {
-        die('/* '.__('File %s doesn\'t exists', $files).' */');
+        die('/* <!-- '.__('File doesn\'t exists').' --> */');
     } else if (is_array($files)) {
         $files = array_unique($files);
     }
@@ -105,7 +105,7 @@ foreach ($files as $files_value) {
                 die();
             }
         } else {
-            echo "\n".'/* '.__('File %s doesn\'t exists', fileWeb($files_value)).' */';
+            echo "\n".'/* <!-- '.__('File %s doesn\'t exists', fileWeb($files_value)).' --> */';
             continue;
         }
     }
