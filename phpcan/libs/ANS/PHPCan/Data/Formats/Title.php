@@ -13,6 +13,8 @@ defined('ANS') or die();
 
 class Title extends Formats implements Iformats
 {
+    const CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
     public $format = 'title';
 
     public function check ($value)
