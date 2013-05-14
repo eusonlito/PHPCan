@@ -275,7 +275,7 @@ class Vars
 
         $return = $this->_get($vars, $this->var, $def_filter);
 
-        if (is_array($vars) || $vars === ':num') {
+        if (is_array($vars) || ($vars === ':num')) {
             return (array)$return;
         }
 
