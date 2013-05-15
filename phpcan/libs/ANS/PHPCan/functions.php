@@ -1055,17 +1055,19 @@ function is_https ()
  */
 function host ()
 {
+    $port = intval(getenv('SERVER_PORT'));
+
     if (is_https()) {
         $host = 'https://'.SERVER_NAME;
 
-        if (getenv('SERVER_PORT') != 443) {
-            $host .= ':'.getenv('SERVER_PORT');
+        if ($port && ($port !== 443)) {
+            $host .= ':'.$port;
         }
     } else {
         $host = 'http://'.SERVER_NAME;
 
-        if (getenv('SERVER_PORT') != 80) {
-            $host .= ':'.getenv('SERVER_PORT');
+        if ($port && ($port !== 80)) {
+            $host .= ':'.$port;
         }
     }
 
