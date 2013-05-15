@@ -345,20 +345,14 @@ class Html
             );
         }
 
-        if (empty($params['src'])) {
-            return '';
+        if ($params['src']) {
+            $params['src'] = $this->imgSrc($params);
         }
-
-        //Params optimization
-        $params['src'] = $this->imgSrc($params);
 
         unset($params['transform'], $params['host']);
 
-        if (empty($params['alt'])) {
-            $params['alt'] = '';
-        }
+        $params['alt'] = isset($params['alt']) ? $params['alt']  : '';
 
-        //base64
         if ($params['base64']) {
             $cache = $this->settings['cache']['expire'];
             $cache = ($cache && $this->Cache) ? $cache : false;

@@ -14,7 +14,10 @@ defined('ANS') or die();
 
 <form action="<?php echo path(); ?>" method="post" class="content">
     <fieldset>
+        <?php foreach ($contents as $base => $folders) { ?>
         <table>
+            <caption><?php __e($base); ?></caption>
+
             <thead>
                 <tr>
                     <th><?php __e('Folder'); ?></th>
@@ -25,24 +28,25 @@ defined('ANS') or die();
             </thead>
 
             <tbody>
-                <?php foreach ($folders as $folders_key => $folders_value): ?>
+                <?php foreach ($folders as $key => $value) { ?>
                 <tr>
-                    <td><label for="<?php echo $folders_key; ?>" class="inline-block"><?php echo $folders_key; ?></label></td>
-                    <td><label for="<?php echo $folders_key; ?>" class="inline-block"><?php echo $folders_value['files']; ?></label></td>
-                    <td><label for="<?php echo $folders_key; ?>" class="inline-block"><?php echo $folders_value['size']; ?></label></td>
+                    <td><label for="<?php echo $base.'-'.$key; ?>" class="inline-block"><?php echo $key; ?></label></td>
+                    <td><label for="<?php echo $base.'-'.$key; ?>" class="inline-block"><?php echo $value['files']; ?></label></td>
+                    <td><label for="<?php echo $base.'-'.$key; ?>" class="inline-block"><?php echo $value['size']; ?></label></td>
 
                     <td class="actions"><?php
                         echo $Form->checkbox(array(
                             'name' => 'selected[]',
-                            'id' => $folders_key,
-                            'value' => $folders_key,
+                            'id' => ($base.'-'.$key),
+                            'value' => ($base.'-'.$key),
                             'force' => false
                         ));
                     ?></td>
                 </tr>
-                <?php endforeach; ?>
+                <?php } ?>
             </tbody>
         </table>
+        <?php } ?>
     </fieldset>
 
     <footer>

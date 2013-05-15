@@ -1,29 +1,28 @@
 <?php
 defined('ANS') or die();
 
-$folders = array();
-$total = array('size' => 0, 'files' => 0);
-$cache_path = filePath($Config->phpcan_paths['cache']);
+$contents = array();
+$folders = array(
+    'phpcan' => BASE_PATH.$Config->phpcan_paths['cache'],
+    'scene' => SCENE_PATH.$Config->scene_paths['cache']
+);
 
-foreach ((array) glob($cache_path.'*') as $folder) {
-    if (!is_dir($folder)) {
-        continue;
+foreach ($folders as $base => $path) {
+    $contents[$base] = array();
+
+    foreach (glob($path.'*', GLOB_ONLYDIR) as $folder) {
+        $Current = new \RecursiveDirectoryIterator($folder);
+
+        $folder = basename($folder);
+        $contents[$base][$folder] = array();
+
+        foreach (new \RecursiveIteratorIterator($Current) as $Info) {
+            $contents[$base][$folder]['size'] += $Info->getSize();
+            ++$contents[$base][$folder]['files'];
+        }
+
+        $contents[$base][$folder]['size'] = humanSize($contents[$base][$folder]['size']);
     }
-
-    $Current = new \RecursiveDirectoryIterator($folder);
-
-    $folder = basename($folder);
-    $folders[$folder] = array();
-
-    foreach (new \RecursiveIteratorIterator($Current) as $Info) {
-        $folders[$folder]['size'] += $Info->getSize();
-        ++$folders[$folder]['files'];
-    }
-
-    $total['size'] += $folders[$folder]['size'];
-    $total['files'] += $folders[$folder]['files'];
-
-    $folders[$folder]['size'] = humanSize($folders[$folder]['size']);
 }
 
-$total['size'] = humanSize($total['size']);
+$contents = array_filter($contents);

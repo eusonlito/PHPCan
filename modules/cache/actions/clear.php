@@ -1,26 +1,25 @@
 <?php
 defined('ANS') or die();
 
-if (!$Vars->var['selected'] || !is_array($Vars->var['selected'])) {
+if (empty($Vars->var['selected']) || !is_array($Vars->var['selected'])) {
     return false;
 }
 
 $Files = new \ANS\PHPCan\Files\File('File');
 
 $ok = 0;
-$folders = array();
-$cache_path = filePath($Config->phpcan_paths['cache']);
 
-foreach (glob($cache_path.'*') as $folder) {
-    if (is_dir($folder)) {
-        $folders[] = basename($folder);
-    }
-}
+$folders = array(
+    'phpcan' => BASE_PATH.$Config->phpcan_paths['cache'],
+    'scene' => SCENE_PATH.$Config->scene_paths['cache']
+);
 
-foreach ($Vars->var['selected'] as $selected) {
-    if (in_array($selected, $folders)) {
-        if ($Files->delete($cache_path.$selected)) {
-            ++$ok;
+foreach ($folders as $base => $path) {
+    foreach (glob($path.'*', GLOB_ONLYDIR) as $folder) {
+        if (in_array($base.'-'.basename($folder), $Vars->var['selected'], true)) {
+            if ($Files->delete($folder)) {
+                ++$ok;
+            }
         }
     }
 }
