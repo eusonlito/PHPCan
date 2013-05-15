@@ -10,7 +10,7 @@ Options -Indexes
 
 	RewriteCond %{REQUEST_FILENAME} -f
 	RewriteRule . - [S=2]
-	RewriteRule ^(.*(\/))?\$.*$ file.php [L,QSA]
+	RewriteRule /_(.*?)_/ file.php [L,QSA]
 	RewriteRule ^.*$ index.php [L,QSA]
 </IfModule>
 

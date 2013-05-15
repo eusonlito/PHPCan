@@ -199,11 +199,11 @@ function path ()
             if ($options['module'] && $Config->scenes[$options['scene']]['modules'][$options['module']]) {
                 $path .= (($Config->scenes[$options['scene']]['modules'][$options['module']]) ? MODULE_WWW_SUBFOLDER.'/'.$options['module'].'/' : '');
             }
-        } else if ($Vars->getModule()) {
-            $path .= MODULE_WWW_SUBFOLDER.'/'.$Vars->getModule().'/';
+        } else if (MODULE_NAME) {
+            $path .= MODULE_WWW_SUBFOLDER.'/'.MODULE_NAME.'/';
         }
     } else {
-        $path = $Vars->getModule() ? MODULE_WWW : SCENE_WWW;
+        $path = MODULE_NAME ? MODULE_WWW : SCENE_WWW;
     }
 
     if (($Config->languages['detect'] === 'subfolder') && is_array($Config->languages['availables'])) {
@@ -321,7 +321,7 @@ function filePath ($path)
 
     preg_match('#(([\w-]+)/)?([\w-]+)(\|(.*))?#', $path, $matches);
 
-    $context = $matches[2] ? $matches[2] : ($Vars->getModule() ? 'module' : 'scene');
+    $context = $matches[2] ? $matches[2] : (MODULE_NAME ? 'module' : 'scene');
     $basedir = $matches[3];
     $path = $matches[5];
 
@@ -357,16 +357,12 @@ function fileWeb ($path, $dynamic = false, $host = false)
 
     preg_match('#(([\w-]+)/)?([\w-]+)(\|(.*))?#', $path, $matches);
 
-    $context = $matches[2] ? $matches[2] : ($Vars->getModule() ? 'module' : 'scene');
+    $context = $matches[2] ? $matches[2] : (MODULE_NAME ? 'module' : 'scene');
     $basedir = $matches[3];
     $path = $matches[5];
 
     if ($dynamic) {
-        if (strpos($path, '$') === false) {
-            $path = '$'.$path;
-        }
-
-        if ($Vars->getModule()) {
+        if (MODULE_NAME) {
             $location = MODULE_WWW.$context.'/'.$basedir.'/';
         } else {
             $location = SCENE_WWW.$context.'/'.$basedir.'/';
@@ -380,6 +376,64 @@ function fileWeb ($path, $dynamic = false, $host = false)
     }
 
     return $host.fixPath($location.$path);
+}
+
+function webLinkFromCache ($url)
+{
+    global $Config;
+
+    return WWW.preg_replace('#^'.WWW.$Config->scene_paths['cache'].'#', '', $url);
+}
+
+function createCacheLink ($file, $params = array())
+{
+    global $Config;
+
+    $query = '';
+
+    if ($params) {
+        $query = '/_'.wordwrap(deflate64($params), 50, '_/_', true).'_/';
+    }
+
+    return preg_replace('#^'.WWW.'#', WWW.SCENE_NAME.'/'.$Config->scene_paths['cache'], dirname($file)).$query.basename($file);
+}
+
+function parseCacheLink ($url)
+{
+    global $Config;
+
+    $url = preg_replace('#^'.WWW.SCENE_NAME.'/'.$Config->scene_paths['cache'].'#', '', $url);
+
+    preg_match_all('#/_(.*?)_(?=/)#', $url, $params);
+
+    $params = array_filter($params[1]);
+
+    if ($params) {
+        $params = inflate64(implode($params));
+    }
+
+    if ($params && $params['files']) {
+        return array($params['files'], $params);
+    } else {
+        return array(array(WWW.preg_replace('#/_(.*?)_(?=/)#', '', $url)), $params);
+    }
+}
+
+function cacheFile ()
+{
+    global $Config;
+
+    $folder = DOCUMENT_ROOT.dirname(REQUEST_URI).'/';
+
+    if (MODULE_NAME) {
+        $folder = preg_replace(
+            '#^'.MODULE_WWW.SCENE_NAME.'/'.$Config->scene_paths['cache'].'module#',
+            SCENE_WWW.SCENE_NAME.'/'.$Config->scene_paths['cache'].MODULE_NAME,
+            $folder
+        );
+    }
+
+    return $folder.basename(REQUEST_URI);
 }
 
 /*

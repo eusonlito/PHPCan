@@ -307,7 +307,7 @@ class Debug
             return true;
         }
 
-        $text = '<?php /*';
+        $text = is_file($log) ? "\n" : '<?php /*';
         $text .= "\n".'-- '.date('Y/m/d H:i:s').' --------------------------'."\n\n";
         $text .= trace();
         $text .= "\n\n".print_r($message, true);

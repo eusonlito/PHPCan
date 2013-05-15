@@ -9,84 +9,53 @@
 
 defined('ANS') or die();
 
-//Set debug settings
 $Debug->setSettings('debug');
 
-if ($Vars->var['packed']) {
-    $files = inflate64($Vars->var['packed']);
+list($files, $params) = parseCacheLink(REQUEST_URI);
 
-    if (empty($files)) {
-        die('/* <!-- '.__('File doesn\'t exists').' --> */');
-    } else if (is_array($files)) {
-        $files = array_unique($files);
-    }
+if (strstr($files[0], '?')) {
+    list($file) = explode('?', $files[0], 2);
 } else {
-    $files = $Vars->path;
-
-    if (is_file(BASE_PATH.implode('/', $files))) {
-        $files = array('/'.implode('/', $files));
-    } else {
-        $context = array_shift($files);
-        $basedir = array_shift($files);
-
-        if (strstr(getenv('REQUEST_URI'), '$') !== false) {
-            $files[0] = '$'.$files[0];
-        }
-
-        $files = array($context.'/'.$basedir.'|'.implode('/', $files));
-    }
+    $file = $files[0];
 }
 
-$cache = false;
-$ext = strtolower(pathinfo($files[0], PATHINFO_EXTENSION));
-
-if (strstr($ext, '?')) {
-    $ext = array_shift(explode('?', $ext));
-}
-
-if (($ext === 'css') || ($ext === 'js')) {
-    header('Content-type: '.($ext === 'css' ? 'text/css' : 'application/javascript'));
-
-    $settings = $Config->cache['types'][$ext];
-
-    if ($settings['expire'] && $settings['interface']) {
-        $cache = $settings['expire'];
-        $key = md5($ext.'-'.serialize($files));
-
-        header('Expires: '.gmdate('D, d M Y H:i:s', (time() + $cache).' GMT'));
-
-        $Cache = new \ANS\Cache\Cache($settings);
-
-        if ($Cache->exists($key)) {
-            die($Cache->get($key));
-        }
-
-        ob_start();
-    }
-}
+$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
 if ($ext === 'css') {
     $Config->load('css.php');
+
     $Css = new \ANS\PHPCan\Files\Css\Css;
+
+    $config = $params['config'];
+    $config = $Config->css[$config] ?: current($Config->css);
 } else if ($ext === 'js') {
     $Js = new \ANS\PHPCan\Files\Js\Js;
 }
 
-foreach ($files as $files_value) {
-    if (($ext === 'css') && strstr($files_value, '://')) {
-        echo "\n".'@import "'.$files_value.'";'."\n";
+ob_start();
+
+foreach ($files as $file) {
+    if (($ext === 'css') && strstr($file, '://')) {
+        echo "\n".'@import "'.$file.'";'."\n";
         continue;
     }
 
-    if (($files_value[0] === '/') && is_file(BASE_PATH.$files_value)) {
-        $file = BASE_PATH.$files_value;
+    if (strstr($file, '|')) {
+        $file = fileWeb($file);
     } else {
-        $file = filePath($files_value);
+        $file = explodeTrim('/', preg_replace('#^'.WWW.'#', '', $file));
+
+        $context = array_shift($file);
+        $basedir = array_shift($file);
+
+        $file = fileWeb($context.'/'.$basedir.'|'.implode('/', $file));
     }
 
-    if ($dynamic = (strstr($files_value, '$') !== false)) {
-        $files_value = str_replace('$', '', $files_value);
+    if (strstr($file, '$') !== false) {
+        $params['dynamic'] = true;
         $file = str_replace('$', '', $file);
+    } else if (array_key_exists('dynamic', $params) !== true) {
+        $params['dynamic'] = false;
     }
 
     if (strstr($file, '?')) {
@@ -94,19 +63,27 @@ foreach ($files as $files_value) {
 
         parse_str($query, $query);
 
-        $Vars->var = array_merge($Vars->var, $query);
+        $params = array_merge($params, $query);
     }
 
-    if (is_file($file) !== true) {
+    $realfile = DOCUMENT_ROOT.$file;
+    $exists = is_file($realfile);
+
+    if ($exists !== true) {
         if (in_array($ext, array('jpg', 'jpeg', 'gif', 'png'), true)) {
-            if (defined('DEV') && DEV) {
-                $file = filePath('common|default/images/'.rand(1, 5).'.jpg');
-            } else {
+            if ((defined('DEV') !== true) || (DEV !== true)) {
+                header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+                header('Status: 404 Not Found');
+
                 die();
             }
-        } else {
-            echo "\n".'/* <!-- '.__('File %s doesn\'t exists', fileWeb($files_value)).' --> */';
-            continue;
+
+            $realfile = filePath('common|default/images/'.rand(1, 5).'.jpg');
+        } else if (count($files) === 1) {
+            header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+            header('Status: 404 Not Found');
+
+            die();
         }
     }
 
@@ -115,41 +92,35 @@ foreach ($files as $files_value) {
         case 'jpeg':
         case 'gif':
         case 'png':
-            $Image = getImageObject();
+            if ($params['options']) {
+                $Image = getImageObject();
 
-            $Image->setSettings();
+                $Image->setSettings();
 
-            if (!$Image->showCached($file, $Vars->str('options'))) {
-                $Image->load($file)->transform($Vars->str('options'))->show();
+                echo $Image->load($realfile)->transform($params['options'])->getContents();
+            } else {
+                echo file_get_contents($realfile);
             }
 
-            break;
+            break 2;
 
         case 'css':
-            $config = $Vars->var['config'];
-            $config = $Config->css[$config] ?: current($Config->css);
+            echo "\n";
 
-            if (!$Css->showCached($file, false, false)) {
-                echo "\n";
-
-                if ($dynamic) {
-                    echo $Css->load($file)->transform($config['plugins'])->transform(array('BaseUrl' => dirname(fileWeb($files_value)).'/'))->toString();
-                } else {
-                    echo $Css->load($file)->transform(array('BaseUrl' => dirname(fileWeb($files_value)).'/'))->toString();
-                }
+            if ($params['dynamic']) {
+                echo $Css->load($realfile)->transform($config['plugins'])->transform(array('BaseUrl' => dirname($file).'/'))->toString();
+            } else {
+                echo $Css->load($realfile)->transform(array('BaseUrl' => dirname($file).'/'))->toString();
             }
-
             break;
 
         case 'js':
             echo "\n";
 
-            if (!$Js->showCached($file, false, false)) {
-                if ($dynamic) {
-                    echo $Js->load($file)->process()->toString();
-                } else {
-                    echo $Js->load($file)->toString();
-                }
+            if ($params['dynamic']) {
+                echo $Js->load($realfile)->process()->toString();
+            } else {
+                echo $Js->load($realfile)->toString();
             }
 
             break;
@@ -157,26 +128,45 @@ foreach ($files as $files_value) {
         case 'less':
             echo "\n";
 
-            $lc = new lessc($file);
+            $lc = new lessc($realfile);
 
-            try {
-                header('Content-type: text/css');
-                echo $lc->parse();
-            } catch (exception $e) {
-                die($e->getMessage());
-            }
+            echo $lc->parse();
 
             break;
 
         default:
-            $Debug->fatalError(__('This file cannot be pre-processed'));
+            header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
+            header('Status: 404 Not Found');
+
+            die();
     }
 }
 
-if ($cache) {
-    $contents = ob_get_contents();
+$contents = ob_get_contents();
 
-    ob_end_clean();
+ob_end_clean();
 
-    echo $Cache->set($key, $contents);
+$file = cacheFile();
+$folder = dirname($file);
+
+$File = new \ANS\PHPCan\Files\File;
+
+if ($File->makeFolder($folder) && is_writable($folder)) {
+    file_put_contents($file, $contents);
 }
+
+$cache = $Config->cache['types'][$ext];
+
+if ($cache['expire']) {
+    header('Expires: '.gmdate('D, d M Y H:i:s', (time() + $cache['expire']).' GMT'));
+}
+
+if (($ext === 'css') || ($ext === 'less')) {
+    header('Content-type: text/css');
+} else if ($ext === 'js') {
+    header('Content-type: application/javascript');
+} else {
+    header('Content-type: '.$File->getMimeType($file));
+}
+
+die($contents);

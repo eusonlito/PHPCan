@@ -413,7 +413,7 @@ class Html
         }
 
         if ($params['transform']) {
-            $src = fileWeb($src, true).get(array('options' => $params['transform']), false);
+            $src = createCacheLink(fileWeb($src, true), array('options' => $params['transform']));
         } else {
             $src = fileWeb($src);
         }
@@ -466,7 +466,7 @@ class Html
             if ($local) {
                 $time = ($time === 'auto') ? round(time() / $cache['expire']) : $time;
 
-                $params['src'] = path('').'$.js?time='.$time.'&packed='.urlencode(deflate64($local));
+                $params['src'] = createCacheLink(fileWeb('templates|js/').$time.'.js', array('files' => $local));
                 $params['type'] = 'text/javascript';
 
                 $code .= '<script'.$this->params($params).'></script>'."\n";
@@ -504,7 +504,23 @@ class Html
             $file = 'templates|js/'.$file;
         }
 
-        $params['src'] = fileWeb($file, (strpos($file, '$') !== false));
+        if (strstr($file, '$') !== false) {
+            $file = str_replace('$', '', $file);
+
+            $options = array('dynamic' => true);
+
+            if (strstr($file, '?') !== false) {
+                list($file, $query) = explode('?', $file, 2);
+
+                parse_str($query, $query);
+
+                $options = array_merge($options, $query);
+            }
+
+            $params['src'] = createCacheLink(fileWeb($file, true), $options);
+        } else {
+            $params['src'] = fileWeb($file);
+        }
 
         if (empty($params['src'])) {
             return '';
@@ -555,7 +571,7 @@ class Html
             if ($local) {
                 $time = ($time === 'auto') ? round(time() / $cache['expire']) : $time;
 
-                $params['href'] = path('').'$.css?time='.$time.'&packed='.urlencode(deflate64($local));
+                $params['href'] = createCacheLink(fileWeb('templates|css/').$time.'.css', array('files' => $local));
                 $params['type'] = 'text/css';
                 $params['rel'] = 'stylesheet';
                 $params['media'] = $media;
@@ -591,11 +607,27 @@ class Html
             $params = array();
         }
 
-        if ((strpos($file, '|') === false) && !parse_url($file, PHP_URL_SCHEME)) {
+        if ((strstr($file, '|') === false) && !parse_url($file, PHP_URL_SCHEME)) {
             $file = 'templates|css/'.$file;
         }
 
-        $params['href'] = fileWeb($file, (strpos($file, '$') !== false));
+        if (strstr($file, '$') !== false) {
+            $file = str_replace('$', '', $file);
+
+            $options = array('dynamic' => true);
+
+            if (strstr($file, '?') !== false) {
+                list($file, $query) = explode('?', $file, 2);
+
+                parse_str($query, $query);
+
+                $options = array_merge($options, $query);
+            }
+
+            $params['href'] = createCacheLink(fileWeb($file, true), $options);
+        } else {
+            $params['href'] = fileWeb($file);
+        }
 
         if (empty($params['href'])) {
             return '';

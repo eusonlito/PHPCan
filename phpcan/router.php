@@ -41,9 +41,10 @@ define('DEFAULT_CONFIG_PATH', 'default/');
 define('MODULE_WWW_SUBFOLDER', 'admin');
 define('DOCUMENT_ROOT', preg_replace('#[/\\\]+#', '/', realpath(getenv('DOCUMENT_ROOT'))));
 define('BASE_WWW', preg_replace('|^'.DOCUMENT_ROOT.'|i', '', BASE_PATH));
+define('REQUEST_URI', getenv('REQUEST_URI'));
 
-if (str_replace(BASE_WWW, '', getenv('REQUEST_URI')) && is_dir(DOCUMENT_ROOT.getenv('REQUEST_URI'))) {
-    $indexes = glob(DOCUMENT_ROOT.getenv('REQUEST_URI').'index.*');
+if (str_replace(BASE_WWW, '', REQUEST_URI) && is_dir(DOCUMENT_ROOT.REQUEST_URI)) {
+    $indexes = glob(DOCUMENT_ROOT.REQUEST_URI.'index.*');
 
     if ($indexes) {
         header('HTTP/1.1 301 Moved Permanently');
@@ -82,7 +83,7 @@ $Vars->detectModule();
 define('SCENE_NAME', $Vars->getScene());
 define('SCENE_PATH', BASE_PATH.$Vars->getSceneConfig('folder'));
 define('SCENE_WWW', BASE_WWW.($Vars->getSceneConfig('detect', 'subfolder') && !$Vars->getSceneConfig('default') ? (SCENE_NAME.'/') : ''));
-define('SCENE_REAL_WWW', BASE_WWW.$Vars->getSceneConfig('folder').'/');
+define('SCENE_REAL_WWW', BASE_WWW.$Vars->getSceneConfig('folder'));
 
 define('MODULE_NAME', $Vars->getModule());
 
@@ -90,7 +91,11 @@ if (MODULE_NAME) {
     define('MODULES_PATH', BASE_PATH.$Config->phpcan_paths['modules']);
     define('MODULE_PATH', BASE_PATH.$Config->phpcan_paths['modules'].$Vars->getModuleConfig('folder'));
     define('MODULE_WWW', SCENE_WWW.MODULE_WWW_SUBFOLDER.'/'.MODULE_NAME.'/');
-    define('MODULE_REAL_WWW', BASE_WWW.$Config->phpcan_paths['modules'].$Vars->getModuleConfig('folder').'/');
+    define('MODULE_REAL_WWW', BASE_WWW.$Config->phpcan_paths['modules'].$Vars->getModuleConfig('folder'));
+
+    define('WWW', MODULE_WWW);
+} else {
+    define('WWW', SCENE_WWW);
 }
 
 $Config->load('cache.php', (MODULE_NAME ? 'module': 'scene'));
