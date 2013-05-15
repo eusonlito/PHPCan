@@ -504,6 +504,8 @@ class Html
             $file = 'templates|js/'.$file;
         }
 
+        $file = $this->settings['autoversion'] ? $this->autoVersion($file) : $file;
+
         if (strstr($file, '$') !== false) {
             $file = str_replace('$', '', $file);
 
@@ -525,8 +527,6 @@ class Html
         if (empty($params['src'])) {
             return '';
         }
-
-        $params['src'] = $this->settings['autoversion'] ? $this->autoVersion($params['src']) : $params['src'];
 
         $params['type'] = 'text/javascript';
 
