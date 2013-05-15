@@ -17,5 +17,6 @@ $config['scene_paths'] = array(
     'data' => 'data/',
     'templates' => 'templates/',
     'uploads' => 'uploads/',
-    'common' => '../common/'
+    'common' => '../common/',
+    'cache' => 'cache/'
 );
