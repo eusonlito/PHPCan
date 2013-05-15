@@ -63,7 +63,7 @@ foreach ($files as $file) {
 
         parse_str($query, $query);
 
-        $params = array_merge($params, $query);
+        $params = $params + $query;
     }
 
     $realfile = DOCUMENT_ROOT.$file;

@@ -429,11 +429,11 @@ class Html
     }
 
     /**
-     * public jsLinks (array $src, [integer $time])
+     * public jsLinks (array $src, [integer/string $time = 'auto'])
      *
      * Create the code to import various javascript files
      */
-    public function jsLinks ($files, $time = 0)
+    public function jsLinks ($files, $time = 'auto')
     {
         global $Config;
 
@@ -514,7 +514,7 @@ class Html
 
                 parse_str($query, $query);
 
-                $options = array_merge($options, $query);
+                $options = $options + $query;
             }
 
             $params['src'] = createCacheLink(fileWeb($file, true), $options);
@@ -534,11 +534,11 @@ class Html
     }
 
     /**
-     * public cssLinks (array $files, [integer $time = 0])
+     * public cssLinks (array $files, [integer/string $time = 'auto'])
      *
      * Create the code to import various css files
      */
-    public function cssLinks ($files, $time = 0, $media = null)
+    public function cssLinks ($files, $time = 'auto', $media = null)
     {
         global $Config;
 
@@ -611,6 +611,8 @@ class Html
             $file = 'templates|css/'.$file;
         }
 
+        $file = $this->settings['autoversion'] ? $this->autoVersion($file) : $file;
+
         if (strstr($file, '$') !== false) {
             $file = str_replace('$', '', $file);
 
@@ -621,7 +623,7 @@ class Html
 
                 parse_str($query, $query);
 
-                $options = array_merge($options, $query);
+                $options = $options + $query;
             }
 
             $params['href'] = createCacheLink(fileWeb($file, true), $options);
@@ -632,8 +634,6 @@ class Html
         if (empty($params['href'])) {
             return '';
         }
-
-        $params['href'] = $this->settings['autoversion'] ? $this->autoVersion($params['href']) : $params['href'];
 
         $params['type'] = 'text/css';
         $params['rel'] = 'stylesheet';
