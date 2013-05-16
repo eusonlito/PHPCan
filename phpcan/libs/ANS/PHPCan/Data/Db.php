@@ -2017,6 +2017,10 @@ class Db
                 }
             }
 
+            if ($exit_format && $result) {
+                $result = $this->transformValues($exit_format, $data, $result);
+            }
+
             if ($data['field_as_key'] && array_key_exists($data['field_as_key'], current($result))) {
                 $tmp_result = array();
 
@@ -2025,10 +2029,6 @@ class Db
                 }
 
                 $result = $tmp_result;
-            }
-
-            if ($exit_format && $result) {
-                $result = $this->transformValues($exit_format, $data, $result);
             }
         }
 
