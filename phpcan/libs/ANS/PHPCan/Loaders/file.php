@@ -19,7 +19,7 @@ if (strstr($files[0], '?')) {
     $file = $files[0];
 }
 
-$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+$cache = $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
 if ($ext === 'css') {
     $Config->load('css.php');
@@ -30,6 +30,8 @@ if ($ext === 'css') {
     $config = $Config->css[$config] ?: current($Config->css);
 } else if ($ext === 'js') {
     $Js = new \ANS\PHPCan\Files\Js\Js;
+} else {
+    $cache = 'images';
 }
 
 ob_start();
@@ -125,15 +127,6 @@ foreach ($files as $file) {
 
             break;
 
-        case 'less':
-            echo "\n";
-
-            $lc = new lessc($realfile);
-
-            echo $lc->parse();
-
-            break;
-
         default:
             header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
             header('Status: 404 Not Found');
@@ -146,27 +139,30 @@ $contents = ob_get_contents();
 
 ob_end_clean();
 
-$file = cacheFile();
-$folder = dirname($file);
-
 $File = new \ANS\PHPCan\Files\File;
 
-if ($File->makeFolder($folder) && is_writable($folder)) {
-    file_put_contents($file, $contents);
-}
-
-$cache = $Config->cache['types'][$ext];
-
-if ($cache['expire']) {
-    header('Expires: '.gmdate('D, d M Y H:i:s', (time() + $cache['expire']).' GMT'));
-}
-
-if (($ext === 'css') || ($ext === 'less')) {
+if ($ext === 'css') {
     header('Content-type: text/css');
 } else if ($ext === 'js') {
     header('Content-type: application/javascript');
 } else {
     header('Content-type: '.$File->getMimeType($file));
+}
+
+$cache = $Config->cache['types'][$cache];
+
+if (empty($cache['expire'])) {
+    die($contents);
+}
+
+header('Expires: '.gmdate('D, d M Y H:i:s', (time() + $cache['expire']).' GMT'));
+
+$file = cacheFile();
+$folder = dirname($file);
+
+
+if ($File->makeFolder($folder) && is_writable($folder)) {
+    file_put_contents($file, $contents);
 }
 
 die($contents);

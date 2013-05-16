@@ -20,18 +20,20 @@ echo $Form->textarea(array(
 //	'required' => $Table->getFormatSettings($info['field'], 'required'),
     'error' => $info['error']['']
 ));
-
-echo $Html->jsLink('common|ckeditor/ckeditor.js');
-echo $Html->jsLink('common|ckeditor/adapters/jquery.js');
 ?>
 
 <script type="text/javascript">
+CKEDITOR_BASEPATH = '<?php echo fileWeb('common|ckeditor'); ?>/';
+</script>
+
+<?php echo $Html->jsLink('common|ckeditor/ckeditor.js'); ?>
+
+<script type="text/javascript">
     $(document).ready(function () {
-        $('textarea.html').ckeditor({
+        CKEDITOR.replace('<?php echo $info['varname'].'[0]'; ?>', {
             forcePasteAsPlainText: true,
-            extraPlugins: 'abbr',
             toolbar: [
-                ['Source','-','Undo','Redo','-','Link','Unlink','-','Bold','Italic','Abbr','Strike','Subscript','Superscript','RemoveFormat'],
+                ['Source','-','Undo','Redo','-','Link','Unlink','-','Bold','Italic','Strike','Subscript','Superscript','RemoveFormat'],
                 ['Format','NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
                 ['Image','Table','SpecialChar'],
                 ['Find','Replace'],

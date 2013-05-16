@@ -128,7 +128,15 @@ class Js extends JSMin {
             $this->contents = file_get_contents($this->file);
         }
 
-        return ($this->settings['cache']['minify'] ? $this->minify($this->contents) : $this->contents);
+        if (empty($this->settings['cache']['minify'])) {
+            return $this->contents;
+        }
+
+        try {
+            return $this->minify($this->contents);
+        } catch (\Exception $e) {
+            return $this->contents;
+        }
     }
 
     /**
