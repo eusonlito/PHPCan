@@ -33,7 +33,7 @@ You can download full project with git commands:
     $ git clone git://github.com/eusonlito/PHPCan.git phpcan
     $ cd phpcan
     $ git submodule init
-    $ git submodule foreach git pull origin master
+    $ git submodule update
 
 Now you can start to use PHPCan from your local URL http://localhost/phpcan/
 

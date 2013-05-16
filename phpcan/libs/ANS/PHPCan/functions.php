@@ -73,7 +73,7 @@ function __ ($text, $args = null, $null = false, $settings = array())
     static $Gettext = null;
 
     if (($Gettext === null) || (is_array($settings) && isset($settings['language']))) {
-        $Gettext = getGettextObject($settings['language']);
+        $Gettext = getGettextObject(isset($settings['language']) ? $settings['language'] : null);
         $text = is_object($Gettext) ? $Gettext->translate($text, $null) : $text;
     } else {
         $text = $Gettext->translate($text, $null);
