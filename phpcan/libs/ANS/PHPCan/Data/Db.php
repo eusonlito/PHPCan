@@ -2679,6 +2679,16 @@ class Db
                         }
                     } else {
                         foreach ($result as &$row) {
+                            if (!is_array($row[$name])) {
+                                $row[$name] = $format->$fn($row[$name]);
+
+                                if (is_array($row[$name]) && count($row[$name]) === 1) {
+                                    $row[$name] = current($row[$name]);
+                                }
+
+                                continue;
+                            }
+
                             foreach ($row[$name] as &$language_row) {
                                 $language_row = $format->$fn(array('' => $language_row));
 
