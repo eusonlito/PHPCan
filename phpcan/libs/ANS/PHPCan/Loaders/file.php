@@ -99,7 +99,7 @@ foreach ($files as $file) {
 
                 $Image->setSettings();
 
-                echo $Image->load($realfile)->transform($params['options'])->getContents();
+                echo $Image->load($realfile)->transform($params['options'], false)->getContents();
             } else {
                 echo file_get_contents($realfile);
             }
