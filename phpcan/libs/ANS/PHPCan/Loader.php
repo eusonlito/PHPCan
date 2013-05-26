@@ -146,12 +146,12 @@ class Loader {
     {
         $path = $path ?: LIBS_PATH;
 
-        if (isset($this->composer[$path])) {
+        if (isset(self::$composer[$path])) {
             return true;
         }
 
         if (is_file($path.'autoload.php')) {
-            $this->composer[$path] = include_once ($path.'autoload.php');
+            self::$composer[$path] = include_once ($path.'autoload.php');
         }
     }
 }
