@@ -2118,6 +2118,8 @@ class Db
                     continue;
                 }
 
+                reset($sub_result);
+
                 if (isset($select['field_as_key']) && array_key_exists($select['field_as_key'], current($sub_result))) {
                     $field_as_key = $select['field_as_key'];
                 } else {
