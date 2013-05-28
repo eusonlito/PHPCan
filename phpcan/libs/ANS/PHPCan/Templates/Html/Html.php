@@ -860,7 +860,15 @@ class Html
     public function meta ($key, $value = null, $tag = true)
     {
         if ($value !== null) {
-            return $this->meta[$key] = trim(htmlspecialchars(strip_tags($value), ENT_QUOTES));
+            if (is_string($value)) {
+                $value = trim(htmlspecialchars(strip_tags($value), ENT_QUOTES));
+            } else if (is_array($value)) {
+                array_walk($value, function (&$value) {
+                    $value = trim(htmlspecialchars(strip_tags($value), ENT_QUOTES));
+                });
+            }
+
+            return $this->meta[$key] = $value;
         }
 
         global $Vars;
@@ -870,12 +878,18 @@ class Html
         } else {
             $controller = implode('/', (array)$Vars->getRoute());
             $code = 'meta:'.$key.':'.$controller;
-            $content = __($code, $this->meta[$key]);
-            $content = ($content === $code) ? __('meta:'.$key) : $content;
-            $content = ($content === ('meta:'.$key)) ? '' : $content;
+            $meta = $this->meta[$key];
+
+            if (is_string($meta)) {
+                $content = __($code, $meta);
+                $content = ($content === $code) ? __('meta:'.$key) : $content;
+                $content = ($content === ('meta:'.$key)) ? '' : $content;
+            }
         }
 
-        $content = str_replace('"', '&quot;', strip_tags($content));
+        if (is_string($content)) {
+            $content = str_replace('"', '&quot;', strip_tags($content));
+        }
 
         if ($tag) {
             return '<meta name="'.$key.'" content="'.$content.'" />';
