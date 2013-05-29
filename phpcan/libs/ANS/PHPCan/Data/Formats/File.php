@@ -191,14 +191,14 @@ class File extends Formats implements Iformats
         $uniqid = randomString(12);
 
         if ($settings['length_max'] < strlen($settings['subfolder'].$uniqid.$new_name)) {
-            $max_len = $settings['length_max'] - strlen($settings['subfolder']) - strlen($uniqid) - 5;
+            $max_len = $settings['length_max'] - strlen($settings['subfolder']) - strlen($uniqid) - 6;
             $new_name = $uniqid.substr($new_name, -$max_len);
         } else {
             $new_name = $uniqid.$new_name;
         }
 
         $base = $settings['base_path'].$settings['uploads'].$settings['subfolder'];
-        $file = $base.substr($new_name, 0, 5).'/'.substr($new_name, 5);
+        $file = $base.substr($new_name, 0, 3).'/'.substr($new_name, 3);
 
         $File = new \ANS\PHPCan\Files\File;
 
