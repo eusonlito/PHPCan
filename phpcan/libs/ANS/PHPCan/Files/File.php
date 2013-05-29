@@ -84,7 +84,7 @@ class File
 
             if ($depth != 0) {
                 $moreFolders = glob($folder.'/*', GLOB_ONLYDIR);
-                $depth = ($depth < -1) ? -1: $depth + count($moreFolders) - 2;
+                $depth = ($depth < -1) ? -1 : ($depth + count($moreFolders) - 2);
                 $folders = array_merge($folders, $moreFolders);
             }
         }

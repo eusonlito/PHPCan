@@ -13,8 +13,6 @@ defined('ANS') or die();
 
 class Title extends Formats implements Iformats
 {
-    const CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789';
-
     public $format = 'title';
 
     public function check ($value)
@@ -80,21 +78,8 @@ class Title extends Formats implements Iformats
 
     public function randomValue ()
     {
-        $settings = $this->settings['url'];
-
-        if ($settings['min'] === $settings['max']) {
-            $length = $settings['min'];
-        } else {
-            $length = rand($settings['min'], $settings['max']);
-        }
-
-        $strlen = strlen(self::CHARS);
-
-        for ($string = '', $i = 0; $i < $length; ++$i) {
-            $string .= substr(self::CHARS, rand(0, $strlen - 1), 1);
-        }
-
-        return $string;
+        $settings = $this->settings[''];
+        return randomString($settings['min'], $settings['max']);
     }
 
     public function settings ($settings)

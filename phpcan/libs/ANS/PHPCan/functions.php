@@ -678,6 +678,22 @@ function alphaNumeric ($text, $allow = '', $default = '-')
     return strtolower($text);
 }
 
+function randomString ($min, $max = 0, $letters = true, $numbers = true)
+{
+    $chars = ($letters ? 'abcdefghijklmnopqrstuvwxyz' : '').($numbers ? '0123456789' : '');
+    $strlen = strlen($chars);
+    $min = (integer)$min;
+    $max = (integer)$max;
+    $max = ($max < $min) ? $min : $max;
+    $length = ($min === $max) ? $min : rand($min, $max);
+
+    for ($string = '', $i = 0; $i < $length; ++$i) {
+        $string .= substr($chars, rand(0, $strlen - 1), 1);
+    }
+
+    return $string;
+}
+
 /**
  * function arrayKeyValues (array $array, string $key, string $recursive)
  *

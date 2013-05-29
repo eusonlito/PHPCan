@@ -188,7 +188,7 @@ class File extends Formats implements Iformats
             $new_name = alphaNumeric(basename(preg_replace('#\?.*#', '', $value)), '-.');
         }
 
-        $uniqid = uniqid().'-';
+        $uniqid = randomString(12);
 
         if ($settings['length_max'] < strlen($settings['subfolder'].$uniqid.$new_name)) {
             $max_len = $settings['length_max'] - strlen($settings['subfolder']) - strlen($uniqid) - 5;
@@ -197,15 +197,18 @@ class File extends Formats implements Iformats
             $new_name = $uniqid.$new_name;
         }
 
+        $base = $settings['base_path'].$settings['uploads'].$settings['subfolder'];
+        $file = $base.substr($new_name, 0, 5).'/'.substr($new_name, 5);
+
         $File = new \ANS\PHPCan\Files\File;
 
-        if (!($saved_file_name = $File->save($value, $settings['base_path'].$settings['uploads'].$settings['subfolder'], $new_name))) {
+        if (!($saved_file_name = $File->save($value, $file))) {
             $this->error[$subformat] = __('Error storing the new file for field "%s"', __($this->name));
 
             return $settings['default'] ? array($subformat => $settings['default']) : false;
         }
 
-        return preg_replace('#^'.$settings['base_path'].$settings['uploads'].$settings['subfolder'].'#', '', $saved_file_name);
+        return preg_replace('#^'.$base.'#', '', $saved_file_name);
     }
 
     public function afterSave (\ANS\PHPCan\Data\Db $Db, $values, $subformat = '')
