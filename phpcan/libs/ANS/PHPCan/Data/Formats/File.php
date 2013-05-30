@@ -183,22 +183,23 @@ class File extends Formats implements Iformats
         }
 
         if (is_array($value)) {
-            $new_name = alphaNumeric($value['name'], '-.');
+            $file = alphaNumeric($value['name'], '-.');
         } else {
-            $new_name = alphaNumeric(basename(preg_replace('#\?.*#', '', $value)), '-.');
+            $file = alphaNumeric(basename(preg_replace('#\?.*#', '', $value)), '-.');
         }
 
-        $uniqid = randomString(12);
+        $uniqid = uniqid();
 
-        if ($settings['length_max'] < strlen($settings['subfolder'].$uniqid.$new_name)) {
-            $max_len = $settings['length_max'] - strlen($settings['subfolder']) - strlen($uniqid) - 6;
-            $new_name = $uniqid.substr($new_name, -$max_len);
-        } else {
-            $new_name = $uniqid.$new_name;
+        if ($settings['length_max'] < (strlen($settings['subfolder'].$uniqid.$file) + 2)) {
+            $ext = pathinfo($file, PATHINFO_EXTENSION);
+            $max_len = $settings['length_max'] - strlen($settings['subfolder'].$uniqid.$ext) - 3;
+
+            $file = substr(preg_replace('#\.[a-z0-9]{2,4}$#', '', $file), 0, $max_len).'.'.$ext;
+            $file = preg_replace('#\-\.[a-z0-9]{2,4}$#', '.'.$ext, $file);
         }
 
         $base = $settings['base_path'].$settings['uploads'].$settings['subfolder'];
-        $file = $base.substr($new_name, 0, 3).'/'.substr($new_name, 3);
+        $file = $base.substr($uniqid, -3).'/'.substr($uniqid, 0, -3).'-'.$file;
 
         $File = new \ANS\PHPCan\Files\File;
 
@@ -244,7 +245,7 @@ class File extends Formats implements Iformats
             '' => array(
                 'db_type' => 'varchar',
 
-                'length_max' => 250,
+                'length_max' => 120,
                 'max_size' => intval(ini_get('upload_max_filesize')),
                 'no_valid_extensions' => array('php', 'php3'),
                 'base_path' => SCENE_PATH,

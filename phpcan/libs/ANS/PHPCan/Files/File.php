@@ -304,8 +304,7 @@ class File
     public function calculateExtension ($file)
     {
         $mime = $this->getMimeType($file);
-        $mime_ext = explode('/', $mime);
-        $mime_ext = end($mime_ext);
+        $mime_ext = end(explode('/', $mime));
 
         if (preg_match('/^[a-z0-9]{2,4}$/', $mime_ext) && ($mime_ext !== 'zip')) {
             return $mime_ext;
