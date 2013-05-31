@@ -544,7 +544,7 @@ class Db
     {
         $return = array();
 
-        foreach (array_keys($data) as $num_row) {
+        foreach (array_keys((array)$data) as $num_row) {
             $return[$num_row] = $this->Events->defined('tables.'.$table, $event);
         }
 
@@ -602,7 +602,7 @@ class Db
     {
         $return = array();
 
-        foreach ($data as $num_row => $row) {
+        foreach ((array)$data as $num_row => $row) {
             foreach ($row as $format => $languages) {
                 if (is_int($format) && is_string($languages)) { //Literal field
                     continue;
@@ -1134,7 +1134,7 @@ class Db
         $old_values = array();
         $default_values = $table->getDefaultValues();
 
-        $new_values = $operations['data'];
+        $new_values = (array)$operations['data'];
 
         foreach ($new_values as &$row) {
             $row = arrayMergeReplaceRecursive($default_values, $row);

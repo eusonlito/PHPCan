@@ -17,7 +17,7 @@ Options -Indexes
 <IfModule mod_deflate.c>
 	SetInputFilter DEFLATE
 
-	SetEnvIfNoCase Request_URI (?i)\.(gif|jpe?g|png|rar|zip|pdf|doc|swf|flv|mov|wma|mp3|mp4|avi|mp?g)$ no-gzip dont-vary
+	SetEnvIfNoCase Request_URI (?i)\.(gif|jpe?g|png|rar|zip|pdf|doc|swf|flv|mov|wma|mp3|mp4|avi|mp?g|webm)$ no-gzip dont-vary
 
 	AddOutputFilterByType DEFLATE application/atom_xml application/javascript application/rss+xml application/xhtml+xml application/xml application/x-httpd-php application/x-javascript image/svg+xml image/x-icon text/css text/javascript text/html text/plain text/richtext text/xml text/xsd text/xsl
 
