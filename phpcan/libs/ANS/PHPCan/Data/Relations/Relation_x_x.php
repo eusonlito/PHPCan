@@ -174,20 +174,20 @@ class Relation_x_x extends Relations implements Irelations
 
         //Autorelated tables with direction
         if ($this->settings['direction'] && ($this->settings['tables'][0] == $this->settings['tables'][1])) {
-            $relation_conditions[] = '`'.$renamed_table1.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][0];
-            $relation_conditions[] = '`'.$this->settings['relation_table'].'`.'.$this->settings['join'][1].' = `'.$renamed_table0.'`.id';
+            $relation_conditions[] = '`'.$this->settings['relation_table'].'`.`'.$this->settings['join'][0].'` = `'.$renamed_table1.'`.`id`';
+            $relation_conditions[] = '`'.$renamed_table0.'`.`id` = `'.$this->settings['relation_table'].'`.`'.$this->settings['join'][1].'`';
 
         //Different joins with no direction
         } else if ($this->settings['auto'] && empty($this->settings['direction']) && ($this->settings['join'][0] != $this->settings['join'][1])) {
-            $relation_conditions[] = '((`'.$renamed_table0.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][0]
-                                    .' AND `'.$renamed_table1.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][1].')'
-                                    .' OR (`'.$renamed_table0.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][1]
-                                    .' AND `'.$renamed_table1.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][0].'))';
+            $relation_conditions[] = '((`'.$renamed_table0.'`.`id` = `'.$this->settings['relation_table'].'`.`'.$this->settings['join'][0].'`'
+                                    .' AND `'.$renamed_table1.'`.`id` = `'.$this->settings['relation_table'].'`.`'.$this->settings['join'][1].'`)'
+                                    .' OR (`'.$renamed_table0.'`.`id` = `'.$this->settings['relation_table'].'`.`'.$this->settings['join'][1].'`'
+                                    .' AND `'.$renamed_table1.'`.`id` = `'.$this->settings['relation_table'].'`.`'.$this->settings['join'][0].'`))';
 
         //Add normal relation condition
         } else {
-            $relation_conditions[] = '`'.$renamed_table1.'`.id = `'.$this->settings['relation_table'].'`.'.$this->settings['join'][1];
-            $relation_conditions[] = '`'.$this->settings['relation_table'].'`.'.$this->settings['join'][0].' = `'.$renamed_table0.'`.id';
+            $relation_conditions[] = '`'.$this->settings['relation_table'].'`.`'.$this->settings['join'][1].'` = `'.$renamed_table1.'`.`id`';
+            $relation_conditions[] = '`'.$renamed_table0.'`.`id` = `'.$this->settings['relation_table'].'`.`'.$this->settings['join'][0].'`';
         }
 
         return array(
