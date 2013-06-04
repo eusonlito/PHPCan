@@ -188,6 +188,8 @@ class File extends Formats implements Iformats
             $file = alphaNumeric(basename(preg_replace('#\?.*#', '', $value)), '-.');
         }
 
+        $settings['length_max'] -= 10;
+
         $uniqid = uniqid();
 
         if ($settings['length_max'] < (strlen($settings['subfolder'].$uniqid.$file) + 2)) {
@@ -245,7 +247,7 @@ class File extends Formats implements Iformats
             '' => array(
                 'db_type' => 'varchar',
 
-                'length_max' => 120,
+                'length_max' => 150,
                 'max_size' => intval(ini_get('upload_max_filesize')),
                 'no_valid_extensions' => array('php', 'php3'),
                 'base_path' => SCENE_PATH,
