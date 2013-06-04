@@ -488,9 +488,9 @@ class Vars
         }
 
         if ($this->compress_cookies) {
-            return setcookie('gz:'.$name, deflate64($value), time() + $duration, BASE_WWW, $this->cookie_domain);
+            return setcookie('gz:'.$name, ($value ? deflate64($value) : $value), time() + $duration, BASE_WWW, $this->cookie_domain);
         } else {
-            return setcookie($name, serialize($value), time() + $duration, BASE_WWW, $this->cookie_domain);
+            return setcookie($name, ($value ? serialize($value) : $value), time() + $duration, BASE_WWW, $this->cookie_domain);
         }
     }
 
@@ -523,13 +523,7 @@ class Vars
      */
     public function deleteCookie ($name)
     {
-        unset($this->cookie[$name]);
-
-        if (!preg_match('/^gz:/', $name)) {
-            $name = 'gz:'.$name;
-        }
-
-        return setcookie($name, '', 1, BASE_WWW);
+        return $this->setCookie($name, '', -3600);
     }
 
     /**
