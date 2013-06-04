@@ -133,7 +133,7 @@ class Js extends JSMin {
         }
 
         try {
-            return $this->minify($this->contents);
+            return str_replace("\n", '', $this->minify($this->contents));
         } catch (\Exception $e) {
             return $this->contents;
         }
