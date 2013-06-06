@@ -173,21 +173,21 @@ class Relation_1_x extends Relations implements Irelations
             return false;
         }
 
-        if ($operations_table1['conditions'] === 'all') {
-            $operations_table1['conditions'] = array();
-        }
+        $conditions = array(
+            $this->settings['join'][0] => $this->getIds($this->settings['tables'][0], $operations_table0)
+        );
 
-        $ids_table0 = $this->getIds($this->settings['tables'][0], $operations_table0);
-        $ids_table1 = $this->getIds($this->settings['tables'][1], $operations_table1);
+        if ($operations_table1['conditions'] && ($operations_table1['conditions'] !== 'all')) {
+            $conditions['id'] = $this->getIds($this->settings['tables'][1], $operations_table1);
+        }
 
         $ok = $this->Db->update(array(
             'table' => $this->settings['tables'][1],
-            'data' => array($this->settings['join'][0] => 0),
-            'table_events' => false,
-            'conditions' => array(
-                'id' => $ids_table1,
-                $this->settings['join'][0] => $ids_table0
+            'data' => array(
+                $this->settings['join'][0] => 0
             ),
+            'table_events' => false,
+            'conditions' => $conditions,
             'comment' => __('Unrelating the table %s with %s', $this->settings['tables'][1], $this->settings['tables'][0])
         ));
 
