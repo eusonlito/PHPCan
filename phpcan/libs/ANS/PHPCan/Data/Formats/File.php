@@ -112,22 +112,13 @@ class File extends Formats implements Iformats
             }
         }
 
-        if (empty($settings['required']) && ($value['size'] == 0)) {
+        if (empty($settings['mime_types'])) {
             return true;
         }
 
-        if ($settings['required'] && ($value['size'] == 0)) {
-            $this->error[$subformat] = __('Field "%s" can not be empty', __($this->name));
-
+        if (!$File->getMimeType($value['tmp_name'], $settings['mime_types'])) {
+            $this->error[$subformat] = __('Field "%s" is an invalid format', __($this->name));
             return false;
-        }
-
-        if ($settings['mime_types']) {
-            if (!$File->getMimeType($value['tmp_name'], $settings['mime_types'])) {
-                $this->error[$subformat] = __('Field "%s" is an invalid format', __($this->name));
-
-                return false;
-            }
         }
 
         return true;
