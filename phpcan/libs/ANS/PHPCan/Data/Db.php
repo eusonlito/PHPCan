@@ -1169,6 +1169,8 @@ class Db
 
         $query = $this->Database->insert($operations);
 
+        $time = microtime(true);
+
         $ok = $this->query($query);
 
         if ($this->settings['query_register_log']) {
@@ -1176,7 +1178,8 @@ class Db
                 'operation' => 'insert',
                 'operations' => $operations,
                 'query' => $query,
-                'trace' => trace()
+                'trace' => trace(),
+                'time' => (microtime(true) - $time)
             );
         }
 
@@ -1316,6 +1319,8 @@ class Db
 
         $query = $this->Database->update($operations);
 
+        $time = microtime(true);
+
         $ok = $this->query($query);
 
         if ($this->settings['query_register_log']) {
@@ -1323,7 +1328,8 @@ class Db
                 'operation' => 'update',
                 'operations' => $operations,
                 'query' => $query,
-                'trace' => trace()
+                'trace' => trace(),
+                'time' => (microtime(true) - $time)
             );
         }
 
@@ -1459,6 +1465,8 @@ class Db
 
         $query = $this->Database->delete($operations);
 
+        $time = microtime(true);
+
         $ok = $this->query($query);
 
         if ($this->settings['query_register_log']) {
@@ -1466,7 +1474,8 @@ class Db
                 'operation' => 'delete',
                 'operations' => $operations,
                 'query' => $query,
-                'trace' => trace()
+                'trace' => trace(),
+                'time' => (microtime(true) - $time)
             );
         }
 
@@ -1578,18 +1587,20 @@ class Db
 
             $this->mergeConditions($operation);
 
-            if ($relation->$type($operation, $table1_operations, $operation['options']) === false) {
-                if ($this->settings['query_register_log']) {
-                    $this->query_register[] = array(
-                        'operation' => $type,
-                        'operations' => $operation,
-                        'tables' => array($operation, $table1_operations),
-                        'trace' => trace()
-                    );
-                }
+            if ($relation->$type($operation, $table1_operations, $operation['options']) !== false) {
+                continue;
+            }
 
-                return false;
-            };
+            if ($this->settings['query_register_log']) {
+                $this->query_register[] = array(
+                    'operation' => $type,
+                    'operations' => $operation,
+                    'tables' => array($operation, $table1_operations),
+                    'trace' => trace()
+                );
+            }
+
+            return false;
         }
 
         return true;
@@ -1974,6 +1985,8 @@ class Db
 
         $query = $this->Database->select($data);
 
+        $time = microtime(true);
+
         $tmp_result = $this->queryResult($query);
 
         if ($this->settings['query_register_log']) {
@@ -1981,7 +1994,8 @@ class Db
                 'operation' => 'select',
                 'operations' => $data,
                 'query' => $query,
-                'trace' => trace()
+                'trace' => trace(),
+                'time' => (microtime(true) - $time)
             );
         }
 
@@ -2021,7 +2035,7 @@ class Db
                 $result = $this->transformValues($exit_format, $data, $result);
             }
 
-            if ($data['field_as_key'] && array_key_exists($data['field_as_key'], current($result))) {
+            if ($data['field_as_key']) {
                 $tmp_result = array();
 
                 foreach ($result as $row) {
@@ -2111,6 +2125,8 @@ class Db
             //Merge $result and $sub_result
             $name = $this->addedName($name, $added_table['newname'], $added_table['name'], $added_table['direction']);
 
+            $field_as_key = $select['field_as_key'] ?: false;
+
             foreach ($result as &$result_row) {
                 $result_row[$name] = array();
 
@@ -2120,25 +2136,20 @@ class Db
 
                 reset($sub_result);
 
-                if (isset($select['field_as_key']) && array_key_exists($select['field_as_key'], current($sub_result))) {
-                    $field_as_key = $select['field_as_key'];
-                } else {
-                    $field_as_key = false;
-                }
-
                 foreach ($sub_result as $sub_result_row) {
-                    if ($sub_result_row['id_prev_table'] == $result_row['id']) {
-                        unset($sub_result_row['id_prev_table']);
+                    if ($sub_result_row['id_prev_table'] !== $result_row['id']) {
+                        continue;
+                    }
 
-                        if ($field_as_key) {
-                            $result_row[$name][$sub_result_row[$field_as_key]] = $sub_result_row;
-                        } else {
-                            $result_row[$name][] = $sub_result_row;
-                        }
+                    unset($sub_result_row['id_prev_table']);
+
+                    if ($field_as_key === false) {
+                        $result_row[$name][] = $sub_result_row;
+                    } else {
+                        $result_row[$name][$sub_result_row[$field_as_key]] = $sub_result_row;
                     }
                 }
 
-                //Limit
                 if ($limit || $offset) {
                     $result_row[$name] = array_slice($result_row[$name], intval($offset), intval($limit));
                 }
@@ -2727,13 +2738,16 @@ class Db
     {
         $query = $this->Database->renameField($table, $from, $to, $type);
 
+        $time = microtime(true);
+
         $ok = $this->query($query);
 
         if ($this->settings['query_register_log']) {
             $this->query_register[] = array(
                 'operation' => 'renameField',
                 'query' => $query,
-                'trace' => trace()
+                'trace' => trace(),
+                'time' => (microtime(true) - $time)
             );
         }
 
