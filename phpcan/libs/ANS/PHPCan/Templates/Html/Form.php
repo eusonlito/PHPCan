@@ -566,6 +566,10 @@ class Form
             } else {
                 unset($params['params']['checked']);
             }
+
+            if (array_key_exists('value', $checked)) {
+                $params['params']['value'] = $checked['value'];
+            }
         } else {
             $params = $this->formInputParams(1, $name, $label);
 
