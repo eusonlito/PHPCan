@@ -156,8 +156,8 @@ class Datetime extends \DateTime {
         global $Config;
 
         if (is_string($format)) {
-            if ($Config['i18n']['time_formats'][$format]) {
-                $time_formats = $Config['i18n']['time_formats'][$format];
+            if (isset($Config->i18n['time_formats'][$format])) {
+                $time_formats = $Config->i18n['time_formats'][$format];
             } else {
                 return false;
             }
@@ -184,41 +184,43 @@ class Datetime extends \DateTime {
         foreach ($time_formats as $time_formats_seconds => $time_formats_value) {
             list($format, $absolute) = $time_formats_value;
 
-            if ($diff_seconds >= $time_formats_seconds || !array_key_exists(++$k, $array_time_formats_seconds)) {
-                preg_match_all('(\$([a-zA-z]))', $format, $matches, PREG_SET_ORDER);
-
-                if (empty($matches)) {
-                    return $format;
-                }
-
-                $format_chars = array();
-
-                foreach ($matches as $match) {
-                    $format_chars[] = $match[1];
-                }
-
-                if ($absolute) {
-                    $format_chars = $this->format(implode(',', $format_chars));
-                } else {
-                    $format_chars = $diff->format('%'.implode(',%', $format_chars));
-                }
-
-                $format_chars = explode(',', $format_chars);
-
-                $replaces = array();
-
-                foreach ($format_chars as $k => $value) {
-                    $char = $matches[$k][0];
-
-                    if (array_key_exists($char.'_'.$value, $Config['i18n']['time_translations'])) {
-                        $value = $Config['i18n']['time_translations'][$char.'_'.$value];
-                    }
-
-                    $replaces[$char] = $value;
-                }
-
-                return strtr($format, $replaces);
+            if (($diff_seconds < $time_formats_seconds) && array_key_exists(++$k, $array_time_formats_seconds)) {
+                continue;
             }
+
+            preg_match_all('(\$([a-zA-z]))', $format, $matches, PREG_SET_ORDER);
+
+            if (empty($matches)) {
+                return $format;
+            }
+
+            $format_chars = array();
+
+            foreach ($matches as $match) {
+                $format_chars[] = $match[1];
+            }
+
+            if ($absolute) {
+                $format_chars = $this->format(implode(',', $format_chars));
+            } else {
+                $format_chars = $diff->format('%'.implode(',%', $format_chars));
+            }
+
+            $format_chars = explode(',', $format_chars);
+
+            $replaces = array();
+
+            foreach ($format_chars as $k => $value) {
+                $char = $matches[$k][0];
+
+                if (array_key_exists($char.'_'.$value, $Config['i18n']['time_translations'])) {
+                    $value = $Config->i18n['time_translations'][$char.'_'.$value];
+                }
+
+                $replaces[$char] = $value;
+            }
+
+            return strtr($format, $replaces);
         }
     }
 }
