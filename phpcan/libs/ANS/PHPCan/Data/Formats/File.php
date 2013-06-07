@@ -46,35 +46,30 @@ class File extends Formats implements Iformats
         if (!is_dir($path)) {
             if (!$File->makeFolder($path)) {
                 $this->error[$subformat] = __('The folder "%s" to store the field "%s" haven\'t writing permissions', $path, __($this->name));
-
                 return false;
             }
         } else if (!is_writable($path)) {
             $this->error[$subformat] = __('The folder "%s" to store the field "%s" haven\'t writing permissions', $path, __($this->name));
-
             return false;
         }
 
-        if (!is_array($value)) {
-            if (empty($settings['required']) && empty($value)) {
-                return true;
-            } else if ($settings['required'] && empty($value)) {
+        if (is_array($value)) {
+            if ($settings['required'] && (empty($value['name']) || empty($value['tmp_name']))) {
                 $this->error[$subformat] = __('Field "%s" can not be empty', __($this->name));
-
                 return false;
-            } else if (!is_string($value)) {
-                $this->error[$subformat] = __('Field "%s" is an invalid format', __($this->name));
-
+            } else if (empty($value['name'])) {
+                return true;
+            }
+        } else if (is_string($value)) {
+            if ($settings['required'] && empty($value)) {
+                $this->error[$subformat] = __('Field "%s" can not be empty', __($this->name));
                 return false;
             } else {
                 return true;
             }
-        } else if ($settings['required'] && !is_string($value['name'])) {
-            $this->error[$subformat] = __('Field "%s" can not be empty', __($this->name));
-
+        } else {
+            $this->error[$subformat] = __('Field "%s" is an invalid format', __($this->name));
             return false;
-        } else if (!is_string($value['name'])) {
-            return true;
         }
 
         if ($settings['no_valid_extensions'] && in_array(strtolower(pathinfo($value['name'], PATHINFO_EXTENSION)), $settings['no_valid_extensions'])) {
@@ -87,47 +82,32 @@ class File extends Formats implements Iformats
             switch ($value['error']) {
                 case 1:
                     $this->error[$subformat] = __('File "%s" exceeds the upload_max_filesize directive in php.ini.', __($this->name));
-
                     return false;
                 case 2:
                     $this->error[$subformat] = __('File "%s" exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.', __($this->name));
-
                     return false;
                 case 3:
                     $this->error[$subformat] = __('File "%s" was only partially uploaded.', __($this->name));
-
                     return false;
                 case 6:
                     $this->error[$subformat] = __('Missing a temporary folder.');
-
                     return false;
                 case 7:
                     $this->error[$subformat] = __('Failed to write file "%s" to disk.', __($this->name));
-
                     return false;
                 case 8:
                     $this->error[$subformat] = __('File "%s" upload was stopped by extension.', __($this->name));
-
                     return false;
             }
         }
 
-        if (empty($settings['required']) && ($value['size'] == 0)) {
+        if (empty($settings['mime_types'])) {
             return true;
         }
 
-        if ($settings['required'] && ($value['size'] == 0)) {
-            $this->error[$subformat] = __('Field "%s" can not be empty', __($this->name));
-
+        if (!$File->getMimeType($value['tmp_name'], $settings['mime_types'])) {
+            $this->error[$subformat] = __('Field "%s" is an invalid format', __($this->name));
             return false;
-        }
-
-        if ($settings['mime_types']) {
-            if (!$File->getMimeType($value['tmp_name'], $settings['mime_types'])) {
-                $this->error[$subformat] = __('Field "%s" is an invalid format', __($this->name));
-
-                return false;
-            }
         }
 
         return true;
