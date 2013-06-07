@@ -81,11 +81,11 @@ class Config implements \ArrayAccess, \Iterator, \Countable
     }
 
     /**
-     * public function load (string/array $list, [string $context], [string $prefix])
+     * public function load (string/array $list, [string $context], [string $prefix], [boolean $cache])
      *
      * return boolean
      */
-    public function load ($list, $context = null, $prefix = '')
+    public function load ($list, $context = null, $prefix = '', $cache = null)
     {
         global $Vars;
 
@@ -140,15 +140,17 @@ class Config implements \ArrayAccess, \Iterator, \Countable
             }
         }
 
-        $cache_key = md5('config-'.serialize($includes).$prefix);
+        if ($cache !== false)  {
+            $cache_key = md5('config-'.serialize($includes).$prefix);
 
-        if ($this->Cache && $this->Cache->exists($cache_key)) {
-            $config = $this->Cache->get($cache_key);
+            if ($this->Cache && $this->Cache->exists($cache_key)) {
+                $config = $this->Cache->get($cache_key);
 
-            if (is_array($config)) {
-                return $this->config = arrayMergeReplaceRecursive($this->config, $config);
-            } else {
-                return false;
+                if (is_array($config)) {
+                    return $this->config = arrayMergeReplaceRecursive($this->config, $config);
+                } else {
+                    return false;
+                }
             }
         }
 
@@ -182,7 +184,7 @@ class Config implements \ArrayAccess, \Iterator, \Countable
             $config[$prefix.$key] = $this->expand($value);
         }
 
-        if ($this->Cache) {
+        if (($cache !== false) && $this->Cache) {
             $this->Cache->set($cache_key, $config);
         }
 
