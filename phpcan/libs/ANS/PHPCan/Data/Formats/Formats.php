@@ -491,13 +491,13 @@ abstract class Formats
                     case 'fulltext':
                     case 'default':
                     case 'null':
-                        $current_settings[$k] = isset($custom_settings[$k]) ? $custom_settings[$k] : $v;
+                        $current_settings[$k] = array_key_exists($k, $custom_settings) ? $custom_settings[$k] : $v;
                         $current_settings['db_'.$k] = $current_settings[$k];
                         break;
 
                     //Other settings
                     default:
-                        $current_settings[$k] = isset($custom_settings[$k]) ? $custom_settings[$k] : $v;
+                        $current_settings[$k] = array_key_exists($k, $custom_settings) ? $custom_settings[$k] : $v;
                 }
             }
 
