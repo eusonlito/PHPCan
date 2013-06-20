@@ -74,7 +74,6 @@ class File extends Formats implements Iformats
 
         if ($settings['no_valid_extensions'] && in_array(strtolower(pathinfo($value['name'], PATHINFO_EXTENSION)), $settings['no_valid_extensions'])) {
             $this->error[$subformat] = __('Field "%s" can not allow this file type', __($this->name));
-
             return false;
         }
 
@@ -124,7 +123,7 @@ class File extends Formats implements Iformats
         $settings = $this->settings[''];
 
         //Transform image
-        if (preg_match('/\.(jpg|png|gif|jpeg)$/i', $result)) {
+        if (preg_match('/\.(png|gif|jpe?g)$/i', $result)) {
             $Image = getImageObject();
 
             $Image->setSettings();
@@ -146,7 +145,7 @@ class File extends Formats implements Iformats
         $settings = $this->settings[$subformat];
 
         //If the file doesn't exits
-        if (empty($value) || ($value == 1) || (is_array($value) && (($value['size'] == 0) || !is_file($value['tmp_name'])))) {
+        if (empty($value) || ($value == 1) || (is_array($value) && !is_file($value['tmp_name']))) {
             if ($id) {
                 if ($value == 1) {
                     return array($subformat => ($settings['default'] ?: ''));
@@ -187,7 +186,6 @@ class File extends Formats implements Iformats
 
         if (!($saved_file_name = $File->save($value, $file))) {
             $this->error[$subformat] = __('Error storing the new file for field "%s"', __($this->name));
-
             return $settings['default'] ? array($subformat => $settings['default']) : false;
         }
 

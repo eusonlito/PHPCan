@@ -55,7 +55,7 @@ class Realfile extends File implements Iformats
         $settings = $this->settings['location'];
 
         //Transform image
-        if (preg_match('/\.(jpg|png|gif|jpeg)$/i', $result)) {
+        if (preg_match('/\.(png|gif|jpe?g)$/i', $result)) {
             $Image = getImageObject();
 
             $Image->setSettings();

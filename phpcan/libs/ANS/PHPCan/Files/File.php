@@ -214,7 +214,7 @@ class File
 
         //Save post file
         if (is_array($file)) {
-            if (empty($file['size']) || !is_file($file['tmp_name'])) {
+            if (!is_file($file['tmp_name'])) {
                 return false;
             }
 
