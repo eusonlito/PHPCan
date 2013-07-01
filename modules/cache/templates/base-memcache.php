@@ -504,33 +504,23 @@ EOB;
 function getFooter()
 {
     global $VERSION;
-    $footer = '</div><!-- Based on apc.php '.$VERSION.'--></body>
-</html>
-';
-
-    return $footer;
-
+    return '</div><!-- Based on apc.php '.$VERSION.'--></body></html>';
 }
+
 function getMenu()
 {
-    global $PHP_SELF;
-echo "<ol class=menu>";
-if ($_GET['op']!=4) {
-echo <<<EOB
-    <li><a href="$PHP_SELF&op={$_GET['op']}">Refresh Data</a></li>
-EOB;
-} else {
-echo <<<EOB
-    <li><a href="$PHP_SELF&op=2}">Back</a></li>
-EOB;
-}
-echo
-    menu_entry(1,'View Host Stats');
+    echo "<ol class=menu>";
 
-echo <<<EOB
-    </ol>
-    <br/>
-EOB;
+    if ($_GET['op'] != 4) {
+        echo '<li><a href="?op='.$_GET['op'].'">Refresh Data</a></li>';
+    } else {
+        echo '<li><a href="?op=2">Back</a></li>';
+    }
+
+    echo menu_entry(6, 'Flush this server');
+    echo menu_entry(1, 'View Host Stats');
+
+    echo '</ol><br/>';
 }
 
 // TODO, AUTH
