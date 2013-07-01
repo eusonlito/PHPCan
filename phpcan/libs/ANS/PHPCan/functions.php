@@ -395,14 +395,26 @@ function createCacheLink ($file, $params = array())
         $query = '/_'.wordwrap(deflate64($params), 50, '_/_', true).'_/';
     }
 
-    return preg_replace('#^'.WWW.'#', WWW.SCENE_NAME.'/'.$Config->scene_paths['cache'], dirname($file)).$query.basename($file);
+    if (preg_match('#'.SCENE_NAME.'/?#', WWW)) {
+        $base = WWW;
+    } else {
+        $base = WWW.SCENE_NAME.'/';
+    }
+
+    return preg_replace('#^'.$base.'#', $base.$Config->scene_paths['cache'], dirname($file)).$query.basename($file);
 }
 
 function parseCacheLink ($url)
 {
     global $Config;
 
-    $url = preg_replace('#^'.WWW.SCENE_NAME.'/'.$Config->scene_paths['cache'].'#', '', $url);
+    if (preg_match('#'.SCENE_NAME.'/?#', WWW)) {
+        $base = WWW;
+    } else {
+        $base = WWW.SCENE_NAME.'/';
+    }
+
+    $url = preg_replace('#^'.$base.$Config->scene_paths['cache'].'#', '', $url);
 
     preg_match_all('#/_(.*?)_(?=/)#', $url, $params);
 
