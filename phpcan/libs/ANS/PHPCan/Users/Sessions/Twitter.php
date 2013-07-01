@@ -193,7 +193,7 @@ class Twitter implements Isession {
 
         $this->twitter = $this->API()->get('account/verify_credentials');
 
-        if (empty($this->twitter) || $this->twitter->error) {
+        if (empty($this->twitter) || $this->twitter->errors) {
             $this->twitter = false;
         }
 
