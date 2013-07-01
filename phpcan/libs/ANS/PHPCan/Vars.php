@@ -993,17 +993,19 @@ class Vars
      *
      * return boolean/string/array
      */
-    public function getSceneConfig ($variable = '', $compare = '')
+    public function getSceneConfig ($variable = '', $compare = '', $scene = '')
     {
+        $scene = $scene ?: $this->scene;
+
         if (empty($variable)) {
-            return $this->scenes[$this->scene];
+            return $this->scenes[$scene];
         }
 
         if ($compare) {
-            return ($this->scenes[$this->scene][$variable] == $compare) ? true : false;
+            return ($this->scenes[$scene][$variable] == $compare) ? true : false;
         }
 
-        return $this->scenes[$this->scene][$variable];
+        return $this->scenes[$scene][$variable];
     }
 
 
