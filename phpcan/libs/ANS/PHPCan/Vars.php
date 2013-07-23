@@ -488,7 +488,7 @@ class Vars
         }
 
         if ($this->compress_cookies) {
-            return setcookie('gz:'.$name, ($value ? deflate64($value) : $value), time() + $duration, BASE_WWW, $this->cookie_domain);
+            return setcookie('gz:'.str_replace('gz:', '', $name), ($value ? deflate64($value) : $value), time() + $duration, BASE_WWW, $this->cookie_domain);
         } else {
             return setcookie($name, ($value ? serialize($value) : $value), time() + $duration, BASE_WWW, $this->cookie_domain);
         }
