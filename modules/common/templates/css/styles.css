@@ -181,7 +181,7 @@ section.main > .content > footer {
 	border: solid 1px $black-20;
 	padding: 3px 8px 2px;
 	color: $black-40;
-	border-radius: 4px;
+	border-radius: 3px;
 }
 .pagination li a {
 	background: $color;

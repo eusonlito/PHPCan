@@ -41,7 +41,7 @@ class File extends Formats implements Iformats
 
         $File = new \ANS\PHPCan\Files\File;
 
-        $path = $settings['base_path'].$settings['uploads'].$settings['subfolder'];
+        $path = $this->getRealPath($subformat).$settings['subfolder'];;
 
         if (!is_dir($path)) {
             if (!$File->makeFolder($path)) {
@@ -128,7 +128,7 @@ class File extends Formats implements Iformats
 
             $Image->setSettings();
 
-            $Image->load($settings['base_path'].$settings['uploads'].$settings['subfolder'].$result);
+            $Image->load($this->getRealPath().$settings['subfolder'].$result);
 
             if ($settings['images']['transform']) {
                 $Image->transform($settings['images']['transform'], false);
@@ -179,7 +179,7 @@ class File extends Formats implements Iformats
             $file = preg_replace('#\-\.[a-z0-9]{2,4}$#', '.'.$ext, $file);
         }
 
-        $base = $settings['base_path'].$settings['uploads'].$settings['subfolder'];
+        $base = $this->getRealPath($subformat).$settings['subfolder'];
         $file = $base.substr($uniqid, -3).'/'.substr($uniqid, 0, -3).'-'.$file;
 
         $File = new \ANS\PHPCan\Files\File;
@@ -205,7 +205,7 @@ class File extends Formats implements Iformats
         }
 
         if ($old && ($old !== $settings['default']) && (($new == 1) || ($new != $old))) {
-            $old_file = $settings['base_path'].$settings['uploads'].$old;
+            $old_file = $this->getRealPath($subformat).$old;
 
             if (is_file($old_file)) {
                 unlink($old_file);
@@ -213,6 +213,15 @@ class File extends Formats implements Iformats
         }
 
         return true;
+    }
+
+    public function getRealPath ($subformat = '') {
+        $settings = $this->settings[$subformat];
+
+        $base = $settings['base_path'].$settings['uploads'];
+        $path = realpath($base);
+
+        return $path ? ($path.'/') : $base;
     }
 
     public function settings ($settings)

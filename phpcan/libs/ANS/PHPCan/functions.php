@@ -189,11 +189,29 @@ function path ()
     }
 
     if (isset($options['scene']) || isset($options['module'])) {
+        $scene = $Vars->getScene();
+
         if (!isset($options['scene']) || empty($Config->scenes[$options['scene']])) {
-            $options['scene'] = $Vars->getScene();
+            $options['scene'] = $scene;
         }
 
-        $path = BASE_WWW.(($Config->scenes[$options['scene']]['detect'] === 'subfolder') ? $options['scene'].'/' : '');
+        if (($Config->scenes[$options['scene']]['detect'] === 'subdomain')) {
+            if ($options['scene'] !== $scene) {
+                $subdomain = $Config->scenes[$options['scene']]['subdomain'] ?: $options['scene'];
+
+                if (substr_count(SERVER_NAME, '.') === 1) {
+                    $domain = $subdomain.'.'.SERVER_NAME;
+                } else {
+                    $domain = preg_replace('/^[^\.]*/', $subdomain, SERVER_NAME);
+                }
+
+                $path = scheme().$domain.port().'/';
+            } else {
+                $path = BASE_WWW;
+            }
+        } else {
+            $path = BASE_WWW.$options['scene'].'/';
+        }
 
         if (isset($options['module'])) {
             if ($options['module'] && $Config->scenes[$options['scene']]['modules'][$options['module']]) {
@@ -394,7 +412,6 @@ function createCacheLink ($file, $params = array())
     if ($params) {
         $query = '/_'.wordwrap(deflate64($params), 50, '_/_', true).'_/';
     }
-
 
     if (MODULE_NAME) {
         $base = WWW;
@@ -1090,23 +1107,23 @@ function is_https ()
  */
 function host ()
 {
+    return scheme().SERVER_NAME.port();
+}
+
+function scheme ()
+{
+    return is_https() ? 'https://' : 'http://';
+}
+
+function port ()
+{
     $port = intval(getenv('SERVER_PORT'));
 
     if (is_https()) {
-        $host = 'https://'.SERVER_NAME;
-
-        if ($port && ($port !== 443)) {
-            $host .= ':'.$port;
-        }
+        return ($port && ($port !== 443)) ? (':'.$port) : '';
     } else {
-        $host = 'http://'.SERVER_NAME;
-
-        if ($port && ($port !== 80)) {
-            $host .= ':'.$port;
-        }
+        return ($port && ($port !== 80)) ? (':'.$port) : '';
     }
-
-    return $host;
 }
 
 /**

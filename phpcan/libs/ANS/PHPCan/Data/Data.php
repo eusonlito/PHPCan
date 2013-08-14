@@ -125,23 +125,29 @@ class Data
 
         $empty_data = $empty_data ? filePath('phpcan/libs|ANS/PHPCan/Utils/empty_template.php') : false;
 
+        if (empty($data)) {
+            return $empty_data;
+        }
+
+        $file = '';
+
         if (!is_string($data)) {
             return $empty_data;
         } else if (isset($Config->data[$data])) {
             if ($Config->data[$data]) {
-                $data = filePath('data|'.$Config->data[$data]);
+                $file = filePath('data|'.$Config->data[$data]);
             } else {
                 return $empty_data;
             }
         } else if (strstr($data, '|') !== false) {
-            $data = filePath($data);
-        } else if ($data) {
-            $data = filePath('data|'.$data);
+            $file = filePath($data);
+        } else if (strpos($data, '/') === 0) {
+            $file = $data;
         } else {
-            return $empty_data;
+            $file = filePath('data|'.$data);
         }
 
-        return is_file($data) ? $data : $empty_data;
+        return ($file && is_file($file)) ? $file : $empty_data;
     }
 
     /**

@@ -23,6 +23,7 @@ class Vars
     public $var = array();
     public $cookie = array();
     public $cookie_domain = null;
+    public $cookie_path = null;
     public $route_config = array();
 
     private $route;
@@ -122,12 +123,9 @@ class Vars
 
         //Save the current subdomains
         if (preg_match('/localhost$/', SERVER_NAME)) {
-            $this->subdomains = array_reverse(explode('.', str_replace('.localhost', '', SERVER_NAME)));
+            $this->subdomains = explode('.', str_replace('.localhost', '', SERVER_NAME));
         } else {
-            // FIX: problem with domains with double extension: co.uk
-            $this->subdomains = array_reverse(explode('.', preg_replace('/[a-z0-9-]+\.([a-z]{2,4})+$/', '', SERVER_NAME)));
-
-            array_shift($this->subdomains);
+            $this->subdomains = explode('.', preg_replace('/\.?[^\.]+\.[^\.]+$/', '', SERVER_NAME));
         }
     }
 
@@ -475,6 +473,16 @@ class Vars
     }
 
     /**
+     * public function setCookiePath (string $path)
+     *
+     * return boolean
+     */
+    public function setCookiePath ($path)
+    {
+        $this->cookie_path = $path;
+    }
+
+    /**
      * public function setCookie (string $name, string $value, [int $duration])
      *
      * return boolean
@@ -487,10 +495,12 @@ class Vars
             $duration = 86400; //one day
         }
 
+        $path = $this->cookie_path ?: BASE_WWW;
+
         if ($this->compress_cookies) {
-            return setcookie('gz:'.str_replace('gz:', '', $name), ($value ? deflate64($value) : $value), time() + $duration, BASE_WWW, $this->cookie_domain);
+            return setcookie('gz:'.str_replace('gz:', '', $name), ($value ? deflate64($value) : $value), time() + $duration, $path, $this->cookie_domain);
         } else {
-            return setcookie($name, ($value ? serialize($value) : $value), time() + $duration, BASE_WWW, $this->cookie_domain);
+            return setcookie($name, ($value ? serialize($value) : $value), time() + $duration, $path, $this->cookie_domain);
         }
     }
 
@@ -937,13 +947,11 @@ class Vars
             return true;
         }
 
-        //Get scene by subdomain
-        reset($this->subdomains);
-
-        $scene = current($this->subdomains);
+        $scene = $this->subdomains[0];
 
         if ($scene && ($this->scenes[$scene]['detect'] === 'subdomain')) {
             $this->scene = $scene;
+
             array_shift($this->subdomains);
 
             return true;
@@ -1171,6 +1179,7 @@ class Vars
                     $this->language = $language;
                     $this->pathShift();
                 }
+
                 break;
 
             case 'get':
@@ -1179,17 +1188,18 @@ class Vars
                 if (in_array($language, $languages)) {
                     $this->language = $language;
                 }
+
                 break;
 
             case 'subdomain':
-                reset($this->subdomains);
-
-                $language = current($this->subdomains);
+                $language = $this->subdomains[0];
 
                 if (in_array($language, $languages)) {
                     $this->language = $language;
+
                     array_shift($this->subdomains);
                 }
+
                 break;
         }
 
