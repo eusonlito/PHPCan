@@ -551,6 +551,10 @@ function redirect ($url = null)
 function includeFile ($_file, $_data_content = array(), $_once = false)
 {
     if (empty($_file) || !is_file($_file)) {
+        if (defined('DEV') && (DEV === true)) {
+            die(__('File %s does not exists', $_file));
+        }
+
         return;
     }
 

@@ -606,7 +606,7 @@ class Form
     {
         $result = array();
 
-        foreach (array('first_option', 'option_title', 'option_text', 'option_text_separator', 'option_value', 'option_selected', 'option_disabled', 'option_text_as_value', 'gettext') as $value) {
+        foreach (array('first_option', 'option_title', 'option_text', 'option_text_separator', 'option_value', 'option_selected', 'option_disabled', 'option_text_as_value', 'gettext', 'optgroup') as $value) {
             $$value = $params[$value];
             unset($params[$value]);
         }
@@ -696,14 +696,40 @@ class Form
 
         $options_text = '';
 
-        $options = $this->options($options, $params['params']);
+        if ($params['params']['optgroup']) {
+            if ($params['params']['first_option']) {
+                $options_text = '<option value="">'.$params['params']['first_option'].'</option>';
+                unset($params['params']['first_option']);
+            }
 
-        foreach ($options as $option) {
-            $options_text .= '<option'.$this->Html->params(array(
-                'value' => $option['value'],
-                'selected' => $option['selected'],
-                'disabled' => $option['disabled']
-            )).'>'.$option['text'].'</option>'."\n";
+            foreach ($options as $optgroup => $list) {
+                $settings = $params['params'];
+                $list = $this->options($list, $settings);
+
+                $options_text .= '<optgroup label="'.$optgroup.'">';
+
+                foreach ($list as $option) {
+                    $options_text .= '<option'.$this->Html->params(array(
+                        'value' => $option['value'],
+                        'selected' => $option['selected'],
+                        'disabled' => $option['disabled']
+                    )).'>'.$option['text'].'</option>'."\n";
+                }
+
+                $options_text .= '</optgroup>';
+            }
+
+            $params['params'] = $settings;
+        } else {
+            $options = $this->options($options, $params['params']);
+
+            foreach ($options as $option) {
+                $options_text .= '<option'.$this->Html->params(array(
+                    'value' => $option['value'],
+                    'selected' => $option['selected'],
+                    'disabled' => $option['disabled']
+                )).'>'.$option['text'].'</option>'."\n";
+            }
         }
 
         return $params['label_before'].'<select'.$this->Html->params($params['params']).'>'."\n".$options_text."\n".'</select>'.$params['label_after']."\n".$params['error'].$params['extra'];
