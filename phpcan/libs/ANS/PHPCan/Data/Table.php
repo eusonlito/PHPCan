@@ -459,10 +459,10 @@ class Table
                 }
 
                 foreach ($languages as $language => $fields) {
-                    $language = $language ? '-'.$language : '';
+                    $language = $language ? ('-'.$language) : '';
 
                     foreach ($fields as $field => $value) {
-                        $field = $field ? '-'.$field : '';
+                        $field = $field ? ('-'.$field) : '';
 
                         $return[$num_row][$format.$language.$field] = $value;
                     }

@@ -28,7 +28,7 @@ class Embed extends Formats implements Iformats
             return true;
         }
 
-        $Url = new \ANS\PHPCan\Url\media($this->table, $this->name, $this->languages);
+        $Url = new \ANS\PHPCan\Data\Formats\Url_media($this->table, $this->name, $this->languages);
 
         $value[''] = $Url->fixUrl($value[''], true);
 
@@ -55,7 +55,7 @@ class Embed extends Formats implements Iformats
             return $value;
         }
 
-        $Url = new \ANS\PHPCan\Url\media($this->table, $this->name, $this->languages);
+        $Url = new \ANS\PHPCan\Data\Formats\Url_media($this->table, $this->name, $this->languages);
 
         $value_url = $Url->fixValue(array('url' => $value['']));
 
