@@ -305,12 +305,12 @@ footer.main {
 a#ans {
 	width: 13px;
 	height: 15px;
-	background-image: url('../img/logo-ans.png');
+	background-image: url('../../../common/templates/img/logo-ans.png');
 }
 a#phpcan {
 	width: 23px;
 	height: 15px;
-	background-image: url('../img/logo-phpcan.png');
+	background-image: url('../../../common/templates/img/logo-phpcan.png');
 }
 
 
