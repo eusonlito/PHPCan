@@ -10,7 +10,8 @@
 defined('ANS') or die();
 
 $config['languages'] = array(
-    'detect' => 'subfolder', // Method for language detection (subfolder/subdomain/get)
+    'detect' => 'get', // Method for language detection (subfolder/subdomain/get)
+    'default' => 'gl', // If default is defined, load this language as default, else try to load the browser language
     'availables' => array(
         'gl' => true,
         'es' => true

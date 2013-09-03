@@ -10,8 +10,8 @@
 defined('ANS') or die();
 
 $Config->load(array(
-    'scene' => array('db.php', 'tables.php'),
-    'module' => array('actions.php', 'routes.php', 'languages.php', 'events.php', 'plugins.php')
+    'scene' => array('languages.php', 'db.php', 'tables.php'),
+    'module' => array('actions.php', 'routes.php', 'events.php', 'plugins.php')
 ));
 
 $Config->load('languages.php', 'scene', 'scene_');
