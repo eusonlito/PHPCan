@@ -7,7 +7,7 @@
 * More information at license.txt
 */
 
-namespace ANS\PHPCan\Apis\google;
+namespace ANS\PHPCan\Apis\Google;
 
 defined('ANS') or die();
 
@@ -15,7 +15,7 @@ use \ANS\PHPCan\Apis;
 
 //API Documentations: http://code.google.com/apis/websearch/docs/reference.html
 
-class Search extends Api
+class Search extends \ANS\PHPCan\Apis\Api
 {
     /**
      * public function search (string/array $data, [int $cache], [boolean $return_array])

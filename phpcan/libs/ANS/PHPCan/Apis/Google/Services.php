@@ -12,13 +12,13 @@
 * More information at license.txt
 */
 
-namespace ANS\PHPCan\Apis\google;
+namespace ANS\PHPCan\Apis\Google;
 
 defined('ANS') or die();
 
 use \ANS\PHPCan\Apis;
 
-class Services extends Xhttp
+class Services extends \ANS\PHPCan\Apis\Xhttp
 {
     protected $logged = false;
 
