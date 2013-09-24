@@ -33,7 +33,7 @@ class Content
 
         $this->Debug = $Debug;
         $this->Errors = $Errors;
-        $this->settings['tables'] = $Config->content_tables;
+        $this->settings['tables'] = $this->getTables();
         $this->settings['relations'] = $Config->content_relations;
         $this->settings['add_tables'] = $Config->content_add_tables;
         $this->settings['views'] = $Config->content_views;
@@ -46,6 +46,39 @@ class Content
         if ($autoglobal) {
             $Config->config['autoglobal'][] = $autoglobal;
         }
+    }
+
+    /**
+     * public function getTables ()
+     *
+     */
+    public function getTables ()
+    {
+        global $Config;
+
+        if (empty($Config->content_tables_ignored)) {
+            return $Config->content_tables;
+        }
+
+        $tables = array();
+        $tables_ignored = (array)$Config->content_tables_ignored;
+
+        foreach ($Config->content_tables as $connection => $list) {
+            if (empty($tables_ignored[$connection])) {
+                $tables[$connection] = $list;
+                continue;
+            }
+
+            foreach ($list as $name => $table) {
+                if (in_array($name, $tables_ignored[$connection])) {
+                    continue;
+                }
+
+                $tables[$connection][$name] = $table;
+            }
+        }
+
+        return $tables;
     }
 
     /**
