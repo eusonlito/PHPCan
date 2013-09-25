@@ -859,6 +859,12 @@ class Mysql implements Idatabase
                 case 'IN SET':
                     $q .= ' FIND_IN_SET("'.$value.'", '.$field.') > 0';
                     break;
+                default:
+                    if (defined('DEV') && (DEV === true)) {
+                        $this->Debug->fatalError(__('Operator "%s" is not valid on WHERE conditions', $mode));
+                    }
+
+                    continue;
             }
 
             $q .= ' '.$first;
