@@ -353,7 +353,7 @@ class Db
                 $this->Result = $this->PDO->query($query);
 
                 if (empty($this->Result)) {
-                    $this->error(end($this->PDO->errorInfo()));
+                    $this->error($query."\n\n".end($this->PDO->errorInfo()));
                 }
             } catch (\PDOException $e) {
                 $this->error($e->getMessage());

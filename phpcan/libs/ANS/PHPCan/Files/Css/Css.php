@@ -101,9 +101,9 @@ class Css {
         return $this;
     }
 
-    public function toString ()
+    public function toString (array $options = array())
     {
-        $css = (string)$this->Css;
+        $css = $this->Css->toString($options);
 
         return ($this->settings['cache']['minify'] ? $this->minify($css) : $css);
     }

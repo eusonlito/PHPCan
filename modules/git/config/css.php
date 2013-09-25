@@ -14,6 +14,10 @@ $config['css'] = array(
         'plugins' => array(
             'Variables',
             'VendorPrefixes'
+        ),
+        'stringfy' => array(
+            'sourceMap' => true,
+            'comments' => false
         )
     )
 );

@@ -9,7 +9,7 @@ $config['gettext_builders'] = array(
     'generic_dates' => array(
         'input' => 'scene/config|i18n.php',
         'output' => 'scene/languages|',
-        'languages' => array('en', 'gl', 'es')
+        'languages' => $languages
     ),
     'scene_texts' => array(
         'input' => array('scene/templates|', 'scene/data|', 'scene/actions|', 'scene/languages|', 'scene/libs|'),
@@ -28,7 +28,7 @@ $config['gettext_builders'] = array(
         'description' => __('phpCan errors'),
         'input' => 'phpcan/libs|ANS/PHPCan/',
         'output' => 'phpcan/languages|',
-        'languages' => array('en', 'gl', 'es')
+        'languages' => $languages
     )
 );
 

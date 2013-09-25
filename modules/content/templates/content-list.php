@@ -16,9 +16,11 @@ defined('ANS') or die();
         <h2><?php __e('List'); ?></h2>
     </hgroup>
 
-    <?php if (hasText($Data->table_info['description'])) {
+    <?php
+    if (hasText($Data->table_info['description'])) {
         echo '<p>'.$Data->table_info['description'].'</p>';
-    } ?>
+    }
+    ?>
 
     <nav>
         <div class="actions">

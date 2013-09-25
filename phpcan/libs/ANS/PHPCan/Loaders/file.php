@@ -110,9 +110,9 @@ foreach ($files as $file) {
             echo "\n";
 
             if ($params['dynamic']) {
-                echo $Css->load($realfile)->transform($config['plugins'])->transform(array('BaseUrl' => dirname($file).'/'))->toString();
+                echo $Css->load($realfile)->transform($config['plugins'])->transform(array('BaseUrl' => dirname($file).'/'))->toString($config['stringfy']);
             } else {
-                echo $Css->load($realfile)->transform(array('BaseUrl' => dirname($file).'/'))->toString();
+                echo $Css->load($realfile)->transform(array('BaseUrl' => dirname($file).'/'))->toString($config['stringfy']);
             }
             break;
 
