@@ -13,6 +13,3 @@
 [submodule "common/ckeditor"]
 	path = common/ckeditor
 	url = git://github.com/ckeditor/ckeditor-releases.git
-[submodule "phpcan/libs/fzaninotto/faker"]
-	path = phpcan/libs/fzaninotto/faker
-	url = https://github.com/fzaninotto/Faker.git
