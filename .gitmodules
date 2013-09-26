@@ -10,9 +10,6 @@
 [submodule "phpcan/libs/phpmailer/phpmailer"]
 	path = phpcan/libs/phpmailer/phpmailer
 	url = git://github.com/PHPMailer/PHPMailer.git
-[submodule "phpcan/libs/fzaninotto/faker"]
-	path = phpcan/libs/fzaninotto/faker
-	url = https://github.com/fzaninotto/Faker.git
 [submodule "common/ckeditor"]
 	path = common/ckeditor
 	url = git://github.com/ckeditor/ckeditor-releases.git
