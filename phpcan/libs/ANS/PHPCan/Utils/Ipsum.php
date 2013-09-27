@@ -99,6 +99,23 @@ class Ipsum
                     case 'image':
                         $data[$field] = filePath('common|default/images/'.rand(1, 5).'.jpg');
                         break;
+                    case 'gmaps':
+                        $longitude = (float)42.759113;
+                        $latitude = (float)-7.838745;
+                        $radius = rand(1, 100);
+
+                        $lng_min = $longitude - $radius / abs(cos(deg2rad($latitude)) * 69);
+                        $lng_max = $longitude + $radius / abs(cos(deg2rad($latitude)) * 69);
+                        $lat_min = $latitude - ($radius / 69);
+                        $lat_max = $latitude + ($radius / 69);
+
+                        $data[$field] = array(
+                            'x' => (rand($lng_min * 10000000, $lng_max * 10000000) / 10000000),
+                            'y' => (rand($lat_min * 10000000, $lat_max * 10000000) / 10000000),
+                            'z' => rand(5, 13)
+                        );
+
+                        break;
                     case 'html':
                         $data[$field] = '<p>'.implode('</p><p>', $Faker->paragraphs(rand(3, 6))).'</p>';
                         break;
