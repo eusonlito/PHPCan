@@ -90,7 +90,7 @@ class Ipsum
                         $data[$field] = $Faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d H:i:s');
                         break;
                     case 'email':
-                        $data[$field] = $Faker->freeEmail;
+                        $data[$field] = $Faker->email;
                         break;
                     case 'enum':
                         $data[$field] = $settings['values'][array_rand($settings['values'])];
@@ -98,6 +98,9 @@ class Ipsum
                     case 'file':
                     case 'image':
                         $data[$field] = filePath('common|default/images/'.rand(1, 5).'.jpg');
+                        break;
+                    case 'float':
+                        $data[$field] = $Faker->randomFloat();
                         break;
                     case 'gmaps':
                         $longitude = (float)42.759113;
