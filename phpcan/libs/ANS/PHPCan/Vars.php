@@ -294,55 +294,55 @@ class Vars
         $return = array();
 
         foreach ((array)$names as $name => $filter) {
-            if (!is_array($filter)) {
-                if (is_int($name)) {
-                    $name = $filter;
-                    $filter = $def_filter;
+            if (is_array($filter)) {
+                continue;
+            }
+
+            if (is_int($name)) {
+                $name = $filter;
+                $filter = $def_filter;
+            }
+
+            $filter = $this->getSanitizeFilter($filter);
+
+            if (isset($values[$name])) {
+                $return[$name] = $values[$name];
+
+                if (!is_array($return[$name])) {
+                    $return[$name] = filter_var($return[$name], $filter[0], $filter[1]);
                 }
 
-                $filter = $this->getSanitizeFilter($filter);
+                continue;
+            }
 
-                if (isset($values[$name])) {
-                    $return[$name] = $values[$name];
+            if (strpos($name, '[') && strpos($name, ']')) {
+                $subarrays = explode('[', str_replace(']', '', $name));
+                $value = $values;
+
+                while ($subarrays) {
+                    $value = $value[array_shift($subarrays)];
+                }
+
+                if (isset($value)) {
+                    $return[$name] = $value;
 
                     if (!is_array($return[$name])) {
                         $return[$name] = filter_var($return[$name], $filter[0], $filter[1]);
                     }
-
-                    continue;
                 }
 
-                if (strpos($name, '[') && strpos($name, ']')) {
-                    $subarrays = explode('[', str_replace(']', '', $name));
-                    $value = $values;
+                continue;
+            }
 
-                    while ($subarrays) {
-                        $value = $value[array_shift($subarrays)];
-                    }
-
-                    if (isset($value)) {
-                        $return[$name] = $value;
+            if ($name === ':num') {
+                foreach (array_keys($values) as $name) {
+                    if (is_int($name) && isset($values[$name])) {
+                        $return[$name] = $values[$name];
 
                         if (!is_array($return[$name])) {
                             $return[$name] = filter_var($return[$name], $filter[0], $filter[1]);
                         }
                     }
-
-                    continue;
-                }
-
-                if ($name === ':num') {
-                    foreach (array_keys($values) as $name) {
-                        if (is_int($name) && isset($values[$name])) {
-                            $return[$name] = $values[$name];
-
-                            if (!is_array($return[$name])) {
-                                $return[$name] = filter_var($return[$name], $filter[0], $filter[1]);
-                            }
-                        }
-                    }
-
-                    continue;
                 }
 
                 continue;
