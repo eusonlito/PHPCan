@@ -90,7 +90,7 @@ class Ipsum
                         $data[$field] = $Faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d H:i:s');
                         break;
                     case 'email':
-                        $data[$field] = $Faker->email;
+                        $data[$field] = alphaNumeric($Faker->email, '@.-');
                         break;
                     case 'enum':
                         $data[$field] = $settings['values'][array_rand($settings['values'])];
