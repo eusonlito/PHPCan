@@ -160,7 +160,6 @@ header('Expires: '.gmdate('D, d M Y H:i:s', (time() + $cache['expire']).' GMT'))
 $file = cacheFile();
 $folder = dirname($file);
 
-
 if ($File->makeFolder($folder) && is_writable($folder)) {
     file_put_contents($file, $contents);
 }

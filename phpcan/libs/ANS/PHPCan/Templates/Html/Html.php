@@ -458,10 +458,15 @@ class Html
             }
 
             if ($local) {
+                global $Vars;
+
                 $time = ($time === 'auto') ? round(time() / $cache['expire']) : $time;
 
-                $params['src'] = createCacheLink(fileWeb('templates|js/').$time.'.js', array('files' => $local));
                 $params['type'] = 'text/javascript';
+                $params['src'] = createCacheLink(fileWeb('templates|js/').$time.'.js', array(
+                    'files' => $local,
+                    'language' => $Vars->getLanguage()
+                ));
 
                 $code .= '<script'.$this->params($params).'></script>'."\n";
             }
@@ -501,9 +506,14 @@ class Html
         $file = $this->settings['autoversion'] ? $this->autoVersion($file) : $file;
 
         if (strstr($file, '$') !== false) {
+            global $Vars;
+
             $file = str_replace('$', '', $file);
 
-            $options = array('dynamic' => true);
+            $options = array(
+                'dynamic' => true,
+                'language' => $Vars->getLanguage()
+            );
 
             if (strstr($file, '?') !== false) {
                 list($file, $query) = explode('?', $file, 2);
