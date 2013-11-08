@@ -181,7 +181,17 @@ function path ()
     $options = array();
 
     if (is_array($args[0])) {
-        $options = array_shift($args);
+        if (isset($args[0]['args'])) {
+            $options = $args[0];
+
+            unset($options['args']);
+
+            $args = $args[0]['args'];
+        }
+
+        if ($args && $args[0]) {
+            $options = array_merge($options, array_shift($args));
+        }
 
         if (isset($options['args'])) {
             $args = is_array($options['args']) ? $options['args'] : array($options['args']);
@@ -266,7 +276,7 @@ function path ()
         }
     }
 
-    if ($options['host']) {
+    if ($options['host'] && empty($options['scene'])) {
         $path = host().$path;
     }
 
@@ -411,6 +421,11 @@ function createCacheLink ($file, $params = array())
 
     if ($params) {
         $query = '/_'.wordwrap(deflate64($params), 50, '_/_', true).'_/';
+    }
+
+    if (parse_url($file, PHP_URL_SCHEME)) {
+        $file = preg_replace('#(^.*://[^/]+'.BASE_WWW.'[^/]+/)#', '$1'.$Config->scene_paths['cache'].'scene/', $file);
+        return dirname($file).$query.basename($file);
     }
 
     if (MODULE_NAME) {

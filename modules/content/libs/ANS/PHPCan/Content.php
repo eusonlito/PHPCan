@@ -48,11 +48,7 @@ class Content
         }
     }
 
-    /**
-     * public function getTables ()
-     *
-     */
-    public function getTables ()
+    public function getTables ($connection = null)
     {
         global $Config;
 
