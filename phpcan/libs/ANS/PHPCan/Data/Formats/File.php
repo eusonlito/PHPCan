@@ -189,7 +189,7 @@ class File extends Formats implements Iformats
             return $settings['default'] ? array($subformat => $settings['default']) : false;
         }
 
-        return preg_replace('#^'.$base.'#', '', $saved_file_name);
+        return preg_replace('#^'.preg_quote($base, '#').'#', '', $saved_file_name);
     }
 
     public function afterSave (\ANS\PHPCan\Data\Db $Db, $values, $subformat = '')
