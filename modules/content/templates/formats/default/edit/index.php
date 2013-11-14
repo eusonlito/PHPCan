@@ -9,7 +9,7 @@
 
 defined('ANS') or die();
 
-$info['id_field'] = uniqid();
+$info['id_field'] = str_replace('.', '', uniqid('id_', true));
 ?>
 
 <div class="format format-<?php echo $info['format']; ?>">

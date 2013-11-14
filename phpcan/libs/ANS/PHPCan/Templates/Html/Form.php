@@ -91,7 +91,7 @@ class Form
             if ($label['for']) {
                 $params['id'] = $label['for'];
             } else {
-                $params['id'] = uniqid('id_');
+                $params['id'] = str_replace('.', '', uniqid('id_', true));
             }
         }
 
