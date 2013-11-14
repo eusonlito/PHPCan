@@ -179,6 +179,8 @@ class Facebook implements Isession {
     {
         $this->deleteCookie();
 
+        $this->API()->destroySession();
+
         $this->id = 0;
         $this->user = array();
         $this->logged = false;

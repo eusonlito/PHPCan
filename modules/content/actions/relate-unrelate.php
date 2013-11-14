@@ -11,8 +11,10 @@ defined('ANS') or die();
 
 $Data->execute('check.php', true);
 
+$action = $Vars->get('action');
+
 $ok = $Content->saveRelation(array(
-    'action' => $Vars->get('action'),
+    'action' => $action,
     'table' => $Vars->get('table'),
     'id' => explode(',', $Vars->get('id')),
     'relation' => $Vars->get('relation'),
@@ -20,7 +22,7 @@ $ok = $Content->saveRelation(array(
 ));
 
 if ($ok) {
-    if ($action_name == 'relate') {
+    if ($action === 'relate') {
         $Vars->message(__('The elements have been related succesfully!'), 'success');
     } else {
         $Vars->message(__('The elements have been unrelated succesfully!'), 'success');
@@ -29,7 +31,7 @@ if ($ok) {
     return true;
 }
 
-if ($action_name == 'relate') {
+if ($action === 'relate') {
     $Vars->message(__('Ops, there was an error relating the elements'), 'error');
 } else {
     $Vars->message(__('Ops, there was an error unrelating the elements'), 'error');

@@ -154,4 +154,9 @@ class Mail extends \PHPMailer
 
         return $files;
     }
+
+    public function getAllRecipients ()
+    {
+        return array_keys($this->all_recipients);
+    }
 }

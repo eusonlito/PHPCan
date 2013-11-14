@@ -260,9 +260,13 @@ function path ()
         while ($args) {
             $arg = array_shift($args);
 
+            if (is_array($arg)) {
+                continue;
+            }
+
             if (($arg === true) && $Vars->path[$n]) {
                 $path .= $Vars->path[$n].'/';
-            } else if (strlen($arg) && $arg !== false) {
+            } else if (strlen($arg) && ($arg !== false)) {
                 $path .= $arg.'/';
             }
 
