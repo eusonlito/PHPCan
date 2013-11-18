@@ -189,7 +189,7 @@ function path ()
             $args = $args[0]['args'];
         }
 
-        if ($args && $args[0]) {
+        if ($args && is_array($args[0])) {
             $options = array_merge($options, array_shift($args));
         }
 
