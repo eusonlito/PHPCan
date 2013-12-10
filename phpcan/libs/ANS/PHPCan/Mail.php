@@ -44,10 +44,17 @@ class Mail extends \PHPMailer
         $this->Timeout = $params['timeout'];
         $this->SMTPDebug = $params['debug'];
 
-        if ($params['sendmail']) {
-            $this->isSendMail();
-        } else {
-            $this->isSmtp();
+        switch ($params['mailer']) {
+            case 'sendmail':
+                $this->isSendMail();
+                break;
+
+            case 'mail':
+                $this->isMail();
+                break;
+
+            default:
+                $this->isSmtp();
         }
 
         $this->IsHTML(true);
