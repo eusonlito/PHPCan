@@ -1,5 +1,5 @@
 /* TEAM */
-	A Navalla Suíza: Álvaro Gómez, Berto Yáñez, María Yáñez, Óscar Otero, Xabier Cid, Aymará Ghiglione, Adrián Seijo
+	A Navalla Suíza: Álvaro Gómez, Berto Yáñez, María Yáñez, Óscar Otero, Xabier Cid, Aymará Ghiglione, Andrea Lozano
 	Contact: equipo@anavallasuiza.com / +34 981939324
 	Site: http://anavallasuiza.com
 	Twitter: anavallasuiza
@@ -12,4 +12,4 @@
 	Doctype: HTML5
 	Standards: HTML5, CSS3
 	Components: cSans, jQuery, styleCow, $media
-	Software: Apache, PHP, MySQL, Subversion, phpCan, Sublime Text 2, Adobe Photoshop, Adobe Illustrator
+	Software: Apache, PHP, MySQL, Subversion, phpCan, Sublime Text, Adobe Photoshop, Adobe Illustrator
