@@ -21,6 +21,8 @@ $config['db'] = array(
         'query_register_log' => false,
         'query_register_store' => 'db.log',
         'query_register_append' => false,
+        'query_register_errors' => 'db.error',
+
         'default' => true
     )
 );

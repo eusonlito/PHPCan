@@ -255,6 +255,12 @@ class Db
     {
         $this->Errors->set('db', $message);
 
+        $store = $this->settings['query_register_errors'];
+
+        if ($store && is_string($store)) {
+            $this->Debug->store($message, $store, true);
+        }
+
         if ($fatal) {
             $this->Debug->fatalError($message);
         }
