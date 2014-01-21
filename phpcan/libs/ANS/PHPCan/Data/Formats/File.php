@@ -100,6 +100,11 @@ class File extends Formats implements Iformats
             }
         }
 
+        if ($settings['max_size'] && is_file($value['tmp_name']) && (filesize($value['tmp_name']) > $settings['max_size'])) {
+            $this->error[$subformat] = __('File "%s" exceeds the size limit for files.', __($this->name));
+            return false;
+        }
+
         if (empty($settings['mime_types'])) {
             return true;
         }
@@ -144,17 +149,16 @@ class File extends Formats implements Iformats
     {
         $settings = $this->settings[$subformat];
 
-        //If the file doesn't exits
         if (empty($value) || ($value == 1) || (is_array($value) && !is_file($value['tmp_name']))) {
-            if ($id) {
-                if ($value == 1) {
-                    return array($subformat => ($settings['default'] ?: ''));
-                } else {
-                    return false;
-                }
-            } else {
+            if (empty($id)) {
                 return $settings['default'] ? array($subformat => $settings['default']) : false;
             }
+
+            if ($value == 1) {
+                return array($subformat => ($settings['default'] ?: ''));
+            }
+
+            return false;
         }
 
         if (is_string($value) && (!strstr($value, '://') && !is_file($value))) {
@@ -230,12 +234,33 @@ class File extends Formats implements Iformats
 
         $this->bindEvent(array('afterUpdate', 'afterDelete'), array($this, 'afterSave'));
 
+        $max = ini_get('upload_max_filesize');
+
+        if (!preg_match('/^[0-9]+$/', $max)) {
+            $letter = strtolower(substr($max, -1));
+            $max = substr($max, 0, -1);
+
+            if ($letter === 'k') {
+                $max *= 1024;
+            } elseif ($letter === 'm') {
+                $max *= 1024 * 1024;
+            } elseif ($letter === 'g') {
+                $max *= 1024 * 1024 * 1204;
+            } elseif ($letter === 't') {
+                $max *= 1024 * 1024 * 1024 * 1024;
+            } elseif ($letter === 'p') {
+                $max *= 1024 * 1024 * 1024 * 1024 * 1024;
+            } else {
+                $max = 0;
+            }
+        }
+
         $this->settings = $this->setSettings($settings, array(
             '' => array(
                 'db_type' => 'varchar',
 
                 'length_max' => 150,
-                'max_size' => intval(ini_get('upload_max_filesize')),
+                'max_size' => $max,
                 'no_valid_extensions' => array('php', 'php3'),
                 'base_path' => SCENE_PATH,
                 'uploads' => $Config->scene_paths['uploads'],
