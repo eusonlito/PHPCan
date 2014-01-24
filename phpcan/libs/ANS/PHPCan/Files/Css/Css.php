@@ -169,6 +169,7 @@ class Css {
             /x'
             ,"$1\n", $css);
         $css = preg_replace('/:first-l(etter|ine)\\{/', ':first-l$1 {', $css);
+        $css = str_replace('@', " @", $css);
 
         return trim($css);
     }

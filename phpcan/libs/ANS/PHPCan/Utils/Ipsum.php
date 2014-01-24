@@ -9,14 +9,13 @@ class Ipsum
 
     public function __construct ($autoglobal = '')
     {
-        global $Debug, $Db;
+        global $Debug, $Db, $Config;
 
         $this->Debug = $Debug;
         $this->Db = $Db;
+        $this->Config = $Config;
 
         if ($autoglobal) {
-            global $Config;
-
             $Config->config['autoglobal'][] = $autoglobal;
         }
     }
@@ -71,78 +70,25 @@ class Ipsum
 
         $fields = $this->settings['tables'][$table];
 
-        $Faker = \Faker\Factory::create('es_ES');
-
         for ($i > 0; $i < $rows; ++$i) {
             $data = array();
 
             foreach ($fields as $field => $settings) {
                 $settings = is_array($settings) ? $settings : array('format' => $settings);
 
-                switch ($settings['format']) {
-                    case 'boolean':
-                        $data[$field] = rand(0, 1);
-                        break;
-                    case 'date':
-                        $data[$field] = $Faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d');
-                        break;
-                    case 'datetime':
-                        $data[$field] = $Faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d H:i:s');
-                        break;
-                    case 'email':
-                        $data[$field] = alphaNumeric($Faker->email, '@.-');
-                        break;
-                    case 'enum':
-                        $data[$field] = $settings['values'][array_rand($settings['values'])];
-                        break;
-                    case 'file':
-                    case 'image':
-                        $data[$field] = filePath('common|default/images/'.rand(1, 5).'.jpg');
-                        break;
-                    case 'float':
-                        $data[$field] = $Faker->randomFloat();
-                        break;
-                    case 'gmaps':
-                        $longitude = (float)42.759113;
-                        $latitude = (float)-7.838745;
-                        $radius = rand(1, 100);
+                if ($settings['languages']) {
+                    if ($settings['languages'] === 'all') {
+                        $settings['languages'] = array_keys($this->Config->languages['availables']);
+                    }
 
-                        $lng_min = $longitude - $radius / abs(cos(deg2rad($latitude)) * 69);
-                        $lng_max = $longitude + $radius / abs(cos(deg2rad($latitude)) * 69);
-                        $lat_min = $latitude - ($radius / 69);
-                        $lat_max = $latitude + ($radius / 69);
+                    foreach ((array)$settings['languages'] as $language) {
+                        $data[$field.'-'.$language] = $this->getFaker($settings, $language);
+                    }
 
-                        $data[$field] = array(
-                            'x' => (rand($lng_min * 10000000, $lng_max * 10000000) / 10000000),
-                            'y' => (rand($lat_min * 10000000, $lat_max * 10000000) / 10000000),
-                            'z' => rand(5, 13)
-                        );
-
-                        break;
-                    case 'html':
-                        $data[$field] = '<p>'.implode('</p><p>', $Faker->paragraphs(rand(3, 6))).'</p>';
-                        break;
-                    case 'id_text':
-                    case 'title':
-                    case 'varchar':
-                        $data[$field] = ucfirst(preg_replace('/[^a-z0-9\s]/', '', $Faker->sentence(rand(2, 5))));
-                        break;
-                    case 'integer':
-                        $data[$field] = $Faker->randomNumber(rand(2, 5));
-                        break;
-                    case 'ip':
-                        $data[$field] = $Faker->ipv4;
-                        break;
-                    case 'sort':
-                        $data[$field] = $Faker->randomNumber(rand(1, 3));
-                        break;
-                    case 'text':
-                        $data[$field] = $Faker->text;
-                        break;
-                    case 'url':
-                        $data[$field] = $Faker->url;
-                        break;
+                    continue;
                 }
+
+                $data[$field] = $this->getFaker($settings);
 
                 if ($settings['required'] && empty($data[$field])) {
                     $data = array();
@@ -229,6 +175,68 @@ class Ipsum
                     )
                 ));
             }
+        }
+    }
+
+    private function getFaker ($settings, $lang = 'es_ES')
+    {
+        if (!strstr($lang, '_')) {
+            $lang = strtolower($lang).'_'.strtoupper($lang);
+        }
+
+        try {
+            $Faker = \Faker\Factory::create($lang);
+        } catch (\Exception $e) {
+            $Faker = \Faker\Factory::create('es_ES');
+        }
+
+        switch ($settings['format']) {
+            case 'boolean':
+                return rand(0, 1);
+            case 'date':
+                return $Faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d');
+            case 'datetime':
+                return $Faker->dateTimeBetween('-1 year', '+1 year')->format('Y-m-d H:i:s');
+            case 'email':
+                return alphaNumeric($Faker->email, '@.-');
+            case 'enum':
+                return $settings['values'][array_rand($settings['values'])];
+            case 'file':
+            case 'image':
+                return filePath('common|default/images/'.rand(1, 5).'.jpg');
+            case 'float':
+                return $Faker->randomFloat();
+            case 'gmaps':
+                $longitude = (float)42.759113;
+                $latitude = (float)-7.838745;
+                $radius = rand(1, 100);
+
+                $lng_min = $longitude - $radius / abs(cos(deg2rad($latitude)) * 69);
+                $lng_max = $longitude + $radius / abs(cos(deg2rad($latitude)) * 69);
+                $lat_min = $latitude - ($radius / 69);
+                $lat_max = $latitude + ($radius / 69);
+
+                return array(
+                    'x' => (rand($lng_min * 10000000, $lng_max * 10000000) / 10000000),
+                    'y' => (rand($lat_min * 10000000, $lat_max * 10000000) / 10000000),
+                    'z' => rand(5, 13)
+                );
+            case 'html':
+                return '<p>'.implode('</p><p>', $Faker->paragraphs(rand(3, 6))).'</p>';
+            case 'id_text':
+            case 'title':
+            case 'varchar':
+                return ucfirst(preg_replace('/[^a-z0-9\s]/', '', $Faker->sentence(rand(2, 5))));
+            case 'integer':
+                return $Faker->randomNumber(rand(2, 5));
+            case 'ip':
+                return $Faker->ipv4;
+            case 'sort':
+                return $Faker->randomNumber(rand(1, 3));
+            case 'text':
+                return $Faker->text;
+            case 'url':
+                return $Faker->url;
         }
     }
 }
