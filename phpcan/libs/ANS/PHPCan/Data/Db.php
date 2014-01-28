@@ -780,6 +780,7 @@ class Db
                 //Group data
                 $unique_data = isNumericalArray($operations['data']) ? false : true;
 
+                $operations['language'] = $operations['language'] ?: $this->language;
                 $operations['data'] = $table->explodeData($operations['data'], $operations['language']);
 
                 if ($operations['data'] === false) {
