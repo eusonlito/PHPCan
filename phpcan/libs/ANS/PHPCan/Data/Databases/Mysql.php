@@ -88,7 +88,7 @@ class Mysql implements Idatabase
             }
 
             //Get indexes
-            $indexes = $this->Db->queryResult('SHOW INDEX FROM `'.$table.'`;');
+            $indexes = (array)$this->Db->queryResult('SHOW INDEX FROM `'.$table.'`;');
 
             foreach ($indexes as $index) {
                 if ($index['Non_unique']) {
@@ -103,7 +103,7 @@ class Mysql implements Idatabase
             }
 
             //Get fields
-            $describe = $this->Db->queryResult('DESCRIBE `'.$table.'`;');
+            $describe = (array)$this->Db->queryResult('DESCRIBE `'.$table.'`;');
 
             foreach ($describe as $fields) {
                 $type = $fields['Type'];
