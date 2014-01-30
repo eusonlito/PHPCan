@@ -491,7 +491,15 @@ abstract class Formats
                     case 'fulltext':
                     case 'default':
                     case 'null':
-                        $current_settings[$k] = array_key_exists($k, $custom_settings) ? $custom_settings[$k] : $v;
+                        if (is_array($custom_settings[$k]) && array_key_exists($name, $custom_settings[$k])) {
+                            $custom = $custom_settings[$k][$name];
+                        } else if (array_key_exists($k, $custom_settings)) {
+                            $custom = $custom_settings[$k];
+                        } else {
+                            $custom = $v;
+                        }
+
+                        $current_settings[$k] = $custom;
                         $current_settings['db_'.$k] = $current_settings[$k];
                         break;
 

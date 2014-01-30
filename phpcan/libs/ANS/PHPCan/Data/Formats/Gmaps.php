@@ -63,19 +63,20 @@ class Gmaps extends Formats implements Iformats
 
                 'length_max' => '16,13',
                 'value_max' => 180,
-                'value_min' => -180
+                'value_min' => -180,
+                'default' => 0
             ),
             'y' => array(
                 'db_type' => 'decimal',
 
                 'length_max' => '16,13',
                 'value_max' => 180,
-                'value_min' => -180
+                'value_min' => -180,
+                'default' => 0
             ),
             'z' => array(
                 'db_type' => 'tinyint',
 
-                'default' => 5,
                 'unsigned' => true,
                 'length_max' => 2,
                 'value_max' => 21,
