@@ -16,3 +16,6 @@
 [submodule "phpcan/libs/fzaninotto/Faker"]
 	path = phpcan/libs/fzaninotto/Faker
 	url = https://github.com/fzaninotto/Faker.git
+[submodule "common/jquery.colorbox"]
+	path = common/jquery.colorbox
+	url = git://github.com/jackmoore/colorbox.git
