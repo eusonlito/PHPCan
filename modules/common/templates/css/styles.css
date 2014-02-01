@@ -155,7 +155,6 @@ section.main > .content > footer {
 	padding-top: 25px;
 	border-top: solid 1px $black-20;
 	width: 100%;
-	overflow: auto;
 }
 
 

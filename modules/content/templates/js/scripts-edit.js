@@ -31,7 +31,10 @@ $(document).ready(function () {
 	});
 
 	//show/hide fields
-	var fields = $.parseJSON($.cookie('show_hide_fields')) || {};
+	var fields = $.cookie('show_hide_fields') || {};
+
+	fields = fields.length ? $.parseJSON(fields) : fields;
+
 	var getSource = function (obj) {
 		var output = [], temp;
 

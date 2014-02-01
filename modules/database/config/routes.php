@@ -23,7 +23,7 @@ $config['routes'] = array(
             'footer' => 'modules_common|templates/aux-footer.php',
             'css' => array(
                 'common|csans/csans.css',
-                'modules_common|templates/css/jquery-ui/jquery.ui.base.css',
+                'modules_common|templates/css/jquery-ui/jquery.ui.min.css',
                 ($schema.'://fonts.googleapis.com/css?family=Arimo:regular,bold'),
                 '$styles.css'
             ),
