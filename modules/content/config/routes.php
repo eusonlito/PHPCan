@@ -22,7 +22,7 @@ $config['routes'] = array(
             'footer' => 'modules_common|templates/aux-footer.php',
             'css' => array(
                 'common|csans/csans.css',
-                'common|jquery.colorbox/styles1/colorbox-top.css',
+                'common|jquery.colorbox/example2/colorbox.css',
                 'modules_common|templates/css/jquery-ui/jquery.ui.base.css',
                 'modules_common|templates/css/jquery-ui/jquery-ui-timepicker-addon.css',
                 ($schema.'://fonts.googleapis.com/css?family=Arimo:regular,bold'),
@@ -33,7 +33,7 @@ $config['routes'] = array(
                 'common|jquery.ui/jquery.ui.min.js',
                 'common|jquery.ui/jquery.ui.selectmenu.js',
                 'common|jquery.ui/jquery-ui-timepicker-addon.js',
-                'common|jquery.colorbox/jquery.colorbox.min.js',
+                'common|jquery.colorbox/jquery.colorbox-min.js',
                 'common|jquery.cookie/jquery.cookie.js',
                 'modules_common|templates/js/scripts.js',
                 '$scripts.js'
