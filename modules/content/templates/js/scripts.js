@@ -40,7 +40,7 @@ $(document).ready(function () {
 	$('input[type=text].datetime').each(function () {
 		$(this).datetimepicker({
 			dateFormat: 'dd-mm-yy',
-			timeFormat: 'hh:mm:ss'
+			timeFormat: 'HH:mm:ss'
 		});
 	});
 	
