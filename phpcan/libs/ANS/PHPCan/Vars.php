@@ -140,7 +140,8 @@ class Vars
     {
         //Get path
         $url = preg_replace('|^'.preg_quote(BASE_WWW).'|', '', $url);
-        $url = str_replace('$', '', parse_url($url, PHP_URL_PATH));
+        $url = (strpos($url, '/') === 0) ? $url : ('/'.$url);
+        $url = str_replace('$', '', parse_url(host().$url, PHP_URL_PATH));
 
         $url = explode(':', $url);
         $url = explode('/', $url[0]);
