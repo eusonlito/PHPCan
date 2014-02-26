@@ -84,6 +84,18 @@ class Gmaps extends Formats implements Iformats
             )
         ));
 
+        foreach ($this->settings as &$settings) {
+            if (strstr($settings['length_max'], ',') === false) {
+                continue;
+            }
+
+            list($integer, $decimal) = explode(',', $settings['length_max']);
+
+            $settings['db_default'] = '0.'.str_repeat('0', $decimal);
+        }
+
+        unset($settings);
+
         return $this->settings;
     }
 }
