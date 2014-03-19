@@ -827,13 +827,17 @@ function arrayChunkVertical ($array, $columns)
  */
 function ip ()
 {
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-        return $_SERVER['HTTP_CLIENT_IP'];
-    } else if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        return $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } else {
-        return $_SERVER['REMOTE_ADDR'];
+    $list = array($_SERVER['HTTP_CLIENT_IP'], $_SERVER['HTTP_X_FORWARDED_FOR'], $_SERVER['REMOTE_ADDR']);
+
+    foreach ($list as $ips) {
+        foreach (explode(',', $ips) as $ip) {
+            if (trim($ip) && ($ip !== 'unknown')) {
+                return $ip;
+            }
+        }
     }
+
+    return $list[0] ?: $list[1] ?: $list[2];
 }
 
 /*
