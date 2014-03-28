@@ -129,7 +129,6 @@ class Templates
                 $debug = true;
             }
         } else if (isset($templates[$template])) {
-
             return $empty_template;
         } else if ($template) {
             if (!is_file($template)) {
