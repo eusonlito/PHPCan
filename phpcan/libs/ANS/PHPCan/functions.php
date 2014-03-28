@@ -651,7 +651,7 @@ function getDatetimeObject ($time = null, $timezone = null)
  *
  * return false/object
  */
-function getGettextObject ($language = '', $folders = '')
+function getGettextObject ($language = '', $folders = array())
 {
     if (empty($language)) {
         global $Vars;
@@ -668,23 +668,23 @@ function getGettextObject ($language = '', $folders = '')
         );
     }
 
+    $Gettext = new \ANS\PHPCan\I18n\Gettext;
+
     foreach ((array)$folders as $folder) {
         $folder .= $language;
 
-        if (is_dir($folder)) {
-            $language_files = glob($folder.'/*.mo');
+        if (!is_dir($folder)) {
+            continue;
+        }
 
-            if (empty($language_files)) {
-                continue;
-            }
+        $language_files = glob($folder.'/*.mo');
 
-            if (!is_object($Gettext)) {
-                $Gettext = new \ANS\PHPCan\I18n\Gettext;
-            }
+        if (empty($language_files)) {
+            continue;
+        }
 
-            foreach ($language_files as $each) {
-                $Gettext->load($each);
-            }
+        foreach ($language_files as $each) {
+            $Gettext->load($each);
         }
     }
 
