@@ -205,7 +205,17 @@ class Ipsum
             case 'image':
                 return filePath('common|default/images/'.rand(1, 5).'.jpg');
             case 'float':
-                return $Faker->randomFloat();
+                list($integer, $decimal) = explode(',', $settings['length_max'] ?: '8,2');
+
+                $min = $settings['value_min'] ? intval($settings['value_min']) : 0;
+
+                if ($settings['value_max']) {
+                    $max = intval($settings['value_max']);
+                } else {
+                    $max = str_replace(9, $integer);
+                }
+
+                return $Faker->randomFloat($decimal, $min, $max);
             case 'gmaps':
                 $longitude = (float)42.759113;
                 $latitude = (float)-7.838745;
