@@ -1774,26 +1774,31 @@ class Db
             return array();
         }
 
-        $page = intval($operations['pagination']['page']);
-        $map = intval($operations['pagination']['map']);
+        $page = (int)$operations['pagination']['page'];
+        $map = (int)$operations['pagination']['map'];
 
         $pagination = array('table' => $operations['table']);
         $pagination['page'] = $page;
         $pagination['total'] = $operations['total'];
         $pagination['total_pages'] = ceil($pagination['total'] / $operations['limit']);
 
-        if (($pagination['page'] < 1) || ($pagination['page'] > $pagination['total_pages'])) {
+        if ($pagination['page'] < 1) {
             $pagination['page'] = 1;
         }
 
-        if ($map == 0) {
+        if ($map === 0) {
             $map = 10;
         }
 
         $interval = intval($map / 2);
 
-        $pagination['first'] = $pagination['page'] - $interval;
-        $pagination['last'] = $pagination['page'] + $interval;
+        if ($pagination['page'] > $pagination['total_pages']) {
+            $pagination['first'] = 1;
+            $pagination['last'] = $interval;
+        } else {
+            $pagination['first'] = $pagination['page'] - $interval;
+            $pagination['last'] = $pagination['page'] + $interval;
+        }
 
         if ($pagination['first'] < 1) {
             $pagination['first'] = 1;
