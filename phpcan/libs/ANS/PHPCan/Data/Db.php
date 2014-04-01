@@ -1751,7 +1751,7 @@ class Db
     {
         global $Data;
 
-        if ($operations['limit'] == 0) {
+        if (empty($operations['limit'])) {
             $operations['limit'] = 10;
         }
 

@@ -53,7 +53,17 @@ class Datetime extends \DateTime {
     {
         global $Config;
 
-        $month = intval($month);
+        if (preg_match('/^[0-9]$/', $month)) {
+            $month = intval($month);
+        } else if (preg_match('/^[0-9]+$/', $month)) {
+            $month = date('n', $month);
+        } else {
+            $month = date('n', strtotime($month));
+        }
+
+        if ($month > 12 || $month < 1) {
+            $month = intval($this->format('n'));
+        }
 
         if ($month > 12 || $month < 1) {
             $month = intval($this->format('n'));
@@ -77,7 +87,13 @@ class Datetime extends \DateTime {
     {
         global $Config;
 
-        $day = intval($day);
+        if (preg_match('/^[0-9]$/', $day)) {
+            $day = intval($day);
+        } else if (preg_match('/^[0-9]+$/', $day)) {
+            $day = date('N', $day);
+        } else {
+            $day = date('N', strtotime($day));
+        }
 
         if ($day > 7 || $day < 1) {
             $day = intval($this->format('N'));
