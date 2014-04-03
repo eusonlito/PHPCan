@@ -2077,7 +2077,12 @@ class Db
             if (is_string($select)) {
                 $select = array('table' => $select);
             } else if (!isset($select['table'])) {
-                $select['table'] = $name;
+                if (is_integer($name)) {
+                    $name = key($select);
+                    $select = array('table' => current($select));
+                } else {
+                    $select['table'] = $name;
+                }
             }
 
             $added_table = $this->tableArray($select['table'], $select['name'], $select['direction']);
