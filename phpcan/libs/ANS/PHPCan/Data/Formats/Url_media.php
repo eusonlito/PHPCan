@@ -51,8 +51,8 @@ class Url_media extends Url implements Iformats
 
     public function fixValue ($value)
     {
-        if (!$value['url']) {
-            return false;
+        if (empty($value['url'])) {
+            return array('url' => '', 'type' => '', 'info' => '');
         }
 
         $value['url'] = $this->fixUrl($value['url'], true);
