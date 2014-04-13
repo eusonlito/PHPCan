@@ -149,27 +149,27 @@ class File
             return @unlink($folder);
         }
 
-        if (is_dir($folder)) {
-            $Iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($folder), \RecursiveIteratorIterator::CHILD_FIRST);
-
-            foreach ($Iterator as $FileInfo) {
-                $filename = $FileInfo->getFileName();
-
-                if (($filename === '.') || ($filename === '..')) {
-                    continue;
-                }
-
-                if ($FileInfo->isDir()) {
-                    @rmdir($FileInfo->__toString());
-                } else {
-                    @unlink($FileInfo->__toString());
-                }
-            }
-
-            return @rmdir($folder);
+        if (!is_dir($folder)) {
+            return false;
         }
 
-        return false;
+        $Iterator = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($folder), \RecursiveIteratorIterator::CHILD_FIRST);
+
+        foreach ($Iterator as $FileInfo) {
+            $filename = $FileInfo->getFileName();
+
+            if (($filename === '.') || ($filename === '..')) {
+                continue;
+            }
+
+            if ($FileInfo->isDir()) {
+                @rmdir($FileInfo->__toString());
+            } else {
+                @unlink($FileInfo->__toString());
+            }
+        }
+
+        return @rmdir($folder);
     }
 
     /**
