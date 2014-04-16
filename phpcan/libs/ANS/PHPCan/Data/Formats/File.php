@@ -125,22 +125,7 @@ class File extends Formats implements Iformats
             return $result;
         }
 
-        $settings = $this->settings[''];
-
-        //Transform image
-        if (preg_match('/\.(png|gif|jpe?g)$/i', $result)) {
-            $Image = getImageObject();
-
-            $Image->setSettings();
-
-            $Image->load($this->getRealPath().$settings['subfolder'].$result);
-
-            if ($settings['images']['transform']) {
-                $Image->transform($settings['images']['transform'], false);
-            }
-
-            $Image->save();
-        }
+        $this->transformImage($result);
 
         return array('' => $this->settings['']['subfolder'].$result);
     }
@@ -219,13 +204,47 @@ class File extends Formats implements Iformats
         return true;
     }
 
-    public function getRealPath ($subformat = '') {
+    public function getRealPath ($subformat = '')
+    {
         $settings = $this->settings[$subformat];
 
         $base = $settings['base_path'].$settings['uploads'];
         $path = realpath($base);
 
         return $path ? ($path.'/') : $base;
+    }
+
+    public function transformImage ($file, $subformat = '')
+    {
+        if (!preg_match('/\.(png|gif|jpe?g)$/i', $file)) {
+            return $file;
+        }
+
+        $settings = $this->settings[$subformat];
+
+        if (isset($settings['images']['transform'])) {
+            $transform = $settings['images']['transform'];
+        } else {
+            $transform = null;
+        }
+
+        if ($transform === false) {
+            return $file;
+        }
+
+        $Image = getImageObject();
+
+        $Image->setSettings();
+
+        $Image->load($this->getRealPath($subformat).$settings['subfolder'].$file);
+
+        if ($transform) {
+            $Image->transform($transform, false);
+        }
+
+        $Image->save();
+
+        return $file;
     }
 
     public function settings ($settings)
