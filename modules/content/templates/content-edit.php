@@ -42,7 +42,7 @@ defined('ANS') or die();
                 ));
                 echo $Html->a(array(
                     'text' => __('All elements'),
-                    'href' => path(true, true, 'related_with', $Vars->get('relation'), $Vars->get('relation_id')).get('all', 1, false),
+                    'href' => path(true, true, 'related_with', $Vars->get('relation'), $Vars->get('relation_id')).'?all=1',
                     'class' => 'button',
                     'data-icon' => 'link'
                 ));

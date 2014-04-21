@@ -23,7 +23,7 @@ defined('ANS') or die();
     echo $Html->a(array(
         'text' => __('All elements'),
         'title' => $info['description'],
-        'href' => path(true, $info['table'], 'related_with', $info['relation'], $info['id']).get('all', true),
+        'href' => path(true, $info['table'], 'related_with', $info['relation'], $info['id']).'?all=1',
         'class' => 'iframe button',
         'data-icon' => 'search'
     ));

@@ -27,7 +27,7 @@ defined('ANS') or die();
             ));
             echo $Html->a(array(
                 'text' => __('All elements'),
-                'href' => path().get('all', true),
+                'href' => path().'?all=1',
                 'class' => 'button'.($Vars->get('all') ? ' secondary' : ''),
                 'data-icon' => 'search'
             ));
