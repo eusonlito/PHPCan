@@ -53,19 +53,13 @@ class Datetime extends \DateTime {
     {
         global $Config;
 
-        if (preg_match('/^[0-9]$/', $month)) {
-            $month = intval($month);
-        } else if (preg_match('/^[0-9]+$/', $month)) {
+        if (preg_match('/^[0-9]{3,}$/', $month)) {
             $month = date('n', $month);
-        } else {
+        } else if ($month && !preg_match('/^[0-9]{1,2}$/', $month)) {
             $month = date('n', strtotime($month));
         }
 
-        if ($month > 12 || $month < 1) {
-            $month = intval($this->format('n'));
-        }
-
-        if ($month > 12 || $month < 1) {
+        if (($month > 12) || ($month < 1)) {
             $month = intval($this->format('n'));
         }
 
@@ -87,15 +81,13 @@ class Datetime extends \DateTime {
     {
         global $Config;
 
-        if (preg_match('/^[0-9]$/', $day)) {
-            $day = intval($day);
-        } else if (preg_match('/^[0-9]+$/', $day)) {
+        if (preg_match('/^[0-9]{3,}$/', $day)) {
             $day = date('N', $day);
-        } else {
+        } else if ($day && !preg_match('/^[1-7]$/', $day)) {
             $day = date('N', strtotime($day));
         }
 
-        if ($day > 7 || $day < 1) {
+        if (($day > 7) || ($day < 1)) {
             $day = intval($this->format('N'));
         }
 

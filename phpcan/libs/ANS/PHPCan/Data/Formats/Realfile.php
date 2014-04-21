@@ -41,6 +41,10 @@ class Realfile extends File implements Iformats
 
         $result = $this->saveFile($value, $id, 'location');
 
+        if ($result === false) {
+            return false;
+        }
+
         if (is_array($result)) {
             return array(
                 'location' => $result['location'],
@@ -48,30 +52,15 @@ class Realfile extends File implements Iformats
                 'type' => '',
                 'size' => 0
             );
-        } else if ($result === false) {
-            return false;
         }
 
         $settings = $this->settings['location'];
 
-        //Transform image
-        if (preg_match('/\.(png|gif|jpe?g)$/i', $result)) {
-            $Image = getImageObject();
-
-            $Image->setSettings();
-
-            $Image->load($settings['base_path'].$settings['uploads'].$settings['subfolder'].$result);
-
-            if ($settings['images']['transform']) {
-                $Image->transform($settings['images']['transform'], false);
-            }
-
-            $Image->save();
-        }
+        $this->transformImage($result, 'location');
 
         $finfo = array('name' => $result);
 
-        $file = $settings['base_path'].$settings['uploads'].$settings['subfolder'].$result;
+        $file = $this->getRealPath('location').$settings['subfolder'].$result;
 
         return array(
             'name' => (is_string($value) ? basename($value) : $value['name']),
