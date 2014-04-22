@@ -332,7 +332,7 @@ class Mysql implements Idatabase
                         $table_keys['add-'.$key['fulltext']]['field'][] = array(
                             'name' => $field,
                             'type' => $key['type'],
-                            'length' => $key['length']
+                            'length' => $length
                         );
                     }
                 }
@@ -348,7 +348,8 @@ class Mysql implements Idatabase
                 $length = intval(333 / count($indexes['field']));
 
                 foreach ($indexes['field'] as $key => $field) {
-                    if (in_array($field['type'], array('varchar','text'))) {
+                    if (in_array($field['type'], array('varchar', 'text'), true)) {
+                        $field['length'] = $field['length'] ?: 255;
                         $indexes['field'][$key] = '`'.$field['name'].'` ('.(($length > $field['length']) ? $field['length'] : $length).')';
                     } else {
                         $indexes['field'][$key] = '`'.$field['name'].'`';

@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: "
 "Plural-Forms: "
 
-msgid "$l $d, $F $Y"
+msgid "$l $j, $F $Y"
 msgstr ""
 
 msgid "$d days ago"

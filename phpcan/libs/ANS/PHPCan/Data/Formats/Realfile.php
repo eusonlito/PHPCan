@@ -82,8 +82,6 @@ class Realfile extends File implements Iformats
 
     public function settings ($settings)
     {
-        global $Config;
-
         $this->bindEvent(array('afterUpdate', 'afterDelete'), array($this, 'afterSave'));
 
         parent::settings($settings);

@@ -11,7 +11,7 @@ msgstr ""
 "Plural-Forms: "
 
 msgid "$l $j, $F $Y"
-msgstr "$l $d de $F, $Y"
+msgstr "$l $j de $F, $Y"
 
 msgid "$d days ago"
 msgstr "hai $d días"
@@ -35,10 +35,10 @@ msgid "some seconds ago"
 msgstr "hai uns segundos"
 
 msgid "at $H:$i on $l $j, $F $Y"
-msgstr "ás $H:$i do $l $d de $F, $Y"
+msgstr "ás $H:$i do $l $j de $F, $Y"
 
 msgid "at $H:$i:$s on $l $j, $F $Y"
-msgstr "ás $H:$i:$s do $l $d de $F, $Y"
+msgstr "ás $H:$i:$s do $l $j de $F, $Y"
 
 msgid "Monday"
 msgstr "Luns"
