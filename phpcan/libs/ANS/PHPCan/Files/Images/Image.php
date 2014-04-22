@@ -35,8 +35,6 @@ class Image
             $Config->config['autoglobal'][] = $autoglobal;
         }
 
-        $this->Image = \Imagecow\Image::create($lib);
-
         $this->setCache();
     }
 
@@ -87,8 +85,6 @@ class Image
         if (empty($this->settings['quality'])) {
             $this->settings['quality'] = 90;
         }
-
-        $this->Image->setCompressionQuality($this->settings['quality']);
 
         return false;
     }
@@ -154,7 +150,8 @@ class Image
      */
     public function load ($image)
     {
-        $this->Image->load($image);
+        $this->Image = \Imagecow\Image::create($image);
+        $this->Image->setCompressionQuality($this->settings['quality']);
 
         return $this;
     }
@@ -178,8 +175,7 @@ class Image
      */
     public function unload ()
     {
-        $this->Image->unload();
-
+        unset($this->Image);
         return $this;
     }
 

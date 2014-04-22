@@ -626,14 +626,6 @@ function getDatabaseConnection ($connection = null)
 function getImageObject ()
 {
     return new \ANS\PHPCan\Files\Images\Image;
-
-    global $Config;
-
-    if ($Config->images['library'] === 'imagick') {
-        return new \ANS\PHPCan\Files\Images\Imagick;
-    } else {
-        return new \ANS\PHPCan\Files\Images\Gd;
-    }
 }
 
 /**
