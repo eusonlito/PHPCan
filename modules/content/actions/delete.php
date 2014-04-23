@@ -11,6 +11,13 @@ defined('ANS') or die();
 
 $Data->execute('check.php', true);
 
+if ($Vars->var['confirm'] !== __('DELETE')) {
+    $Vars->message(__('Please write exact "DELETE" if you want to delete this content'), 'error');
+    return false;
+}
+
+$Vars->delete('confirm');
+
 $Vars->set('id', explodeTrim(',', $Vars->get('id')));
 
 $ok = $Content->delete(array(

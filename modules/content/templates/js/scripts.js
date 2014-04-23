@@ -67,4 +67,42 @@ $(document).ready(function () {
 			document.location = url + 'phpcan_action[language]=' + ui.value;
 		}
 	});
+
+	$('[data-confirm-delete]').on('click', function (e) {
+		var $this = $(this),
+			button = ($this.is('button') || $this.is('input')),
+			message = $this.data('confirm-delete'),
+			string = '<?php __e('DELETE'); ?>';
+
+		if ((message === 'true') || (typeof message === 'boolean') || !message) {
+			message = '<?php __e('Do you realy want to delete this?'); ?>';
+		}
+
+		if (!confirm(message)) {
+			return false;
+		}
+
+		if (prompt('<?php __e('Please, write "DELETE" word here to confirm'); ?>') !== string) {
+			alert('<?php __e('Please write exact "DELETE" if you want to delete this content'); ?>');
+			return false;
+		}
+
+		if (button) {
+			$this.closest('form').append('<input type="hidden" name="confirm" value="' + string + '" />');
+		} else {
+			var href = $this.attr('href');
+
+			if (href.indexOf('?') !== -1) {
+				$this.attr('href', href + '&confirm=' + string);
+			} else {
+				$this.attr('href', '?confirm=' + string);
+			}
+		}
+
+		if (typeof $.colorbox === 'function') {
+			$.colorbox.remove()
+		}
+
+		return true;
+	});
 });

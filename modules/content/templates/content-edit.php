@@ -132,10 +132,10 @@ defined('ANS') or die();
             'value' => __('Delete'),
             'button' => true,
             'data-icon' => 'trash',
+            'data-confirm-delete' => 'true',
             'class' => 'secondary delete',
             'action' => array(
-                'name' => 'delete',
-                'confirm' => __('Do you really want to delete this?'),
+                'name' => 'delete'
             )
         ));
     }

@@ -120,6 +120,15 @@ foreach ($files as $file) {
             echo "\n";
 
             if ($params['dynamic']) {
+                if (!defined('LANGUAGE')) {
+                    $Config->load('languages.php');
+
+                    $Vars->setLanguagesConfig();
+                    $Vars->detectLanguage();
+
+                    define('LANGUAGE', $Vars->getLanguage());
+                }
+
                 echo $Js->load($realfile)->process()->toString();
             } else {
                 echo $Js->load($realfile)->toString();

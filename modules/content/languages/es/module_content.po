@@ -3,12 +3,21 @@ msgstr ""
 "Project-Id-Version: "
 "Report-Msgid-Bugs-To: "
 "POT-Creation-Date: Mon, 09 Apr 12 09:16:03 +0200"
-"PO-Revision-Date: Mon, 09 Apr 12 09:29:58 +0200"
+"PO-Revision-Date: Wed, 23 Apr 14 15:01:02 +0200"
 "Last-Translator: admin"
 "Language-Team: "
 "Content-Type: "
 "Content-Transfer-Encoding: "
 "Plural-Forms: "
+
+msgid "Delete folder <strong>%s</strong> and its content"
+msgstr "Borrar el directorio <strong>%s</strong> y todo su contenido"
+
+msgid "Are you sure that you want to delete folder %s and its content?"
+msgstr "¿Estás seguro de que deseas borrar el directorio <strong>%s</strong> y todo su contenido?"
+
+msgid "Are you sure that you want to delete this empty folder?"
+msgstr "¿Estás seguro de que deseas borrar este directorio vacío?"
 
 msgid "There is a folder with the same name"
 msgstr "Hay una carpeta que ya lleva ese nombre"
@@ -18,6 +27,12 @@ msgstr "Córcholis, se ha producido un error al crear la carpeta"
 
 msgid "Folder was created successfully"
 msgstr "La carpeta ha quedado ya perfectamente creada"
+
+msgid "DELETE"
+msgstr "BORRAR"
+
+msgid "Please write exact \"DELETE\" if you want to delete this content"
+msgstr "Debes escribir exactamente \"BORRAR\" si deseas borrar este contenido"
 
 msgid "This file doesn't exits"
 msgstr "Este archivo no existe"
@@ -82,17 +97,14 @@ msgstr "No nos consta que haya ningún registro con el ID \"%s\""
 msgid "This folder does not exits"
 msgstr "No hay ninguna carpeta que lleve ese nombre"
 
-msgid "Content Manager"
-msgstr "Gestor de contenido"
-
 msgid "%s %s related with %s %s #%s"
 msgstr "%s %s se ha relacionado con %s %s #%s"
 
+msgid "Content Manager"
+msgstr "Gestor de contenido"
+
 msgid "Delete"
 msgstr "Borrar"
-
-msgid "Do you realy want to delete this?"
-msgstr "¿De verdad quieres borrar esto?"
 
 msgid "View"
 msgstr "Ver"
@@ -163,9 +175,6 @@ msgstr "Hacer un duplicado"
 msgid "Reset"
 msgstr "Reconfigurar"
 
-msgid "Do you really want to delete this?"
-msgstr "¿De verdad quieres borrar esto?"
-
 msgid "Show columns"
 msgstr "Mostrar columnas"
 
@@ -217,14 +226,8 @@ msgstr "Dinámico"
 msgid "Delete file"
 msgstr "Borrar archivo"
 
-msgid "Are you sure to delete this file?"
-msgstr "¿De verdad quieres borrar este archivo?"
-
 msgid "This folder is empty"
 msgstr "Esta carpeta está vacía"
-
-msgid "Delete this folder and its content"
-msgstr "Borrar esta carpeta y su contenido"
 
 msgid "Delete this folder"
 msgstr "Borrar esta carpeta"
@@ -264,6 +267,12 @@ msgstr "Borrar la imagen"
 
 msgid "Open url (new window)"
 msgstr "Abrir la dirección en una nueva ventana"
+
+msgid "Do you realy want to delete this?"
+msgstr "¿De verdad quieres borrar esto?"
+
+msgid "Please, write \"DELETE\" word here to confirm"
+msgstr "Por favor, escribe la palabra BORRAR para confirmar"
 
 msgid "Create new %s"
 msgstr "Crear nuevo %s"

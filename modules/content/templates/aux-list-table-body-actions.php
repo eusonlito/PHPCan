@@ -19,6 +19,7 @@ echo $Html->a(array(
     'href' => path().get(),
     'data-icon' => 'trash',
     'data-no-text' => '1',
+    'data-confirm-delete' => 'true',
     'class' => 'button',
     'action' => array(
         'name' => 'delete',
@@ -26,8 +27,7 @@ echo $Html->a(array(
             'connection' => $Vars->get('connection'),
             'table' => $table,
             'id' => $id
-        ),
-        'confirm' => __('Do you realy want to delete this?'),
+        )
     )
 ));
 

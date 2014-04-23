@@ -199,12 +199,11 @@ defined('ANS') or die();
                 echo $Html->a(array(
                     'text' => __('Delete file'),
                     'title' => __('Delete file'),
+                    'data-confirm-delete' => 'true',
                     'class' => 'bottom',
                     'href' => path(),
                     'action' => array(
                         'name' => 'delete-file',
-                        'confirm' => __('Are you sure to delete this file?'),
-                        'method' => 'post',
                         'params' => array(
                             'file' => $file['path']
                         )
@@ -234,23 +233,21 @@ defined('ANS') or die();
     <?php if ($Data->path): ?>
 
     <footer>
-        <form action="<?php echo path(); ?>" method="post">
-            <fieldset>
-            <?php
-            echo $Form->hidden(implode('/', $Data->path), 'path');
-            echo $Form->submit(array(
-                'value' => ($Data->folders || $Data->files) ? __('Delete this folder and its content') : __('Delete this folder'),
-                'button' => true,
-                'data-icon' => 'trash',
-                'class' => 'secondary',
-                'action' => array(
-                    'name' => 'delete-folder',
-                    'confirm' => __('Do you realy want to delete this?'),
+        <?php
+        echo $Html->a(array(
+            'text' => (($Data->folders || $Data->files) ? __('Delete folder <strong>%s</strong> and its content', end($Data->path)) : __('Delete this folder')),
+            'data-icon' => 'trash',
+            'data-confirm-delete' => (($Data->folders || $Data->files) ? __('Are you sure that you want to delete folder %s and its content?', end($Data->path)) : __('Are you sure that you want to delete this empty folder?')),
+            'class' => 'button secondary',
+            'href' => path(),
+            'action' => array(
+                'name' => 'delete-folder',
+                'params' => array(
+                    'path' => implode('/', $Data->path)
                 )
-            ));
-            ?>
-            </fieldset>
-        </form>
+            )
+        ));
+        ?>
     </footer>
     <?php endif; ?>
 </div>

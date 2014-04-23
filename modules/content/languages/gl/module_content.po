@@ -3,12 +3,21 @@ msgstr ""
 "Project-Id-Version: "
 "Report-Msgid-Bugs-To: "
 "POT-Creation-Date: Mon, 09 Apr 12 09:01:24 +0200"
-"PO-Revision-Date: Mon, 09 Apr 12 09:31:02 +0200"
+"PO-Revision-Date: Wed, 23 Apr 14 15:01:35 +0200"
 "Last-Translator: admin"
 "Language-Team: "
 "Content-Type: "
 "Content-Transfer-Encoding: "
 "Plural-Forms: "
+
+msgid "Delete folder <strong>%s</strong> and its content"
+msgstr "Borrar o directorio <strong>%s</strong> e todo o seu contido"
+
+msgid "Are you sure that you want to delete folder %s and its content?"
+msgstr "Estás seguro de que desexas borrar o directorio <strong>%s</strong> e todo o seu contido?"
+
+msgid "Are you sure that you want to delete this empty folder?"
+msgstr "Estás seguro de que desexas borrar este directorio baleiro?"
 
 msgid "There is a folder with the same name"
 msgstr "Hai un cartafol que xa se chama por ese nome"
@@ -18,6 +27,12 @@ msgstr "Diaños, produciuse un erro ao crear o cartafol"
 
 msgid "Folder was created successfully"
 msgstr "O cartafol quedou xa perfectamente creado"
+
+msgid "DELETE"
+msgstr "BORRAR"
+
+msgid "Please write exact \"DELETE\" if you want to delete this content"
+msgstr "Debes escribir exactamente \"BORRAR\" se desexas borrar este contido"
 
 msgid "This file doesn't exits"
 msgstr "Este ficheiro non existe"
@@ -82,17 +97,14 @@ msgstr "Non nos consta que haxa ningún rexistro co ID \"%s\""
 msgid "This folder does not exits"
 msgstr "Non hai ningún cartafol por ese nome"
 
-msgid "Content Manager"
-msgstr "Xestor de contido"
-
 msgid "%s %s related with %s %s #%s"
 msgstr "%s %s vencellouse con %s %s #%s"
 
+msgid "Content Manager"
+msgstr "Xestor de contido"
+
 msgid "Delete"
 msgstr "Borrar"
-
-msgid "Do you realy want to delete this?"
-msgstr "De verdade queres borrar isto?"
 
 msgid "View"
 msgstr "Ver"
@@ -163,9 +175,6 @@ msgstr "Facer un duplicado"
 msgid "Reset"
 msgstr "Reconfigurar"
 
-msgid "Do you really want to delete this?"
-msgstr "De verdade queres borrar isto?"
-
 msgid "Show columns"
 msgstr "Amosar columnas"
 
@@ -217,14 +226,8 @@ msgstr "Dinámico"
 msgid "Delete file"
 msgstr "Borrar ficheiro"
 
-msgid "Are you sure to delete this file?"
-msgstr "De verdade queres borrar este ficheiro?"
-
 msgid "This folder is empty"
 msgstr "Este cartafol está baleiro"
-
-msgid "Delete this folder and its content"
-msgstr "Borrar este cartafol e o seu contido"
 
 msgid "Delete this folder"
 msgstr "Borrar este cartafol"
@@ -264,6 +267,12 @@ msgstr "Borrar a imaxe"
 
 msgid "Open url (new window)"
 msgstr "Abrir o enderezo nunha nova fiestra"
+
+msgid "Do you realy want to delete this?"
+msgstr "De verdade queres borrar isto?"
+
+msgid "Please, write \"DELETE\" word here to confirm"
+msgstr "Por favor, escribe a palabra \"BORRAR\" para confirmar"
 
 msgid "Create new %s"
 msgstr "Crear novo %s"
