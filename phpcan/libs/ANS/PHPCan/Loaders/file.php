@@ -86,6 +86,8 @@ foreach ($files as $file) {
             header('Status: 404 Not Found');
 
             die();
+        } else {
+            continue;
         }
     }
 

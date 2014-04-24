@@ -39,6 +39,7 @@ CKEDITOR_BASEPATH = '<?php echo fileWeb('common|ckeditor'); ?>/';
                 ['Find','Replace'],
                 ['Preview','ShowBlocks','Maximize']
             ],
+            extraPlugins: 'find',
             toolbarCanCollapse: false,
             allowedContent: true
         });

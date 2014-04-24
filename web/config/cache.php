@@ -15,7 +15,8 @@ $config['cache'] = array(
             'expire' => 0, // 360,
             'interface' => 'files',
             'folder' => filePath('phpcan/cache|api'),
-            'compress' => true
+            'compress' => true,
+            'pack' => true
         ),
         'config' => array(
             'expire' => 0, // 3600 * 24 * 30,
