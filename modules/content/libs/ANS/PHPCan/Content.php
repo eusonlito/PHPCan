@@ -101,7 +101,7 @@ class Content
     {
         global $Vars;
 
-        if ($language == 'all') {
+        if ($language === 'all') {
             $this->settings['language'] = 'all';
             $Vars->deleteCookie('phpcan_content_data_language');
         } elseif ($language && in_array($language, $this->settings['languages'])) {
@@ -175,9 +175,9 @@ class Content
 
         $tables = $this->settings['tables'][$this->connection];
 
-        if (!$tables) {
+        if (empty($tables)) {
             return array();
-        } elseif (!$selected_tables) {
+        } elseif (empty($selected_tables)) {
             $selected_tables = array_keys($tables);
         } elseif (!is_array($selected_tables)) {
             $selected_tables = array($selected_tables);
@@ -187,7 +187,7 @@ class Content
 
         foreach ($tables as $tables_values) {
             foreach ($selected_tables as $tables_key) {
-                if (!$tables[$tables_key]) {
+                if (empty($tables[$tables_key])) {
                     continue;
                 }
 
@@ -195,7 +195,7 @@ class Content
 
                 $fields = array_keys($tables[$tables_key]);
 
-                if (!$selected_fields[$tables_key] || !is_array($selected_fields[$tables_key])) {
+                if (empty($selected_fields[$tables_key]) || !is_array($selected_fields[$tables_key])) {
                     $valid_fields[$tables_key] = $fields;
                 } else {
                     $valid_fields[$tables_key] = array_intersect($selected_fields[$tables_key], $fields);
@@ -215,17 +215,17 @@ class Content
     */
     public function info ($connection, $type, $table, $field = '')
     {
-        if (!$field) {
+        if (empty($field)) {
             $key = $connection.'-'.$table.'-'.$type;
             $string = __($key, null, true);
 
-            return is_null($string) ? (($type == 'name') ? format($table) : '') : $string;
+            return is_null($string) ? (($type === 'name') ? format($table) : '') : $string;
         }
 
         $key = $connection.'-'.$table.'-'.$field.'-'.$type;
         $string = __($connection.'-'.$table.'-'.$field.'-'.$type, null, true);
 
-        return is_null($string) ? (($type == 'name') ? format($field) : '') : $string;
+        return is_null($string) ? (($type === 'name') ? format($field) : '') : $string;
     }
 
     /**
@@ -237,7 +237,7 @@ class Content
     {
         $menu_tables = array();
 
-        if (!$this->settings['tables']) {
+        if (empty($this->settings['tables'])) {
             return $menu_tables;
         }
 
@@ -319,7 +319,7 @@ class Content
 
         $result = $this->Db->select($query);
 
-        if (!$result) {
+        if (empty($result)) {
             return false;
         }
 
@@ -376,17 +376,7 @@ class Content
     public function selectList ($options)
     {
         $query = $this->getQuery($options, true);
-
-        if ($query['limit'] === -1) {
-            unset($query['limit']);
-        } else {
-            $query['limit'] = $query['limit'] ?: 20;
-
-            $query['pagination'] = array(
-                'map' => 20,
-                'page' => $options['page']
-            );
-        }
+        $query = $this->getLimit($query);
 
         $result = $this->Db->select($query);
 
@@ -409,15 +399,9 @@ class Content
     public function selectRelations ($options)
     {
         $query = $this->getQuery($options, true);
+        $query = $this->getLimit($query);
 
-        $query['limit'] = 20;
-
-        $query['pagination'] = array(
-            'map' => 20,
-            'page' => $options['page']
-        );
-
-        if (!$options['all']) {
+        if (empty($options['all'])) {
             $query['conditions'][$options['relation'].'.id'] = $options['relation_id'];
         }
 
@@ -458,6 +442,27 @@ class Content
         }
 
         return $list;
+    }
+
+    /**
+     * private function getLimit (array $query)
+     *
+     * return array
+     */
+    private function getLimit ($query)
+    {
+        if ($query['limit'] === -1) {
+            unset($query['limit']);
+        } else {
+            $query['limit'] = $query['limit'] ?: 20;
+
+            $query['pagination'] = array(
+                'map' => 20,
+                'page' => $options['page']
+            );
+        }
+
+        return $query;
     }
 
     /**
@@ -508,9 +513,8 @@ class Content
 
         $relation_object = $table->getRelation($relation['realname'], $relation['name'], $relation['direction']);
 
-        if (!$relation_object) {
+        if (empty($relation_object)) {
             $this->Debug->error('db', 'There is not relation between %s and %s', $config['table'], $config['relation']);
-
             return false;
         }
 
@@ -534,7 +538,7 @@ class Content
             )
         );
 
-        if ($config['action'] == 'relate') {
+        if ($config['action'] === 'relate') {
             return $this->Db->relate($query);
         }
 
@@ -783,7 +787,7 @@ class Content
         $default_values = $table->getDefaultValues($query['fields']);
         $fields = array_merge(array('id'), array_keys($default_values));
 
-        if ($empty_values && !$result) {
+        if ($empty_values && empty($result)) {
             $result = array($default_values);
             $result = $table->valueForm($result);
         }
@@ -831,7 +835,7 @@ class Content
             foreach ((array) $query['add_tables'] as $added_name => $added_table) {
                 $added_name = $this->Db->addedName($added_name, $added_table['table'], $added_table['name'], $added_table['direction']);
 
-                if (!$empty_values && !$result[$num_row][$added_name]) {
+                if (empty($empty_values) && empty($result[$num_row][$added_name])) {
                     continue;
                 }
 
@@ -858,7 +862,7 @@ class Content
             foreach ($rows as $num => $row) {
                 $action = $row['action'];
 
-                if (!$action) {
+                if (empty($action)) {
                     continue;
                 }
 
@@ -884,7 +888,7 @@ class Content
                         $options['conditions']['id'] = $row['id'];
                         $options['no_duplicate'] = true;
 
-                        if (!is_array($row['id']) || count($row['id']) == 1) {
+                        if (!is_array($row['id']) || (count($row['id']) === 1)) {
                             $options['limit'] = 1;
                         }
 
@@ -895,7 +899,7 @@ class Content
                         $options['conditions']['id'] = $row['data']['id'];
                         unset($options['data']['id']);
 
-                        if (!is_array($row['id']) || count($row['id']) == 1) {
+                        if (!is_array($row['id']) || (count($row['id']) === 1)) {
                             $options['limit'] = 1;
                         }
 

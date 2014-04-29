@@ -127,6 +127,13 @@ defined('ANS') or die();
             'class' => 'button open-dialog secondary',
             'data-icon' => 'gear'
         ));
+
+        echo $Html->a(array(
+            'text' => __('Export as CSV'),
+            'href' => get('phpcan_exit_mode', 'csv'),
+            'class' => 'button secondary',
+            'data-icon' => 'gear'
+        ));
         ?>
     </div>
 

@@ -15,6 +15,24 @@ $Data->table = $Vars->get('table');
 $Data->columns = array($Data->table => array_keys($Content->Db->getTable($Data->table)->formats));
 $Data->selected_columns = $Content->checkSelectedFields($Vars->getCookie('phpcan_show_columns'), $Data->table);
 
+if ($Vars->getExitMode('csv')) {
+    $list = $Content->selectRelations(array(
+        'table' => $Data->table,
+        'fields' => $Data->selected_columns[$Data->table],
+        'search' => $Vars->str('q'),
+        'limit' => -1,
+        'sort' => $Vars->str('phpcan_sortfield'),
+        'sort_direction' => $Vars->str('phpcan_sortdirection'),
+        'relation' => $Vars->get('relation'),
+        'relation_id' => $Vars->get('relation_id')
+    ));
+
+    $Data->execute('csv-export.php', array(
+        'table' => $Data->table,
+        'list' => $list
+    ));
+}
+
 $Data->set('list', $Content->selectRelations(array(
     'table' => $Data->table,
     'fields' => $Data->selected_columns[$Data->table],
