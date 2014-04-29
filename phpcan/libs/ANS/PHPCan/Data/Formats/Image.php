@@ -23,23 +23,9 @@ class Image extends File implements Iformats
             return $result;
         }
 
-        $settings = $this->settings[''];
-        $file = $settings['base_path'].$settings['uploads'].$settings['subfolder'].$result;
+        $this->transformImage($result);
 
-        $Image = getImageObject();
-
-        $Image->setSettings();
-
-        $Image->load($file);
-
-        //Transform image
-        if ($settings['transform'] && preg_match('/\.(jpg|png|gif|jpeg)$/i', $result)) {
-            $Image->transform($settings['transform'], false);
-        }
-
-        $Image->save();
-
-        return array('' => $settings['subfolder'].$result);
+        return array('' => $this->settings['']['subfolder'].$result);
     }
 
     public function settings ($settings)
@@ -54,6 +40,8 @@ class Image extends File implements Iformats
             'image/jpeg',
             'image/gif'
         );
+
+        $this->settings['']['images'] = $this->settings[''];
 
         return $this->settings;
     }
