@@ -70,10 +70,6 @@ $config['routes'] = array(
         'data' => 'list.php'
     ),
 
-    '$connection/$table/csv-export' => array(
-        'data' => 'csv-export.php'
-    ),
-
     '$connection/$table/new' => array(
         'templates' => array(
             'content' => 'content-edit.php',

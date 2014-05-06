@@ -376,7 +376,7 @@ class Content
     public function selectList ($options)
     {
         $query = $this->getQuery($options, true);
-        $query = $this->getLimit($query);
+        $query = $this->getLimit($query, $options);
 
         $result = $this->Db->select($query);
 
@@ -399,7 +399,7 @@ class Content
     public function selectRelations ($options)
     {
         $query = $this->getQuery($options, true);
-        $query = $this->getLimit($query);
+        $query = $this->getLimit($query, $options);
 
         if (empty($options['all'])) {
             $query['conditions'][$options['relation'].'.id'] = $options['relation_id'];
@@ -445,11 +445,11 @@ class Content
     }
 
     /**
-     * private function getLimit (array $query)
+     * private function getLimit (array $query, array $options)
      *
      * return array
      */
-    private function getLimit ($query)
+    private function getLimit ($query, $options)
     {
         if ($query['limit'] === -1) {
             unset($query['limit']);
