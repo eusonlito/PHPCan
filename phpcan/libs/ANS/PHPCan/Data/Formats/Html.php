@@ -36,7 +36,15 @@ class Html extends Formats implements Iformats
 
     public function fixValue ($value)
     {
-        return array('' => xssClean($value['']));
+        $value = xssClean($value['']);
+
+        $value = str_replace(' class=', 'class|', $value);
+        $value = preg_replace('# [a-z]+=["\'][^"\']*["\']#i', '', $value);
+        $value = str_replace('class|', ' class=', $value);
+        $value = preg_replace('#</?(font|span)[^>]*>#', '', $value);
+        $value = str_replace('&nbsp;', ' ', $value);
+
+        return array('' => $value);
     }
 
     public function settings ($settings)

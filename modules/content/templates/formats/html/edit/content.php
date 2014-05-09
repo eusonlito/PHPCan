@@ -31,17 +31,23 @@ CKEDITOR_BASEPATH = '<?php echo fileWeb('common|ckeditor'); ?>/';
 <script type="text/javascript">
     $(document).ready(function () {
         CKEDITOR.replace('<?php echo $info['varname'].'[0]'; ?>', {
-            forcePasteAsPlainText: true,
+            extraPlugins: 'clipboard,find,pastefromword',
+            toolbarCanCollapse: false,
+            allowedContent: true,
+
+            pasteFromWordPromptCleanup: true,
+            pasteFromWordCleanupFile: true,
+            pasteFromWordRemoveFontStyles: true,
+            pasteFromWordNumberedHeadingToList: true,
+            pasteFromWordRemoveStyles: true,
+
             toolbar: [
                 ['Source','-','Undo','Redo','-','Link','Unlink','-','Bold','Italic','Strike','Subscript','Superscript','RemoveFormat'],
                 ['Format','NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
                 ['Image','Table','SpecialChar'],
                 ['Find','Replace'],
                 ['Preview','ShowBlocks','Maximize']
-            ],
-            extraPlugins: 'find',
-            toolbarCanCollapse: false,
-            allowedContent: true
+            ]
         });
     });
 </script>
