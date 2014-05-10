@@ -38,10 +38,18 @@ class Html extends Formats implements Iformats
     {
         $value = xssClean($value['']);
 
-        $value = str_replace(' class=', 'class|', $value);
-        $value = preg_replace('# [a-z]+=["\'][^"\']*["\']#i', '', $value);
-        $value = str_replace('class|', ' class=', $value);
-        $value = preg_replace('#</?(font|span)[^>]*>#', '', $value);
+        if (empty($this->settings['']['clean'])) {
+            $value = preg_replace('# style=["\'][^"\']+["\']#i', '', $value);
+            $value = preg_replace('#</?font[^>]*>#', '', $value);
+        } else {
+            $valid = 'class|src|target|alt|title|href|rel';
+
+            $value = preg_replace('# ('.$valid.')=#i', ' |$1|', $value);
+            $value = preg_replace('# [a-z]+=["\'][^"\']*["\']#i', '', $value);
+            $value = preg_replace('#\|('.$valid.')\|#i', ' $1=', $value);
+            $value = preg_replace('#</?(font|span)[^>]*>#', '', $value);
+        }
+
         $value = str_replace('&nbsp;', ' ', $value);
 
         return array('' => $value);
