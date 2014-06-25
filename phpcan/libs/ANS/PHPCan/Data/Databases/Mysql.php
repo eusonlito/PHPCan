@@ -592,10 +592,20 @@ class Mysql implements Idatabase
             return false;
         }
 
-        $table = $data['table'];
+        $cmd = 'INSERT';
+
+        if (isset($data['priority'])) {
+            $data['priority'] = strtoupper($data['priority']);
+
+            if (in_array($data['priority'], array('LOW', 'HIGH'), true)) {
+                $cmd .= ' '.$data['priority'].'_PRIORITY';
+            }
+        }
+
+        $cmd .= ' INTO `'.$data['table'].'`';
 
         if (empty($data['data']) || !is_array($data['data'])) {
-            return 'INSERT INTO `'.$table.'` VALUES ();';
+            return $cmd.' VALUES ();';
         }
 
         if (!is_int(key($data['data']))) {
@@ -616,7 +626,7 @@ class Mysql implements Idatabase
         }
 
         $fields = array_unique($fields);
-        $query_fields = '(`'.implode('`, `', $fields).'`)';
+        $cmd .= ' (`'.implode('`, `', $fields).'`)';
 
         $values = array();
 
@@ -631,9 +641,7 @@ class Mysql implements Idatabase
             $values[] = $valueRow;
         }
 
-        $values = implode(', ', $values);
-
-        return 'INSERT INTO `'.$table.'` '.$query_fields.' VALUES '.$values.';';
+        return $cmd.' VALUES '.implode(', ', $values).';';
     }
 
     /**

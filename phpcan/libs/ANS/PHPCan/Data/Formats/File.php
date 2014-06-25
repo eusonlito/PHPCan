@@ -146,7 +146,7 @@ class File extends Formats implements Iformats
             return false;
         }
 
-        if (is_string($value) && (!strstr($value, '://') && !is_file($value))) {
+        if (is_string($value) && !strstr($value, '://') && !is_file($value)) {
             return array($subformat => $value);
         }
 
