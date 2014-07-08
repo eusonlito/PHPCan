@@ -160,16 +160,31 @@ class Form
         $text = $params['label']['text'];
         $position = $params['label']['position'];
 
-        unset($params['label']['text'], $params['label']['position']);
-
         $params['label']['for'] = $params['params']['id'];
 
-        $label = '<label'.$this->Html->params($params['label']).'>'.$text.'</label>';
+        $label_start = '<label'.$this->Html->params($params['label']).'>';
+        $label_end = '</label>';
 
-        if ($position === 'after') {
-            $params['label_after'] = ' '.$label;
-        } else {
-            $params['label_before'] = $label.' ';
+        switch ($position) {
+            case 'before':
+                $params['label_before'] = $label_start.$text.$label_end.' ';
+                $params['label_after'] = '';
+                break;
+
+            case 'after':
+                $params['label_before'] = '';
+                $params['label_after'] = ' '.$label_start.$text.$label_end;
+                break;
+
+            case 'wrapper_before':
+                $params['label_before'] = $label_start.$text.' ';
+                $params['label_after'] = $label_end;
+                break;
+
+            case 'wrapper_after':
+                $params['label_before'] = $label_start;
+                $params['label_after'] = ' '.$text.$label_end;
+                break;
         }
 
         unset ($params['label']);
