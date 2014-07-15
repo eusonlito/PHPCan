@@ -158,7 +158,7 @@ class Form
         }
 
         $text = $params['label']['text'];
-        $position = $params['label']['position'];
+        $position = $params['label']['position'] ?: 'before';
 
         $params['label']['for'] = $params['params']['id'];
 
