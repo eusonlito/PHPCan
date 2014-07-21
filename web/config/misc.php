@@ -44,5 +44,5 @@ $config['debug'] = array(
 
 $config['images'] = array(
     'quality' => 90,
-    'library' => extension_loaded('imagick') ? 'imagick' : 'gd'
+    'library' => (extension_loaded('imagick') ? 'imagick' : 'gd')
 );
