@@ -2172,7 +2172,7 @@ class Db
                 }
 
                 //Unique result
-                if (($limit == 1) && empty($select['rows'])) {
+                if (($limit == 1) && empty($select['rows']) && $result_row[$name]) {
                     $result_row[$name] = current($result_row[$name]);
                 }
             }
