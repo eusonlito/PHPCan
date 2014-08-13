@@ -102,9 +102,13 @@ class Regular implements Isession
     {
         $settings = $this->settings;
 
-        if (empty($data['username']) || empty($data['password'])) {
-            $this->Errors->set($settings['errors'], __('You haven\'t filled all the form fields'));
+        if (empty($data['username'])) {
+            $this->Errors->set($settings['errors'], __('You haven\'t filled all the form fields'), $settings['user_field']);
+            return false;
+        }
 
+        if (empty($data['password'])) {
+            $this->Errors->set($settings['errors'], __('You haven\'t filled all the form fields'), $settings['password_field']);
             return false;
         }
 
@@ -207,7 +211,7 @@ class Regular implements Isession
         }
 
         if (empty($user_data[$settings['user_field']])) {
-            $this->Errors->set($settings['errors'], __('The user field is required!'));
+            $this->Errors->set($settings['errors'], __('The user field is required!'), $settings['user_field']);
             return false;
         }
 
@@ -217,16 +221,16 @@ class Regular implements Isession
             ));
 
             if ($exists) {
-                $this->Errors->set($settings['errors'], __('Sorry but there is already someone registered with that %s', __($settings['user_field'])));
+                $this->Errors->set($settings['errors'], __('Sorry but there is already someone registered with that %s', __($settings['user_field'])), $settings['user_field']);
                 return false;
             }
         }
 
         if ($clean_password !== $clean_password_repeat) {
-            $this->Errors->set($settings['errors'], __('Password and repeat password are differents'));
+            $this->Errors->set($settings['errors'], __('Password and repeat password are differents'), $settings['password_field']);
             return false;
         } else if (strlen($clean_password) < 6) {
-            $this->Errors->set($settings['errors'], __('Password length must be %s characters at least', 6));
+            $this->Errors->set($settings['errors'], __('Password length must be %s characters at least', 6), $settings['password_field']);
             return false;
         }
 
@@ -279,7 +283,7 @@ class Regular implements Isession
         ));
 
         if (empty($user)) {
-            $this->Errors->set($settings['errors'], __('User not exists'));
+            $this->Errors->set($settings['errors'], __('User not exists'), $settings['user_field']);
             return false;
         }
 
@@ -334,17 +338,17 @@ class Regular implements Isession
         $settings = $this->settings;
 
         if (empty($password)) {
-            $this->Errors->set($settings['errors'], __('You need to fill the new password field.'));
+            $this->Errors->set($settings['errors'], __('You need to fill the new password field.'), $settings['password_field']);
             return false;
         }
 
         if (strlen($password) < 6) {
-            $this->Errors->set($settings['errors'], __('Password length must be %s characters at least', 6));
+            $this->Errors->set($settings['errors'], __('Password length must be %s characters at least', 6), $settings['password_field']);
             return false;
         }
 
         if ($password !== $password_repeat) {
-            $this->Errors->set($settings['errors'], __('Password and password repeat don\'t match.'));
+            $this->Errors->set($settings['errors'], __('Password and password repeat don\'t match.'), $settings['password_field']);
             return false;
         }
 
@@ -354,7 +358,7 @@ class Regular implements Isession
         ));
 
         if (empty($user)) {
-            $this->Errors->set($settings['errors'], __('User not exists'));
+            $this->Errors->set($settings['errors'], __('User not exists'), $settings['user_field']);
             return false;
         }
 
@@ -375,17 +379,17 @@ class Regular implements Isession
 
         $ok = $Db->update($parameters);
 
-        if (empty($ok)) {
-            $errors = $this->Errors->getList();
-
-            if (empty($errors)) {
-                $this->Errors->set($settings['errors'], __('Error saving data, please check the input form values.'));
-            }
-
-            return false;
+        if ($ok) {
+            return true;
         }
 
-        return true;
+        $errors = $this->Errors->getList();
+
+        if (empty($errors)) {
+            $this->Errors->set($settings['errors'], __('Error saving data, please check the input form values.'));
+        }
+
+        return false;
     }
 
     /*
