@@ -98,6 +98,16 @@ class Errors
     }
 
     /**
+     * public function getRaw ()
+     *
+     * return none
+     */
+    public function getAll ()
+    {
+        return $this->errors;
+    }
+
+    /**
      * private function _getList (mixed $errors, array &$list)
      *
      * return none
