@@ -13,5 +13,6 @@ echo $Form->password(array(
     'name' => $info['varname'].'[0]',
     'id' => $info['id_field'],
     'class' => 'f50',
+    'autocomplete' => 'off',
     'error' => $info['error']['']
 ));
