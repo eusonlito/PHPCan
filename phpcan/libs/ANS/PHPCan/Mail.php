@@ -64,17 +64,16 @@ class Mail extends \PHPMailer
     {
         $recipients = array();
         $address = is_string($address) ? array($address, $name) : $address;
+        $total = count($address);
 
-        if (is_array($address[0])) {
-            foreach ($address as $address_value) {
-                if (is_array($address_value)) {
-                    $recipients[] = array($address_value[0], $address_value[1]);
-                } else {
-                    $recipients[] = array($address_value[0], null);
-                }
+        for ($i = 0; $i < $total; $i++) {
+            if (is_array($address[$i])) {
+                $recipients[] = array($address[$i][0], $address[$i][1]);
+            } elseif (empty($address[$i + 1]) || strpos($address[$i + 1], '@')) {
+                $recipients[] = array($address[$i], null);
+            } else {
+                $recipients[] = array($address[$i], $address[++$i]);
             }
-        } else {
-            $recipients[] = array($address[0], $address[1] ?: null);
         }
 
         return $recipients;
