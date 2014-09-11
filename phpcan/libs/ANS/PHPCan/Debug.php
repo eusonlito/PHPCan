@@ -258,9 +258,9 @@ class Debug
      *
      * Return none
      */
-    public function e ($var, $title = '')
+    public function e ($var, $title = '', $force = false)
     {
-        if (empty($this->settings['print'])) {
+        if (empty($this->settings['print']) && ($force !== true)) {
             return false;
         }
 
