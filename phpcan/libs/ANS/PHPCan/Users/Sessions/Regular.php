@@ -59,8 +59,8 @@ class Regular implements Isession
         $settings = $this->settings;
         $session = $this->getCookie('data');
 
-        if ($session && $session[$settings['user_field']] && $session[$settings['password_field']]) {
-            $user = decrypt($session[$settings['user_field']]);
+        if ($session && $session['id'] && $session[$settings['password_field']]) {
+            $id = decrypt($session['id']);
             $password = decrypt($session[$settings['password_field']]);
         } else {
             $control = $this->getCookie('control');
@@ -69,17 +69,20 @@ class Regular implements Isession
                 return false;
             }
 
-            $user = decrypt($control['1']);
-            $password = $this->selectPassword($user);
+            $id = decrypt($control['1']);
+            $password = $this->selectPassword($id);
 
-            $maintain_code = $this->encode($user.$password);
+            $maintain_code = $this->encode($id.$password);
 
             if ($maintain_code !== $control['2']) {
                 return false;
             }
         }
 
-        $user = $this->checkUser($user, $password);
+        $user = $this->checkUser(array(
+            'id' => $id,
+            $settings['password_field'] => $password
+        ), $password);
 
         if (empty($user)) {
             return false;
@@ -112,7 +115,16 @@ class Regular implements Isession
             return false;
         }
 
-        $user = $this->checkUser($data['username'], $data['password'], $update ? true : false);
+        $user = $this->checkUser(array(
+            $settings['user_field'] => $data['username'],
+            $settings['password_field'] => $data['password']
+        ), $data['password'], $update ? true : false);
+
+        if (empty($user)) {
+            $user = $this->checkUser(array(
+                $settings['user_field'] => $data['username']
+            ), $data['password'], $update ? true : false);
+        }
 
         if (empty($user)) {
             return false;
@@ -127,13 +139,13 @@ class Regular implements Isession
 
         //Save session data
         $this->setCookie('data', array(
-            $settings['user_field'] => encrypt($data['username']),
+            'id' => encrypt($user['id']),
             $settings['password_field'] => encrypt($data['password'])
         ));
 
         //Maintain session
         if ($data['maintain']) {
-            $this->maintain($data['username'], $data['password']);
+            $this->maintain($user['id'], $data['password']);
         }
 
         $this->logged = true;
@@ -141,17 +153,15 @@ class Regular implements Isession
         return $this->user;
     }
 
-    private function checkUser ($username, $password, $encoded = true)
+    private function checkUser ($conditions, $password, $encoded = true)
     {
-        if (empty($username) || empty($password)) {
+        if (empty($conditions) || empty($password)) {
             return false;
         }
 
         $settings = $this->settings;
 
-        $selection = $this->userExists(array(
-            $settings['user_field'] => $username
-        ));
+        $selection = $this->userExists($conditions);
 
         if (empty($selection)) {
             $this->user = array();
@@ -393,18 +403,18 @@ class Regular implements Isession
     }
 
     /*
-    * protected function selectPassword (string $user)
+    * protected function selectPassword (string $id)
     *
     * return string
     */
-    protected function selectPassword ($user)
+    protected function selectPassword ($id)
     {
         global $Db;
 
         $settings = $this->settings;
 
         $conditions = array_merge($this->conditions, array(
-            $settings['user_field'] => $user,
+            'id' => $id,
         ));
 
         $select = array(
@@ -446,20 +456,20 @@ class Regular implements Isession
     }
 
     /*
-    * protected function maintain (string $user, string $password)
+    * protected function maintain (string $id, string $password)
     *
     * return boolean
     */
-    protected function maintain ($user, $password)
+    protected function maintain ($id, $password)
     {
         if (empty($this->settings['maintain_time'])) {
             return false;
         }
 
-        $maintain_code = $this->encode($user.$password);
+        $maintain_code = $this->encode($id.$password);
 
         $this->setCookie('control', array(
-            '1' => encrypt($user),
+            '1' => encrypt($id),
             '2' => $maintain_code
         ));
 
