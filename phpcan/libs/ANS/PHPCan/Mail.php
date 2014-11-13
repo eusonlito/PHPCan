@@ -11,13 +11,19 @@ namespace ANS\PHPCan;
 
 defined('ANS') or die();
 
-class Mail extends \PHPMailer
+use PHPMailer;
+
+class Mail extends PHPMailer
 {
+    public $Log;
+
     public function __construct ()
     {
-        parent::__construct();
+        global $Config, $Debug;
 
-        global $Config;
+        $this->Debug = $Debug;
+
+        parent::__construct();
 
         if (empty($Config->mail)) {
             $Config->load('mail.php', 'scene');
@@ -164,5 +170,30 @@ class Mail extends \PHPMailer
     public function getAllRecipients ()
     {
         return array_keys($this->all_recipients);
+    }
+
+    public function send()
+    {
+        $response = parent::send();
+
+        if (empty($this->Log)) {
+            return $response;
+        }
+
+        $log = array_filter(array(
+            'ErrorInfo' => $this->ErrorInfo,
+            'From' => $this->From,
+            'FromName' => $this->FromName,
+            'Subject' => $this->Subject,
+            'to' => $this->to,
+            'cc' => $this->cc,
+            'bcc' => $this->bcc,
+            'ReplyTo' => $this->ReplyTo,
+            'all_recipients' => $this->all_recipients
+        ));
+
+        $this->Debug->store($log, $this->Log, true);
+
+        return $response;
     }
 }
