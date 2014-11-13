@@ -49,6 +49,7 @@ class Mail extends PHPMailer
         $this->Password = $params['password'];
         $this->Timeout = $params['timeout'];
         $this->SMTPDebug = $params['debug'];
+        $this->Log = isset($params['log']) ? $params['log'] : '';
 
         switch ($params['mailer']) {
             case 'sendmail':
