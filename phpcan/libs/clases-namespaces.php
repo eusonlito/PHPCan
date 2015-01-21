@@ -10,7 +10,7 @@ return array(
     ),
     'namespaces' => array(
         'Stylecow' => __DIR__.'/stylecow/stylecow',
-        'Imagecow' => __DIR__.'/imagecow/imagecow',
+        'Imagecow' => __DIR__.'/imagecow/imagecow/src',
         'Faker' => __DIR__.'/fzaninotto/Faker/src',
         'ANS\\Cache' => __DIR__.'/ANS/Cache/libs'
     )

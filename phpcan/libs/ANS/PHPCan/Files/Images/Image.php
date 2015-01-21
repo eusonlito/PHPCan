@@ -11,6 +11,8 @@ namespace ANS\PHPCan\Files\Images;
 
 defined('ANS') or die();
 
+require_once (LIBS_PATH.'/imagecow/imagecow/src/autoloader.php');
+
 class Image
 {
     public $settings = array();
