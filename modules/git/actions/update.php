@@ -19,7 +19,7 @@ if (!$Shell->commandExists('git')) {
 
 $Shell->cd(BASE_PATH);
 
-$cmd = 'git pull -u origin master';
+$cmd = 'git pull';
 
 $result = $Shell->exec($cmd);
 
