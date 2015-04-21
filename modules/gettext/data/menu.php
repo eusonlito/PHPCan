@@ -7,5 +7,7 @@
 * More information at license.txt
 */
 
+defined('ANS') or die();
+
 //Set menu
 $Data->set('menu_gettext', $Config->gettext_builders, array());
