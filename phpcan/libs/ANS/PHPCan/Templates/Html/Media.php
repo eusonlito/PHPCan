@@ -83,7 +83,7 @@ class Media
         $params = array(
             'width' => $width ? $width : $this->width,
             'height' => $height ? $height : $this->height,
-            'src' => 'http://www.youtube.com/embed/'.$id.'?wmode=Opaque',
+            'src' => '//www.youtube.com/embed/'.$id.'?wmode=Opaque',
             'frameborder' => '0'
         );
 
@@ -102,7 +102,7 @@ class Media
         $params = array(
             'width' => $width ? $width : $this->width,
             'height' => $height ? $height : $this->height,
-            'src' => 'http://player.vimeo.com/video/'.$id.'?title=0&amp;byline=0&amp;portrait=0',
+            'src' => '//player.vimeo.com/video/'.$id.'?title=0&amp;byline=0&amp;portrait=0',
             'frameborder' => '0'
         );
 
