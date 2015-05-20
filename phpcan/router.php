@@ -31,6 +31,11 @@ if (METHOD === 'cli') {
     putenv('DOCUMENT_ROOT='.dirname(__DIR__).'/');
     putenv('REQUEST_URI='.$params['route'].($_GET ? ('?'.http_build_query($_GET)) : ''));
 
+    if (isset($params['ssl']) && $params['ssl']) {
+        putenv('SERVER_PORT=443');
+        $_SERVER['HTTPS'] = 'on';
+    }
+
     unset($params);
 } else {
     define('SERVER_NAME', getenv('SERVER_NAME') ?: 'localhost');

@@ -17,7 +17,8 @@ defined('ANS') or die();
  * return array
  */
 function cliParams () {
-    $params = getopt('d:r:g:p:f:', array(
+    $params = getopt('d:r:g:p:f:s:', array(
+        'ssl:',
         'domain:',
         'route:',
         'get:',
@@ -33,9 +34,9 @@ function cliParams () {
 
     foreach ($params as $key => $value) {
         switch ($key) {
-            case 'd':
-            case 'domain':
-                $return['domain'] = $value;
+            case 's':
+            case 'ssl':
+                $return['ssl'] = $value;
                 continue 2;
 
             case 'r':
