@@ -156,38 +156,24 @@ class Url_media extends Url implements Iformats
     /**
      * youtube
      *
-     * http://www.youtube.com/watch?v=$id
-     * http://youtu.be/$id
     */
     private function type_youtube ($url_info)
     {
-        if ($url_info['host'] === 'youtu.be') {
-            $id = $url_info['basename'];
-        } else if ($url_info['host'] === 'www.youtube.com') {
-            if ($url_info['query']['v']) {
-                $id = $url_info['query']['v'];
-            } else if (($url_info['path'][0] === 'v') && $url_info['path'][1]) {
-                $id = $url_info['path'][1];
-            }
-        }
-
-        if (empty($id)) {
-            return false;
-        }
-
         $Api = new \ANS\PHPCan\Apis\Api;
 
-        $info = $Api->getXML('http://gdata.youtube.com/feeds/api/videos/'.$id);
+        $info = $Api->getXML('http://www.youtube.com/oembed?url='.urlencode($url_info['url']).'&format=xml');
 
         if (empty($info)) {
             return false;
         }
 
+        preg_match('#/embed/([a-zA-Z0-9_-]+)#', $info->html, $id);
+
         return array(
-            'id' => $id,
+            'id' => $id[1],
             'title' => (string) $info->title,
             'description' => (string) $info->content,
-            'image' => 'http://img.youtube.com/vi/'.$id.'/0.jpg'
+            'image' => (string) $info->thumbnail_url
         );
     }
 
