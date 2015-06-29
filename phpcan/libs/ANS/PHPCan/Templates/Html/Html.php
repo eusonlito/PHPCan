@@ -83,7 +83,7 @@ class Html
     }
 
     /**
-     * public function time (string/array $time, [string $text], [string/array $format], [string $title])
+     * public function time (string/array $time, [string|closure $text], [string/array $format], [string $title])
      *
      * Return string
      */
@@ -105,10 +105,18 @@ class Html
         $params['datetime'] = $Datetime->format(DATE_W3C);
 
         if ($text) {
-            if ($format) {
-                $text = sprintf($text, $Datetime->__format($format));
-            } else {
-                $text = sprintf($text, $time);
+            if (is_string($text)) {
+                if ($format) {
+                    $text = sprintf($text, $Datetime->__format($format));
+                } else {
+                    $text = sprintf($text, $time);
+                }
+            } else if ($text instanceof \Closure) {
+                if ($format) {
+                    $text = $text($Datetime->__format($format));
+                } else {
+                    $text = $text($text, $time);
+                }
             }
         } else {
             if ($format) {
