@@ -74,6 +74,10 @@ class Mail extends PHPMailer
         $total = count($address);
 
         for ($i = 0; $i < $total; $i++) {
+            if (empty($address[$i])) {
+                continue;
+            }
+
             if (is_array($address[$i])) {
                 $recipients[] = array($address[$i][0], $address[$i][1]);
             } elseif (empty($address[$i + 1]) || strpos($address[$i + 1], '@')) {

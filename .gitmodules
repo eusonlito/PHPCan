@@ -19,3 +19,6 @@
 [submodule "common/jquery.colorbox"]
 	path = common/jquery.colorbox
 	url = git://github.com/jackmoore/colorbox.git
+[submodule "phpcan/libs/ANS/Timer"]
+	path = phpcan/libs/ANS/Timer
+	url = git://github.com/eusonlito/Timer.git
