@@ -39,6 +39,11 @@ function cliParams () {
                 $return['ssl'] = $value;
                 continue 2;
 
+            case 'd':
+            case 'domain':
+                $return['domain'] = $value;
+                continue 2;
+
             case 'r':
             case 'route':
                 $return['route'] = $value;
