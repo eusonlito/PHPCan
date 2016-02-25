@@ -359,16 +359,20 @@ function filePath ($path)
 
     preg_match('#(([\w-]+)/)?([\w-]+)(\|(.*))?#', $path, $matches);
 
-    $context = $matches[2] ? $matches[2] : (MODULE_NAME ? 'module' : 'scene');
+    $context = $matches[2] ?: (MODULE_NAME ? 'module' : 'scene');
     $basedir = $matches[3];
     $path = $matches[5];
 
-    if ($context === 'module') {
+    if ($context === 'scene') {
+        $location = SCENE_PATH.$Config->scene_paths[$basedir];
+    } elseif ($context === 'module') {
         $location = MODULE_PATH.$Config->module_paths[$basedir];
-    } else if ($context === 'phpcan') {
+    } elseif ($context === 'phpcan') {
         $location = BASE_PATH.$Config->phpcan_paths[$basedir];
     } else {
-        $location = SCENE_PATH.$Config->scene_paths[$basedir];
+        $location = BASE_PATH
+            .$Vars->getSceneConfig('folder', false, $context)
+            .$Config->scene_paths[$basedir];
     }
 
     return fixPath($location.$path);
@@ -395,7 +399,7 @@ function fileWeb ($path, $dynamic = false, $host = false)
 
     preg_match('#(([\w-]+)/)?([\w-]+)(\|(.*))?#', $path, $matches);
 
-    $context = $matches[2] ? $matches[2] : (MODULE_NAME ? 'module' : 'scene');
+    $context = $matches[2] ?: (MODULE_NAME ? 'module' : 'scene');
     $basedir = $matches[3];
     $path = $matches[5];
 
@@ -405,12 +409,16 @@ function fileWeb ($path, $dynamic = false, $host = false)
         } else {
             $location = SCENE_WWW.$context.'/'.$basedir.'/';
         }
-    } else if ($context === 'module') {
+    } elseif ($context === 'scene') {
+        $location = SCENE_REAL_WWW.$Config->scene_paths[$basedir];
+    } elseif ($context === 'module') {
         $location = MODULE_REAL_WWW.$Config->module_paths[$basedir];
-    } else if ($context === 'phpcan') {
+    } elseif ($context === 'phpcan') {
         $location = BASE_WWW.$Config->phpcan_paths[$basedir];
     } else {
-        $location = SCENE_REAL_WWW.$Config->scene_paths[$basedir];
+        $location = BASE_WWW
+            .$Vars->getSceneConfig('folder', false, $context)
+            .$Config->scene_paths[$basedir];
     }
 
     return $host.fixPath($location.$path);
