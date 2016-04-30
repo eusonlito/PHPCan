@@ -107,22 +107,22 @@ class Mail extends PHPMailer
         return $recipients;
     }
 
-    public function AddAddress ($address, $name = '')
+    public function addAddress ($address, $name = '')
     {
         return $this->AddMethod($address, $name, __FUNCTION__);
     }
 
-    public function AddCC ($address, $name = '')
+    public function addCC ($address, $name = '')
     {
         return $this->AddMethod($address, $name, __FUNCTION__);
     }
 
-    public function AddBCC ($address, $name = '')
+    public function addBCC ($address, $name = '')
     {
         return $this->AddMethod($address, $name, __FUNCTION__);
     }
 
-    public function AddReplyTo ($address, $name = '')
+    public function addReplyTo ($address, $name = '')
     {
         if (is_array($address)) {
             parent::AddReplyTo($address[0], $address[1]);
@@ -131,7 +131,7 @@ class Mail extends PHPMailer
         }
     }
 
-    public function AddAttachment ($file, $name = '')
+    public function addAttachment ($file, $name = '', $encoding = 'base64', $type = '', $disposition = 'attachment')
     {
         $files = array();
 
