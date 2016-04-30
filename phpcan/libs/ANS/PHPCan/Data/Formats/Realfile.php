@@ -75,7 +75,7 @@ class Realfile extends File implements Iformats
         return parent::saveFile($value, $id, 'location');
     }
 
-    public function afterSave (\ANS\PHPCan\Data\Db $Db, $values)
+    public function afterSave (\ANS\PHPCan\Data\Db $Db, $values, $subformat = '')
     {
         return parent::afterSave($Db, $values, 'location');
     }
