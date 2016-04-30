@@ -153,7 +153,7 @@ class Image
     public function load ($image)
     {
         $this->Image = \Imagecow\Image::create($image, ucfirst($this->settings['library']));
-        $this->Image->setCompressionQuality($this->settings['quality']);
+        $this->Image->quality($this->settings['quality']);
 
         return $this;
     }
