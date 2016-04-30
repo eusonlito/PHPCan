@@ -11,6 +11,10 @@ namespace ANS\PHPCan\Data;
 
 defined('ANS') or die();
 
+use PDO;
+use PDOException;
+use InvalidArgumentException;
+
 class Db
 {
     private $Debug;
@@ -122,7 +126,7 @@ class Db
             $this->connection = $connection;
         } else {
             if (empty($Config->db)) {
-                throw new \InvalidArgumentException(__('Does not exists database configuration'));
+                throw new InvalidArgumentException(__('Does not exists database configuration'));
             }
 
             $this->connection = key($Config->db);
@@ -136,13 +140,13 @@ class Db
         }
 
         if (empty($this->connection)) {
-            throw new \InvalidArgumentException(__('Connection can not be loaded'));
+            throw new InvalidArgumentException(__('Connection can not be loaded'));
         }
 
         $this->settings = $Config->db[$this->connection];
 
         if (!in_array($this->settings['driver'], $this->drivers)) {
-            throw new \InvalidArgumentException(__('Sorry but %s databases are not supported', $this->settings['driver']));
+            throw new InvalidArgumentException(__('Sorry but %s databases are not supported', $this->settings['driver']));
         }
 
         return $this->connection;
@@ -169,7 +173,7 @@ class Db
     */
     public function getAvailableDrivers ()
     {
-        return \PDO::getAvailableDrivers();
+        return PDO::getAvailableDrivers();
     }
 
     /**
@@ -192,14 +196,14 @@ class Db
         $this->setDatabase();
 
         try {
-            $this->PDO = new \PDO(
+            $this->PDO = new PDO(
                 $this->Database->getDSN($this->settings),
                 $this->settings['user'],
                 $this->settings['password'],
                 $this->settings['options']
             );
-        } catch (\PDOException $e) {
-            throw new \InvalidArgumentException($e->getMessage());
+        } catch (PDOException $e) {
+            throw new InvalidArgumentException($e->getMessage());
         }
 
         return true;
@@ -230,7 +234,7 @@ class Db
         if (class_exists($class)) {
             $this->Database = new $class($this);
         } else {
-            throw new \InvalidArgumentException(__('Sorry but don\'t exists any driver with name %s', $this->settings['driver']));
+            throw new InvalidArgumentException(__('Sorry but don\'t exists any driver with name %s', $this->settings['driver']));
         }
 
         return $this->Database ? true : false;
@@ -361,7 +365,7 @@ class Db
                 if (empty($this->Result)) {
                     $this->error($query."\n\n".end($this->PDO->errorInfo()));
                 }
-            } catch (\PDOException $e) {
+            } catch (PDOException $e) {
                 $this->error($e->getMessage());
             }
         }
@@ -382,7 +386,7 @@ class Db
             return array();
         }
 
-        $result = $this->Result->fetchAll(\PDO::FETCH_ASSOC);
+        $result = $this->Result->fetchAll(PDO::FETCH_ASSOC);
 
         $this->Result->closeCursor();
 
@@ -2775,29 +2779,39 @@ class Db
         return true;
     }
 
+    public function beginTransaction()
+    {
+        return $this->PDO->beginTransaction();
+    }
+
+    public function commitTransaction()
+    {
+        return $this->PDO->commit();
+    }
+
+    public function rollBack()
+    {
+        return $this->PDO->rollBack();
+    }
+
     public function callRegisteredShutdown ()
     {
+        $s = $this->settings;
 
-        if (empty($this->settings['query_register_log']) || empty($this->settings['query_register_store'])) {
-            return true;
-        }
-
-        if (!is_string($this->settings['query_register_store'])) {
+        if (empty($s['query_register_log']) || empty($s['query_register_store']) || !is_string($s['query_register_store'])) {
             return true;
         }
 
         global $Config;
 
-        $log = BASE_PATH.$Config->phpcan_paths['logs'].$this->settings['query_register_store'];
+        $log = BASE_PATH.$Config->phpcan_paths['logs'].$s['query_register_store'];
 
         if (!is_writable(dirname($log)) || (is_file($log) && !is_writable($log))) {
             return true;
         }
 
-        if ($this->settings['query_register_append']) {
-            return file_put_contents($log, print_r($this->query_register, true), FILE_APPEND);
-        } else {
-            return file_put_contents($log, print_r($this->query_register, true));
-        }
+        $flag = $s['query_register_append'] ? FILE_APPEND : null;
+
+        return file_put_contents($log, print_r($this->query_register, true), $flag);
     }
 }
