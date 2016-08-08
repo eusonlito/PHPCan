@@ -152,7 +152,7 @@ class Image
      */
     public function load ($image)
     {
-        $this->Image = \Imagecow\Image::create($image, ucfirst($this->settings['library']));
+        $this->Image = \Imagecow\Image::fromFile($image);
         $this->Image->quality($this->settings['quality']);
 
         return $this;
