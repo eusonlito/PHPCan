@@ -76,7 +76,7 @@ class Js extends JSMin {
             }
 
             if ($this->Cache && is_array($Config->cache['types'][$settings])) {
-                $this->settings['cache'] = $Config->cache['types']['css'];
+                $this->settings['cache'] = $Config->cache['types']['js'];
             } else {
                 $this->settings['cache'] = array();
             }
