@@ -11,9 +11,9 @@ namespace ANS\PHPCan\Data\Formats;
 
 defined('ANS') or die();
 
-class Float extends Formats implements Iformats
+class Decimal extends Formats implements Iformats
 {
-    public $format = 'float';
+    public $format = 'decimal';
 
     public function check ($value)
     {
