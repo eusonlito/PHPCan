@@ -1,0 +1,89 @@
+body > header {
+	text-align:center;
+}
+body > header .image {
+	background-image:url('../../../web/templates/img/idc-portada.png');
+	width:360px;
+	height:99px;
+	display:inline-block;
+}
+body > header p {
+	font-size:2em;
+	color:#3F5766;
+	line-height:1em;
+	margin:20px 0;
+	text-shadow:3px 3px 0 #EFEFEF;
+}
+.projects {
+	text-align:center;
+	text-align:left;
+	margin:0 0 50px 0;
+	list-style:none;
+}
+.projects a {
+	display:block;
+	margin:0;
+	padding:15px;
+	vertical-align:top;
+	text-decoration:none;
+	outline:0;
+	background:#DDEEEE;
+	border:solid 1px #CCDDDD;
+	border-top-color:transparent;
+}
+.projects li:first-child a {
+	-moz-border-radius:12px 12px 0 0;
+	-webkit-border-radius:12px 12px 0 0;
+	-o-border-radius:12px 12px 0 0;
+	border-radius:12px 12px 0 0;
+	border-top:solid 1px #CCDDDD;
+}
+.projects li:last-child a {
+	-moz-border-radius:0 0 12px 12px;
+	-webkit-border-radius:0 0 12px 12px;
+	-o-border-radius:0 0 12px 12px;
+	border-radius:0 0 12px 12px;
+}
+.projects a h1 {
+	font-size:1.6em;
+	color:#000;
+}
+.projects a p {
+	font-size:0.9em;
+	color:#3F5766;
+	text-shadow:1px 1px 0 #FFF;
+}
+.projects li a:hover {
+	background:#3F5766;
+	-moz-box-shadow:0 0 4px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow:0 0 4px rgba(0, 0, 0, 0.5);
+	-o-box-shadow:0 0 4px rgba(0, 0, 0, 0.5);
+	box-shadow:0 0 4px rgba(0, 0, 0, 0.5);
+	border:solid 1px #2F4756;
+	position:relative;
+}
+.projects a:hover h1 {
+	color:#FFF;
+	text-shadow:1px 1px 2px #000;
+}
+.projects a:hover p {
+	color:#CCDDDD;
+	text-shadow:1px 1px 1px #000;
+}
+.projects a:hover div {
+	background:#3F5766;
+	-moz-box-shadow:0 0 4px #000;
+	-webkit-box-shadow:0 0 4px #000;
+	-o-box-shadow:0 0 4px #000;
+	box-shadow:0 0 4px #000;
+	filter:none;
+	-ms-filter:none;
+}
+.projects a:hover div h1 {
+	color:#FFF;
+	text-shadow:1px 1px 2px #000;
+}
+.projects a:hover div p {
+	color:#CCDDDD;
+	text-shadow:1px 1px 1px #000;
+}

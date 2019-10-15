@@ -1,0 +1,234 @@
+
+<html>
+	<head>
+		
+<title>Routes configuration - Examples - phpCan - I+D+C</title>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+
+<!-- Site info -->
+<meta name="author" content="A navalla suíza - http://anavallasuiza.com" />
+<meta name="description" content="">
+<meta name="generator" content="phpCan 1.1b" />
+
+<!-- Google Chrome Frame -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+
+<!-- Mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="../../../favicon.ico.html">
+<link rel="apple-touch-icon" href="../../../apple-touch-icon.png.html">
+
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Css files -->
+<link href="../../../common/csans/csans.css" type="text/css" rel="stylesheet" />
+<link href="../../../web/templates/css/sh/shCoreDefault.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$basic.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$projects.css" type="text/css" rel="stylesheet" />
+
+<!-- Javascript files -->
+<script src="../../../common/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shCore.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushJScript.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushCss.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushPhp.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushXml.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/javascript.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		
+<div id="menu">
+	<label>Go to project:
+		<select onchange="document.location = this.value;">
+			<option value="/project/ansslider/">$.ansSlider</option><option value="/project/jquerymedia/">$media</option><option value="/project/bookmarklets/">Bookmarklets</option><option value="/project/4ff844cd25f4b/">Cache</option><option value="/project/csans/">cSans</option><option value="/project/4ff845529bed9/">Imagecow</option><option value="/project/phpcan/" selected>phpCan</option><option value="/project/stylecow/">styleCow</option>		</select>
+	</label>
+
+	<h1 class="image idc"><a href="../../../apple-touch-icon.png.html">I+D+C - Investigamos, Desenvolvemos, Compartimos</a></h1>
+</div>
+
+<header>
+		<figure>
+		<a href="../index.html"><img src="../../../web/uploads/projects/icon/4db2fc93332486.65105404.png" alt="" /></a>	</figure>
+	
+	<hgroup>
+		<h1 class="hidden-a11y"><a href="../index.html">phpCan</a></h1>		<h2>PHP 5 framework</h2>
+	</hgroup>
+</header>
+
+<div class="clear">
+		<nav class="project">
+		<ul class="tabs">
+			<li><a href="../index.html">Index</a></li><li><a href="../documentation/datetime/index.html">Documentation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../modules/index.html">Modules</a></li><li><a href="../changelog/index.html">Changelog</a></li>		</ul>
+	</nav>
+
+
+	<nav class="page">
+		<ul><li class="sub_selected"><a href="static-html-site.html">Static html site</a><ul><li><a href="starting.html">Starting</a></li><li class="selected"><a href="routes-configuration.html">Routes configuration</a></li><li><a href="creating-templates.html">Creating templates</a></li><li><a href="the-styles.html">The styles</a></li></ul></li><li><a href="creating-a-blog.html">Creating a blog</a><ul><li><a href="configurating-the-database.html">Configurating the database</a></li><li><a href="the-routes-for-the-blog.html">The routes for the blog</a></li><li><a href="the-data-files.html">The data files</a></li><li><a href="blog-templates.html">Blog templates</a></li><li><a href="forms-and-actions.html">Forms and actions</a></li></ul></li></ul>	</nav>
+
+
+	
+	<article class="text"><hgroup>
+	<h1>Routes configuration</h1>
+</hgroup>
+
+<p>In phpCan there are two basic routes: the index and the undefined route. We can create more routes and configurate them to load a specific template. For example, let's create two more routes: "articles" and "about-us". To do that, we have to edit the file static_site/config/routes.php:</p>
+</section>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$config['routes'] = array(
+	'index' => array(),
+	'articles' => array(),
+	'about-us' => array(),
+
+	'undefined' => array()
+);
+</pre>
+</section>
+
+<h2>Configurating the templates</h2>
+<p>Every page of our site have some common templates: the same header, the same footer, etc. So we can create a basic template for all pages and specific templates for each one:</p>
+</section>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$config['routes'] = array(
+	'*' => array(
+		'templates' => array('base' => 'html.php')
+	),
+
+	'index' => array(
+		'templates' => array('content' => 'content-index.php')
+	),
+	'articles' => array(
+		'templates' => array('content' => 'content-articles.php')
+	),
+	'about-us' => array(
+		'templates' => array('content' => 'content-about-us.php')
+	),
+
+	'undefined' => array(
+		'templates' => array('content' => 'content-404.php')
+	)
+);
+</pre>
+<p>The template "base" defines the first template to load and it's set in "*" route because is common to all pages. Then we can define specific templates for each page and call them, for example "content".</p>
+</section>
+
+<p>The articles route loads every articles of or website, so we can define a variable to know which article has to be showed. Let's call "article_file" to this variable. To define a variable in routes, we only have to put a "$" just before the name of the variable.</p>
+
+<section class="examples">
+<pre class="brush: php; auto-links: false">$config['routes'] = array(
+	'*' => array(
+		'templates' => array('base' => 'html.php')
+	),
+
+	'index' => array(
+		'templates' => array('content' => 'content-index.php')
+	),
+	'articles/$article_file' => array(
+		'templates' => array('content' => 'content-articles.php')
+	),
+	'about-us' => array(
+		'templates' => array('content' => 'content-about-us.php')
+	),
+
+	'undefined' => array(
+		'templates' => array('content' => 'content-404.php')
+	)
+);
+</pre>
+<p>Now, all urls like "articles/wharever" will load the template "content-articles.php".</p>
+</section>
+
+<h2>Merging templates</h2>
+<p>We can also add more templates of our site. For example css or js files. Because these files are common in all pages, we can define them in "*". And we can, also, add more css files to specific route.</p>
+</section>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$config['routes'] = array(
+	'*' => array(
+		'templates' => array(
+			'base' => 'html.php',
+			'css' => array('reset.css', 'my-styles.css')
+		)
+	),
+
+	'index' => array(
+		'templates' => array('content' => 'content-index.php')
+	),
+	'articles/$article_file' => array(
+		'templates' => array('content' => 'content-articles.php')
+	),
+	'about-us' => array(
+		'templates' => array('content' => 'content-about-us.php')
+	),
+
+	'undefined' => array(
+		'templates' => array(
+			'content' => 'content-404.php',
+			'css' => '404-styles.css'
+		)
+	)
+);
+</pre>
+</section>
+
+<p>In the last example every route has "reset.css" and "my-styles.css" as the css file, but the undefined route will have three files: "reset.css", "my-styles.css" and "404-styles.css". The reason is because the 'css' is a preserved template so it wont be replaced but it will be added. This is useful because the css (and javascript) are common in all pages and, usually you only want add another one in some specific routes instead of redefine them completely. But if you want replace a css/js file in a route, you just have add them a name, for example "main-css":</p>
+
+<section class="examples">
+<pre class="brush: php; auto-links: false">$config['routes'] = array(
+	'*' => array(
+		'templates' => array(
+			'base' => 'html.php',
+			'css' => array('reset.css', 'main-css' => 'my-styles.css')
+		)
+	),
+
+	'index' => array(
+		'templates' => array('content' => 'content-index.php')
+	),
+	'articles/$article_file' => array(
+		'templates' => array('content' => 'content-articles.php')
+	),
+	'about-us' => array(
+		'templates' => array('content' => 'content-about-us.php')
+	),
+
+	'undefined' => array(
+		'templates' => array(
+			'content' => 'content-404.php',
+			'css' => array('main-css' => '404-styles.css')
+		)
+	)
+);
+</pre>
+</section></article>
+
+	<a href="http://code.google.com/p/phpcan/" class="image google">Checkout in Google Code</a></div>
+		<footer>
+			<a href="http://anavallasuiza.com" class="image">A navalla suíza</a><br>
+
+			<p>(CC) 2012 A navalla suíza. All the code published at <a href="../../../apple-touch-icon.png.html" title="I+D+C - A navalla suíza">I+D+C</a> is distributed under the terms of either the <a href="../../../web/uploads/MIT-LICENSE.txt">MIT License</a> or the <a href="../../../web/uploads/GPL-LICENSE.txt">GNU General Public License (GPL) Version 3</a></p>
+
+			<p>Text is available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-ShareAlike 3.0">Creative Commons Attribution/Share-Alike License</a>. Additional terms may apply.</p>
+		</footer>
+
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-10480211-12']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	</body>
+</html>

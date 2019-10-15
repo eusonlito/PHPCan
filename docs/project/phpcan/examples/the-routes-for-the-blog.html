@@ -1,0 +1,117 @@
+
+<html>
+	<head>
+		
+<title>The routes for the blog - Examples - phpCan - I+D+C</title>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+
+<!-- Site info -->
+<meta name="author" content="A navalla suíza - http://anavallasuiza.com" />
+<meta name="description" content="">
+<meta name="generator" content="phpCan 1.1b" />
+
+<!-- Google Chrome Frame -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+
+<!-- Mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="../../../favicon.ico.html">
+<link rel="apple-touch-icon" href="../../../apple-touch-icon.png.html">
+
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Css files -->
+<link href="../../../common/csans/csans.css" type="text/css" rel="stylesheet" />
+<link href="../../../web/templates/css/sh/shCoreDefault.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$basic.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$projects.css" type="text/css" rel="stylesheet" />
+
+<!-- Javascript files -->
+<script src="../../../common/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shCore.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushJScript.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushCss.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushPhp.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushXml.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/javascript.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		
+<div id="menu">
+	<label>Go to project:
+		<select onchange="document.location = this.value;">
+			<option value="/project/ansslider/">$.ansSlider</option><option value="/project/jquerymedia/">$media</option><option value="/project/bookmarklets/">Bookmarklets</option><option value="/project/4ff844cd25f4b/">Cache</option><option value="/project/csans/">cSans</option><option value="/project/4ff845529bed9/">Imagecow</option><option value="/project/phpcan/" selected>phpCan</option><option value="/project/stylecow/">styleCow</option>		</select>
+	</label>
+
+	<h1 class="image idc"><a href="../../../apple-touch-icon.png.html">I+D+C - Investigamos, Desenvolvemos, Compartimos</a></h1>
+</div>
+
+<header>
+		<figure>
+		<a href="../index.html"><img src="../../../web/uploads/projects/icon/4db2fc93332486.65105404.png" alt="" /></a>	</figure>
+	
+	<hgroup>
+		<h1 class="hidden-a11y"><a href="../index.html">phpCan</a></h1>		<h2>PHP 5 framework</h2>
+	</hgroup>
+</header>
+
+<div class="clear">
+		<nav class="project">
+		<ul class="tabs">
+			<li><a href="../index.html">Index</a></li><li><a href="../documentation/datetime/index.html">Documentation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../modules/index.html">Modules</a></li><li><a href="../changelog/index.html">Changelog</a></li>		</ul>
+	</nav>
+
+
+	<nav class="page">
+		<ul><li><a href="static-html-site.html">Static html site</a><ul><li><a href="starting.html">Starting</a></li><li><a href="routes-configuration.html">Routes configuration</a></li><li><a href="creating-templates.html">Creating templates</a></li><li><a href="the-styles.html">The styles</a></li></ul></li><li class="sub_selected"><a href="creating-a-blog.html">Creating a blog</a><ul><li><a href="configurating-the-database.html">Configurating the database</a></li><li class="selected"><a href="the-routes-for-the-blog.html">The routes for the blog</a></li><li><a href="the-data-files.html">The data files</a></li><li><a href="blog-templates.html">Blog templates</a></li><li><a href="forms-and-actions.html">Forms and actions</a></li></ul></li></ul>	</nav>
+
+
+	
+	<article class="text"><hgroup>
+	<h1>The routes for the blog</h1>
+</hgroup>
+
+<p>We need to configurate the routes of our blog. The most simple blog needs at least two pages: the index with the latest posts and the permalink for each post. We can create also a page for the categories and tags</p>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$config['routes'] = array(
+	'index' => array(),
+	'tag/$tag_id' => array(),
+	'category/$category_id' => array(),
+	'post/$post_id' => array(),
+
+	'undefined' => array()
+);
+</pre>
+<p>In this example we have defined four routes: the index, a tag (for example tag/parties), a category (for example category/news) and for posts (for example: post/the-title-of-the-post). The undefined route will be taken if the current route doesn't match with any of these four routes.</p>
+</section></article>
+
+	<a href="http://code.google.com/p/phpcan/" class="image google">Checkout in Google Code</a></div>
+		<footer>
+			<a href="http://anavallasuiza.com" class="image">A navalla suíza</a><br>
+
+			<p>(CC) 2012 A navalla suíza. All the code published at <a href="../../../apple-touch-icon.png.html" title="I+D+C - A navalla suíza">I+D+C</a> is distributed under the terms of either the <a href="../../../web/uploads/MIT-LICENSE.txt">MIT License</a> or the <a href="../../../web/uploads/GPL-LICENSE.txt">GNU General Public License (GPL) Version 3</a></p>
+
+			<p>Text is available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-ShareAlike 3.0">Creative Commons Attribution/Share-Alike License</a>. Additional terms may apply.</p>
+		</footer>
+
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-10480211-12']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	</body>
+</html>

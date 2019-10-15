@@ -1,0 +1,217 @@
+
+<html>
+	<head>
+		
+<title>The data files - Examples - phpCan - I+D+C</title>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+
+<!-- Site info -->
+<meta name="author" content="A navalla suíza - http://anavallasuiza.com" />
+<meta name="description" content="">
+<meta name="generator" content="phpCan 1.1b" />
+
+<!-- Google Chrome Frame -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+
+<!-- Mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="../../../favicon.ico.html">
+<link rel="apple-touch-icon" href="../../../apple-touch-icon.png.html">
+
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Css files -->
+<link href="../../../common/csans/csans.css" type="text/css" rel="stylesheet" />
+<link href="../../../web/templates/css/sh/shCoreDefault.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$basic.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$projects.css" type="text/css" rel="stylesheet" />
+
+<!-- Javascript files -->
+<script src="../../../common/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shCore.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushJScript.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushCss.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushPhp.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushXml.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/javascript.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		
+<div id="menu">
+	<label>Go to project:
+		<select onchange="document.location = this.value;">
+			<option value="/project/ansslider/">$.ansSlider</option><option value="/project/jquerymedia/">$media</option><option value="/project/bookmarklets/">Bookmarklets</option><option value="/project/4ff844cd25f4b/">Cache</option><option value="/project/csans/">cSans</option><option value="/project/4ff845529bed9/">Imagecow</option><option value="/project/phpcan/" selected>phpCan</option><option value="/project/stylecow/">styleCow</option>		</select>
+	</label>
+
+	<h1 class="image idc"><a href="../../../apple-touch-icon.png.html">I+D+C - Investigamos, Desenvolvemos, Compartimos</a></h1>
+</div>
+
+<header>
+		<figure>
+		<a href="../index.html"><img src="../../../web/uploads/projects/icon/4db2fc93332486.65105404.png" alt="" /></a>	</figure>
+	
+	<hgroup>
+		<h1 class="hidden-a11y"><a href="../index.html">phpCan</a></h1>		<h2>PHP 5 framework</h2>
+	</hgroup>
+</header>
+
+<div class="clear">
+		<nav class="project">
+		<ul class="tabs">
+			<li><a href="../index.html">Index</a></li><li><a href="../documentation/datetime/index.html">Documentation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../modules/index.html">Modules</a></li><li><a href="../changelog/index.html">Changelog</a></li>		</ul>
+	</nav>
+
+
+	<nav class="page">
+		<ul><li><a href="static-html-site.html">Static html site</a><ul><li><a href="starting.html">Starting</a></li><li><a href="routes-configuration.html">Routes configuration</a></li><li><a href="creating-templates.html">Creating templates</a></li><li><a href="the-styles.html">The styles</a></li></ul></li><li class="sub_selected"><a href="creating-a-blog.html">Creating a blog</a><ul><li><a href="configurating-the-database.html">Configurating the database</a></li><li><a href="the-routes-for-the-blog.html">The routes for the blog</a></li><li class="selected"><a href="the-data-files.html">The data files</a></li><li><a href="blog-templates.html">Blog templates</a></li><li><a href="forms-and-actions.html">Forms and actions</a></li></ul></li></ul>	</nav>
+
+
+	
+	<article class="text"><hgroup>
+	<h1>The data files</h1>
+</hgroup>
+
+<p>Now we can configurate and create the files which will recover the data to show in each page. In our example, we have three pages very similar: index, tag and category, because these pages will show a list of posts. The only difference between them is "index" shows all posts, "tags" shows only the posts with a specific tag and "category" shows the posts with a specific category. We can use the same data file for three pages and other file for the "post" page.</p>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$config['routes'] = array(
+	'index' => array(
+		'data' => 'post-list.php'
+	),
+	'tag/$tag_id' => array(
+		'data' => 'post-list.php'
+	),
+	'category/$category_id' => array(
+		'data' => 'post-list.php'
+	),
+	'post/$post_id' => array(
+		'data' => 'post-details.php'
+	),
+
+	'undefined' => array()
+);
+</pre>
+</section>
+
+<h2>Listing posts</h2>
+<p>Now we have to create these both files. The first file (post-list.php) will show a list of posts. We only have to know if we are filtering these posts by tags or categories to add an extra param to the query. This is an example:</p>
+</section>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$query = array(
+	'table' => 'posts',
+	'fields' => array('title', 'published'),
+	'conditions' => array(
+		'visible' => 1
+	),
+	'sort' => 'published DESC'
+);
+
+if ($Vars->exists('category_id')) {
+	$query['conditions']['categories.id'] = $vars->int('category_id');
+} else if ($Vars->exists('tags_id')) {
+	$query['conditions']['tags.id'] = $vars->int('tags_id');
+}
+
+$Data->select($query, 'posts');
+</pre>
+<p>In this example we have created the basic query and if one of the route variables exists, add this condition to query. Finally we execute the query and save the result in the variable "posts". This filter is created using the id of the current category or tag. This produces url like "http://mydomain.com/tag/34" or "http://mydomain.com/category/15". You can use beauty urls using the format "name" of categories and tags, because it is of type "title" which has two values: "title" and "url". So we can select the tags and categories by the name-url field:</p>
+
+<pre class="brush: php; auto-links: false">$query = array(
+	'table' => 'posts',
+	'fields' => array('title', 'published'),
+	'conditions' => array(
+		'visible' => 1
+	),
+	'sort' => 'published DESC'
+);
+
+if ($Vars->exists('category_id')) {
+	$query['conditions']['categories.name-url'] = $Vars->str('category_id');
+} else if ($Vars->exists('tags_id')) {
+	$query['conditions']['tags.name-url'] = $Vars->str('tags_id');
+}
+
+$posts = $Db->select($query);
+</pre>
+<p>Now we have friendly urls like "http://mydomain.com/tag/sports" and "http://domain.com/category/internet-and-technology". We can, also select the tags and categories of each post, adding the tables "tags" and "categories" to the query:</p>
+
+<pre class="brush: php; auto-links: false">$query = array(
+	'table' => 'posts',
+	'fields' => array('title', 'published'),
+	'conditions' => array(
+		'visible' => 1
+	),
+	'sort' => 'published DESC',
+	'add_tables' => array('tags', 'categories')
+);
+
+if ($Vars->exists('category_id')) {
+	$query['conditions']['categories.name-url'] = $Vars->str('category_id');
+} else if ($Vars->exists('tags_id')) {
+	$query['conditions']['tags.name-url'] = $Vars->str('tags_id');
+}
+
+$posts = $Db->select($query);
+</pre>
+</section>
+
+<h2>Post details</h2>
+<p>In the file for the post details, we have to recover all data of this post with its tags, categories and comments. This can be solved with a simple query:</p>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$query = array(
+	'table' => 'posts',
+	'conditions' => array(
+		'visible' => 1,
+		'title-url' => $Vars->str('post_id')
+	),
+	'limit' => 1,
+	'add_tables' => array(
+		'tags',
+		'categories',
+		array(
+			'table' => 'comments',
+			'sort' => 'date DESC'
+		)
+	)
+);
+
+$posts = $Db->select($query);
+
+if (!$post) {
+	redirect(path('undefined'));
+}
+</pre>
+<p>In this query we select all data of the current post and the related tags, categories and comments (sorted by date desc). If no post has been selected it will redirect to undefined page.</p>
+</section></article>
+
+	<a href="http://code.google.com/p/phpcan/" class="image google">Checkout in Google Code</a></div>
+		<footer>
+			<a href="http://anavallasuiza.com" class="image">A navalla suíza</a><br>
+
+			<p>(CC) 2012 A navalla suíza. All the code published at <a href="../../../apple-touch-icon.png.html" title="I+D+C - A navalla suíza">I+D+C</a> is distributed under the terms of either the <a href="../../../web/uploads/MIT-LICENSE.txt">MIT License</a> or the <a href="../../../web/uploads/GPL-LICENSE.txt">GNU General Public License (GPL) Version 3</a></p>
+
+			<p>Text is available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-ShareAlike 3.0">Creative Commons Attribution/Share-Alike License</a>. Additional terms may apply.</p>
+		</footer>
+
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-10480211-12']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	</body>
+</html>

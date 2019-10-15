@@ -1,0 +1,201 @@
+
+<html>
+	<head>
+		
+<title>Configurating the database - Examples - phpCan - I+D+C</title>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+
+<!-- Site info -->
+<meta name="author" content="A navalla suíza - http://anavallasuiza.com" />
+<meta name="description" content="">
+<meta name="generator" content="phpCan 1.1b" />
+
+<!-- Google Chrome Frame -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+
+<!-- Mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="../../../favicon.ico.html">
+<link rel="apple-touch-icon" href="../../../apple-touch-icon.png.html">
+
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Css files -->
+<link href="../../../common/csans/csans.css" type="text/css" rel="stylesheet" />
+<link href="../../../web/templates/css/sh/shCoreDefault.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$basic.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$projects.css" type="text/css" rel="stylesheet" />
+
+<!-- Javascript files -->
+<script src="../../../common/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shCore.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushJScript.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushCss.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushPhp.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushXml.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/javascript.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		
+<div id="menu">
+	<label>Go to project:
+		<select onchange="document.location = this.value;">
+			<option value="/project/ansslider/">$.ansSlider</option><option value="/project/jquerymedia/">$media</option><option value="/project/bookmarklets/">Bookmarklets</option><option value="/project/4ff844cd25f4b/">Cache</option><option value="/project/csans/">cSans</option><option value="/project/4ff845529bed9/">Imagecow</option><option value="/project/phpcan/" selected>phpCan</option><option value="/project/stylecow/">styleCow</option>		</select>
+	</label>
+
+	<h1 class="image idc"><a href="../../../apple-touch-icon.png.html">I+D+C - Investigamos, Desenvolvemos, Compartimos</a></h1>
+</div>
+
+<header>
+		<figure>
+		<a href="../index.html"><img src="../../../web/uploads/projects/icon/4db2fc93332486.65105404.png" alt="" /></a>	</figure>
+	
+	<hgroup>
+		<h1 class="hidden-a11y"><a href="../index.html">phpCan</a></h1>		<h2>PHP 5 framework</h2>
+	</hgroup>
+</header>
+
+<div class="clear">
+		<nav class="project">
+		<ul class="tabs">
+			<li><a href="../index.html">Index</a></li><li><a href="../documentation/datetime/index.html">Documentation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../modules/index.html">Modules</a></li><li><a href="../changelog/index.html">Changelog</a></li>		</ul>
+	</nav>
+
+
+	<nav class="page">
+		<ul><li><a href="static-html-site.html">Static html site</a><ul><li><a href="starting.html">Starting</a></li><li><a href="routes-configuration.html">Routes configuration</a></li><li><a href="creating-templates.html">Creating templates</a></li><li><a href="the-styles.html">The styles</a></li></ul></li><li class="sub_selected"><a href="creating-a-blog.html">Creating a blog</a><ul><li class="selected"><a href="configurating-the-database.html">Configurating the database</a></li><li><a href="the-routes-for-the-blog.html">The routes for the blog</a></li><li><a href="the-data-files.html">The data files</a></li><li><a href="blog-templates.html">Blog templates</a></li><li><a href="forms-and-actions.html">Forms and actions</a></li></ul></li></ul>	</nav>
+
+
+	
+	<article class="text"><hgroup>
+	<h1>Configurating the database</h1>
+</hgroup>
+
+<p>The database connection configuration is located in the file config/db.php. We can create as connection as we need and use them simultaneously. Lets configurate a connection called "blog":</p>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$config['db'] = array(
+	'blog' => array(
+		'type' => 'mysql',
+		'host' => 'localhost',
+		'database' => 'my_blog',
+		'user' => 'root',
+		'password' => 'my_password',
+		'persistent' => true,
+
+		'save_query_register' => true,
+		'simulate_saves' => false,
+		'default' => true,
+	)
+);
+</pre>
+</section>
+
+<h2>Configurating the tables</h2>
+<p>Now we have to configurate the tables for this connection, their formats and relations. In a blog, we need a table for posts, with a title, a body, data of publish and option to make visible or not the post. To configurate the tables, we have to edit the file config/tables.php.</p>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$config['tables']['blog'] = array(
+	'posts' => array(
+		'title' => 'title',
+		'body' => 'html',
+		'published' => 'datetime',
+		'visible' => 'boolean'
+	)
+);
+</pre>
+<p>We can config some of these formats, for example, the published format can have the current time as default value, so the new inserted posts will have the current time if you don't specify anything:</p>
+
+<pre class="brush: php; auto-links: false">$config['tables']['blog'] = array(
+	'posts' => array(
+		'title' => 'title',
+		'body' => 'html',
+		'published' => array(
+			'format' => 'datetime',
+			'default' => time()
+		),
+		'visible' => 'boolean'
+	)
+);
+</pre>
+<p>We need other tables as comments, tags and categories. This is an example of it how would be:</p>
+
+<pre class="brush: php; auto-links: false">$config['tables']['blog'] = array(
+	'posts' => array(
+		'title' => 'title',
+		'body' => 'html',
+		'published' => array(
+			'format' => 'datetime',
+			'default' => time()
+		),
+		'visible' => 'boolean'
+	),
+	'comments' => array(
+		'name' => 'text',
+		'email' => 'email',
+		'text' => 'text',
+		'date' => 'datetime'
+	),
+	'categories' => array(
+		'name' => 'title'
+	),
+	'tags' => array(
+		'name' => 'title'
+	)
+);
+</pre>
+</section>
+
+<h2>Configurating the relations</h2>
+<p>We just have the tables, we have to configurate the relations between them. For example, the comments, categories and tags are related with the posts. Not all relations are equal. The relation between posts and comments is "1 x" because 1 post can have x comments but each comment only belongs to one post. The relation between tags and posts is "x x" because one post can have x tags and one tag can belongs to x posts. The categories and posts can be related in "x x" too.</p>
+
+<section class="example">
+<pre class="brush: php; auto-links: false">$config['relations']['blog'] = array(
+	array(
+		'tables' => 'posts comments',
+		'mode' => '1 x'
+	),
+	array(
+		'tables' => 'posts categories',
+		'mode' => 'x x'
+	),
+	array(
+		'tables' => 'posts tags',
+		'mode' => 'x x'
+	)
+);
+</pre>
+</section>
+
+<h2>Creating all tables and fields</h2>
+<p>When the tables, formats and relations are configurated, we have to launch the function <a href="../documentation/data-updatedb/index.html">Data::updateDB()</a> to create automatically all tables and fields needed in the database. To do that, we have to write the code "$data->updateDB(true);" in any php file (for example in scene_folder/includes/_index.php) just once, so remove the code after launch.</p></article>
+
+	<a href="http://code.google.com/p/phpcan/" class="image google">Checkout in Google Code</a></div>
+		<footer>
+			<a href="http://anavallasuiza.com" class="image">A navalla suíza</a><br>
+
+			<p>(CC) 2012 A navalla suíza. All the code published at <a href="../../../apple-touch-icon.png.html" title="I+D+C - A navalla suíza">I+D+C</a> is distributed under the terms of either the <a href="../../../web/uploads/MIT-LICENSE.txt">MIT License</a> or the <a href="../../../web/uploads/GPL-LICENSE.txt">GNU General Public License (GPL) Version 3</a></p>
+
+			<p>Text is available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-ShareAlike 3.0">Creative Commons Attribution/Share-Alike License</a>. Additional terms may apply.</p>
+		</footer>
+
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-10480211-12']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	</body>
+</html>

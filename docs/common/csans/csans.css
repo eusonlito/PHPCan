@@ -1,0 +1,318 @@
+/*
+ * cSans v1.1b
+ * 2011 Copyright A navalla suíza http://anavallasuiza.com
+ * cSans is released under the GNU Affero GPL version 3 - more information at http://www.fsf.org/licensing/licenses/agpl-3.0.html
+*/
+
+/* 1. RESET */
+/* 1.1 Root elements */
+html { height: 100%; }
+html,body {
+	margin:0;
+	padding:0;
+	border:0;
+}
+body {
+	font-family:Helvetica,Arial,sans-serif;
+	font-size: 12pt;
+	line-height:1.25em;
+	text-align:left;
+	color:#000;
+	text-rendering: optimizeLegibility;
+}
+
+/* 1.2 Block elements */
+audio,canvas,iframe,img,object,embed,video,
+address,article,aside,blockquote,details,div,figcaption,figure,
+footer,h1,h2,h3,h4,h5,h6,header,hgroup,nav,p,pre,section,summary {
+	margin:0;
+	padding:0;
+	border:none;
+	display:block;
+	font-size:1em;
+	line-height:1.25em;
+	outline:none;
+}
+address { font-style: normal; }
+
+/* 1.3 Inline-block elements */
+audio,canvas,iframe,img,object,embed,video { display:inline-block; }
+
+/* 1.4 Inline elements */
+a,abbr,b,cite,code,command,del,dfn,em,i,ins,kbd,mark,meter,
+progress,q,samp,small,span,strong,sub,sup,time,var {
+	margin:0;
+	padding:0;
+	border:0;
+	display:inline;
+	font-size:1em;
+}
+em,dfn,i { font-style:italic; }
+strong,b { font-weight: bold; }
+small,sub,sup { font-size: 0.75em; }
+mark { background-color: #FF0; }
+abbr[title],dfn[title] {
+	border-bottom: 1px dotted;
+	cursor:help;
+}
+
+/* 1.5 Sub and sup elements */
+sub,sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+/* 1.6 Quote elements */
+blockquote, q {quotes: none;}
+blockquote:before,blockquote:after,q:before,q:after {
+	content:"";
+	content: none;
+}
+
+/* 1.7 Forms */
+form,fieldset,legend {
+	margin:0;
+	padding:0;
+	border:0;
+	display:block;
+}
+button,datalist,input,keygen,label,
+optgroup,option,output,select,textarea {
+	font-size:1em;
+	line-height:1.25em;
+	font-family:inherit;
+}
+legend { font-weight:bold; }
+input { overflow-y:visible; }
+textarea {
+	width:12em;
+	height:4em;
+	overflow-y:auto;
+	display:block;
+	vertical-align:top;
+}
+button,input,select,textarea {
+	box-sizing: border-box;
+	vertical-align:baseline;
+	margin:0;
+}
+button,input[type="button"],input[type="reset"],input[type="submit"] {
+	cursor:pointer;
+	width:auto;
+	overflow:visible;
+}
+
+/* 1.8 Lists */
+ol,ul,dl,dt,dd {
+	display:block;
+	margin:0;
+	padding:0;
+}
+dt { font-weight: bold; }
+ol {
+	margin-left:1.5em;
+	list-style-type:decimal;
+}
+
+/* 1.9 Tables */
+table {
+	margin:0;
+	padding:0;
+	border-collapse:collapse;
+	border-spacing:0;
+}
+caption,th { font-weight:bold; }
+th,td {
+	text-align:left;
+	padding:0;
+	border:1px solid #CCC;
+}
+
+/* 1.10 Monospace elements */
+pre,code {
+	font-family:"Courier New", Courier, monospace;
+	line-height:1.5;
+	white-space:pre;
+}
+pre {
+	white-space:pre;
+	white-space:pre-wrap;
+	white-space:pre-line;
+	word-wrap: break-word;
+}
+
+/* 1.11 HR element */
+hr {
+	display:block;
+	height:1px;
+	background:none;
+	border:none;
+	border-top:1px solid #000;
+	margin:0;
+}
+
+
+/* 2. TEXT STYLES */
+/* 2.1. Titles */
+.text h1,.text h2,.text h3,.text h4,.text h5,.text h6 {
+	font-weight:bold;
+	line-height:1.1em;
+	margin:1em 0 0.5em 0;
+}
+.text header h1,.text header h2,.text header h3,.text header h4,.text header h5,.text header h6,
+.text hgroup h1,.text hgroup h2,.text hgroup h3,.text hgroup h4,.text hgroup h5,.text hgroup h6 {
+	margin:0;
+}
+.text h1 { font-size:2em; }
+.text h2 { font-size:1.6em; }
+.text h3 { font-size:1.2em; }
+.text h4,.text h5,.text h6 { font-size:1em; }
+
+.text *:first-child {
+	margin-top: 0;
+}
+
+/* 2.2 Block elements */
+.text address,.text aside,.text audio,.text blockquote,.text canvas,.text details,
+.text dl,.text embed,.text figure,.text form,.text header,.text hgroup,.text hr,.text iframe,
+.text nav,.text object,.text ol,.text p,.text pre,.text summary,.text table,
+.text ul,.text video,.text .left,.text .right { margin-bottom:1em; }
+.text img { margin-bottom: 0.3em; }
+
+.text address:last-child,.text aside:last-child,.text audio:last-child,.text blockquote:last-child,.text canvas:last-child,.text details:last-child,
+.text dl:last-child,.text embed:last-child,.text figure:last-child,.text form:last-child,.text header:last-child,.text hgroup:last-child,.text hr:last-child,.text iframe:last-child,
+.text nav:last-child,.text object:last-child,.text ol:last-child,.text p:last-child,.text pre:last-child,.text summary:last-child,.text table:last-child,
+.text ul:last-child,.text video:last-child,.text .left:last-child,.text .right:last-child, .text img:last-child { margin-bottom: 0; }
+
+.text blockquote { margin-left: 1.5em; }
+.text dd,.text ul {
+	margin-left:1.5em;
+	list-style-type:disc;
+}
+
+/* 2.3 Floating elements (img, figure) */
+.text .left { margin-right: 1em; }
+.text .right { margin-left: 1em; }
+
+/* 3. UTILS */
+/* 3.1. Images with and without link must overwrite background-image, width and height properties in your css */
+.image a,.image li,.image {
+	background-repeat:no-repeat;
+	background-color:transparent;
+	margin:0;
+	padding:0;
+	outline:none;
+	font-size:0px !important;
+	line-height:0em !important;
+	letter-spacing:-20px;
+	text-indent: -2px;
+	display:inline-block;
+	overflow:hidden;
+	text-align:left;
+	border: none;
+}
+.image li { float:left; }
+h1.image,h2.image,h3.image,h4.image,h5.image,h6.image { display:block; }
+a.image,input.image,button.image { cursor:pointer; }
+.image a {
+	display:block;
+	width:100%;
+	height:100%;
+	height:inherit;
+}
+ol.image,ul.image {
+	background:none;
+	width:100%;
+	height:auto;
+	float:left;
+}
+
+/* 3.2. Convert a block element (like a fieldset) into a inline element */
+.inline {
+	margin:0;
+	padding:0;
+	display:inline;
+}
+ul.inline,ol.inline { list-style:none; margin:0; }
+.inline li { display:inline; }
+
+/* 3.3. Float elements */
+.left { float:left !important; }
+.right,.right-right { float:right !important; }
+.right-right { text-align:right !important; }
+
+/* 3.4. Clear (clearfix) */
+.clear:before,.clear:after {
+	content:"";
+	display:table;
+}
+.clear:after {
+	clear:both;
+}
+
+/* 3.5. Hide an element */
+.hidden { display:none; }
+.hidden-a11y {
+	position: fixed !important;
+	clip: rect(1px 1px 1px 1px);
+	clip: rect(1px,1px,1px,1px);
+	top: -1000px;
+	left: -1000px;
+	overflow: hidden;
+}
+[hidden] {
+	display: none;
+	visibility: hidden;
+}
+
+/* 3.6. To make any element behave like a link */
+.link,.link * { cursor:pointer; text-decoration: underline;}
+
+/* 3.7. List styles */
+.square,.disc { margin-left:1.5em; }
+.square { list-style-type: square; }
+.disc { list-style-type: disc; }
+.decimal { list-style-type: decimal; }
+.lower-alpha { list-style-type: lower-alpha; }
+.upper-alpha { list-style-type: upper-alpha; }
+.lower-roman { list-style-type: lower-roman; }
+.upper-roman { list-style-type: upper-roman; }
+
+
+/* 3.8. Visible only for old browsers */
+.old-browsers {
+	display:none;
+}
+
+
+/* 4. HACKS AND VENDOR PREFIXES */
+button,input,select,textarea {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+/* Make search input equal in all browsers (with the class .no-appearance) */
+input[type="search"].no-appearance::-webkit-search-decoration,
+input[type="search"].no-appearance::-webkit-search-cancel-button,
+input[type="search"].no-appearance::-webkit-search-results-button,
+input[type="search"].no-appearance::-webkit-search-results-decoration {
+	display: none;
+}
+
+/* Unifique the appearance of inputs and textareas */
+input[type="search"].no-appearance,textarea {
+	-webkit-appearance: textfield;
+	-moz-appearance: textfield;
+}
+input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+button::-moz-focus-inner,input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+.old-browsers {
+	*display:block; /* IE5-7 */
+}
