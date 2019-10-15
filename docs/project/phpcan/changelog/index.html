@@ -1,0 +1,160 @@
+
+<html>
+	<head>
+		
+<title>Changelog - phpCan - I+D+C</title>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+
+<!-- Site info -->
+<meta name="author" content="A navalla suíza - http://anavallasuiza.com" />
+<meta name="description" content="">
+<meta name="generator" content="phpCan 1.1b" />
+
+<!-- Google Chrome Frame -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+
+<!-- Mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="../../../favicon.ico.html">
+<link rel="apple-touch-icon" href="../../../apple-touch-icon.png.html">
+
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Css files -->
+<link href="../../../common/csans/csans.css" type="text/css" rel="stylesheet" />
+<link href="../../../web/templates/css/sh/shCoreDefault.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$basic.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$projects.css" type="text/css" rel="stylesheet" />
+
+<!-- Javascript files -->
+<script src="../../../common/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shCore.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushJScript.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushCss.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushPhp.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushXml.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/javascript.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		
+<div id="menu">
+	<label>Go to project:
+		<select onchange="document.location = this.value;">
+			<option value="/project/ansslider/">$.ansSlider</option><option value="/project/jquerymedia/">$media</option><option value="/project/bookmarklets/">Bookmarklets</option><option value="/project/4ff844cd25f4b/">Cache</option><option value="/project/csans/">cSans</option><option value="/project/4ff845529bed9/">Imagecow</option><option value="/project/phpcan/" selected>phpCan</option><option value="/project/stylecow/">styleCow</option>		</select>
+	</label>
+
+	<h1 class="image idc"><a href="../../../apple-touch-icon.png.html">I+D+C - Investigamos, Desenvolvemos, Compartimos</a></h1>
+</div>
+
+<header>
+		<figure>
+		<a href="../index.html"><img src="../../../web/uploads/projects/icon/4db2fc93332486.65105404.png" alt="" /></a>	</figure>
+	
+	<hgroup>
+		<h1 class="hidden-a11y"><a href="../index.html">phpCan</a></h1>		<h2>PHP 5 framework</h2>
+	</hgroup>
+</header>
+
+<div class="clear">
+		<nav class="project">
+		<ul class="tabs">
+			<li><a href="../index.html">Index</a></li><li><a href="../documentation/datetime/index.html">Documentation</a></li><li><a href="../examples/index.html">Examples</a></li><li><a href="../modules/index.html">Modules</a></li><li class="selected"><a href="index.html">Changelog</a></li>		</ul>
+	</nav>
+
+
+
+
+	
+	<article class="text"><h1>Changelog</h1>
+
+<h2>1.1 (beta)</h2>
+<h3>New improvements:</h3>
+
+<ul>
+	<li>New function: File::calculateExtension() to return a valid extension for a file.</li>
+	<li>New function: Vars::getBrowserLanguages() to return an array with the browser languages</li>
+	<li>New function: fixPath() to resolve relative paths ('/./', '//' and '/foo/..')</li>
+	<li>New function: encodeAscii() to return the ascii value of a string</li>
+	<li>New Datetime functions: getDatetimeObject(), Datetime::getMonth() and Datetime::getWeekDay()</li>
+	<li>The javascript files can be pre-processed (like css or images).</li>
+	<li>New class: Acl (access control list), to manage user permissions</li>
+	<li>New class: Session, to manage user sessions</li>
+	<li>New class: Data (the old Data class has been renamed as Db)</li>
+	<li>New API classes, to retrieve data from other services (google, twitter, github, feeds)</li>
+	<li>New class: Gettext_builder, to collect strings and create mo and po files</li>
+	<li>New improvements related with html5 and css3 in classes Html, Css and Form</li>
+	<li>The database and svn utilities have been dropped from admin module and are available in new independent modules</li>
+	<li>New module gettext for change the gettext strings online</li>
+	<li>Support for short urls (bit.ly, tinyurl, etc) in the format url</li>
+</ul>
+
+<h3>Other changes</h3>
+<ul>
+	<li>The configuration is loaded in "includes/_index.php" and "includes/_file.php". "config/_index.php" and "config/_file.php" have been deleted</li>
+	<li>The format html allows iframe, object and embed elements to insert external media (youtube, vimeo, flickr, etc).</li>
+	<li>The function Templates::render() now admits an array of settings</li>
+	<li>The functions Data::load() and Template::load() has been renamed as Data::file and Template::file</li>
+	<li>The function textCutter() admits a string as limit (get the text until this string)</li>
+	<li>Vars::getData() and Vars::setData() have been removed. Since now, the data is stored in Data class (Data::set()/Data::get())</li>
+	<li>Vars::actionReturn() and Vars::actionWasExecuted has been removed. The action returned data is recovered using the array Data->action. Vars::actionWasSent has been renamed as Vars::actions() (returns the list of sent actions)</li>
+	<li>UI improvements and new features in Admin module</li>
+	<li>The class Css has been rewriten and only uses dollar symbol for user variables (not vendor prefixes).</li>
+	<li>Updated the common libraries to latest versions: jQuery, jQuery UI and CkEditor</li>
+	<li>New path to access to modules: "module/name-module"</li>
+	<li>Changed the actions management. They are not executed inside any function but just included.</li>
+	<li>Deleted "store" parameter of the function Db::select()</li>
+	<li>Changed the function urlInfo. Now returns more information</li>
+	<li>The function textCutter() has been rewritten</li>
+</ul>
+
+<h3>And fixed some bugs:</h3>
+
+<ul>
+	<li>The function Html::imgSrc() didn't work in some circumstances.</li>
+	<li>The format "sort" didn't redistribute the rows on insert or update.</li>
+	<li>The folders for the class Debug weren't configured correctly</li>
+	<li>The function Data::delete() didn't delete the dependent relations</li>
+	<li>Declared the function spl_autoload_register('__autoload') to be sure that always is called</li>
+	<li>The group options in Db and Database class didn't work with multilingual formats</li>
+	<li>The function Table::explodeData has been rewrited</li>
+	<li>Templates::render() with an empty array as data works like a numerical array</li>
+	<li>Fixed all formats to pass more than 400 unittests</li>
+	<li>The class Cache didn't calculate the expiration time properly</li>
+	<li>Fixed some bugs caching images and css files causing poor performance in server</li>
+	<li>Fixed a Internet Explorer bug creating the gradients background using the class Css</li>
+	<li>Fixed some bugs in class Image, Gd and Imagick and added quality setting</li>
+</ul>
+
+<h2>1.0</h2>
+
+<p>First release</p></article>
+
+	<a href="http://code.google.com/p/phpcan/" class="image google">Checkout in Google Code</a></div>
+		<footer>
+			<a href="http://anavallasuiza.com" class="image">A navalla suíza</a><br>
+
+			<p>(CC) 2012 A navalla suíza. All the code published at <a href="../../../apple-touch-icon.png.html" title="I+D+C - A navalla suíza">I+D+C</a> is distributed under the terms of either the <a href="../../../web/uploads/MIT-LICENSE.txt">MIT License</a> or the <a href="../../../web/uploads/GPL-LICENSE.txt">GNU General Public License (GPL) Version 3</a></p>
+
+			<p>Text is available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-ShareAlike 3.0">Creative Commons Attribution/Share-Alike License</a>. Additional terms may apply.</p>
+		</footer>
+
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-10480211-12']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	</body>
+</html>

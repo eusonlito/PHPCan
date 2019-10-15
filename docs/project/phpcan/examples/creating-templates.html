@@ -1,0 +1,187 @@
+
+<html>
+	<head>
+		
+<title>Creating templates - Examples - phpCan - I+D+C</title>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en" />
+
+<!-- Site info -->
+<meta name="author" content="A navalla suíza - http://anavallasuiza.com" />
+<meta name="description" content="">
+<meta name="generator" content="phpCan 1.1b" />
+
+<!-- Google Chrome Frame -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+
+<!-- Mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="../../../favicon.ico.html">
+<link rel="apple-touch-icon" href="../../../apple-touch-icon.png.html">
+
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Css files -->
+<link href="../../../common/csans/csans.css" type="text/css" rel="stylesheet" />
+<link href="../../../web/templates/css/sh/shCoreDefault.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$basic.css" type="text/css" rel="stylesheet" />
+<link href="../../../scene/templates/css/$projects.css" type="text/css" rel="stylesheet" />
+
+<!-- Javascript files -->
+<script src="../../../common/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shCore.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushJScript.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushCss.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushPhp.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/sh/shBrushXml.js" type="text/javascript"></script>
+<script src="../../../web/templates/js/javascript.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		
+<div id="menu">
+	<label>Go to project:
+		<select onchange="document.location = this.value;">
+			<option value="/project/ansslider/">$.ansSlider</option><option value="/project/jquerymedia/">$media</option><option value="/project/bookmarklets/">Bookmarklets</option><option value="/project/4ff844cd25f4b/">Cache</option><option value="/project/csans/">cSans</option><option value="/project/4ff845529bed9/">Imagecow</option><option value="/project/phpcan/" selected>phpCan</option><option value="/project/stylecow/">styleCow</option>		</select>
+	</label>
+
+	<h1 class="image idc"><a href="../../../apple-touch-icon.png.html">I+D+C - Investigamos, Desenvolvemos, Compartimos</a></h1>
+</div>
+
+<header>
+		<figure>
+		<a href="../index.html"><img src="../../../web/uploads/projects/icon/4db2fc93332486.65105404.png" alt="" /></a>	</figure>
+	
+	<hgroup>
+		<h1 class="hidden-a11y"><a href="../index.html">phpCan</a></h1>		<h2>PHP 5 framework</h2>
+	</hgroup>
+</header>
+
+<div class="clear">
+		<nav class="project">
+		<ul class="tabs">
+			<li><a href="../index.html">Index</a></li><li><a href="../documentation/datetime/index.html">Documentation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../modules/index.html">Modules</a></li><li><a href="../changelog/index.html">Changelog</a></li>		</ul>
+	</nav>
+
+
+	<nav class="page">
+		<ul><li class="sub_selected"><a href="static-html-site.html">Static html site</a><ul><li><a href="starting.html">Starting</a></li><li><a href="routes-configuration.html">Routes configuration</a></li><li class="selected"><a href="creating-templates.html">Creating templates</a></li><li><a href="the-styles.html">The styles</a></li></ul></li><li><a href="creating-a-blog.html">Creating a blog</a><ul><li><a href="configurating-the-database.html">Configurating the database</a></li><li><a href="the-routes-for-the-blog.html">The routes for the blog</a></li><li><a href="the-data-files.html">The data files</a></li><li><a href="blog-templates.html">Blog templates</a></li><li><a href="forms-and-actions.html">Forms and actions</a></li></ul></li></ul>	</nav>
+
+
+	
+	<article class="text"><hgroup>
+	<h1>Creating templates</h1>
+</hgroup>
+
+<h2>The base template</h2>
+<p>The first template we have to do is the "base" template which load the rest of the templates. This template has to be saved in the templates folder as "html.php", because this is the name we have put in the routes configuration.</p>
+</section>
+
+<section class="example">
+	<h1>Example of base template</h1>
+<pre class="brush: php; auto-links: false">&lt;html&gt;
+	&lt;head&gt;
+		&lt;title&gt;My site title&lt;/title&gt;
+		&lt;meta charset=&quot;utf-8&quot; /&gt;
+
+		&lt;?php echo $Html-&gt;cssLinks($Config-&gt;templates[&#x27;css&#x27;]); ?&gt;
+	&lt;/head&gt;
+
+	&lt;body&gt;
+		&lt;h1&gt;My Site&lt;/h1&gt;
+
+		&lt;?php $Templates-&gt;render(&#x27;content&#x27;); ?&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>We can access to the template configuration with $Config->templates array. We can print the css link code using the html function $Html->links and passing the array of css to include. In the body of the page, we call to the template "content" of the current route.</p>
+</section>
+
+<h2>Creating other templates</h2>
+<p>Now we can create the templates for each route and this template will be loaded in the body of our base template.</p>
+
+<section class="example">
+<p>This is the index template, saved as "content-index.php":</p>
+<pre class="brush: html; auto-links: false">&lt;h2&gt;Welcome to my site&lt;/h2&gt;
+
+&lt;p&gt;You can find a lot of interesting articles here!!&lt;/p&gt;
+</pre>
+
+<p>This is the about-us template, saved as "content-about-us.php":</p>
+<pre class="brush: html; auto-links: false">&lt;h2&gt;About us&lt;/h2&gt;
+
+&lt;p&gt;We are Berto and Mar&iacute;a.&lt;/p&gt;
+</pre>
+
+<p>This is the undefined template, saved as "content-404.php":</p>
+<pre class="brush: html; auto-links: false">&lt;h2&gt;Page not found&lt;/h2&gt;
+
+&lt;p&gt;Sorry, whatever you are looking for, it isn&#x27;t here. Try google :)&lt;/p&gt;
+</pre>
+
+<p>This is the undefined template, saved as "content-articles.php":</p>
+<pre class="brush: html; auto-links: false">&lt;h2&gt;Articles&lt;/h2&gt;
+
+&lt;p&gt;Enjoy&lt;/p&gt;
+</pre>
+</section>
+
+<h2>Creating the articles</h2>
+
+<p>As our site can't use databases, we have to save the articles in files. A way to do that is saving each article in a file starting with "article-" and the name of the article, for example: "article-the-cows-in-galicia.php". These files will be saved in the templates folder and we can use the variable "article_file" defined in routes to know which article have to load and include it in the articles template.</p>
+</section>
+
+<section class="example">
+	<p>In this example, we get the template file and check if exists. If the file exists, include it, otherwhise redirect to undefined page.</p>
+<pre class="brush: php; auto-links: false">&lt;h2&gt;Articles&lt;/h2&gt;
+
+&lt;p&gt;Enjoy&lt;/p&gt;
+
+&lt;?php
+$template_file = &#x27;article-&#x27;.$Vars-&gt;get(&#x27;article_file&#x27;).&#x27;.php&#x27;;
+
+if ($Templates-&gt;exists($template_file)) {
+	$Templates-&gt;render($template_file);
+} else {
+	redirect(path('undefined'));
+}
+?&gt;
+</pre>
+
+<p>This is an example of article, saved in the file "article-the-cows-in-galicia.php" in the templates folder.</p>
+
+<pre class="brush: html; auto-links: false">&lt;h1&gt;The cows in Galicia&lt;/h1&gt;
+
+&lt;p&gt;There is a lot of cows in Galicia, so there is a lot of milk in Galicia.&lt;/p&gt;
+</pre>
+
+<p>Now, you can read this beautiful article in the url "static/articles/the-cows-in-galicia" :)</p>
+</section></article>
+
+	<a href="http://code.google.com/p/phpcan/" class="image google">Checkout in Google Code</a></div>
+		<footer>
+			<a href="http://anavallasuiza.com" class="image">A navalla suíza</a><br>
+
+			<p>(CC) 2012 A navalla suíza. All the code published at <a href="../../../apple-touch-icon.png.html" title="I+D+C - A navalla suíza">I+D+C</a> is distributed under the terms of either the <a href="../../../web/uploads/MIT-LICENSE.txt">MIT License</a> or the <a href="../../../web/uploads/GPL-LICENSE.txt">GNU General Public License (GPL) Version 3</a></p>
+
+			<p>Text is available under the <a href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons Attribution-ShareAlike 3.0">Creative Commons Attribution/Share-Alike License</a>. Additional terms may apply.</p>
+		</footer>
+
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-10480211-12']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+	</body>
+</html>
